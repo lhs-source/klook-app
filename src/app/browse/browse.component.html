@@ -1,0 +1,47 @@
+<ActionBar>
+    <!-- 
+    Use the NavigationButton as a side-drawer button in Android
+    because ActionItems are shown on the right side of the ActionBar
+    -->
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <!-- 
+    Use the ActionItem for IOS with position set to left. Using the
+    NavigationButton as a side-drawer button in iOS is not possible,
+    because its function is to always navigate back in the application.
+    -->
+    <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
+    </ActionItem>
+    <Label text="PIN test"></Label>
+</ActionBar>
+
+<DockLayout stretchLastChil="false">
+    <GridLayout dock="bottom" class="pin-pad" columns="*, *, *" rows="*, *, *, *">
+        <Label class="pin-btn" textAlignment="center" col="0" row="0" text="1"></Label>
+        <Label class="pin-btn" textAlignment="center" col="1" row="0" text="2"></Label>
+        <Label class="pin-btn" textAlignment="center" col="2" row="0" text="3"></Label>
+        <Label class="pin-btn" textAlignment="center" col="0" row="1" text="4"></Label>
+        <Label class="pin-btn" textAlignment="center" col="1" row="1" text="5"></Label>
+        <Label class="pin-btn" textAlignment="center" col="2" row="1" text="6"></Label>
+        <Label class="pin-btn" textAlignment="center" col="0" row="2" text="7"></Label>
+        <Label class="pin-btn" textAlignment="center" col="1" row="2" text="8"></Label>
+        <Label class="pin-btn" textAlignment="center" col="2" row="2" text="9"></Label>
+        <Label class="pin-btn" textAlignment="center" col="0" row="3" text=""></Label>
+        <Label class="pin-btn" textAlignment="center" col="1" row="3" text="0"></Label>
+        <Label class="pin-btn" textAlignment="center" col="2" row="3" text="del"></Label>
+    </GridLayout>
+    <Label dock="bottom" style="font-size:16px; margin:8 32;" text="@ 지문/생체 인증 사용하기"></Label>
+
+    <Label dock="top" style="font-size:16px; margin:24 32;" text="H Park Hello!"></Label>
+    <StackLayout dock="top" dockorientation="vertical">
+        <Label style="font-size:24px; font-weight: bold;" horizontalAlignment="center" text="새로운 비밀번호를 입력하세요"></Label>
+        <StackLayout horizontalAlignment="center" class="pin-code-pannel" rows="auto" orientation="horizontal">
+            <Label class="pin-code"></Label>
+            <Label class="pin-code"></Label>
+            <Label class="pin-code"></Label>
+            <Label class="pin-code"></Label>
+            <Label class="pin-code"></Label>
+            <Label class="pin-code"></Label>
+        </StackLayout>
+        <Label style="font-size:16px" horizontalAlignment="center" text="비밀번호 재설정"></Label>
+    </StackLayout>
+</DockLayout>
