@@ -9,13 +9,29 @@
     NavigationButton as a side-drawer button in iOS is not possible,
     because its function is to always navigate back in the application.
     -->
-    <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
-        ios.position="left">
+    <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
     <Label text="Home"></Label>
 </ActionBar>
-
-<GridLayout class="page__content">
-    <Label class="page__content-icon fas" text="&#xf015;"></Label>
-    <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
-</GridLayout>
+<StackLayout>
+    <GridLayout class="tab-frame" columns="*, *, *" verticalAlignment="middle" #layout>
+        <Label id="selected" class="tab-btn-toggle"></Label>
+        <Label class="tab-btn" col="0" text="left"></Label>
+        <Label class="tab-btn" col="1" text="center"></Label>
+        <Label class="tab-btn" col="2" text="right"></Label>
+    </GridLayout>
+    <StackLayout>
+        <!-- <Label id="circle" class="circle"></Label> -->
+        <!-- <Label width="100%" height="100%" text="Value"></Label> -->
+        <!-- <button text="TAP" (tap)="onClickTab()"></button> -->
+        <StackLayout orientaation="horizontal">
+            <AbsoluteLayout class="ripple-button ripple-button-red" #button>
+                <Button class="btn" text="TAP this" (tap)="onClickTab($event)" (touch)="onTouchTab($event)"></Button>
+            </AbsoluteLayout>
+            
+            <AbsoluteLayout class="ripple-button ripple-button-blue" #button>
+                <Button class="btn" text="TAP this" (tap)="onClickTab($event)" (touch)="onTouchTab($event)"></Button>
+            </AbsoluteLayout>
+        </StackLayout>
+    </StackLayout>
+</StackLayout>

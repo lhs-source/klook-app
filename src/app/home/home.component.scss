@@ -1,0 +1,67 @@
+$color: #0cf;
+
+// .button {
+//     &:hover {
+//         color: rgb(148, 104, 104);
+//     }
+// }
+
+.tab-frame {
+    height: 36;
+    padding: 2 4;
+
+    // border-width: 4px;
+    // border-radius: 25%;
+    // border-color: hotpink;
+    background-color: rgb(187, 224, 175);
+
+    .tab-btn {
+        // height: 30;
+        font-size: 16;
+        text-align: center;
+        margin: 2 4;
+
+        // border-width: 4px;
+        border-radius: 16%;
+
+        // border-color: hotpink;
+        // background-color: rgb(243, 241, 245);
+        &-toggle {
+            color: ivory;
+            background-color: rgb(245, 248, 245);
+
+            margin: 2 4;
+
+            border-radius: 16%;
+            box-shadow: rgb(90, 173, 7) 8 8;
+
+            z-index: -1;
+        }
+    }
+}
+
+.ripple-button {
+    width: 200;
+    height: 30;
+
+    background-color: whitesmoke;
+    &-blue{
+        background-color: lightskyblue;
+    }
+    &-red{
+        background-color: lightcoral;
+    }
+
+    .btn {
+        width: 200;
+        height: 30;
+
+        margin: 0;
+        padding: 0;
+
+        background-color: transparent;
+        box-shadow: transparent;
+        border-color: transparent;
+        z-index: 0;
+    }
+}
