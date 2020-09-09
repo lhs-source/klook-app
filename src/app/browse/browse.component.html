@@ -15,7 +15,7 @@
 </ActionBar>
 
 <DockLayout stretchLastChil="false">
-    <GridLayout dock="bottom" class="pin-pad" columns="*, *, *" rows="*, *, *, *">
+    <GridLayout #pinpad dock="bottom" class="pin-pad" columns="*, *, *" rows="*, *, *, *">
         <Label class="pin-btn" textAlignment="center" col="0" row="0" text="1"></Label>
         <Label class="pin-btn" textAlignment="center" col="1" row="0" text="2"></Label>
         <Label class="pin-btn" textAlignment="center" col="2" row="0" text="3"></Label>
@@ -34,7 +34,7 @@
     <Label dock="top" style="font-size:16px; margin:24 32;" text="H Park Hello!"></Label>
     <StackLayout dock="top" dockorientation="vertical">
         <Label style="font-size:24px; font-weight: bold;" horizontalAlignment="center" text="새로운 비밀번호를 입력하세요"></Label>
-        <StackLayout horizontalAlignment="center" class="pin-code-pannel" rows="auto" orientation="horizontal">
+        <StackLayout #pincode horizontalAlignment="center" class="pin-code-pannel" rows="auto" orientation="horizontal">
             <Label class="pin-code"></Label>
             <Label class="pin-code"></Label>
             <Label class="pin-code"></Label>
