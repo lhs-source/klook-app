@@ -1,8 +1,12 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptCommonModule } from "@nativescript/angular";
+import { NativeScriptCommonModule, registerElement } from "@nativescript/angular";
 
 import { FeaturedRoutingModule } from "./featured-routing.module";
 import { FeaturedComponent } from "./featured.component";
+
+// import { registerElement } from "@nativescript/angular/";
+import { BarcodeScanner } from "nativescript-barcodescanner";
+registerElement("BarcodeScanner", () => require("nativescript-barcodescanner").BarcodeScannerView);
 
 @NgModule({
     imports: [
@@ -11,6 +15,9 @@ import { FeaturedComponent } from "./featured.component";
     ],
     declarations: [
         FeaturedComponent
+    ],
+    providers:[
+        BarcodeScanner,
     ],
     schemas: [
         NO_ERRORS_SCHEMA
