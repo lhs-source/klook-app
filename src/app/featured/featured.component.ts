@@ -30,7 +30,7 @@ export class FeaturedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    console.log("ngOnInit FeaturedComponent")
     this.barcodeScanner.available().then((available) => {
       if (available) {
         this.barcodeScanner.hasCameraPermission().then((granted) => {
@@ -88,14 +88,14 @@ export class FeaturedComponent implements OnInit {
     // );
   }
 
-  onScanResult(evt) {
-    console.log(`onScanResult: ${evt.text} (${evt.format})`);
+  onBarcodeScanResult(event: any): void {
+    const result: MLKitScanBarcodesOnDeviceResult = event.value;
+    this.barcodes = result.barcodes;
 
-    this.pause = true;
-    console.log("Paused");
-    setTimeout(() => {
-      this.pause = false;
-      console.log("Unpaused");
-    }, 4000);
+    if (this.barcodes.length > 0) {
+      console.log("this.barcodes: " + JSON.stringify(this.barcodes));
+      // this.pause = true;
+      // setTimeout(() => this.pause = false, 500)
+    }
   }
 }
