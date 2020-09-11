@@ -6,7 +6,7 @@ import { FeaturedComponent } from "./featured.component";
 
 // import { registerElement } from "@nativescript/angular/";
 import { BarcodeScanner } from "nativescript-barcodescanner";
-registerElement("BarcodeScanner", () => require("nativescript-barcodescanner").BarcodeScannerView);
+registerElement("MLKitBarcodeScanner", () => require("nativescript-plugin-firebase/mlkit/barcodescanning").MLKitBarcodeScanner);
 
 @NgModule({
     imports: [
