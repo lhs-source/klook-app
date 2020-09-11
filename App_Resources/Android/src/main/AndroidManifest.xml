@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="__PACKAGE__"
-	android:versionCode="10000"
+	android:versionCode="1"
 	android:versionName="1.0">
 
 	<supports-screens
@@ -28,6 +28,9 @@
 			android:theme="@style/LaunchScreenTheme">
 
 			<meta-data android:name="SET_THEME_ON_LAUNCH" android:resource="@style/AppTheme" />
+			<meta-data
+			android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+			android:value="ocr,barcode" />
 
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

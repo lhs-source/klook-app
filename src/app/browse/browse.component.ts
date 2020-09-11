@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { Application, LayoutBase, View, EventData, Label } from "@nativescript/core";
+import { Application, LayoutBase, View, Label } from "@nativescript/core";
+import { EventData } from "@nativescript/core/data/observable";
 
 @Component({
     selector: "Browse",
@@ -58,10 +58,5 @@ export class BrowseComponent implements OnInit {
             count = count + 1;
             return true;
         });
-    }
-
-    onDrawerButtonTap(): void {
-        const sideDrawer = <RadSideDrawer>Application.getRootView();
-        sideDrawer.showDrawer();
     }
 }

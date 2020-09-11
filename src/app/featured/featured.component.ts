@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Application } from "@nativescript/core";
 import { BarcodeScanner } from "nativescript-barcodescanner";
 
@@ -87,8 +86,5 @@ export class FeaturedComponent implements OnInit {
     }, 4000);
   }
 
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>Application.getRootView();
-    sideDrawer.showDrawer();
   }
 }

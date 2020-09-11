@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { Application, EventData, LayoutBase, View, TouchGestureEventData, Label } from "@nativescript/core";
+import { Application, LayoutBase, View, Label } from "@nativescript/core";
 import { CubicBezierAnimationCurve } from "@nativescript/core/ui/animation";
+import { EventData } from "@nativescript/core/data/observable";
+import { TouchGestureEventData } from "@nativescript/core/ui/gestures";
 
 @Component({
     selector: "Home",
@@ -87,10 +88,5 @@ export class HomeComponent implements OnInit {
             });
         }
 
-    }
-
-    onDrawerButtonTap(): void {
-        const sideDrawer = <RadSideDrawer>Application.getRootView();
-        sideDrawer.showDrawer();
     }
 }
