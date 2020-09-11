@@ -1,6 +1,59 @@
+<StackLayout width="100%">
+    <StackLayout height="64" horizontalAlignment="center" marginTop="20">
+        <Label text="보유 포인트" textAlignment="center" verticalAlignment="center"></Label>
+        <StackLayout orientation="horizontal">
+            <Label text="120,000 Point" textAlignment="center" verticalAlignment="center"></Label>
+            <Label text="800 HKD" style="font-weight: bold;" textAlignment="center" verticalAlignment="center"></Label>
+        </StackLayout>
+    </StackLayout>
 
-
-<GridLayout class="page__content">
-    <Label class="page__content-icon fas" text="&#xf002;"></Label>
-    <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
-</GridLayout>
+    <GridLayout height="196" marginTop="12" marginBottom="12">
+        <AbsoluteLayout class="card" width="72%" height="92%" backgroundColor="#db4855" borderRadius="8">
+            <!-- <Image></Image> -->
+            <StackLayout width="100%">
+                <Label class="card-name" text="KLOOK" horizontalAlignment="right"></Label>
+                <Label class="card-tap" text="카드를 누르세요" horizontalAlignment="center"></Label>
+                <Label class="card-tap" text="Tap to QR" horizontalAlignment="center"></Label>
+                <Label class="card-user" text="H PARK" horizontalAlignment="left"></Label>
+            </StackLayout>
+        </AbsoluteLayout>
+    </GridLayout>
+    <GridLayout columns="*, *, *, *" height="64" backgroundColor="#edc0c4">
+        <StackLayout col="0">
+            <!-- <Image src="res://drawable-hdpi/icon.png" stretch="aspectFill"></Image> -->
+            <Label text="이용내역" textAlignment="center"></Label>
+        </StackLayout>
+        <StackLayout col="1">
+            <!-- <Image></Image> -->
+            <Label text="온라인결제" textAlignment="center"></Label>
+        </StackLayout>
+        <StackLayout col="2">
+            <!-- <Image></Image> -->
+            <Label text="사용중지" textAlignment="center"></Label>
+        </StackLayout>
+        <StackLayout col="3">
+            <!-- <Image></Image> -->
+            <Label text="충전" textAlignment="center"></Label>
+        </StackLayout>
+    </GridLayout>
+    <GridLayout height="48">
+        <Label text="아래 화살표" textAlignment="center"></Label>
+    </GridLayout>
+    <StackLayout class="tr-frame">
+        <DockLayout class="tr-theday" orientation="horizontal">
+            <Label dock="right" class="tr-cost-all" text="0.82" horizontalAlignment="right"></Label>
+            <Label dock="left" class="tr-date" text="SATURDAY, 27 JUN" horizontalAlignment="left"></Label>
+        </DockLayout>
+        
+        <DockLayout class="tr" orientation="horizontal">
+            <StackLayout dock="right" class="tr-cost" horizontalAlignment="right">
+                <Label class="tr-cost-foreign" text="0.82"></Label>
+                <Label class="tr-cost-kr" text="0.82" textAlignment="right"></Label>
+            </StackLayout>
+            <Label dock="left" class="tr-merchant" text="FamilyMart 1887" horizontalAlignment="left"></Label>
+        </DockLayout>
+        <!-- <StackLayout orientation="horizontal">
+            <Label text="SUNDAY, 21, JUN"></Label>
+        </StackLayout> -->
+    </StackLayout>
+</StackLayout>

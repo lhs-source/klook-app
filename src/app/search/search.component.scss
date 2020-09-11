@@ -1,0 +1,54 @@
+Label{
+    font-size: 14px;
+}
+
+
+.card {
+    color: whitesmoke;
+    text-shadow: black 4 4;
+    .card-name{
+        font-size:18px;
+        font-weight: bold;
+        margin-right: 16;
+    }
+    .card-tap{
+        font-size:24px;
+        font-weight: 800;
+    }
+    .card-user{
+        margin-left: 16;
+    }
+}
+
+.tr-frame{
+    width:88%;
+    background-color: lightblue;
+    .tr-theday{
+        width: 100%;
+        margin:4 0;
+        .tr-date{
+            font-weight: bold;
+        }
+        .tr-cost-all{
+            font-size:12px;
+            color: darkgray;
+        }
+    }
+    .tr{
+        width: 100%;
+        margin:4 0;
+        .tr-merchant{
+            font-weight: bold;
+            margin-top: 8;
+        }
+        .tr-cost{
+            .tr-cost-foreign{
+                font-size:18px;
+            }
+            .tr-cost-kr{
+                font-size:12px;
+                color: darkgray;
+            }
+        }
+    }
+}
