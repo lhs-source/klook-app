@@ -98,6 +98,4 @@ export class FeaturedComponent implements OnInit {
       console.log("Unpaused");
     }, 4000);
   }
-
-  }
 }

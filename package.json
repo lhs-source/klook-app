@@ -12,7 +12,8 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "scripts": {
-    "lint": "tslint \"src/**/*.ts\""
+    "ngcc": "ngcc --properties es2015 module main --first-only",
+    "postinstall": "npm run ngcc"
   },
   "dependencies": {
     "@angular/animations": "~9.1.0",
