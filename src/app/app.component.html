@@ -68,10 +68,11 @@ https://docs.nativescript.org/angular/ui/professional-ui-components/ng-SideDrawe
             <Button margin="2" text="featured" [nsRouterLink]="['/featured']" pageTransition="slide" clearHistory="true"></Button>
             <Button margin="2" text="settings" [nsRouterLink]="['/settings']" pageTransition="slide" clearHistory="true"></Button>
         </StackLayout>
-        <GridLayout dock="top" class="actionbar" height="84" backgroundColor="white">
-            <GridLayout columns="100, *, 100" height="40" marginTop="28">
-                <Image src="~/images/user.png" col="0" marginRight="16" (tap)="onTabAccount($event)"></Image>
-                <Label text="KLOOK" col="1" style="color:rgb(219, 74, 48);font-size:24;font-weight: 500;" textAlignment="center"></Label>
+        <GridLayout dock="top" class="actionbar" height="72" backgroundColor="white">
+            <GridLayout columns="100, *, 100" height="40" marginTop="28" marginBottom="4">
+                <Image src="~/images/user.png" col="0" marginRight="24" (tap)="onTabAccount($event)"></Image>
+                <!-- <Label text="KLOOK" col="1" style="color:rgb(219, 74, 48);font-size:24;font-weight: 500;" textAlignment="center"></Label> -->
+                <Image src="~/images/klookpay.png" col="1"></Image>
                 <Image src="~/images/hongkong.png" col="2" marginRight="16"></Image>
             </GridLayout>
         </GridLayout>

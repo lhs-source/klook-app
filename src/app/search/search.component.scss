@@ -2,21 +2,20 @@ Label{
     font-size: 14px;
 }
 
+.point{
+    background-color: #FDF4EC;
+}
 
-.card {
-    color: whitesmoke;
-    text-shadow: black 4 4;
-    .card-name{
-        font-size:18px;
-        font-weight: bold;
-        margin-right: 16;
-    }
-    .card-tap{
-        font-size:24px;
-        font-weight: 800;
-    }
-    .card-user{
-        margin-left: 16;
+
+.card-frame{
+    .card {
+        color: black;
+        
+        .card-tap{
+            text-shadow: 10 10 black;
+            font-size:16px;
+            font-weight: 800;
+        }
     }
 }
 

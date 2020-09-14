@@ -1,23 +1,27 @@
 <StackLayout width="100%">
-    <StackLayout height="64" horizontalAlignment="center" marginTop="20">
-        <Label text="보유 포인트" textAlignment="center" verticalAlignment="center"></Label>
-        <StackLayout orientation="horizontal">
-            <Label text="120,000 Point" textAlignment="center" verticalAlignment="center"></Label>
-            <Label text="800 HKD" style="font-weight: bold;" textAlignment="center" verticalAlignment="center"></Label>
-        </StackLayout>
+    <StackLayout class="point" width="100%" height="28">
+        <GridLayout columns="auto, auto, auto, auto" horizontalAlignment="center">
+            <Image col="0" src="~/images/point.png" width="24" height="24"></Image>
+            <Label col="1" text="보유 포인트 : " verticalAlignment="center" marginRight="4"></Label>
+            <Label col="2" text="120,000" verticalAlignment="center" marginRight="4"></Label>
+            <Label col="3" text="800 HKD" verticalAlignment="center" style="font-weight: bold;"></Label>
+        </GridLayout>
     </StackLayout>
 
-    <GridLayout height="196" marginTop="12" marginBottom="12">
-        <AbsoluteLayout class="card" width="72%" height="92%" backgroundColor="#db4855" borderRadius="8">
+    <StackLayout class="card-frame" marginTop="12" marginBottom="12">
+        <AbsoluteLayout class="card" width="84%" height="224">
+            <Image src="~/images/card.png" width="100%" height="100%"></Image>
             <!-- <Image></Image> -->
-            <StackLayout width="100%">
-                <Label class="card-name" text="KLOOK" horizontalAlignment="right"></Label>
-                <Label class="card-tap" text="카드를 누르세요" horizontalAlignment="center"></Label>
-                <Label class="card-tap" text="Tap to QR" horizontalAlignment="center"></Label>
-                <Label class="card-user" text="H PARK" horizontalAlignment="left"></Label>
-            </StackLayout>
+            <GridLayout rows="2*, 3*, 1*" width="100%" height="100%">
+                <StackLayout row="1">
+                    <StackLayout orientation="horizontal" width="64" height="64" borderRadius="50%" style="background-color: #1b1b1b;" opacity="0.7">
+                        <Label text="arrow" width="100%" color="white" verticalAlignment="center" textAlignment="center"></Label>
+                    </StackLayout>
+                    <Label class="card-tap" text="Tap to QR" horizontalAlignment="center"></Label>
+                </StackLayout>
+            </GridLayout>
         </AbsoluteLayout>
-    </GridLayout>
+    </StackLayout>
     <GridLayout columns="*, *, *, *" height="64" backgroundColor="#edc0c4">
         <StackLayout col="0">
             <!-- <Image src="res://drawable-hdpi/icon.png" stretch="aspectFill"></Image> -->
