@@ -1,5 +1,6 @@
 <StackLayout width="100%">
-    <StackLayout class="point" width="100%" height="28">
+    <!-- show point  -->
+    <StackLayout class="point" width="100%" height="32">
         <GridLayout columns="auto, auto, auto, auto" horizontalAlignment="center">
             <Image col="0" src="~/images/point.png" width="24" height="24"></Image>
             <Label col="1" text="보유 포인트 : " verticalAlignment="center" marginRight="4"></Label>
@@ -8,56 +9,147 @@
         </GridLayout>
     </StackLayout>
 
-    <StackLayout class="card-frame" marginTop="12" marginBottom="12">
+    <!-- show card list -->
+    <StackLayout class="card-frame">
         <AbsoluteLayout class="card" width="84%" height="224">
+            <!-- card image here -->
             <Image src="~/images/card.png" width="100%" height="100%"></Image>
-            <!-- <Image></Image> -->
-            <GridLayout rows="2*, 3*, 1*" width="100%" height="100%">
-                <StackLayout row="1">
-                    <StackLayout orientation="horizontal" width="64" height="64" borderRadius="50%" style="background-color: #1b1b1b;" opacity="0.7">
-                        <Label text="arrow" width="100%" color="white" verticalAlignment="center" textAlignment="center"></Label>
+
+            <!-- inside card -->
+            <GridLayout width="100%" height="100%">
+                <StackLayout class="handpoint" row="1" verticalAlignment="center">
+                    <!-- point to tap -->
+                    <StackLayout class="handpoint-circle" orientation="horizontal" width="64" height="64">
+                        <Label class="fas handpoint-hand" text="&#xf0a6;" width="100%"></Label>
                     </StackLayout>
-                    <Label class="card-tap" text="Tap to QR" horizontalAlignment="center"></Label>
+                    <!-- tap to QR text -->
+                    <ShadowedLabel class="handpoint-taptext" text="Tap to QR" horizontalAlignment="center">
+                    </ShadowedLabel>
                 </StackLayout>
             </GridLayout>
         </AbsoluteLayout>
     </StackLayout>
-    <GridLayout columns="*, *, *, *" height="64" backgroundColor="#edc0c4">
+    <!-- menus -->
+    <GridLayout columns="*, *, *, *" height="48">
         <StackLayout col="0">
-            <!-- <Image src="res://drawable-hdpi/icon.png" stretch="aspectFill"></Image> -->
-            <Label text="이용내역" textAlignment="center"></Label>
+            <Image src="~/images/tr_history.png" height="48" verticalAlignment="center"></Image>
         </StackLayout>
         <StackLayout col="1">
-            <!-- <Image></Image> -->
-            <Label text="온라인결제" textAlignment="center"></Label>
+            <Image src="~/images/online_pay.png" height="48" verticalAlignment="center"></Image>
         </StackLayout>
         <StackLayout col="2">
-            <!-- <Image></Image> -->
-            <Label text="사용중지" textAlignment="center"></Label>
+            <Image src="~/images/stop.png" height="48" verticalAlignment="center"></Image>
         </StackLayout>
         <StackLayout col="3">
-            <!-- <Image></Image> -->
-            <Label text="충전" textAlignment="center"></Label>
+            <Image src="~/images/charge.png" height="48" verticalAlignment="center"></Image>
         </StackLayout>
     </GridLayout>
-    <GridLayout height="48">
-        <Label text="아래 화살표" textAlignment="center"></Label>
-    </GridLayout>
-    <StackLayout class="tr-frame">
-        <DockLayout class="tr-theday" orientation="horizontal">
-            <Label dock="right" class="tr-cost-all" text="0.82" horizontalAlignment="right"></Label>
-            <Label dock="left" class="tr-date" text="SATURDAY, 27 JUN" horizontalAlignment="left"></Label>
-        </DockLayout>
-        
-        <DockLayout class="tr" orientation="horizontal">
-            <StackLayout dock="right" class="tr-cost" horizontalAlignment="right">
-                <Label class="tr-cost-foreign" text="0.82"></Label>
-                <Label class="tr-cost-kr" text="0.82" textAlignment="right"></Label>
+    <!-- transaction history -->
+    <ScrollView  height="100%" style="background-color: #f0f0f0" marginTop="16">
+        <StackLayout marginTop="12">
+            <!-- per tr -->
+            <StackLayout class="tr-frame">
+                <DockLayout class="tr-theday" orientation="horizontal">
+                    <Label dock="right" class="tr-cost-all" text="0.82" horizontalAlignment="right"></Label>
+                    <Label dock="left" class="tr-date" text="SATURDAY, 27 JUN" horizontalAlignment="left"></Label>
+                </DockLayout>
+
+                <GridLayout class="tr" columns="*,auto" orientation="horizontal">
+                    <GridLayout columns ="auto, auto">
+                        <Image col="0" src="~/images/restorant.png" width="24" verticalAlignment="center"></Image>
+                        <Label col="1" class="tr-merchant" text="FamilyMart 1887" horizontalAlignment="left" verticalAlignment="center"></Label>
+                    </GridLayout>
+                    
+                    <StackLayout class="tr-cost" col="1" horizontalAlignment="right">
+                        <Label class="tr-cost-foreign" text="0.82" textAlignment="right"></Label>
+                        <Label class="tr-cost-kr" text="W 1,200" textAlignment="right"></Label>
+                    </StackLayout>
+                </GridLayout>
+
+                
+                <GridLayout class="tr" columns="*,auto" orientation="horizontal">
+                    <GridLayout columns ="auto, auto">
+                        <Image col="0" src="~/images/restorant.png" width="24" verticalAlignment="center"></Image>
+                        <Label col="1" class="tr-merchant" text="FamilyMart 1887" horizontalAlignment="left" verticalAlignment="center"></Label>
+                    </GridLayout>
+                    
+                    <StackLayout class="tr-cost" col="1" horizontalAlignment="right">
+                        <Label class="tr-cost-foreign" text="0.82" textAlignment="right"></Label>
+                        <Label class="tr-cost-kr" text="W 1,200" textAlignment="right"></Label>
+                    </StackLayout>
+                </GridLayout>
             </StackLayout>
-            <Label dock="left" class="tr-merchant" text="FamilyMart 1887" horizontalAlignment="left"></Label>
-        </DockLayout>
-        <!-- <StackLayout orientation="horizontal">
-            <Label text="SUNDAY, 21, JUN"></Label>
-        </StackLayout> -->
-    </StackLayout>
+
+
+
+
+            
+            <StackLayout class="tr-frame">
+                <DockLayout class="tr-theday" orientation="horizontal">
+                    <Label dock="right" class="tr-cost-all" text="0.82" horizontalAlignment="right"></Label>
+                    <Label dock="left" class="tr-date" text="SATURDAY, 27 JUN" horizontalAlignment="left"></Label>
+                </DockLayout>
+
+                <GridLayout class="tr" columns="*,auto" orientation="horizontal">
+                    <GridLayout columns ="auto, auto">
+                        <Image col="0" src="~/images/restorant.png" width="24" verticalAlignment="center"></Image>
+                        <Label col="1" class="tr-merchant" text="FamilyMart 1887" horizontalAlignment="left" verticalAlignment="center"></Label>
+                    </GridLayout>
+                    
+                    <StackLayout class="tr-cost" col="1" horizontalAlignment="right">
+                        <Label class="tr-cost-foreign" text="0.82" textAlignment="right"></Label>
+                        <Label class="tr-cost-kr" text="W 1,200" textAlignment="right"></Label>
+                    </StackLayout>
+                </GridLayout>
+
+                
+                <GridLayout class="tr" columns="*,auto" orientation="horizontal">
+                    <GridLayout columns ="auto, auto">
+                        <Image col="0" src="~/images/restorant.png" width="24" verticalAlignment="center"></Image>
+                        <Label col="1" class="tr-merchant" text="FamilyMart 1887" horizontalAlignment="left" verticalAlignment="center"></Label>
+                    </GridLayout>
+                    
+                    <StackLayout class="tr-cost" col="1" horizontalAlignment="right">
+                        <Label class="tr-cost-foreign" text="0.82" textAlignment="right"></Label>
+                        <Label class="tr-cost-kr" text="W 1,200" textAlignment="right"></Label>
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+
+
+
+            
+            <StackLayout class="tr-frame">
+                <DockLayout class="tr-theday" orientation="horizontal">
+                    <Label dock="right" class="tr-cost-all" text="0.82" horizontalAlignment="right"></Label>
+                    <Label dock="left" class="tr-date" text="SATURDAY, 27 JUN" horizontalAlignment="left"></Label>
+                </DockLayout>
+
+                <GridLayout class="tr" columns="*,auto" orientation="horizontal">
+                    <GridLayout columns ="auto, auto">
+                        <Image col="0" src="~/images/restorant.png" width="24" verticalAlignment="center"></Image>
+                        <Label col="1" class="tr-merchant" text="FamilyMart 1887" horizontalAlignment="left" verticalAlignment="center"></Label>
+                    </GridLayout>
+                    
+                    <StackLayout class="tr-cost" col="1" horizontalAlignment="right">
+                        <Label class="tr-cost-foreign" text="0.82" textAlignment="right"></Label>
+                        <Label class="tr-cost-kr" text="W 1,200" textAlignment="right"></Label>
+                    </StackLayout>
+                </GridLayout>
+
+                
+                <GridLayout class="tr" columns="*,auto" orientation="horizontal">
+                    <GridLayout columns ="auto, auto">
+                        <Image col="0" src="~/images/restorant.png" width="24" verticalAlignment="center"></Image>
+                        <Label col="1" class="tr-merchant" text="FamilyMart 1887" horizontalAlignment="left" verticalAlignment="center"></Label>
+                    </GridLayout>
+                    
+                    <StackLayout class="tr-cost" col="1" horizontalAlignment="right">
+                        <Label class="tr-cost-foreign" text="0.82" textAlignment="right"></Label>
+                        <Label class="tr-cost-kr" text="W 1,200" textAlignment="right"></Label>
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </StackLayout>
