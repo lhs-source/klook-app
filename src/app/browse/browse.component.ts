@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Application, LayoutBase, View, Label } from "@nativescript/core";
 import { EventData } from "@nativescript/core/data/observable";
+import { TouchGestureEventData } from "@nativescript/core/ui/gestures";
 
 @Component({
     selector: "Browse",
@@ -24,20 +25,25 @@ export class BrowseComponent implements OnInit {
         pinpad_lb.eachChildView((view:View)=>{
             let la = view as Label;
             // console.log(la);
-            la.on("tap", (args:EventData) =>{
+            la.on("touch", (args:TouchGestureEventData) =>{
                 console.log("tab! " + la.text);
-                if(la.text === "del"){
-                    if(this.pin.length > 0){
-                        // console.log("ok del")
-                        this.pin = this.pin.substring(0, this.pin.length - 1);
-                    }
-                }else{
-                    if(this.pin.length < 6){
-                        this.pin += la.text;
-                    }
+                if(args.action !== "down"){
+                    return;
                 }
-                console.log("pin = " + this.pin);
-                this.changePinCode();
+                else{
+                    if(la.text === "del"){
+                        if(this.pin.length > 0){
+                            // console.log("ok del")
+                            this.pin = this.pin.substring(0, this.pin.length - 1);
+                        }
+                    }else{
+                        if(this.pin.length < 6){
+                            this.pin += la.text;
+                        }
+                    }
+                    console.log("pin = " + this.pin);
+                    this.changePinCode();
+                }
             });
             return true;
         });
