@@ -49,7 +49,9 @@ export class AppComponent implements OnInit {
     }
 
     // click handler button inside modal
+    // event : is the modal showed 
     modal_inside_click(event){
+        this.isNavShow = !this.isNavShow;
         console.log("modal_inside_click");
         console.log(event);
     }

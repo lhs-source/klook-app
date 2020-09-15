@@ -73,7 +73,7 @@ export class AccountComponent implements OnInit {
                 translate:{x:0, y:0},
                 duration: 650,
                 curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1),
-            }).then(()=>{ });
+            }).then(()=>{ this.modal_show = !this.modal_show; });
         }else{
             // will close
             navl.animate({
@@ -81,9 +81,8 @@ export class AccountComponent implements OnInit {
                 translate:{x:x, y:0},
                 duration: 650,
                 curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1),
-            }).then(()=>{ });
+            }).then(()=>{ this.modal_show = !this.modal_show; });
         }
-        this.modal_show = !this.modal_show;
     }
 
     onTabAccount(event: EventData){
