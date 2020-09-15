@@ -12,6 +12,7 @@ import * as platformModule from "tns-core-modules/platform";
 export class AppComponent implements OnInit {
     @ViewChild('navLayout', {static : true}) navLayout : ElementRef;
     isNavShow = false;
+    ngiftest = false;
 
     ngOnInit(): void {
         
@@ -51,5 +52,6 @@ export class AppComponent implements OnInit {
             });
         }
         this.isNavShow = !this.isNavShow;
+        
     }
 }

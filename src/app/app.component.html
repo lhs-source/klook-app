@@ -57,6 +57,9 @@ https://docs.nativescript.org/angular/ui/professional-ui-components/ng-SideDrawe
                 <GridLayout columns="auto, *" class="nav-item" (tap)="onTabAccount($event)">
                     <Label col="1" text="Settings" class="p-r-10"></Label>
                 </GridLayout>
+                <GridLayout *ngIf="!ngiftest" columns="auto, *" class="nav-item" [nsRouterLink]="['/featured']">
+                    <Label col="1" text="featured" class="p-r-10"></Label>
+                </GridLayout>
             </StackLayout>
         </ScrollView>
     </GridLayout>

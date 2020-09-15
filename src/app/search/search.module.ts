@@ -7,13 +7,15 @@ import { NgShadowModule } from "nativescript-ngx-shadow";
 
 import { registerElement } from '@nativescript/angular/element-registry';
 import { ShadowedLabel } from 'nativescript-shadowed-label';
+import { FeaturedModule } from "../featured/featured.module";
 registerElement('ShadowedLabel', () => ShadowedLabel);
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
         SearchRoutingModule,
-        NgShadowModule
+        NgShadowModule,
+        FeaturedModule
     ],
     declarations: [
         SearchComponent

@@ -1,5 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef } from "@angular/core";
 import { Application } from "@nativescript/core";
+import { LayoutBase } from "@nativescript/core/ui";
+import { RouterExtensions } from "@nativescript/angular/router";
+import { ModalDialogOptions, ModalDialogService } from "@nativescript/angular/modal-dialog";
+import { FeaturedComponent } from "../featured/featured.component";
 
 @Component({
     selector: "Search",
@@ -8,12 +12,32 @@ import { Application } from "@nativescript/core";
 })
 export class SearchComponent implements OnInit {
 
-    constructor() {
+    @ViewChild('navLayout', {static : true}) navLayout : ElementRef;
+    constructor(
+        private routerEx : RouterExtensions, 
+        private modalService: ModalDialogService,
+        private vcRef: ViewContainerRef) {
         // Use the component constructor to inject providers.
     }
 
     ngOnInit(): void {
         // Init your component properties here.
+    }
+
+    onCardTap() : void{    
+        // let navlb = this.navLayout.nativeElement as LayoutBase;
+        // console.log("nav layoutbase test");
+        // console.log(navlb);
+
+        // this.routerEx.navigateByUrl("/featured")
+        
+		const options: ModalDialogOptions = {
+			fullscreen: false,
+            viewContainerRef: this.vcRef,
+            
+		};
+
+        this.modalService.showModal(FeaturedComponent, options);
     }
 
 }
