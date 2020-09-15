@@ -15,10 +15,12 @@ export class BrowseComponent implements OnInit {
 
     constructor() {
         // Use the component constructor to inject providers.
+        console.log("constructor BrowseComponent");
     }
 
     ngOnInit(): void {
         // Init your component properties here.
+        console.log("ngOnInit BrowseComponent");
 
         let pinpad_lb = this.pinpad.nativeElement as LayoutBase;
         // console.log(pinpad_lb);

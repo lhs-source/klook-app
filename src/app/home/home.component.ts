@@ -15,11 +15,11 @@ export class HomeComponent implements OnInit {
 
     constructor() {
         // Use the component constructor to inject providers.
-        
+        console.log("constructor HomeComponent");
     }
 
     ngOnInit(): void {
-        console.log("load");
+        console.log("ngOnInit HomeComponent");
 
         // let lb = args.object as LayoutBase;
         let lb = this.layout.nativeElement as LayoutBase;

@@ -18,10 +18,12 @@ export class SearchComponent implements OnInit {
         private modalService: ModalDialogService,
         private vcRef: ViewContainerRef) {
         // Use the component constructor to inject providers.
+        console.log("constructor SearchComponent");
     }
 
     ngOnInit(): void {
         // Init your component properties here.
+        console.log("ngOnInit SearchComponent");
     }
 
     onCardTap() : void{    

@@ -1,8 +1,14 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
-import { EventData } from "tns-core-modules/ui/content-view";
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from "@angular/core";
+import { Application, EventData } from "@nativescript/core";
 import { NgLayoutBase } from "@nativescript/angular/view-util";
 import { CubicBezierAnimationCurve } from "@nativescript/core/ui/animation";
 import * as platformModule from "tns-core-modules/platform";
+import { AccountComponent } from "./account/account.component";
+
+// android
+import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";
+import { isAndroid } from "tns-core-modules/platform";
+import { RouterExtensions } from "@nativescript/angular";
 
 @Component({
     selector: "ns-app",
@@ -10,48 +16,41 @@ import * as platformModule from "tns-core-modules/platform";
     styleUrls:["app.component.scss"]
 })
 export class AppComponent implements OnInit {
-    @ViewChild('navLayout', {static : true}) navLayout : ElementRef;
+    @ViewChild(AccountComponent) account_modal : AccountComponent;
     isNavShow = false;
     ngiftest = false;
 
+    constructor(private routerExtensions : RouterExtensions){
+
+    }
     ngOnInit(): void {
         
-        let navl = this.navLayout.nativeElement as NgLayoutBase;
-        
-        console.log("navl " + navl.getMeasuredWidth());
-        console.log("navl " + navl.width);
-        console.log("navl " + navl.effectiveWidth);
-        navl.translateX = -2000;
-        
         // navl.translateX = 100;
+        if (!isAndroid) {
+            return;
+        }
+        Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+            console.log("back button pressed on AppComponent");
+            if(this.isNavShow === true){
+                data.cancel = true;
+                this.onTabAccount();
+                console.log("this.isNavShow == true");
+            }
+        // if (this.routerExtensions.router.isActive("/articles", false)) {
+        //     data.cancel = true; // prevents default back button behavior
+        // }
+        });
     }
 
-    onTabAccount(event:EventData){
-        // console.log("click account button");
-        // console.log(event);
-
-        let navl = this.navLayout.nativeElement as NgLayoutBase;
-
-        let x = -navl.getMeasuredWidth();
-        // console.log(x);
-        if(this.isNavShow == false){
-            // will show
-            navl.animate({
-                // scale:{x:1.1, y:1.1},
-                translate:{x:0, y:0},
-                duration: 650,
-                curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1),
-            });
-        }else{
-            // will close
-            navl.animate({
-                // scale:{x:1.1, y:1.1},
-                translate:{x:x, y:0},
-                duration: 650,
-                curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1),
-            });
-        }
+    onTabAccount(){
+        console.log("click account button");
         this.isNavShow = !this.isNavShow;
-        
+        this.account_modal.toggle();        
+    }
+
+    // click handler button inside modal
+    modal_inside_click(event){
+        console.log("modal_inside_click");
+        console.log(event);
     }
 }

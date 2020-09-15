@@ -27,6 +27,7 @@ export class FeaturedComponent implements OnInit {
 
   constructor(private barcodeScanner: BarcodeScanner) {
     // Use the component constructor to inject providers.
+        console.log("constructor FeaturedComponent");
   }
 
   ngOnInit(): void {

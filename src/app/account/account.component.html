@@ -1,0 +1,14 @@
+<GridLayout #rootlayout class="nav" height="100%" width="100%" (loaded)="onLoadLayout()">
+    <ScrollView row="1">
+        <StackLayout margin="48">
+            <GridLayout columns="auto, *" class="nav-item">
+                <Label col="1" text="Home" class="p-r-10"></Label>
+            </GridLayout>
+            <StackLayout class="hr"></StackLayout>
+
+            <GridLayout columns="auto, *" class="nav-item" [nsRouterLink]="['../settings']" (tap)="onTabAccount('settings')">
+                <Label col="1" text="Settings" class="p-r-10"></Label>
+            </GridLayout>
+        </StackLayout>
+    </ScrollView>
+</GridLayout>
