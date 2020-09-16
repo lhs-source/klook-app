@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef } from "@angular/core";
 import { Application, EventData } from "@nativescript/core";
-import { BrowseComponent } from "../browse/browse.component";
 import { LayoutBase } from "@nativescript/core/ui";
+
+import { BrowseComponent } from "../browse/browse.component";
+import { NavDirective } from "./nav.directive";
 
 @Component({
     selector: "Settings",
@@ -9,11 +11,12 @@ import { LayoutBase } from "@nativescript/core/ui";
 })
 export class SettingsComponent implements OnInit {
     @ViewChild('rootlayout', {static:true}) rootview : ElementRef;
-    @ViewChild(BrowseComponent) browse : BrowseComponent;
+    @ViewChild(NavDirective) nav: NavDirective;
 
     ngiftest = true;
 
-    constructor() {
+    constructor(private componentFactoryResolver: ComponentFactoryResolver,
+        public viewContainerRef: ViewContainerRef) {
         // Use the component constructor to inject providers.
         console.log("constructor SettingsComponent");
     }
@@ -22,7 +25,22 @@ export class SettingsComponent implements OnInit {
         // Init your component properties here.
         console.log("ngOnInit SettingsComponent");
         let lb = this.rootview.nativeElement as LayoutBase;
+        
+
         // lb.addChild(this.browse);
+    }
+
+    ngAfterViewInit():void{
+        console.log("ngAfterViewInit SettingsComponent");
+        let fac = this.componentFactoryResolver.resolveComponentFactory(BrowseComponent);
+        // console.log(fac);
+        // console.log(this.nav);
+        let nav_view_cot = this.nav.viewContainerRef;
+        // console.log(nav_view_cot);
+        // nav_view_cot.clear();
+        let new_comp = nav_view_cot.createComponent(fac);
+        // console.log(new_comp);
+
     }
 
     onTap(event: EventData){

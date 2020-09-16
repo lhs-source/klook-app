@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output } from "
 import { Application, EventData } from "@nativescript/core";
 import { LayoutBase } from "@nativescript/core/ui";
 import { CubicBezierAnimationCurve } from "@nativescript/core/ui/animation";
-import { RouterExtensions } from "@nativescript/angular/router";
 
 // android
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";
@@ -19,7 +18,7 @@ export class AccountComponent implements OnInit {
 
     modal_show = false;
 
-    constructor(private routerExtensions : RouterExtensions) {
+    constructor() {
         // Use the component constructor to inject providers.
         console.log("constructor AccountComponent");
     }
@@ -28,15 +27,11 @@ export class AccountComponent implements OnInit {
         // Init your component properties here.
         console.log("ngOnInit AccountComponent");
 
-        if (!isAndroid) {
-            return;
+        if (isAndroid) {
+            Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+                console.log("back button pressed on AccountComponent");
+            });
         }
-        Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-            console.log("back button pressed on AccountComponent");
-        // if (this.routerExtensions.router.isActive("/articles", false)) {
-        //     data.cancel = true; // prevents default back button behavior
-        // }
-        });
     }
 
     onLoadLayout(){
@@ -66,28 +61,24 @@ export class AccountComponent implements OnInit {
         // console.log(this.modal_show);
         // console.log(navl.translateX);
         // console.log(x);
-        if(this.modal_show == false){
+        if(this.modal_show === false){
             // will show
             navl.animate({
-                // scale:{x:1.1, y:1.1},
                 translate:{x:0, y:0},
                 duration: 650,
                 curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1),
-            }).then(()=>{ this.modal_show = !this.modal_show; });
+            }).then(()=>{ this.modal_show = true; });
         }else{
             // will close
             navl.animate({
-                // scale:{x:1.1, y:1.1},
                 translate:{x:x, y:0},
                 duration: 650,
-                curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1),
-            }).then(()=>{ this.modal_show = !this.modal_show; });
+                curve: new CubicBezierAnimationCurve(.42,0,.58,1),
+            }).then(()=>{ this.modal_show = false });
         }
     }
 
     onTabAccount(event: EventData){
-        // this.modal_show = !this.modal_show;
-
         this.toggle();
         this.modal_click.emit(this.modal_show);
     }

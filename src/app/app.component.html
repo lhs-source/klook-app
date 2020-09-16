@@ -1,7 +1,5 @@
 <AbsoluteLayout height="100%">
-    <!-- <GridLayout #navLayout height="100%" width="100%" backgroundColor="#cccccc" style="z-index: 9;"> -->
-    <Account (modal_click)="modal_inside_click(isNavShow)"></Account>
-    <!-- </GridLayout> -->
+    <Account #account_modal (modal_click)="modal_inside_click(isNavShow)"></Account>
     <DockLayout height="100%" width="100%" backgroundColor="#3c495e" >
         <StackLayout orientation="horizontal" dock="bottom" height="40" backgroundColor="#289062" >
             <Button margin="2" text="home" [nsRouterLink]="['/home']" pageTransition="slide" clearHistory="true"></Button>
