@@ -1,14 +1,74 @@
 <StackLayout>
-    <GridLayout class="tab-frame" columns="*, *, *" verticalAlignment="middle" #layout>
+    <GridLayout class="tab-frame" columns="*, *" verticalAlignment="middle" #layout>
         <Label id="selected" class="tab-btn-toggle"></Label>
-        <Label class="tab-btn" col="0" text="left"></Label>
-        <Label class="tab-btn" col="1" text="center"></Label>
-        <Label class="tab-btn" col="2" text="right"></Label>
+        <ShadowedLabel class="tab-btn" col="0" text="포인트 충전하기"></ShadowedLabel>
+        <ShadowedLabel class="tab-btn" col="1" text="포인트 교환하기"></ShadowedLabel>
+        <!-- <Label class="tab-btn" col="2" text="right"></Label> -->
     </GridLayout>
-    <StackLayout>
-        <!-- <Label id="circle" class="circle"></Label> -->
-        <!-- <Label width="100%" height="100%" text="Value"></Label> -->
-        <!-- <button text="TAP" (tap)="onClickTab()"></button> -->
+
+    <StackLayout class="point" width="100%" height="32">
+        <GridLayout columns="auto, auto, auto, auto" horizontalAlignment="center">
+            <Image col="0" src="~/images/point.png" width="24" height="24"></Image>
+            <Label col="1" text="보유 포인트 : " verticalAlignment="center" marginRight="4"></Label>
+            <Label col="2" text="120,000" verticalAlignment="center" marginRight="4"></Label>
+            <Label col="3" text="800 HKD" verticalAlignment="center" style="font-weight: bold;"></Label>
+        </GridLayout>
+    </StackLayout>
+
+    <StackLayout marginRight="16" marginLeft="16" marginTop="36"  marginBottom="36">
+        <!-- <TextField hint="충전 금액을 입력해주세요" 
+           [text]='name' 
+           secure="false"
+           keyboardType="datetime"
+           returnKeyType="done" 
+           (returnPress)="onReturnPress($event)"
+           autocorrect="false"
+           maxLength="10"
+           (focus)="onFocus($event)" 
+           (blur)="onBlur($event)"
+           > 
+        </TextField>-->
+        <!-- keyboardType = "datetime" | "phone" | "number" | "url" | "email" | "integer" -->
+        <TextField hint="충전 금액을 입력해주세요" [text]="charge_money" keyboardType="number"
+            (returnPress)="onReturnPress($event)"
+            style="margin: 0; border-bottom-width: 2; border-bottom-color: brown; font-size: 16; placeholder-color:rgb(141, 116, 104);"></TextField>
+
+        <StackLayout orientation="horizontal">
+            <Label text="충전가능금액: "  style="font-weight: 600;"></Label>
+            <Label text="1,800,000" color="brown"></Label>
+            <Label text="만원" color="brown"></Label>
+        </StackLayout>
+    </StackLayout>
+
+    <StackLayout marginRight="16" marginLeft="16">
+        <Label text="KLOOK 포인트 충전 수단" style="font-size:18; font-weight: 600;"></Label>
+        <GridLayout columns="120, *, 80" height="64" margin="4 8" padding="4" backgroundColor="orange" borderRadius="4" style="box-shadow: black 5 5;">
+            <Label col="0" text="KB국민카드" verticalAlignment="center" marginLeft="8" style="font-size:16; font-weight: 600;"></Label>
+            <Label col="1" text="9445 **** **** ****" verticalAlignment="center" style="font-size:16; font-weight: 600;"></Label>
+            <Label col="2" text="" width="24" height="24" borderRadius="50%" backgroundColor="brown" verticalAlignment="center"></Label>
+        </GridLayout>
+        <GridLayout columns="120, *, 80" height="64" margin="4 8" padding="4" backgroundColor="lightgray" borderRadius="4">
+            <Label col="0" text="KB국민카드" verticalAlignment="center" marginLeft="8" style="font-size:16; font-weight: 600;"></Label>
+            <Label col="1" text="9445 **** **** ****" verticalAlignment="center" style="font-size:16; font-weight: 600;"></Label>
+            <!-- <Label col="2" text="" width="24" height="24" borderRadius="50%" backgroundColor="brown" verticalAlignment="center"></Label> -->
+        </GridLayout>
+        <StackLayout orientation="horizontal">
+            <Label text="충전 후 포인트: " style="font-weight: 600;"></Label>
+            <Label text="200,000" color="brown"></Label>
+            <Label text="만원" color="brown"></Label>
+        </StackLayout>
+    </StackLayout>
+
+    <StackLayout marginRight="16" marginLeft="16" marginTop="24" marginBottom="16">
+        <Label text="충전 후 결제 시 혜택" marginBottom="4" style="font-size:18; font-weight:600; border-bottom-color: lightgray; border-bottom-width: 2;"></Label>
+        <Label text="* 사용 금액의 2% 적립" marginLeft="4" color="darkgray"></Label>
+        <Label text="* 충전포인트 즉시 인출 가능 (수수료 무료)" marginLeft="4" color="darkgray"></Label>
+    </StackLayout>
+
+    <Button text="KLOOK 포인트 충전하기" backgroundColor="brown" color="white" style="font-size:18"></Button>
+
+
+    <!-- <StackLayout>
         <StackLayout orientaation="horizontal">
             <AbsoluteLayout class="ripple-button ripple-button-red" #button>
                 <Button class="btn" text="TAP this" (tap)="onClickTab($event)" (touch)="onTouchTab($event)"></Button>
@@ -18,5 +78,5 @@
                 <Button class="btn" text="TAP this" (tap)="onClickTab($event)" (touch)="onTouchTab($event)"></Button>
             </AbsoluteLayout>
         </StackLayout>
-    </StackLayout>
+    </StackLayout> -->
 </StackLayout>

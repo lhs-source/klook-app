@@ -3,6 +3,7 @@ import { Application, LayoutBase, View, Label } from "@nativescript/core";
 import { CubicBezierAnimationCurve } from "@nativescript/core/ui/animation";
 import { EventData } from "@nativescript/core/data/observable";
 import { TouchGestureEventData } from "@nativescript/core/ui/gestures";
+import { TextField } from "tns-core-modules/ui/text-field";
 
 @Component({
     selector: "Home",
@@ -12,6 +13,8 @@ import { TouchGestureEventData } from "@nativescript/core/ui/gestures";
 export class HomeComponent implements OnInit {
     @ViewChild('layout', { static: true }) layout: ElementRef;
     @ViewChild('button', { static: true }) button: ElementRef;
+
+    charge_money :string;
 
     constructor() {
         // Use the component constructor to inject providers.
@@ -89,5 +92,38 @@ export class HomeComponent implements OnInit {
             });
         }
 
+    }
+
+    // charge money textfield
+    onReturnPress(args) {
+        // returnPress event will be triggered when user submits a value
+        let textField = args.object as TextField;
+
+        // Gets or sets the placeholder text.
+        console.log(textField.hint);
+        // Gets or sets the input text.
+        console.log(textField.text);
+        // Gets or sets the secure option (e.g. for passwords).
+        console.log(textField.secure);
+
+        // Gets or sets the soft keyboard type. Options: "datetime" | "phone" | "number" | "url" | "email"
+        console.log(textField.keyboardType);
+        // Gets or sets the soft keyboard return key flavor. Options: "done" | "next" | "go" | "search" | "send"
+        console.log(textField.returnKeyType);
+        // Gets or sets the autocapitalization type. Options: "none" | "words" | "sentences" | "allcharacters"
+        console.log(textField.autocapitalizationType);
+
+        // Gets or sets a value indicating when the text property will be updated.
+        console.log(textField.updateTextTrigger);
+        // Gets or sets whether the instance is editable.
+        console.log(textField.editable);
+        // Enables or disables autocorrection.
+        console.log(textField.autocorrect);
+        // Limits input to a certain number of characters.
+        console.log(textField.maxLength);
+
+        setTimeout(() => {
+            textField.dismissSoftInput(); // Hides the soft input method, ususally a soft keyboard.
+        }, 100);
     }
 }

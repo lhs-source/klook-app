@@ -1,5 +1,8 @@
 $color: #0cf;
 
+Label {
+    font-size: 14;
+}
 // .button {
 //     &:hover {
 //         color: rgb(148, 104, 104);
@@ -7,22 +10,26 @@ $color: #0cf;
 // }
 
 .tab-frame {
-    height: 36;
+    height: 48;
     padding: 2 4;
 
     // border-width: 4px;
     // border-radius: 25%;
     // border-color: hotpink;
-    background-color: rgb(187, 224, 175);
+
+    background-color: rgb(255, 166, 0);
 
     .tab-btn {
+        text-shadow:  1 1 1 rgba(165, 42, 42, 0.418);
         // height: 30;
         font-size: 16;
         text-align: center;
         margin: 2 4;
 
         // border-width: 4px;
-        border-radius: 16%;
+        border-radius: 12%;
+
+        vertical-align: center;
 
         // border-color: hotpink;
         // background-color: rgb(243, 241, 245);
@@ -38,6 +45,10 @@ $color: #0cf;
             z-index: -1;
         }
     }
+}
+
+.point{
+    background-color: #FDF4EC;
 }
 
 .ripple-button {
