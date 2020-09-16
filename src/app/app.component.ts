@@ -16,43 +16,10 @@ import { RouterExtensions } from "@nativescript/angular";
     styleUrls:["app.component.scss"]
 })
 export class AppComponent implements OnInit {
-    @ViewChild(AccountComponent) account_modal : AccountComponent;
-    isNavShow = false;
-    ngiftest = false;
-
     constructor(private routerExtensions : RouterExtensions){
 
     }
     ngOnInit(): void {
-        
-        // navl.translateX = 100;
-        if (!isAndroid) {
-            return;
-        }
-        Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-            console.log("back button pressed on AppComponent");
-            if(this.isNavShow === true){
-                data.cancel = true;
-                this.onTabAccount();
-                console.log("this.isNavShow == true");
-            }
-        // if (this.routerExtensions.router.isActive("/articles", false)) {
-        //     data.cancel = true; // prevents default back button behavior
-        // }
-        });
-    }
 
-    onTabAccount(){
-        console.log("click account button");
-        this.isNavShow = !this.isNavShow;
-        this.account_modal.toggle();        
-    }
-
-    // click handler button inside modal
-    // event : is the modal showed 
-    modal_inside_click(event){
-        this.isNavShow = !this.isNavShow;
-        console.log("modal_inside_click");
-        console.log(event);
     }
 }
