@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, ComponentFactoryResolver, Vie
 import { Application, EventData } from "@nativescript/core";
 import { LayoutBase } from "@nativescript/core/ui";
 
-import { BrowseComponent } from "../browse/browse.component";
+import { PinComponent } from "../pin/pin.component";
 import { NavDirective } from "./nav.directive";
 
 @Component({
@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit {
 
     ngAfterViewInit():void{
         console.log("ngAfterViewInit SettingsComponent");
-        let fac = this.componentFactoryResolver.resolveComponentFactory(BrowseComponent);
+        let fac = this.componentFactoryResolver.resolveComponentFactory(PinComponent);
         // console.log(fac);
         // console.log(this.nav);
         let nav_view_cot = this.nav.viewContainerRef;

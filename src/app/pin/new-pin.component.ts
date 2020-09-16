@@ -2,28 +2,33 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Application, LayoutBase, View, Label } from "@nativescript/core";
 import { EventData } from "@nativescript/core/data/observable";
 import { TouchGestureEventData } from "@nativescript/core/ui/gestures";
+import { AnimationCurve } from "@nativescript/core/ui/enums";
+
+import { RouterExtensions } from "@nativescript/angular";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
-    selector: "Browse",
-    templateUrl: "./browse.component.html",
-    styleUrls:["./browse.component.scss"]
+    selector: "NewPin",
+    templateUrl: "./new-pin.component.html",
+    styleUrls:["./new-pin.component.scss"]
 })
-export class BrowseComponent implements OnInit {
+export class NewPinComponent implements OnInit {
     @ViewChild('pincode', {static: true}) pincode : ElementRef;
     @ViewChild('pinpad', {static: true}) pinpad : ElementRef;
     pin : string = "";
 
-    constructor() {
+    constructor(private routerExtensions : RouterExtensions, private route: ActivatedRoute) {
         // Use the component constructor to inject providers.
-        console.log("constructor BrowseComponent");
+        console.log("[NewPinComponent] constructor");
     }
 
     ngOnInit(): void {
         // Init your component properties here.
-        console.log("ngOnInit BrowseComponent");
+        console.log("[NewPinComponent] ngOnInit");
+
+        console.log(this.routerExtensions.router.url);
 
         let pinpad_lb = this.pinpad.nativeElement as LayoutBase;
-        // console.log(pinpad_lb);
         pinpad_lb.eachChildView((view:View)=>{
             let la = view as Label;
             // console.log(la);
@@ -44,14 +49,23 @@ export class BrowseComponent implements OnInit {
                         }
                     }
                     console.log("pin = " + this.pin);
-                    this.changePinCode();
+                    this.changeNewPinCode();
+                }
+                
+                if(this.pin.length === 6){
+                    // 6 chars ok
+                    this.routerExtensions.navigate(["../input"], 
+                        {relativeTo: this.route, transition:{name: 'slide', 
+                        duration: 550, 
+                        curve: AnimationCurve.easeOut}
+                    });
                 }
             });
             return true;
         });
     }
 
-    changePinCode(){
+    changeNewPinCode(){
         let pincode_lb = this.pincode.nativeElement as LayoutBase;
         let count = 0;
         let old_color = "gray";

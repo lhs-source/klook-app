@@ -3,14 +3,14 @@ import { NativeScriptCommonModule } from "@nativescript/angular";
 
 import { SettingsRoutingModule } from "./settings-routing.module";
 import { SettingsComponent } from "./settings.component";
-import { BrowseModule } from "../browse/browse.module"
+import { PinModule } from "../pin/pin.module"
 import { NavDirective } from "./nav.directive";
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
         SettingsRoutingModule,
-        BrowseModule
+        PinModule
     ],
     declarations: [
         SettingsComponent,
