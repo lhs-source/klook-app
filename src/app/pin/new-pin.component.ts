@@ -56,7 +56,7 @@ export class NewPinComponent implements OnInit {
                     // 6 chars ok
                     this.routerExtensions.navigate(["../input"], 
                         {relativeTo: this.route, transition:{name: 'slide', 
-                        duration: 550, 
+                        duration: 350, 
                         curve: AnimationCurve.easeOut}
                     });
                 }

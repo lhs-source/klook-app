@@ -4,7 +4,7 @@ import { NativeScriptRouterModule } from "@nativescript/angular";
 import { PinRootComponent } from "./pin/pin-root.component";
 
 const routes: Routes = [
-    { path: "", redirectTo: "/pin", pathMatch: "full" },
+    { path: "", redirectTo: "main", pathMatch: "full" },
     { path: "pin", loadChildren: () => import("./pin/pin.module").then((m) => m.PinModule) },
     { path: "main", loadChildren: () => import("./main/main.module").then((m) => m.MainModule) },
     // { path: "browse", loadChildren: () => import("./browse/browse.module").then((m) => m.PinModule) },

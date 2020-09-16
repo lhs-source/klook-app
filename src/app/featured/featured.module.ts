@@ -9,6 +9,9 @@ import { BarcodeScanner } from "nativescript-barcodescanner";
 registerElement("MLKitBarcodeScanner", () => require("nativescript-plugin-firebase/mlkit/barcodescanning").MLKitBarcodeScanner);
 
 @NgModule({
+    exports:[
+        FeaturedComponent
+    ],
     imports: [
         NativeScriptCommonModule,
         FeaturedRoutingModule

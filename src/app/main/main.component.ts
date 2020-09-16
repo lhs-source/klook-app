@@ -28,7 +28,7 @@ export class MainComponent implements OnInit {
             return;
         }
         Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-            console.log("back button pressed on AppComponent");
+            console.log("back button pressed on MainComponent");
             if(this.isNavShow === true){
                 data.cancel = true;
                 this.onTabAccount();

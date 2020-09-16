@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Application, LayoutBase, View, Label } from "@nativescript/core";
 import { EventData } from "@nativescript/core/data/observable";
 import { TouchGestureEventData } from "@nativescript/core/ui/gestures";
+
+import { AnimationCurve } from "@nativescript/core/ui/enums";
+
 import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
 
@@ -51,7 +54,9 @@ export class PinComponent implements OnInit {
                 
                 if(this.pin.length === 6){
                     // 6 chars ok
-                    this.routerExtensions.navigate(["../../main"], {relativeTo: this.route});
+                    this.routerExtensions.navigate(["../../main"], {relativeTo: this.route, clearHistory : true, transition:{name: 'fade', 
+                    duration: 350, 
+                    curve: AnimationCurve.easeOut}});
                 }
             });
             return true;

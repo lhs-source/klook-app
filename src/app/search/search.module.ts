@@ -8,6 +8,9 @@ import { NgShadowModule } from "nativescript-ngx-shadow";
 import { registerElement } from '@nativescript/angular/element-registry';
 import { ShadowedLabel } from 'nativescript-shadowed-label';
 import { FeaturedModule } from "../featured/featured.module";
+import { NavDirective } from "../settings/nav.directive";
+
+
 registerElement('ShadowedLabel', () => ShadowedLabel);
 
 @NgModule({
@@ -18,7 +21,8 @@ registerElement('ShadowedLabel', () => ShadowedLabel);
         FeaturedModule
     ],
     declarations: [
-        SearchComponent
+        SearchComponent,
+        NavDirective
     ],
     schemas: [
         NO_ERRORS_SCHEMA

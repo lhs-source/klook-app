@@ -1,7 +1,7 @@
 <GridLayout #rootlayout class="nav" height="100%" width="100%" (loaded)="onLoadLayout()">
     <ScrollView row="1">
         <StackLayout margin="48">
-            <GridLayout columns="auto, *" class="nav-item">
+            <GridLayout columns="auto, *" class="nav-item" (tap)="onTabAccount('home')">
                 <Label col="1" text="Home" class="p-r-10"></Label>
             </GridLayout>
             <StackLayout class="hr"></StackLayout>
