@@ -1,14 +1,37 @@
 <GridLayout #rootlayout class="nav" height="100%" width="100%" (loaded)="onLoadLayout()">
     <ScrollView row="1">
-        <StackLayout margin="48">
-            <GridLayout columns="auto, *" class="nav-item" (tap)="onTabAccount('home')">
-                <Label col="1" text="Home" class="p-r-10"></Label>
+        <StackLayout style="margin:48 24;">
+            <GridLayout columns="32, *" class="nav-item" (tap)="onTabAccount('Close')">
+                <Label col="0" class="fas" text="&#xf410;" horizontalAlignment="center"></Label>
+                <Label col="1" text="닫기"></Label>
             </GridLayout>
             <StackLayout class="hr"></StackLayout>
 
-            <GridLayout columns="auto, *" class="nav-item" [nsRouterLink]="['/settings']" (tap)="onTabAccount('settings')">
-                <Label col="1" text="Settings" class="p-r-10"></Label>
+            <GridLayout columns="32, *" class="nav-item" (tap)="onTabAccount('settings')">
+                <Label col="0" class="fas" text="&#xf007;" horizontalAlignment="center"></Label>
+                <Label col="1" text="KB국민카드 계정 연동"></Label>
             </GridLayout>
+            <GridLayout columns="32, *" class="nav-item" (tap)="onTabAccount('settings')">
+                <Label col="0" class="fas" text="&#xf53a;" horizontalAlignment="center"></Label>
+                <Label col="1" text="1일/1회 이용한도 설정"></Label>
+            </GridLayout>
+            <GridLayout columns="32, *" class="nav-item" (tap)="onTabAccount('settings')">
+                <Label col="0" class="fas" text="&#xf207;" horizontalAlignment="center"></Label>
+                <Label col="1" text="교통카드 등록/편집/기본카드 설정"></Label>
+            </GridLayout>
+            <GridLayout columns="32, *" class="nav-item" (tap)="onTabAccount('settings')">
+                <Label col="0" class="fas" text="&#xf09d;" horizontalAlignment="center"></Label>
+                <Label col="1" text="KlookPay 카드 등록/삭제"></Label>
+            </GridLayout>
+            <GridLayout columns="32, *" class="nav-item" (tap)="onTabAccount('settings')">
+                <Label col="0" class="fas" text="&#xf119;" horizontalAlignment="center"></Label>
+                <Label col="1" text="이용내역 이의제기"></Label>
+            </GridLayout>
+            <GridLayout columns="32, *" class="nav-item" (tap)="onTabAccount('settings')">
+                <Label col="0" class="fas" text="&#xf46d;" horizontalAlignment="center"></Label>
+                <Label col="1" text="포인트 적입 내역 조회"></Label>
+            </GridLayout>
+            <StackLayout class="hr"></StackLayout>
         </StackLayout>
     </ScrollView>
 </GridLayout>
