@@ -4,7 +4,10 @@ import { NativeScriptCommonModule } from "@nativescript/angular";
 import { SettingsRoutingModule } from "./settings-routing.module";
 import { SettingsComponent } from "./settings.component";
 import { PinModule } from "../pin/pin.module"
-import { NavDirective } from "./nav.directive";
+import {registerElement} from "@nativescript/angular";
+
+// Important - must register MapView plugin in order to use in Angular templates
+registerElement("MapView", () => require("nativescript-google-maps-sdk").MapView);
 
 @NgModule({
     imports: [
@@ -13,8 +16,7 @@ import { NavDirective } from "./nav.directive";
         PinModule
     ],
     declarations: [
-        SettingsComponent,
-        NavDirective
+        SettingsComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

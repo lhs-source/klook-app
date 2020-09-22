@@ -1,7 +1,6 @@
-<AbsoluteLayout>
-    <GridLayout #rootlayout>
-        <Button text="toggle" (tap)="onTap($event)"></Button>
-        <ng-template navModal></ng-template>
+<GridLayout>
 
-    </GridLayout>
-</AbsoluteLayout>
+    <GridLayout width="84%" height="50%">
+    <MapView #MapView (mapReady)="onMapReady($event)" (markerSelect)="onmarkerSelect($event)" iosOverflowSafeArea="true"></MapView>
+</GridLayout>
+</GridLayout>

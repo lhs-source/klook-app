@@ -1,50 +1,55 @@
-import { Component, OnInit, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef } from "@angular/core";
-import { Application, EventData } from "@nativescript/core";
-import { LayoutBase } from "@nativescript/core/ui";
-
-import { PinComponent } from "../pin/pin.component";
-import { NavDirective } from "./nav.directive";
+import { Component, OnInit, ViewChild, ElementRef} from "@angular/core";
+import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
 
 @Component({
     selector: "Settings",
     templateUrl: "./settings.component.html"
 })
 export class SettingsComponent implements OnInit {
-    @ViewChild('rootlayout', {static:true}) rootview : ElementRef;
-    @ViewChild(NavDirective) nav: NavDirective;
+    @ViewChild("MapView", {static: true}) mapView: ElementRef;
 
-    ngiftest = true;
+    constructor() {
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver,
-        public viewContainerRef: ViewContainerRef) {
-        // Use the component constructor to inject providers.
         console.log("constructor SettingsComponent");
     }
 
     ngOnInit(): void {
-        // Init your component properties here.
         console.log("ngOnInit SettingsComponent");
-        let lb = this.rootview.nativeElement as LayoutBase;
         
-
-        // lb.addChild(this.browse);
     }
 
     ngAfterViewInit():void{
         console.log("ngAfterViewInit SettingsComponent");
-        let fac = this.componentFactoryResolver.resolveComponentFactory(PinComponent);
-        // console.log(fac);
-        // console.log(this.nav);
-        let nav_view_cot = this.nav.viewContainerRef;
-        // console.log(nav_view_cot);
-        // nav_view_cot.clear();
-        let new_comp = nav_view_cot.createComponent(fac);
-        // console.log(new_comp);
 
     }
+    
+    // Google Map events
+    onMapReady = (event) => {
+        console.log("Map Ready");
+        
+        let maplb = this.mapView.nativeElement as MapView;
+        let NA_CENTER_LATITUDE = 37.565785;
+        let NA_CENTER_LONGITUDE = 126.976863;
+        maplb.latitude = NA_CENTER_LATITUDE;
+        maplb.longitude = NA_CENTER_LONGITUDE;
+        maplb.zoom = 16;
 
-    onTap(event: EventData){
-        this.ngiftest = !this.ngiftest;
-        console.log("tap " + this.ngiftest);
+        let companyMarker = new Marker();
+        companyMarker.position = Position.positionFromLatLng(NA_CENTER_LATITUDE, NA_CENTER_LONGITUDE);
+        companyMarker.title = "My Company";
+        companyMarker.snippet = "Description here";
+        companyMarker.color = "#6B8E23";
+        console.log(companyMarker);
+        console.log(companyMarker.position.latitude);
+        console.log(companyMarker.position.longitude);
+        console.log(companyMarker.visible);
+        maplb.addMarker(companyMarker);
+        console.log(maplb);
+    };
+
+    onmarkerSelect = (event) =>{
+        console.log("onmarkerSelect");
     }
+    
 }
+
