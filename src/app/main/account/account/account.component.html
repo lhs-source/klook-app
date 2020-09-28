@@ -1,0 +1,9 @@
+<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#fff5e6">
+    <Label row="0" text="Account" margin="24" style="font-size: 24;"></Label>
+
+
+    <StackLayout row="1">
+        <Button text="go to Link" (tap)="navigateLink($event)"></Button>
+        <Button text="go to Passport" (tap)="navigatePassport($event)"></Button>
+    </StackLayout>
+</GridLayout>

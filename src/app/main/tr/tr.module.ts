@@ -1,22 +1,21 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "@nativescript/angular";
+import { TrRoutingModule } from "./tr.routing";
 
-import { MainRoutingModule } from "./main-routing.module";
-import { MainComponent } from "./main.component";
 
 @NgModule({
     exports:[
-        MainComponent,
-        MainRoutingModule
+        
     ],
     imports: [
         NativeScriptCommonModule,
+        TrRoutingModule
     ],
     declarations: [
-        MainComponent
+        
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class MainModule { }
+export class TrModule { }

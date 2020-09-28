@@ -1,20 +1,20 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "@nativescript/angular";
 
-import { ChargepointComponent } from "./chargepoint.component";
+import { OnlinepayComponent } from "./onlinepay.component";
 
 @NgModule({
     exports:[
-        ChargepointComponent
+        OnlinepayComponent
     ],
     imports: [
         NativeScriptCommonModule,
     ],
     declarations: [
-        ChargepointComponent
+        OnlinepayComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class ChargepointModule { }
+export class OnlinepayModule { }

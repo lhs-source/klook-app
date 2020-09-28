@@ -1,9 +1,4 @@
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from "@angular/core";
-import { Application, EventData } from "@nativescript/core";
-import { NgLayoutBase } from "@nativescript/angular/view-util";
-import { CubicBezierAnimationCurve } from "@nativescript/core/ui/animation";
-import * as platformModule from "tns-core-modules/platform";
-import { AccountComponent } from "./account/account.component";
 
 // android
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";

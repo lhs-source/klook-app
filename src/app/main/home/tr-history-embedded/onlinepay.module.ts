@@ -1,22 +1,20 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "@nativescript/angular";
 
-import { MainRoutingModule } from "./main-routing.module";
-import { MainComponent } from "./main.component";
+import { OnlinepayComponent } from "./onlinepay.component";
 
 @NgModule({
     exports:[
-        MainComponent,
-        MainRoutingModule
+        OnlinepayComponent
     ],
     imports: [
         NativeScriptCommonModule,
     ],
     declarations: [
-        MainComponent
+        OnlinepayComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class MainModule { }
+export class OnlinepayModule { }

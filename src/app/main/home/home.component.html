@@ -1,0 +1,13 @@
+<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#d6e0f5">
+    <Label row="0" text="Home" margin="24" style="font-size: 24;"></Label>
+
+
+    <StackLayout row="1">
+        <Button text="go to onlinepay" (tap)="navigateOnlinepay($event)"></Button>
+        <Button text="go to Charge Point" (tap)="navigateChargePoint($event)"></Button>
+        <Button text="go to Change Point" (tap)="navigateChangePoint($event)"></Button>
+        <Button text="go to Octopus" (tap)="navigateOctopus($event)"></Button>
+        <Button text="go to Transaction" (tap)="navigateTransaction($event)"></Button>
+        <Button text="go to Account" (tap)="navigateAccount($event)"></Button>
+    </StackLayout>
+</GridLayout>
