@@ -7,10 +7,10 @@ import { MainComponent } from "./main.component";
 @NgModule({
     exports:[
         MainComponent,
-        MainRoutingModule
     ],
     imports: [
         NativeScriptCommonModule,
+        MainRoutingModule
     ],
     declarations: [
         MainComponent

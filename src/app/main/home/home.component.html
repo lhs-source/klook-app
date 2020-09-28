@@ -1,13 +1,18 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#d6e0f5">
+<GridLayout #rootlayout rows="84,196,*" class="nav" height="100%" width="100%" backgroundColor="#d6e0f5">
     <Label row="0" text="Home" margin="24" style="font-size: 24;"></Label>
+    <GridLayout row="1">
+        <page-router-outlet actionBarVisibility="never"></page-router-outlet>
+    </GridLayout>
+    <GridLayout row="2" columns="*,*,*,*" rows="64,64,64">
+        <Button row="0" col="0" margin="4" text="go to onlinepay" (tap)="navigateOnlinepay($event)"></Button>
+        <Button row="0" col="1" margin="4" text="go to Charge Point" (tap)="navigateChargePoint($event)"></Button>
+        <Button row="0" col="2" margin="4" text="go to Change Point" (tap)="navigateChangePoint($event)"></Button>
+        <Button row="0" col="3" margin="4" text="go to Transaction" (tap)="navigateTransaction($event)"></Button>
+        <Button row="1" col="0" margin="4" text="go to Account" (tap)="navigateAccount($event)"></Button>
 
-
-    <StackLayout row="1">
-        <Button text="go to onlinepay" (tap)="navigateOnlinepay($event)"></Button>
-        <Button text="go to Charge Point" (tap)="navigateChargePoint($event)"></Button>
-        <Button text="go to Change Point" (tap)="navigateChangePoint($event)"></Button>
-        <Button text="go to Octopus" (tap)="navigateOctopus($event)"></Button>
-        <Button text="go to Transaction" (tap)="navigateTransaction($event)"></Button>
-        <Button text="go to Account" (tap)="navigateAccount($event)"></Button>
-    </StackLayout>
+        <Button row="1" col="1" margin="4" text="go to Qr Scan" (tap)="navigateQrScan($event)"></Button>
+        <Button row="1" col="2" margin="4" text="go to Qr Pay" (tap)="navigateQrPay($event)"></Button>
+        <Button row="1" col="3" margin="4" text="go to Tr His Embedded" (tap)="navigateTrEmb($event)"></Button>
+        <Button row="2" col="0" colspan="4" text="go to Octopus" (tap)="navigateOctopus($event)"></Button>
+    </GridLayout>
 </GridLayout>

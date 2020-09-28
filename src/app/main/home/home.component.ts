@@ -48,4 +48,21 @@ export class HomeComponent implements OnInit {
         this.routerExtensions.navigate(['/main/account'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
 
     }
+
+    
+    navigateQrScan(event) {
+        console.log("navigateQrScan HomeComponent");
+        this.routerExtensions.navigate(['/main/home/qr-scan'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+
+    }
+    navigateQrPay(event) {
+        console.log("navigateQrPay HomeComponent");
+        this.routerExtensions.navigate(['/main/home/qr-pay'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+
+    }
+    navigateTrEmb(event) {
+        console.log("navigateTrEmb HomeComponent");
+        this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+
+    }
 }
