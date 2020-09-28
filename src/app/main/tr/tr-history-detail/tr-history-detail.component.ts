@@ -14,6 +14,7 @@ export class TrHistoryDetailComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("ngOnInit TrHistoryDetailComponent");
+        console.log(this.routerExtensions.router.url);
     }
     navigateBack(event) {
         console.log("navigateChargePoint ChargePointComponent");

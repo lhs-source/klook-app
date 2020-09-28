@@ -14,6 +14,7 @@ export class PassportComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("ngOnInit PassportComponent");
+        console.log(this.routerExtensions.router.url);
     }
     navigateBack(event) {
         console.log("navigateChargePoint OctopusMainComponent");

@@ -15,6 +15,7 @@ export class OctopusUseLocComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("ngOnInit OctopusUseLocComponent");
+        console.log(this.routerExtensions.router.url);
     }
     
     navigateBack(event) {

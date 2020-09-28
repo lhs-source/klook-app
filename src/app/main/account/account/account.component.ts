@@ -14,6 +14,7 @@ export class AccountComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("ngOnInit AccountComponent");
+        console.log(this.routerExtensions.router.url);
     }
     navigateLink(event) {
         console.log("navigateChargePoint OctopusMainComponent");

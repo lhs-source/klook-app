@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("ngOnInit HomeComponent");
+        console.log(this.routerExtensions.router.url);
     }
 
     navigateOnlinepay(event) {

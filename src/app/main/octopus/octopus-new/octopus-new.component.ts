@@ -15,6 +15,7 @@ export class OctopusNewComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("ngOnInit OctopusNewComponent");
+        console.log(this.routerExtensions.router.url);
     }
     
     navigateBack(event) {

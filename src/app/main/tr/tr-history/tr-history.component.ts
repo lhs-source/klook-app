@@ -14,6 +14,7 @@ export class TrHistoryComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("ngOnInit TrHistoryComponent");
+        console.log(this.routerExtensions.router.url);
     }
     
     navigateDetails(event) {

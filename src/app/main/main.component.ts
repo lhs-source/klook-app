@@ -17,6 +17,7 @@ export class MainComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("ngOnInit MainComponent");
+        console.log(this.routerExtensions.router.url);
         
     }
 }
