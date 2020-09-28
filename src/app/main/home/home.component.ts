@@ -35,7 +35,8 @@ export class HomeComponent implements OnInit {
     }
     navigateOctopus(event) {
         console.log("navigateOctopus HomeComponent");
-        this.routerExtensions.navigate(['/main/octopus'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/octopus'], { transition: { name: 'slideTop', duration: 350, curve: AnimationCurve.easeOut } });
+        // this.routerExtensions.navigate(['/main/octopus'], { transition: { name: 'curlUp', duration: 350, curve: AnimationCurve.easeOut } });
 
     }
     navigateTransaction(event) {

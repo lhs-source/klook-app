@@ -3,9 +3,12 @@ import { NativeScriptCommonModule } from "@nativescript/angular";
 
 import { MainRoutingModule } from "./main-routing.module";
 import { MainComponent } from "./main.component";
+import { ChangePointComponent } from "./change-point/change-point.component";
+import { ChargePointComponent } from "./charge-point/charge-point.component";
+import { OnlinepayComponent } from "./onlinepay/onlinepay.component";
 
 @NgModule({
-    exports:[
+    exports: [
         MainComponent,
     ],
     imports: [
@@ -13,7 +16,10 @@ import { MainComponent } from "./main.component";
         MainRoutingModule
     ],
     declarations: [
-        MainComponent
+        MainComponent,
+        ChangePointComponent,
+        ChargePointComponent,
+        OnlinepayComponent,
     ],
     schemas: [
         NO_ERRORS_SCHEMA

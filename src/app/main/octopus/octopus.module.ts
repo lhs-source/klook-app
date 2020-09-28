@@ -16,7 +16,9 @@ import {OctopusRoutingModule} from "./octopus.routing";
         OctopusRoutingModule,
     ],
     declarations: [
-        OctopusMainComponent
+        OctopusMainComponent,
+        OctopusNewComponent,
+        OctopusUseLocComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -1,12 +1,15 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "@nativescript/angular";
 
-import { KlookMainComponent } from "./klookmain/klookmain.component";
 import { InitialAuthRoutingModule } from "./initial-auth.routing";
+import { KlookMainComponent } from "./klookmain/klookmain.component";
+import { PinComponent } from "./pin/pin.component";
 import { NewPinComponent } from "./pin/new-pin.component";
+import { TermsComponent } from "./terms/terms.component";
+import { UserAuthComponent } from "./userauth/userauth.component";
 
 @NgModule({
-    exports:[
+    exports: [
         KlookMainComponent,
         // NewPinComponent,
     ],
@@ -15,7 +18,11 @@ import { NewPinComponent } from "./pin/new-pin.component";
         InitialAuthRoutingModule
     ],
     declarations: [
-        KlookMainComponent
+        KlookMainComponent,
+        PinComponent,
+        NewPinComponent,
+        TermsComponent,
+        UserAuthComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
