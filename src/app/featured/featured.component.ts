@@ -61,7 +61,7 @@ export class FeaturedComponent implements OnInit {
     // this.barcodeScanner.scan({
     //   formats: "QR_CODE, EAN_13",
     //   cancelLabel: "EXIT. Also, try the volume buttons!", // iOS only, default 'Close'
-    //   cancelLabelBackgroundColor: "#333333", // iOS only, default '#000000' (black)
+    //   cancelLabelbackgroundColor: "#333333", // iOS only, default '#000000' (black)
     //   message: "Use the volume buttons for extra light", // Android only, default is 'Place a barcode inside the viewfinder rectangle to scan it.'
     //   showFlipCameraButton: true,   // default false
     //   preferFrontCamera: false,     // default false

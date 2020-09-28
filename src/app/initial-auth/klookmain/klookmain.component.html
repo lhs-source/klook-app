@@ -1,0 +1,7 @@
+<GridLayout #rootlayout rows="*,*,*,*" class="nav" height="100%" width="100%" backgroundColor="#ffe6e6">
+    <Label row="0" text="Klook Main" margin="24" style="font-size: 24;"></Label>
+
+    <Button row="1" text="go to Next(terms)" [nsRouterLink]="['/initial-auth/terms']" pageTransition="slide" clearHistory="false"></Button>
+    <Button row="2" text="go to Next(pin-new)" [nsRouterLink]="['/initial-auth/pin-new']" pageTransition="slide" clearHistory="false"></Button>
+    <Button row="3" text="go to Next(userauth)" [nsRouterLink]="['/initial-auth/userauth']" pageTransition="slide" clearHistory="false"></Button>
+</GridLayout>
