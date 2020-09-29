@@ -1,1 +1,41 @@
 
+
+.timeline{
+    &::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        background-color: white;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+    }
+    .line{
+        margin-left: 16;
+        border-left-color: rgb(100, 3, 3);
+        border-left-width: 4;
+        // background-color: red;
+    }
+    .day{
+        .date{
+            margin-left: 8;
+            .dot{
+                transform: translateX(-4);
+                font-size: 16; 
+                font-weight: 700;
+            }
+            .date-str{
+                font-size: 16;
+                font-weight: 600;
+            }
+            .amount{
+                font-size: 12;
+                color: darkgray;
+            }
+        }
+        .item{
+            margin-left: 8;
+        }
+    }
+}
