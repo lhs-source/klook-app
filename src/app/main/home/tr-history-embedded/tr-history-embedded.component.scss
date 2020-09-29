@@ -1,27 +1,24 @@
 
+$timeline-border-width : 2;
+$timeline-border-marginleft : 20;
+$timeline-border-dot-color: #ff5721;
+$timeline-border-line-color: #CCCCCC;
+
+$timeline-marginleft: 20;
+
 
 .timeline{
-    // &::after {
-    //     content: '';
-    //     position: absolute;
-    //     width: 6px;
-    //     background-color: white;
-    //     top: 0;
-    //     bottom: 0;
-    //     left: 8%;
-    //     margin-left: -3px;
-    // }
-    margin-top: 8;
-    
-    // margin-left: 16;
-    // border-left-color: rgb(100, 3, 3);
-    // border-left-width: 4;
+    margin-top: 14; 
+    margin-left: $timeline-marginleft;
+    margin-bottom:14;
     .day{
+        // right space
+        padding-right: 24;
+        // padding-bottom:8;
         .line{
-            margin-left: 20;
-            border-left-color: rgb(100, 3, 3);
-            border-left-width: 4;
-            // background-color: red;
+            margin-left: $timeline-border-marginleft + $timeline-border-width;
+            border-left-color: $timeline-border-line-color;
+            border-left-width: $timeline-border-width;
         }
         .dot{
             // transform: translateX(-12);
@@ -32,25 +29,46 @@
             border-radius: 50%;
             margin-top: 4;
             background-color:white;
-            border-color: rgb(100, 3, 3);
+            border-color: $timeline-border-dot-color;
             border-width: 4;
+        }
+        .even{
+            background-color:$timeline-border-dot-color;
         }
         .date{
             margin-left: 8;
+            margin-bottom: 16;
             .date-str{
-                font-size: 16;
-                font-weight: 600;
-                &::after{
-                    content:'a';
-                }
+                font-size: 14;
+                // font-weight: 600;
+                color:#888;
             }
             .amount{
-                font-size: 12;
+                font-size: 14;
                 color: darkgray;
             }
         }
         .item{
             margin-left: 8;
+            margin-bottom : 16;
+            .icon{
+                margin-right: 8; 
+                margin-top:8;
+            }
+            .merchant{
+                font-size:16;
+                margin-top:6;
+            }
+            .point{
+                font-size:14;
+                margin-top: 2;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+            .change{
+                font-size:12;
+                color: #888888;
+            }
         }
     }
 }
