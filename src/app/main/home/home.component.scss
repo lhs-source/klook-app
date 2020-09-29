@@ -1,4 +1,6 @@
 
+$maincolor: #ff5722;
+
 Button{
     margin:8;
 }
@@ -13,6 +15,10 @@ Button{
     font-size: 16; 
     color:#ffffff; 
     margin:0 4; 
+
+    border-radius: 20px; 
+    background-color: $maincolor; 
+    margin: 0 12;
     .str{
         margin-left:16;
     }
@@ -55,7 +61,7 @@ Button{
     }
 
     .str{
-        color:#ff5722;
+        color:$maincolor;
         font-size: 16;
     }
     .arrow{
