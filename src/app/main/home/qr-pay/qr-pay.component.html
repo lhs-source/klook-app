@@ -1,7 +1,16 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#f0f5f5">
-    <Label row="0" text="Qr Pay" margin="24" style="font-size: 24;"></Label>
 
-    <!-- <StackLayout row="1">
-        <Button text="go to Home" (tap)="navigateBack($event)"></Button>
-    </StackLayout> -->
+
+<GridLayout #rootlayout rows="*, auto, auto, 64" height="100%" width="100%" backgroundColor="#f0f5f5">
+    <Image row="0" src="~/images/qr.png" margin="16"></Image>
+    <Label row="1" text="생성된 코드를 직원에게 보여주세요" horizontalAlignment="center"></Label>
+    <StackLayout row="2" orientation="horizontal" horizontalAlignment="center">
+        <Label text="남은시간"></Label>
+        <Label text="{{ secounds * 1000 | date:'mm:ss' }} "></Label>
+        <Image src="~/images/btn_re.png" width="8" (tap)="resetTimer()"></Image>
+    </StackLayout>
+    <GridLayout row="3" rows="auto, auto" columns="36, *" margin="8" horizontalAlignment="center">
+        <Image row="0" col="0" rowspan="2" src="~/images/ico_point2.png" marginRight="8"></Image>
+        <Label row="0" col="1" text="홍콩 ThaiQR 결제 시 자동 Tax-Refund"></Label>
+        <Label row="1" col="1" text="결제금액 2% 포인트 자동 적립"></Label>
+    </GridLayout>
 </GridLayout>

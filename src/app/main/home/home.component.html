@@ -28,22 +28,22 @@
         </GridLayout>
 
         <!-- menu -->
-        <GridLayout class="menu" row="3" columns="*,*,*,*" rows="36, 96, 96">-->
-            <image row="0" colspan="4" src="~/images/btn_down.png" marginBottom="12"></image>
+        <GridLayout #menu class="menu" row="3" columns="*,*,*,*" rows="36, *, auto" (loaded)="onLoadedMenu($event)">
+            <image #menubtn row="0" colspan="4" src="~/images/btn_up.png" marginBottom="12" (tap)="onTapMenu($event)"></image>
 
-            <StackLayout class="item" row="1" col="0" (tap)="navigateOnlinepay($event)">
+            <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="0" (tap)="navigateOnlinepay($event)">
                 <Image src="~/images/btn_quick5.png" class="image"></Image>
                 <Label text="온라인결제" style="font-size:14;" horizontalAlignment="center"></Label>
             </StackLayout>
-            <StackLayout class="item" row="1" col="1" (tap)="navigateTransaction($event)">
+            <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="1" (tap)="navigateTransaction($event)">
                 <Image src="~/images/btn_quick6.png" class="image"></Image>
                 <Label text="이용내역" style="font-size:14;" horizontalAlignment="center"></Label>
             </StackLayout>
-            <StackLayout class="item" row="1" col="2" (tap)="navigateTrEmb($event)">
+            <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="2" (tap)="navigateTrEmb($event)">
                 <Image src="~/images/btn_quick7.png" class="image"></Image>
                 <Label text="사용중지" style="font-size:14;" horizontalAlignment="center"></Label>
             </StackLayout>
-            <StackLayout class="item" row="1" col="3" (tap)="navigateAccount($event)">
+            <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="3" (tap)="navigateAccount($event)">
                 <Image src="~/images/btn_quick8.png" class="image"></Image>
                 <Label text="계정관리" style="font-size:14;" horizontalAlignment="center"></Label>
             </StackLayout>
@@ -67,7 +67,7 @@
         </GridLayout>
 
         
-        <GridLayout row="4" rows="24, 24, *" marginTop="8">
+        <GridLayout row="4" class="octo" rows="24, 24, *" marginTop="8">
             <Label class="str" text="Octopus 교통카드 이용을 위해 올려주세요" row="0" textAlignment="center"></Label>
             <Image class="arrow" src="~/images/buscard_arrow.png" row="1" (tap)="navigateOctopus($event)"></Image>
         </GridLayout>

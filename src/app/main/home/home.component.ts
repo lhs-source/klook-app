@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
-import { LayoutBase } from "@nativescript/core/ui";
+import { LayoutBase, Image } from "@nativescript/core/ui";
 import { screen } from "tns-core-modules/platform/platform"
 
 @Component({
@@ -14,10 +14,15 @@ export class HomeComponent implements OnInit {
     @ViewChild('octopus', { static: true }) octopus: ElementRef;
     @ViewChild('octopuscard', { static: true }) octopuscard: ElementRef;
     @ViewChild('rootlayout', { static: true }) rootlayout: ElementRef;
+    @ViewChild('menubtn', { static: true }) menubtn: ElementRef;
+    @ViewChild('menu', { static: true }) menu: ElementRef;
+    @ViewChild('menuitems', { static: true }) menuitems: ElementRef;
 
     // qr page variables
     isQrPay = false;
     isQrScan = false;
+
+    isMenuExt = false;
 
     // octopus pan vairables
     octopus_card_loc = {
@@ -35,10 +40,67 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
         console.log("ngOnInit HomeComponent");
         console.log(this.routerExtensions.router.url);
+        
+        let menu = this.menu.nativeElement as LayoutBase;
     }
 
     ngAfterViewInit() {
 
+    }
+
+    onLoadedMenu(event){
+        let menu = this.menu.nativeElement as LayoutBase;
+        menu.effectiveHeight = menu.getMeasuredHeight() - 96;
+        console.log(menu.effectiveHeight);
+        console.log(menu.getMeasuredHeight());
+        console.log(menu.getActualSize());
+    }
+
+    onLoadedMenuItem(event){
+        console.log("onLoadedMenuItem");
+        let menuitems = this.menuitems.nativeElement as LayoutBase;
+        console.log(menuitems.translateY);
+        console.log(menuitems.getLocationInWindow());
+        console.log(menuitems.getLocationOnScreen());
+        console.log(menuitems.getLocationRelativeTo(menuitems.parentNode.viewController));
+        menuitems.translateY = menuitems.translateY - 96;
+    }
+    onTapMenu(event){
+        let img = this.menubtn.nativeElement as Image;
+        let menu = this.menu.nativeElement as LayoutBase;
+        console.log("height = " + menu.getMeasuredHeight());
+        console.log(img);
+        console.log("height = " + menu.getMeasuredHeight());
+        let h = menu.getMeasuredHeight();
+
+        console.log(screen.mainScreen.heightDIPs);
+        console.log(screen.mainScreen.heightPixels);
+        let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+        console.log(p);
+        this.isMenuExt = !this.isMenuExt;
+        if(this.isMenuExt === true){
+            // unfold
+            img.src = "~/images/btn_down.png"
+            console.log("height = " + menu.getMeasuredHeight());
+            menu.animate({
+                height: 678 * p - 16,
+                duration:250,
+                curve: AnimationCurve.easeOut
+            }).then(()=>{
+                console.log("end height = " + menu.getMeasuredHeight());
+            });            
+        }else{
+            // fold
+            img.src = "~/images/btn_up.png"
+            console.log("height = " + menu.getMeasuredHeight());
+            menu.animate({
+                height: 374 * p,
+                duration:250,
+                curve: AnimationCurve.easeOut
+            }).then(()=>{
+                console.log("end height = " + menu.getMeasuredHeight());
+            });
+        }
     }
 
     navigateOnlinepay(event) {
@@ -187,7 +249,7 @@ export class HomeComponent implements OnInit {
         });
         lbc.animate({
             translate: { x: lbc.translateX, y: 0 },
-            duration: 250,
+            duration: 350,
             curve: AnimationCurve.easeOut
         }).then(() => {
             lbc.animate({

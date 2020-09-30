@@ -1,6 +1,8 @@
 
 $maincolor: #ff5722;
 
+$menuitem-height: 96;
+
 Button{
     margin:8;
 }
@@ -33,7 +35,10 @@ Button{
     padding:0 8; 
     margin: 0 16;
     padding-bottom: 4;
+
+    transition:width 2s, height 2s, background-color 2s, transform 2s;
     .item{
+        height: $menuitem-height;
         .image{
             margin-left:24;
             margin-top:4;
@@ -48,6 +53,12 @@ Button{
     bottom:96;
     background-color: #000;
     opacity: 0;
+    .card{
+        // transform: rotate(90deg) translateY(-156) scale(0.65);
+    }
+}
+
+.octo{
     @keyframes arrow {
         0% {
             opacity: 0.8;
@@ -75,8 +86,5 @@ Button{
         animation-direction: alternate;
 
         margin : 4 0;
-    }
-    .card{
-        // transform: rotate(90deg) translateY(-156) scale(0.65);
     }
 }
