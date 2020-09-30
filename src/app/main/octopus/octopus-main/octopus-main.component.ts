@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
 
 @Component({
     selector: "octopus-main",
@@ -11,10 +12,20 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 export class OctopusMainComponent implements OnInit {
     constructor(private routerExtensions : RouterExtensions) {
         console.log("constructor OctopusMainComponent");
+
+        if (isAndroid) {
+            Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+                console.log("back button pressed on OctopusMainComponent");
+                data.cancel = true;
+                this.routerExtensions.navigate(['/main/home'], {clearHistory : true});
+            });
+        }
     }
 
     ngOnInit(): void {
         console.log("ngOnInit OctopusMainComponent");
+
+        
     }
     
     navigateNew(event) {

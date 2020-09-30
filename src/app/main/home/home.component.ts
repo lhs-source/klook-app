@@ -3,7 +3,7 @@ import { RouterExtensions } from "@nativescript/angular";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { LayoutBase } from "@nativescript/core/ui";
-import {screen} from "tns-core-modules/platform/platform"
+import { screen } from "tns-core-modules/platform/platform"
 
 @Component({
     selector: "home",
@@ -12,9 +12,24 @@ import {screen} from "tns-core-modules/platform/platform"
 })
 export class HomeComponent implements OnInit {
     @ViewChild('octopus', { static: true }) octopus: ElementRef;
+    @ViewChild('octopuscard', { static: true }) octopuscard: ElementRef;
     @ViewChild('rootlayout', { static: true }) rootlayout: ElementRef;
+
+    // qr page variables
+    isQrPay = false;
+    isQrScan = false;
+
+    // octopus pan vairables
+    octopus_card_loc = {
+        prevDeltaX : 0,
+        prevDeltaY : 0,
+        originX : 0,
+        originY : 0,
+    };
+
     constructor(private routerExtensions: RouterExtensions) {
         console.log("constructor HomeComponent");
+
     }
 
     ngOnInit(): void {
@@ -22,25 +37,8 @@ export class HomeComponent implements OnInit {
         console.log(this.routerExtensions.router.url);
     }
 
-    ngAfterViewInit(){
+    ngAfterViewInit() {
 
-        let rlb = this.rootlayout.nativeElement as LayoutBase;
-        console.log(rlb.effectiveHeight);
-        let lb = this.octopus.nativeElement as LayoutBase;
-        console.log(lb.translateY);
-        console.log(screen.mainScreen.heightDIPs);
-        console.log(screen.mainScreen.heightPixels);
-        lb.translateY = screen.mainScreen.heightDIPs - 144;
-    }
-
-    onLoadOctopus(event){
-        let rlb = this.rootlayout.nativeElement as LayoutBase;
-        console.log(rlb.effectiveHeight);
-        console.log(rlb.getMeasuredHeight());
-        console.log(rlb.height);
-        let lb = this.octopus.nativeElement as LayoutBase;
-        console.log(lb.translateY);
-        // lb.translateY = rlb.effectiveHeight - 96;
     }
 
     navigateOnlinepay(event) {
@@ -58,12 +56,6 @@ export class HomeComponent implements OnInit {
         this.routerExtensions.navigate(['/main/change-point'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
 
     }
-    navigateOctopus(event) {
-        console.log("navigateOctopus HomeComponent");
-        this.routerExtensions.navigate(['/main/octopus'], { transition: { name: 'slideTop', duration: 350, curve: AnimationCurve.easeOut } });
-        // this.routerExtensions.navigate(['/main/octopus'], { transition: { name: 'curlUp', duration: 350, curve: AnimationCurve.easeOut } });
-
-    }
     navigateTransaction(event) {
         console.log("navigateTransaction HomeComponent");
         this.routerExtensions.navigate(['/main/tr'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
@@ -76,19 +68,147 @@ export class HomeComponent implements OnInit {
     }
 
 
+    // start QR Scan 
     navigateQrScan(event) {
         console.log("navigateQrScan HomeComponent");
-        this.routerExtensions.navigate(['/main/home/qr-scan'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
-
+        if (this.isQrScan == false) {
+            this.routerExtensions.navigate(['/main/home/qr-scan'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+            this.isQrScan = true;
+            this.isQrPay = false;
+        }
     }
+    // start QR Pay
     navigateQrPay(event) {
         console.log("navigateQrPay HomeComponent");
-        this.routerExtensions.navigate(['/main/home/qr-pay'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+        if (this.isQrPay == false) {
+            this.routerExtensions.navigate(['/main/home/qr-pay'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+            this.isQrScan = false;
+            this.isQrPay = true;
+        }
 
     }
+    // show Transaction embedded view
     navigateTrEmb(event) {
         console.log("navigateTrEmb HomeComponent");
-        this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+        if (this.isQrPay == true) {
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+            this.isQrPay = false;
+        }
+        if (this.isQrScan == true) {
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+            this.isQrScan = false;
+        }
+    }
+
+    // translate octopus view to bottom of screen
+    onLoadOctopus(event) {
+        console.log("onLoadOctopus HomeComponent");
+        let lbc = this.octopuscard.nativeElement as LayoutBase;
+        let lb = this.octopus.nativeElement as LayoutBase;
+        console.log(screen.mainScreen.heightDIPs);
+        console.log(screen.mainScreen.heightPixels);
+        lbc.translateY = screen.mainScreen.heightDIPs - 156;
+    }
+
+    onPan(event) {
+        // console.log("onDragCard HomeComponent");
+        let lbc = this.octopuscard.nativeElement as LayoutBase;
+        let lb = this.octopus.nativeElement as LayoutBase;
+        if (event.state === 1) // down
+        {
+            // this.prevDeltaX = 0;
+            // this.originX = lbc.getLocationOnScreen().x;
+            // this.originY = lbc.getLocationOnScreen().y;
+            this.octopus_card_loc.originX = lbc.translateX;
+            this.octopus_card_loc.originY = lbc.translateY;
+            this.octopus_card_loc.prevDeltaY = 0;
+        }
+        else if (event.state === 2) // panning
+        {
+            // console.log(event.deltaX);
+            // console.log(event.deltaY);
+            // lbc.translateX += event.deltaX - this.prevDeltaX;
+            lbc.translateY += event.deltaY - this.octopus_card_loc.prevDeltaY;
+
+            // this.prevDeltaX = event.deltaX;
+            this.octopus_card_loc.prevDeltaY = event.deltaY;
+
+            lb.opacity = (1 - (lbc.translateY / screen.mainScreen.heightDIPs)) / 2;
+            if(lb.opacity > 1){
+                lb.opacity = 1;
+            }else if(lb.opacity < 0){
+                lb.opacity = 0;
+            }
+            // console.log((lbc.translateY / screen.mainScreen.heightDIPs / 3));
+            // console.log(lb.opacity);
+            // console.log(lbc.translateY);
+
+        }
+        else if (event.state === 3) // up
+        {
+            console.log("lbc.translateY  => " + lbc.translateY);
+            console.log("event.deltaY  => " + event.deltaY);
+            if(lbc.translateY < (screen.mainScreen.heightDIPs / 2) ){
+                // goto octopus page
+                lbc.animate({
+                    translate:{x:this.octopus_card_loc.originX, y: 60},
+                    duration:150,
+                    curve: AnimationCurve.easeOut
+                }).then(()=>{
+                    lbc.animate({
+                        translate:{x:this.octopus_card_loc.originX, y: 40},
+                        duration:100,
+                        curve: AnimationCurve.easeOut
+                    }).then(()=>{
+                        this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+                    });
+                });
+            }else{
+                // goto origin location
+                lbc.animate({
+                    translate:{x:this.octopus_card_loc.originX, y:this.octopus_card_loc.originY},
+                    duration:350,
+                    curve: AnimationCurve.easeOut
+                });
+                lb.animate({
+                    opacity: 0,
+                    duration:350,
+                    curve: AnimationCurve.easeOut
+                });
+                lbc.translateX = this.octopus_card_loc.originX;
+                lbc.translateY= this.octopus_card_loc.originY;
+            }
+        }
+    }
+
+    // translate octopus card to top of the screen and
+    // navigate to octopus
+    navigateOctopus(event) {
+        console.log("navigateOctopus HomeComponent");
+
+        let lbc = this.octopuscard.nativeElement as LayoutBase;
+        let lb = this.octopus.nativeElement as LayoutBase;
+        console.log(lbc.getLocationInWindow());
+        console.log(lbc.getLocationOnScreen());
+        console.log(lbc.getLocationRelativeTo(lbc.parentNode.viewController));
+        lb.animate({
+            opacity:0.5,
+            duration: 350,
+            curve: AnimationCurve.easeOut
+        });
+        lbc.animate({
+            translate: { x: lbc.translateX, y: 0 },
+            duration: 350,
+            curve: AnimationCurve.easeOut
+        }).then(() => {
+            this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name: 'fade', duration: 150, curve: AnimationCurve.easeOut } });
+
+            // go to origin 
+            // let lb = this.octopus.nativeElement as LayoutBase;
+            // lb.translateY = screen.mainScreen.heightDIPs - 144;
+            // this.routerExtensions.navigate(['/main/octopus'], { transition: { name: 'slideTop', duration: 350, curve: AnimationCurve.easeOut } });
+        });
+        // this.routerExtensions.navigate(['/main/octopus'], { transition: { name: 'curlUp', duration: 350, curve: AnimationCurve.easeOut } });
 
     }
 }

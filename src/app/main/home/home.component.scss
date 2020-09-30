@@ -46,6 +46,8 @@ Button{
 
 .octopus{
     bottom:96;
+    background-color: #000;
+    opacity: 0;
     @keyframes arrow {
         0% {
             opacity: 0.8;
@@ -75,6 +77,6 @@ Button{
         margin : 4 0;
     }
     .card{
-        transform: rotate(90deg) translateY(-156) scale(0.65);
+        // transform: rotate(90deg) translateY(-156) scale(0.65);
     }
 }
