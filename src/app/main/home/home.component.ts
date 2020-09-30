@@ -116,21 +116,14 @@ export class HomeComponent implements OnInit {
         let lb = this.octopus.nativeElement as LayoutBase;
         if (event.state === 1) // down
         {
-            // this.prevDeltaX = 0;
-            // this.originX = lbc.getLocationOnScreen().x;
-            // this.originY = lbc.getLocationOnScreen().y;
             this.octopus_card_loc.originX = lbc.translateX;
             this.octopus_card_loc.originY = lbc.translateY;
             this.octopus_card_loc.prevDeltaY = 0;
         }
         else if (event.state === 2) // panning
         {
-            // console.log(event.deltaX);
-            // console.log(event.deltaY);
-            // lbc.translateX += event.deltaX - this.prevDeltaX;
             lbc.translateY += event.deltaY - this.octopus_card_loc.prevDeltaY;
 
-            // this.prevDeltaX = event.deltaX;
             this.octopus_card_loc.prevDeltaY = event.deltaY;
 
             lb.opacity = (1 - (lbc.translateY / screen.mainScreen.heightDIPs)) / 2;
@@ -139,10 +132,6 @@ export class HomeComponent implements OnInit {
             }else if(lb.opacity < 0){
                 lb.opacity = 0;
             }
-            // console.log((lbc.translateY / screen.mainScreen.heightDIPs / 3));
-            // console.log(lb.opacity);
-            // console.log(lbc.translateY);
-
         }
         else if (event.state === 3) // up
         {
@@ -151,13 +140,13 @@ export class HomeComponent implements OnInit {
             if(lbc.translateY < (screen.mainScreen.heightDIPs / 2) ){
                 // goto octopus page
                 lbc.animate({
-                    translate:{x:this.octopus_card_loc.originX, y: 60},
-                    duration:150,
+                    translate:{x:this.octopus_card_loc.originX, y: 35},
+                    duration: 100,
                     curve: AnimationCurve.easeOut
                 }).then(()=>{
                     lbc.animate({
-                        translate:{x:this.octopus_card_loc.originX, y: 40},
-                        duration:100,
+                        translate:{x:this.octopus_card_loc.originX, y: 20},
+                        duration: 80,
                         curve: AnimationCurve.easeOut
                     }).then(()=>{
                         this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
@@ -198,17 +187,22 @@ export class HomeComponent implements OnInit {
         });
         lbc.animate({
             translate: { x: lbc.translateX, y: 0 },
-            duration: 350,
+            duration: 250,
             curve: AnimationCurve.easeOut
         }).then(() => {
-            this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name: 'fade', duration: 150, curve: AnimationCurve.easeOut } });
-
-            // go to origin 
-            // let lb = this.octopus.nativeElement as LayoutBase;
-            // lb.translateY = screen.mainScreen.heightDIPs - 144;
-            // this.routerExtensions.navigate(['/main/octopus'], { transition: { name: 'slideTop', duration: 350, curve: AnimationCurve.easeOut } });
+            lbc.animate({
+                translate:{x:lbc.translateX, y: 30},
+                duration:100,
+                curve: AnimationCurve.easeOut
+            }).then(()=>{
+                lbc.animate({
+                    translate:{x:lbc.translateX, y: 15},
+                    duration:80,
+                    curve: AnimationCurve.easeOut
+                }).then(()=>{
+                    this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+                });
+            });
         });
-        // this.routerExtensions.navigate(['/main/octopus'], { transition: { name: 'curlUp', duration: 350, curve: AnimationCurve.easeOut } });
-
     }
 }
