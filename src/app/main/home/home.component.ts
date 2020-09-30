@@ -66,6 +66,9 @@ export class HomeComponent implements OnInit {
         menuitems.translateY = menuitems.translateY - 96;
     }
     onTapMenu(event){
+        if(this.isQrScan == true || this.isQrPay == true){
+            return;
+        }
         let img = this.menubtn.nativeElement as Image;
         let menu = this.menu.nativeElement as LayoutBase;
         console.log("height = " + menu.getMeasuredHeight());
@@ -77,9 +80,9 @@ export class HomeComponent implements OnInit {
         console.log(screen.mainScreen.heightPixels);
         let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
         console.log(p);
-        this.isMenuExt = !this.isMenuExt;
-        if(this.isMenuExt === true){
+        if(this.isMenuExt === false){
             // unfold
+            this.isMenuExt = !this.isMenuExt;
             img.src = "~/images/btn_down.png"
             console.log("height = " + menu.getMeasuredHeight());
             menu.animate({
@@ -89,7 +92,7 @@ export class HomeComponent implements OnInit {
             }).then(()=>{
                 console.log("end height = " + menu.getMeasuredHeight());
             });            
-        }else{
+        }else if(this.isMenuExt === true){
             // fold
             img.src = "~/images/btn_up.png"
             console.log("height = " + menu.getMeasuredHeight());
@@ -99,6 +102,7 @@ export class HomeComponent implements OnInit {
                 curve: AnimationCurve.easeOut
             }).then(()=>{
                 console.log("end height = " + menu.getMeasuredHeight());
+                this.isMenuExt = !this.isMenuExt;
             });
         }
     }
@@ -134,6 +138,25 @@ export class HomeComponent implements OnInit {
     navigateQrScan(event) {
         console.log("navigateQrScan HomeComponent");
         if (this.isQrScan == false) {
+            
+            let img = this.menubtn.nativeElement as Image;
+            let menu = this.menu.nativeElement as LayoutBase;
+            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+            
+            if(this.isMenuExt === true){
+                // fold
+                img.src = "~/images/btn_up.png"
+                console.log("height = " + menu.getMeasuredHeight());
+                menu.animate({
+                    height: 374 * p,
+                    duration:250,
+                    curve: AnimationCurve.easeOut
+                }).then(()=>{
+                    console.log("end height = " + menu.getMeasuredHeight());
+                    this.isMenuExt = !this.isMenuExt;
+                });
+            }
+            
             this.routerExtensions.navigate(['/main/home/qr-scan'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
             this.isQrScan = true;
             this.isQrPay = false;
@@ -143,6 +166,24 @@ export class HomeComponent implements OnInit {
     navigateQrPay(event) {
         console.log("navigateQrPay HomeComponent");
         if (this.isQrPay == false) {
+            
+            let img = this.menubtn.nativeElement as Image;
+            let menu = this.menu.nativeElement as LayoutBase;
+            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+            
+            if(this.isMenuExt === true){
+                // fold
+                img.src = "~/images/btn_up.png"
+                console.log("height = " + menu.getMeasuredHeight());
+                menu.animate({
+                    height: 374 * p,
+                    duration:250,
+                    curve: AnimationCurve.easeOut
+                }).then(()=>{
+                    console.log("end height = " + menu.getMeasuredHeight());
+                    this.isMenuExt = !this.isMenuExt;
+                });
+            }
             this.routerExtensions.navigate(['/main/home/qr-pay'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
             this.isQrScan = false;
             this.isQrPay = true;
