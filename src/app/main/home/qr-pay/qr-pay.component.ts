@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { RouterExtensions } from "@nativescript/angular";
+import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
 
 @Component({
     selector: "qr-pay",
@@ -6,18 +8,28 @@ import { Component, OnInit } from "@angular/core";
     styleUrls: ["./qr-pay.component.scss"]
 })
 export class QrPayComponent implements OnInit {
+    tag = this.constructor.name;
 
     timer = Date.now();
     // 3 mins
     secounds = 180;
     interval;
 
-    constructor() {
-        console.log("constructor QrPayComponent");
+    constructor(private routerExtensions: RouterExtensions) {
+        console.log(`${this.tag} constructor `)
+        
+        if (isAndroid) {
+            // Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+            //     console.log("back button pressed on " + this.tag);
+            //     data.cancel = true;
+            //     this.routerExtensions.navigate(['/main/home'], {clearHistory : true});
+            // });
+        }
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit QrPayComponent");
+        console.log(`${this.tag} ngOnInit`);
+        console.log(this.routerExtensions.router.url);
 
         this.interval = setInterval(() => {
             if (this.secounds > 0) {

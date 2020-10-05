@@ -9,12 +9,13 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
     styleUrls:["./userauth.component.scss"]
 })
 export class UserAuthComponent implements OnInit {
+    tag = this.constructor.name;
     constructor(private routerExtensions : RouterExtensions) {
-        console.log("constructor UserAuthComponent");
+        console.log(`${this.tag} constructor `)
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit UserAuthComponent");
+        console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
     

@@ -8,16 +8,17 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
     styleUrls:["./passport.component.scss"]
 })
 export class PassportComponent implements OnInit {
+    tag = this.constructor.name;
     constructor(private routerExtensions: RouterExtensions) {
-        console.log("constructor PassportComponent");
+        console.log(`${this.tag} constructor `)
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit PassportComponent");
+        console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
     navigateBack(event) {
-        console.log("navigateChargePoint OctopusMainComponent");
+        console.log(`${this.tag} navigateChargePoint `)
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back();
         }else{

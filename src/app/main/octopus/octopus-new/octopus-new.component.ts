@@ -9,17 +9,18 @@ import { RouterExtensions } from "@nativescript/angular";
     styleUrls:["./octopus-new.component.scss"]
 })
 export class OctopusNewComponent implements OnInit {
+    tag = this.constructor.name;
     constructor(private routerExtensions : RouterExtensions) {
-        console.log("constructor OctopusNewComponent");
+        console.log(`${this.tag} constructor `)
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit OctopusNewComponent");
+        console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
     
     navigateBack(event) {
-        console.log("navigateChargePoint OctopusMainComponent");
+        console.log(this.tag + " navigateChargePoint OctopusMainComponent");
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back();
         }else{

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
+import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
 
 @Component({
     selector: "change-point",
@@ -9,16 +10,26 @@ import { ActivatedRoute } from "@angular/router";
     styleUrls:["./change-point.component.scss"]
 })
 export class ChangePointComponent implements OnInit {
+    tag = this.constructor.name;
     constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute) {
-        console.log("constructor ChangePointComponent");
+        console.log(`${this.tag} constructor `)
+
+        if (isAndroid) {
+            Application.android.off(AndroidApplication.activityBackPressedEvent);
+            Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+                console.log(this.tag + " back button pressed ");
+                data.cancel = true;
+                this.routerExtensions.navigate(['/main/home'], { clearHistory: true });
+            });
+        }
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit ChangePointComponent");
+        console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
     navigateBack(event) {
-        console.log("navigateChargePoint ChangePointComponent");
+        console.log(`${this.tag} navigateBack`);
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back({relativeTo: this.activatedRoute});
         }else{

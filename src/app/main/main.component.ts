@@ -10,13 +10,14 @@ import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-cor
     styleUrls:["./main.component.scss"]
 })
 export class MainComponent implements OnInit {
+    tag = this.constructor.name;
 
     constructor(private routerExtensions : RouterExtensions) {
-        console.log("constructor MainComponent");
+        console.log(`${this.tag} constructor `)
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit MainComponent");
+        console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
         
     }

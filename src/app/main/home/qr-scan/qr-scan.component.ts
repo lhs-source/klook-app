@@ -5,7 +5,9 @@ import {
     MLKitScanBarcodesResultBarcode
 } from "nativescript-plugin-firebase/mlkit/barcodescanning";
 import * as firebase from "nativescript-plugin-firebase";
-import { PropertyChangeData } from "tns-core-modules/ui/content-view/content-view";
+import { isAndroid, PropertyChangeData } from "tns-core-modules/ui/content-view/content-view";
+import { RouterExtensions } from "@nativescript/angular";
+import { Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
 
 @Component({
     selector: "qr-scan",
@@ -13,6 +15,7 @@ import { PropertyChangeData } from "tns-core-modules/ui/content-view/content-vie
     styleUrls: ["./qr-scan.component.scss"]
 })
 export class QrScanComponent implements OnInit {
+    tag = this.constructor.name;
     barcodes: Array<MLKitScanBarcodesResultBarcode>;
 
     pause: boolean = false;
@@ -24,12 +27,21 @@ export class QrScanComponent implements OnInit {
         }
     }
 
-    constructor(private barcodeScanner: BarcodeScanner) {
-        console.log("constructor QrScanComponent");
+    constructor(private barcodeScanner: BarcodeScanner, private routerExtensions: RouterExtensions) {
+        console.log(`${this.tag} constructor `)
+        
+        if (isAndroid) {
+            // Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+            //     console.log("back button pressed on " + this.tag);
+            //     data.cancel = true;
+            //     this.routerExtensions.navigate(['/main/home'], {clearHistory : true});
+            // });
+        }
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit QrScanComponent");
+        console.log(`${this.tag} ngOnInit`);
+        console.log(this.routerExtensions.router.url);
 
         this.barcodeScanner.available().then((available) => {
             if (available) {

@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit {
         private componentFactoryResolver: ComponentFactoryResolver,
         private vcRef: ViewContainerRef) {
         // Use the component constructor to inject providers.
-        console.log("constructor SearchComponent");
+        console.log(`${this.tag} constructor `)
         
         if (isAndroid) {
             Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {

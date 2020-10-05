@@ -7,12 +7,13 @@ import { RouterExtensions } from "@nativescript/angular";
     styleUrls:["./klookmain.component.scss"]
 })
 export class KlookMainComponent implements OnInit {
+    tag = this.constructor.name;
     constructor(private routerExtensions : RouterExtensions) {
-        console.log("constructor KlookMainComponent");
+        console.log(`${this.tag} constructor `)
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit KlookMainComponent");
+        console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
 }

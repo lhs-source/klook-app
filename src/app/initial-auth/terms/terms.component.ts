@@ -9,12 +9,13 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
     styleUrls:["./terms.component.scss"]
 })
 export class TermsComponent implements OnInit {
+    tag = this.constructor.name;
     constructor(private routerExtensions : RouterExtensions) {
-        console.log("constructor TermsComponent");
+        console.log(`${this.tag} constructor `)
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit TermsComponent");
+        console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
 

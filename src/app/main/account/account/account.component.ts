@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
 
 @Component({
     selector: "account",
@@ -8,22 +9,36 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
     styleUrls:["./account.component.scss"]
 })
 export class AccountComponent implements OnInit {
+    tag = this.constructor.name;
     constructor(private routerExtensions : RouterExtensions) {
-        console.log("constructor AccountComponent");
+        console.log(`${this.tag} constructor `)
+        
+        if (isAndroid) {
+            Application.android.off(AndroidApplication.activityBackPressedEvent);
+            Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+                console.log(this.tag + " back button pressed ");
+                if(this.routerExtensions.router.isActive('/main/account/list', false) === true){
+                    data.cancel = true;
+                    this.routerExtensions.navigate(['/main/home'], { clearHistory: true });
+                }else{
+                    data.cancel = false;
+                }
+            });
+        }
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit AccountComponent");
+        console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
     navigateLink(event) {
-        console.log("navigateChargePoint OctopusMainComponent");
+        console.log(`${this.tag} navigateChargePoint`);
         this.routerExtensions.navigate(['/main/account/link'], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut } });
 
     }
     
     navigatePassport(event) {
-        console.log("navigateChargePoint OctopusMainComponent");
+        console.log(`${this.tag} navigateChargePoint`);
         this.routerExtensions.navigate(['/main/account/passport'], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut } });
 
     }

@@ -27,11 +27,11 @@ export class FeaturedComponent implements OnInit {
 
   constructor(private barcodeScanner: BarcodeScanner) {
     // Use the component constructor to inject providers.
-        console.log("constructor FeaturedComponent");
+        console.log(`${this.tag} constructor `)
   }
 
   ngOnInit(): void {
-    console.log("ngOnInit FeaturedComponent")
+    console.log(`${this.tag} ngOnInit`)
     this.barcodeScanner.available().then((available) => {
       if (available) {
         this.barcodeScanner.hasCameraPermission().then((granted) => {

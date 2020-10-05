@@ -20,12 +20,12 @@ export class AccountComponent implements OnInit {
 
     constructor() {
         // Use the component constructor to inject providers.
-        console.log("constructor AccountComponent");
+        console.log(`${this.tag} constructor `)
     }
 
     ngOnInit(): void {
         // Init your component properties here.
-        console.log("ngOnInit AccountComponent");
+        console.log(`${this.tag} ngOnInit`);
 
         if (isAndroid) {
             Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {

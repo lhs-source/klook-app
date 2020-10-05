@@ -8,16 +8,17 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
     styleUrls:["./tr-history-detail.component.scss"]
 })
 export class TrHistoryDetailComponent implements OnInit {
+    tag = this.constructor.name;
     constructor(private routerExtensions : RouterExtensions) {
-        console.log("constructor TrHistoryDetailComponent");
+        console.log(`${this.tag} constructor `)
     }
 
     ngOnInit(): void {
-        console.log("ngOnInit TrHistoryDetailComponent");
+        console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
     navigateBack(event) {
-        console.log("navigateChargePoint ChargePointComponent");
+        console.log(this.tag + " navigateChargePoint");
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back();
         }else{
