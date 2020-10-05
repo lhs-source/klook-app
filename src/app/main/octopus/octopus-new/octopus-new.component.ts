@@ -14,6 +14,7 @@ export class OctopusNewComponent implements OnInit {
     tag = this.constructor.name;
     @ViewChild('scroll', {static:true}) scrollview : ElementRef;
     @ViewChild('scroll_items', {static:true}) scrollitems : ElementRef;
+    cards=[];
 
     cardwidth = 200;
     margin = 24;
@@ -54,6 +55,7 @@ export class OctopusNewComponent implements OnInit {
 
         si.eachChild((view) => {
             let img = view as Image;
+            console.log(img.getLocationOnScreen());
             console.log(img.getLocationInWindow());
             console.log(img.getLocationRelativeTo(si));
             return true;
