@@ -1,13 +1,13 @@
-<GridLayout #rootlayout rows="108,auto, *,20" class="nav" height="100%" width="100%" backgroundColor="#f2e6ff">
+<GridLayout #rootlayout rows="108,*,20" class="nav" height="100%" width="100%" backgroundColor="#f2e6ff">
     <Label row="0" text="Octopus New" margin="24" style="font-size: 24;"></Label>
-    <StackLayout row="1">
+    <!-- <StackLayout row="1">
         <Button text="scroll 1" (tap)="scrolltest(1)"></Button>
         <Button text="scroll 2" (tap)="scrolltest(2)"></Button>
         <Button text="scroll 3" (tap)="scrolltest(3)"></Button>
-    </StackLayout>
+    </StackLayout> -->
 
-    <AbsoluteLayout row="2" width="100%", height="100%" (pan)="onPanCarousel($event)">
-        <StackLayout #scroll_items orientation="horizontal" (loaded)="onLoadedScrollLayout($event)">
+    <AbsoluteLayout row="1" width="100%", height="100%" (pan)="onPanCarousel($event)">
+        <StackLayout #scroll_items orientation="horizontal" (loaded)="onLoadedScrollLayout($event)" style="padding: 48 0; background-color:bisque;">
         </StackLayout>
     </AbsoluteLayout>
 

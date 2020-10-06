@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
-import { LayoutBase, ScrollEventData, ScrollView, Image, Label } from "tns-core-modules";
+import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase } from "tns-core-modules";
 import { screen } from "tns-core-modules/platform/platform"
 
 @Component({
@@ -16,10 +16,15 @@ export class OctopusNewComponent implements OnInit {
     @ViewChild('scroll_items', {static:true}) scrollitems : ElementRef;
     cards=[];
     card_view=[];
-    card_index = 0;
+    card_index = 1;
 
     cardwidth = 200;
-    margin = 24;
+    cardscale = 0.8;
+    cardscaleup = 1.1;
+    opacity = 0.7;
+    opacityup = 1;
+    margin_hori = 16;
+    margin_ver = 36;
 
     scrollx = 0;
     prev_delta = 0;
@@ -43,7 +48,7 @@ export class OctopusNewComponent implements OnInit {
         let si = this.scrollitems.nativeElement as LayoutBase;
 
         let middle_of_screen = screen.mainScreen.widthDIPs / 2
-        let one_card_width = this.cardwidth + this.margin * 2;
+        let one_card_width = this.cardwidth + this.margin_hori * 2;
         let firstloc = middle_of_screen - one_card_width / 2;
 
         si.paddingLeft = firstloc;
@@ -53,7 +58,28 @@ export class OctopusNewComponent implements OnInit {
             let img = new Image();
             img.src = cardlist[i];
             img.width = this.cardwidth;
-            img.margin = this.margin;
+            img.marginLeft = this.margin_hori;
+            img.marginRight = this.margin_hori;
+            img.marginTop = this.margin_ver * 2;
+            // img.marginBottom = this.margin_ver;
+            if(this.card_index === i){
+                let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+                img.scaleX = this.cardscaleup;
+                img.scaleY = this.cardscaleup;
+
+                img.on(ViewBase.loadedEvent, (load_data) =>{
+                    setTimeout(() => {
+                        const elementHeight = img.getMeasuredHeight()
+                        console.log("img.getMeasuredHeight() = ", elementHeight)
+                        img.translateY = -(elementHeight * (this.cardscaleup - this.cardscale) / 2 * p);
+                    })
+                })
+            }else{
+                img.scaleX = this.cardscale;
+                img.scaleY = this.cardscale;
+                img.opacity = this.opacity;
+            }
+            img.verticalAlignment = "bottom";
             console.log("image count = " + i);
             this.cards.push(-(i * one_card_width));
             console.log("card offset = " + (-(i * one_card_width)));
@@ -61,15 +87,9 @@ export class OctopusNewComponent implements OnInit {
             // img.left = this.margin + (i * this.margin * 2) + (i * this.cardwidth);
             si.addChild(img);
         }
-
-        si.eachChild((view) => {
-            let img = view as Image;
-            console.log(img.getLocationOnScreen());
-            console.log(img.getLocationInWindow());
-            console.log(img.getLocationRelativeTo(si));
-
-            this.cards.push(img.getLocationRelativeTo(si).x);
-            return true;
+        
+        setTimeout(() => {
+            si.translateX = this.cards[this.card_index];
         });
     }
     
@@ -121,17 +141,80 @@ export class OctopusNewComponent implements OnInit {
         let si = this.scrollitems.nativeElement as LayoutBase;
         
         let middle_of_screen = screen.mainScreen.widthDIPs / 2
-        let one_card_width = this.cardwidth + this.margin * 2;
+        let one_card_width = this.cardwidth + this.margin_hori * 2;
 
         if (event.state === 1) // down
         {
+            // this.card_view[this.card_index].animate({
+            //     scale:{x:this.cardscale, y:this.cardscale},
+            //     translate:{x:0, y: 0},
+            //     opacity:0.8,
+            //     duration: 200,
+            //     curve: AnimationCurve.easeOut
+            // });
             this.prev_delta = event.deltaX;
         }
         else if (event.state === 2) // panning
         {
-            console.log("event.deltaX = " + event.deltaX);
+            // console.log("event.deltaX = " + event.deltaX);
             
-            si.translateX += (event.deltaX - this.prev_delta) / 2;
+            si.translateX += (event.deltaX - this.prev_delta) / 2.5;
+            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+            
+            if(si.translateX < this.cards[this.card_index]){
+                // right
+                let rate = (this.cards[this.card_index] - si.translateX) / one_card_width;
+                console.log("drag to the right");
+                console.log("drag rate = ", rate);
+
+                let thisview = this.card_view[this.card_index];
+                let nextview = this.card_view[this.card_index + 1];
+                if(nextview != undefined){
+                    nextview.scaleX = this.cardscale + (this.cardscaleup - this.cardscale) * rate;
+                    nextview.scaleY = this.cardscale + (this.cardscaleup - this.cardscale) * rate;
+                    
+                    nextview.opacity = this.opacity + (1 - this.opacity) * rate;
+
+                    let temp_y = -(nextview.getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p);
+                    
+                    nextview.translateY = 0 + temp_y * rate;
+                }
+                let temp_y = -(thisview.getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p);
+                
+                thisview.scaleX = this.cardscale + (this.cardscaleup - this.cardscale) * (1 - rate);
+                thisview.scaleY = this.cardscale + (this.cardscaleup - this.cardscale) * (1 - rate);
+                
+                thisview.opacity = this.opacity + (1 - this.opacity) * (1 - rate / 2);
+
+                thisview.translateY = temp_y - (temp_y) * rate;
+            }else if(si.translateX > this.cards[this.card_index]){
+                // left
+                let rate = (si.translateX - this.cards[this.card_index]) / one_card_width;
+                console.log("drag to the left");
+                console.log("drag rate = ", rate);
+
+                let thisview = this.card_view[this.card_index];
+                let prevview = this.card_view[this.card_index - 1];
+                if(prevview != undefined){
+                    prevview.scaleX = this.cardscale + (this.cardscaleup - this.cardscale) * rate;
+                    prevview.scaleY = this.cardscale + (this.cardscaleup - this.cardscale) * rate;
+                    
+                    prevview.opacity = this.opacity + (1 - this.opacity) * rate;
+
+                    let temp_y = -(prevview.getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p);
+
+                    prevview.translateY = 0 + temp_y * rate;
+                }
+                let temp_y = -(thisview.getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p);
+                
+                thisview.scaleX = this.cardscale + (this.cardscaleup - this.cardscale) * (1 - rate / 2);
+                thisview.scaleY = this.cardscale + (this.cardscaleup - this.cardscale) * (1 - rate / 2);
+
+                thisview.opacity = this.opacity + (1 - this.opacity) * (1 - rate / 2);
+                
+                thisview.translateY = temp_y - (temp_y) * rate / 2;
+            }
+
             this.prev_delta = event.deltaX;
         }
         else if (event.state === 3) // up
@@ -141,13 +224,32 @@ export class OctopusNewComponent implements OnInit {
             console.log("si.translateX = " + si.translateX);
             console.log("(this.cards[this.card_index] - one_card_width / 4) = " + (this.cards[this.card_index] - one_card_width / 4));
             console.log("(this.cards[this.card_index] + one_card_width / 4) = " + (this.cards[this.card_index] + one_card_width / 4));
+            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+
+
             if(si.translateX < (this.cards[this.card_index] - one_card_width / 4)){
                 // to the right
                 console.log("to the right");
+                
                 if(this.card_index < this.cards.length - 1){
+                    this.card_view[this.card_index].animate({
+                        scale:{x:this.cardscale, y:this.cardscale},
+                        translate:{x:0, y: 0},
+                        opacity:this.opacity,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
+                    this.card_view[this.card_index + 1].animate({
+                        scale:{x:this.cardscaleup, y:this.cardscaleup},
+                        translate:{x:0, y: -(this.card_view[this.card_index + 1].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
+                        opacity:1,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
                     si.animate({
                         translate: {x:this.cards[this.card_index + 1], y:si.translateY},
-                        duration: 150,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
                     }).then(()=>{
                         this.card_index = this.card_index + 1;
                         console.log("this card index = " + this.card_index);
@@ -155,7 +257,8 @@ export class OctopusNewComponent implements OnInit {
                 }else {
                     si.animate({
                         translate: {x:this.cards[this.card_index], y:si.translateY},
-                        duration: 150,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
                     }).then(()=>{
                         console.log("this card index = " + this.card_index);
                     });
@@ -164,9 +267,24 @@ export class OctopusNewComponent implements OnInit {
                 // to the left
                 console.log("to the left");
                 if(0 < this.card_index){
+                    this.card_view[this.card_index].animate({
+                        scale:{x:this.cardscale, y:this.cardscale},
+                        translate:{x:0, y: 0},
+                        opacity:this.opacity,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
+                    this.card_view[this.card_index - 1].animate({
+                        scale:{x:this.cardscaleup, y:this.cardscaleup},
+                        translate:{x:0, y: -(this.card_view[this.card_index - 1].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
+                        opacity:1,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
                     si.animate({
                         translate: {x:this.cards[this.card_index - 1], y:si.translateY},
-                        duration: 150,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
                     }).then(()=>{
                         this.card_index = this.card_index - 1;
                         console.log("this card index = " + this.card_index);
@@ -174,12 +292,38 @@ export class OctopusNewComponent implements OnInit {
                 }else {
                     si.animate({
                         translate: {x:this.cards[this.card_index], y:si.translateY},
-                        duration: 150,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
                     }).then(()=>{
                         console.log("this card index = " + this.card_index);
                     });
                 }
             }else{
+                if(this.card_view[this.card_index - 1] != undefined){
+                    this.card_view[this.card_index - 1].animate({
+                        scale:{x:this.cardscale, y:this.cardscale},
+                        translate:{x:0, y: 0},
+                        opacity:0.8,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
+                }
+                if(this.card_view[this.card_index + 1] != undefined){
+                    this.card_view[this.card_index + 1].animate({
+                        scale:{x:this.cardscale, y:this.cardscale},
+                        translate:{x:0, y: 0},
+                        opacity:0.8,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
+                }
+                this.card_view[this.card_index].animate({
+                    scale:{x:this.cardscaleup, y:this.cardscaleup},
+                    translate:{x:0, y: -(this.card_view[this.card_index].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
+                    opacity:1,
+                    duration: 200,
+                    curve: AnimationCurve.easeOut
+                });
                 si.animate({
                     translate: {x:this.cards[this.card_index], y:si.translateY},
                     duration: 150,
