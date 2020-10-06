@@ -255,6 +255,13 @@ export class OctopusNewComponent implements OnInit {
                         console.log("this card index = " + this.card_index);
                     });
                 }else {
+                    this.card_view[this.card_index].animate({
+                        scale:{x:this.cardscaleup, y:this.cardscaleup},
+                        translate:{x:0, y: -(this.card_view[this.card_index].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
+                        opacity:1,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
                     si.animate({
                         translate: {x:this.cards[this.card_index], y:si.translateY},
                         duration: 200,
@@ -290,6 +297,13 @@ export class OctopusNewComponent implements OnInit {
                         console.log("this card index = " + this.card_index);
                     });
                 }else {
+                    this.card_view[this.card_index].animate({
+                        scale:{x:this.cardscaleup, y:this.cardscaleup},
+                        translate:{x:0, y: -(this.card_view[this.card_index].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
+                        opacity:1,
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
                     si.animate({
                         translate: {x:this.cards[this.card_index], y:si.translateY},
                         duration: 200,

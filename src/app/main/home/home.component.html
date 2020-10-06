@@ -77,6 +77,5 @@
         <!-- <Label class="str" text="Octopus 교통카드 이용을 위해 올려주세요" row="0" textAlignment="center"></Label>
         <Image class="arrow" src="~/images/buscard_arrow.png" row="1" (tap)="navigateOctopus($event)"></Image> -->
     </GridLayout>
-    <Image #octopuscard class="card" src="~/images/card_octopus.png" row="2" marginLeft="16"
-        marginRight="16" (tap)="navigateOctopus($event)" (pan)="onPan($event)"></Image>
+    <Image #octopuscard class="card" src="~/images/card_octopus.png" row="2" height="72%" (tap)="navigateOctopus($event)" (pan)="onPan($event)" backgroundColor="red"></Image>
 </GridLayout>

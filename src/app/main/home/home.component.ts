@@ -227,7 +227,7 @@ export class HomeComponent implements OnInit {
         let lb = this.octopus.nativeElement as LayoutBase;
         console.log(screen.mainScreen.heightDIPs);
         console.log(screen.mainScreen.heightPixels);
-        lbc.translateY = screen.mainScreen.heightDIPs - 156;
+        lbc.translateY = screen.mainScreen.heightDIPs - 168;
     }
 
     onPan(event) {
