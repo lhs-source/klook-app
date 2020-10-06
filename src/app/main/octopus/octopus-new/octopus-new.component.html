@@ -1,4 +1,4 @@
-<GridLayout #rootlayout rows="108,auto, *" class="nav" height="100%" width="100%" backgroundColor="#f2e6ff">
+<GridLayout #rootlayout rows="108,auto, *,20" class="nav" height="100%" width="100%" backgroundColor="#f2e6ff">
     <Label row="0" text="Octopus New" margin="24" style="font-size: 24;"></Label>
     <StackLayout row="1">
         <Button text="scroll 1" (tap)="scrolltest(1)"></Button>
@@ -6,21 +6,26 @@
         <Button text="scroll 3" (tap)="scrolltest(3)"></Button>
     </StackLayout>
 
-    <ScrollView #scroll row="2" orientation="horizontal" (scroll)="onScroll($event)">
-        <StackLayout #scroll_items orientation="horizontal">
-            <Label width="200" margin="24"></Label>
+    <AbsoluteLayout row="2" width="100%", height="100%" (pan)="onPanCarousel($event)">
+        <StackLayout #scroll_items orientation="horizontal" (loaded)="onLoadedScrollLayout($event)">
+        </StackLayout>
+    </AbsoluteLayout>
+
+    <!-- <ScrollView #scroll row="2" orientation="horizontal" (scroll)="onScroll($event)" (loaded)="onLoadedScroll($event)" (pan)="onPanScroll($event)"> -->
+        <!-- <StackLayout #scroll_items orientation="horizontal" (loaded)="onLoadedScrollLayout($event)"> -->
+            <!-- <Label width="200" margin="24"></Label>
             <Image src="~/images/card_ezlink.png" verticalAlignment="bottom" width="200" margin="24"></Image>
             <Image src="~/images/card_oyster.png" verticalAlignment="bottom" width="200" margin="24"></Image>
             <Image src="~/images/card_octopus.png" verticalAlignment="bottom" width="200" margin="24"></Image>
-            <Label width="200" margin="24"></Label>
-        </StackLayout>
+            <Label width="200" margin="24"></Label> -->
+        <!-- </StackLayout> -->
 
         <!-- <GridLayout columns="200, 400, 200">
             <Image col="0" src="~/images/card_ezlink.png" verticalAlignment="bottom" width="100" margin="24"></Image>
             <Image col="1" src="~/images/card_oyster.png" verticalAlignment="bottom" width="240" margin="24"></Image>
             <Image col="2" src="~/images/card_octopus.png" verticalAlignment="bottom" width="100" margin="24"></Image>
         </GridLayout> -->
-    </ScrollView>
+    <!-- </ScrollView> -->
     <!-- <StackLayout row="1">
         <Button text="go to Octopus" (tap)="navigateBack($event)"></Button>
     </StackLayout> -->

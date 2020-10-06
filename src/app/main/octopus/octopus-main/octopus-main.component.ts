@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
+import { Carousel } from "nativescript-carousel";
 
 @Component({
     selector: "octopus-main",
@@ -11,6 +12,8 @@ import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedE
 })
 export class OctopusMainComponent implements OnInit {
     tag = this.constructor.name;
+    @ViewChild("myCarousel", { static: false }) carouselView: ElementRef<Carousel>;
+    
     constructor(private routerExtensions: RouterExtensions) {
         console.log(`${this.tag} constructor `)
 
@@ -33,6 +36,15 @@ export class OctopusMainComponent implements OnInit {
         console.log(this.routerExtensions.router.url);
 
     }
+    
+
+    myTapPageEvent(args) {
+        console.log('Tapped page index: ' + (this.carouselView.nativeElement.selectedPage));
+    }
+
+    myChangePageEvent(args) {
+        console.log('Page changed to index: ' + args.index);
+    };
 
     navigateNew(event) {
         console.log(this.tag + " navigateChargePoint OctopusMainComponent");

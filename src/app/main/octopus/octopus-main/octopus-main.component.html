@@ -1,4 +1,4 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#f2e6ff">
+<GridLayout #rootlayout rows="108,auto, *" class="nav" height="100%" width="100%" backgroundColor="#f2e6ff">
     <Label row="0" text="Octopus" margin="24" style="font-size: 24;"></Label>
 
 
@@ -6,4 +6,33 @@
         <Button text="go to New" (tap)="navigateNew($event)"></Button>
         <Button text="go to UseLoc" (tap)="navigateUseLoc($event)"></Button>
     </StackLayout>
+
+    <GridLayout row="2">
+        <Carousel #myCarousel height="100%" width="100%" pageChanged="myChangeEvent" pageTapped="mySelectedEvent" indicatorColor="#fff000" finite="true" bounce="false" showIndicator="true" verticalAlignment="top" android:indicatorAnimation="swap" color="white">
+            <CarouselItem id="slide1" width="300" backgroundColor="#b3cde0" verticalAlignment="middle">
+                <!-- <Label text="Slide 1" backgroundColor="#50000000" horizontalAlignment="center"></Label> -->
+                <Image src="~/images/card_ezlink.png" verticalAlignment="bottom" width="200" margin="24"></Image>
+            </CarouselItem>
+            <CarouselItem id="slide2" backgroundColor="#6497b1" verticalAlignment="middle">
+                <!-- <Label text="Slide 2" backgroundColor="#50000000" horizontalAlignment="center"></Label> -->
+                <Image src="~/images/card_oyster.png" verticalAlignment="bottom" width="200" margin="24"></Image>
+            </CarouselItem>
+            <CarouselItem id="slide3" backgroundColor="#005b96" verticalAlignment="middle">
+                <!-- <Label text="Slide 3" backgroundColor="#50000000" horizontalAlignment="center"></Label> -->
+                <Image src="~/images/card_octopus.png" verticalAlignment="bottom" width="200" margin="24"></Image>
+            </CarouselItem>
+            <CarouselItem id="slide4" backgroundColor="#03396c" verticalAlignment="middle">
+                <!-- <Label text="Slide 4" backgroundColor="#50000000" horizontalAlignment="center"></Label> -->
+                <Image src="~/images/card_ezlink.png" verticalAlignment="bottom" width="200" margin="24"></Image>
+            </CarouselItem>
+        </Carousel>
+    </GridLayout>
+
+    <!-- <StackLayout #scroll_items orientation="horizontal">
+        <Label width="200" margin="24"></Label>
+        <Image src="~/images/card_ezlink.png" verticalAlignment="bottom" width="200" margin="24"></Image>
+        <Image src="~/images/card_oyster.png" verticalAlignment="bottom" width="200" margin="24"></Image>
+        <Image src="~/images/card_octopus.png" verticalAlignment="bottom" width="200" margin="24"></Image>
+        <Label width="200" margin="24"></Label>
+    </StackLayout> -->
 </GridLayout>
