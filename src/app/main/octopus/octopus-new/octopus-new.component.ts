@@ -225,36 +225,43 @@ export class OctopusNewComponent implements OnInit {
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
 
 
+            let animation_card_to_origin = {
+                scale:{x:this.cardscale, y:this.cardscale},
+                translate:{x:0, y: 0},
+                opacity:this.opacity,
+                duration: 200,
+                curve: AnimationCurve.easeOut
+            };
+            let animation_card_scale_up = {
+                scale:{x:this.cardscaleup, y:this.cardscaleup},
+                translate:{x:0, y: -(this.card_view[this.card_index].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
+                opacity:1,
+                duration: 200,
+                curve: AnimationCurve.easeOut
+            };
+
+            let animation_indicator_off = {
+                backgroundColor: "#cccccc",
+                duration: 200,
+                curve: AnimationCurve.easeOut
+            };
+            let animation_indicator_on = {
+                backgroundColor: "#ff5722",
+                duration: 200,
+                curve: AnimationCurve.easeOut
+            };
+
             if(si.translateX < (this.cards[this.card_index] - one_card_width / 4)){
                 // to the right
                 console.log("to the right");
                 
                 if(this.card_index < this.cards.length - 1){
                     // move
-                    this.card_view[this.card_index].animate({
-                        scale:{x:this.cardscale, y:this.cardscale},
-                        translate:{x:0, y: 0},
-                        opacity:this.opacity,
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
-                    this.card_view[this.card_index + 1].animate({
-                        scale:{x:this.cardscaleup, y:this.cardscaleup},
-                        translate:{x:0, y: -(this.card_view[this.card_index + 1].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
-                        opacity:1,
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
-                    this.indicator_view[this.card_index].animate({
-                        backgroundColor: "#cccccc",
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
-                    this.indicator_view[this.card_index + 1].animate({
-                        backgroundColor: "#ff5722",
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
+                    animation_card_scale_up.translate={x:0, y: -(this.card_view[this.card_index + 1].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)};
+                    this.card_view[this.card_index].animate(animation_card_to_origin);
+                    this.card_view[this.card_index + 1].animate(animation_card_scale_up);
+                    this.indicator_view[this.card_index].animate(animation_indicator_off);
+                    this.indicator_view[this.card_index + 1].animate(animation_indicator_on);
                     si.animate({
                         translate: {x:this.cards[this.card_index + 1], y:si.translateY},
                         duration: 200,
@@ -265,13 +272,7 @@ export class OctopusNewComponent implements OnInit {
                     });
                 }else {
                     // not move, goto origin
-                    this.card_view[this.card_index].animate({
-                        scale:{x:this.cardscaleup, y:this.cardscaleup},
-                        translate:{x:0, y: -(this.card_view[this.card_index].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
-                        opacity:1,
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
+                    this.card_view[this.card_index].animate(animation_card_scale_up);
                     si.animate({
                         translate: {x:this.cards[this.card_index], y:si.translateY},
                         duration: 200,
@@ -285,30 +286,11 @@ export class OctopusNewComponent implements OnInit {
                 console.log("to the left");
                 if(0 < this.card_index){
                     // move
-                    this.card_view[this.card_index].animate({
-                        scale:{x:this.cardscale, y:this.cardscale},
-                        translate:{x:0, y: 0},
-                        opacity:this.opacity,
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
-                    this.card_view[this.card_index - 1].animate({
-                        scale:{x:this.cardscaleup, y:this.cardscaleup},
-                        translate:{x:0, y: -(this.card_view[this.card_index - 1].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
-                        opacity:1,
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
-                    this.indicator_view[this.card_index].animate({
-                        backgroundColor: "#cccccc",
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
-                    this.indicator_view[this.card_index - 1].animate({
-                        backgroundColor: "#ff5722",
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
+                    animation_card_scale_up.translate = {x:0, y: -(this.card_view[this.card_index - 1].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)};
+                    this.card_view[this.card_index].animate(animation_card_to_origin);
+                    this.card_view[this.card_index - 1].animate(animation_card_scale_up);
+                    this.indicator_view[this.card_index].animate(animation_indicator_off);
+                    this.indicator_view[this.card_index - 1].animate(animation_indicator_on);
                     si.animate({
                         translate: {x:this.cards[this.card_index - 1], y:si.translateY},
                         duration: 200,
@@ -319,13 +301,7 @@ export class OctopusNewComponent implements OnInit {
                     });
                 }else {
                     // not move, go to origin
-                    this.card_view[this.card_index].animate({
-                        scale:{x:this.cardscaleup, y:this.cardscaleup},
-                        translate:{x:0, y: -(this.card_view[this.card_index].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
-                        opacity:1,
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
+                    this.card_view[this.card_index].animate(animation_card_scale_up);
                     si.animate({
                         translate: {x:this.cards[this.card_index], y:si.translateY},
                         duration: 200,
@@ -336,30 +312,12 @@ export class OctopusNewComponent implements OnInit {
                 }
             }else{
                 if(this.card_view[this.card_index - 1] != undefined){
-                    this.card_view[this.card_index - 1].animate({
-                        scale:{x:this.cardscale, y:this.cardscale},
-                        translate:{x:0, y: 0},
-                        opacity:this.opacity,
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
+                    this.card_view[this.card_index - 1].animate(animation_card_to_origin);
                 }
                 if(this.card_view[this.card_index + 1] != undefined){
-                    this.card_view[this.card_index + 1].animate({
-                        scale:{x:this.cardscale, y:this.cardscale},
-                        translate:{x:0, y: 0},
-                        opacity:this.opacity,
-                        duration: 200,
-                        curve: AnimationCurve.easeOut
-                    });
+                    this.card_view[this.card_index + 1].animate(animation_card_to_origin);
                 }
-                this.card_view[this.card_index].animate({
-                    scale:{x:this.cardscaleup, y:this.cardscaleup},
-                    translate:{x:0, y: -(this.card_view[this.card_index].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
-                    opacity:1,
-                    duration: 200,
-                    curve: AnimationCurve.easeOut
-                });
+                this.card_view[this.card_index].animate(animation_card_scale_up);
                 si.animate({
                     translate: {x:this.cards[this.card_index], y:si.translateY},
                     duration: 150,
