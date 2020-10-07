@@ -339,7 +339,7 @@ export class OctopusNewComponent implements OnInit {
                     this.card_view[this.card_index - 1].animate({
                         scale:{x:this.cardscale, y:this.cardscale},
                         translate:{x:0, y: 0},
-                        opacity:0.8,
+                        opacity:this.opacity,
                         duration: 200,
                         curve: AnimationCurve.easeOut
                     });
@@ -348,7 +348,7 @@ export class OctopusNewComponent implements OnInit {
                     this.card_view[this.card_index + 1].animate({
                         scale:{x:this.cardscale, y:this.cardscale},
                         translate:{x:0, y: 0},
-                        opacity:0.8,
+                        opacity:this.opacity,
                         duration: 200,
                         curve: AnimationCurve.easeOut
                     });
