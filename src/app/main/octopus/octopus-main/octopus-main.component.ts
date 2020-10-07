@@ -37,7 +37,15 @@ export class OctopusMainComponent implements OnInit {
 
     }
     
+    // actionbar emit click close
+    actionbar_click_close(isclose){
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
 
+        this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+    }
+
+
+    
     myTapPageEvent(args) {
         console.log('Tapped page index: ' + (this.carouselView.nativeElement.selectedPage));
     }

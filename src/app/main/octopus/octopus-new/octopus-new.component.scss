@@ -1,1 +1,44 @@
 
+$maincolor: #ff5722;
+
+.title{
+    color:#ffffff; 
+
+    border-radius: 6; 
+    background-color: #888888; 
+    margin:0 16;
+    margin-top: 10;
+    .str{
+        color:#ffffff; 
+        font-size: 16; 
+        margin:8 16;
+    }
+}
+
+.description{
+    margin-bottom: 16;
+    .str{
+        color:#888;
+        font-size: 14;
+    }
+}
+
+.issue{
+    background-color: $maincolor;
+    padding: 16 0;
+    margin:0;
+
+    font-size:16;
+    font-weight: 600;
+    color:white;
+
+    &-btn{
+        background-color: $maincolor;
+        border-radius: 0;
+        border-width: 0;
+        margin:0;
+        padding:0;
+    
+        color:white;
+    }
+}

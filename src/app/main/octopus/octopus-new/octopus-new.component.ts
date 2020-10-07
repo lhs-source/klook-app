@@ -20,16 +20,21 @@ export class OctopusNewComponent implements OnInit {
     card_view=[];
     card_index = 1;
 
-    cardwidth = 200;
+    // carousel style, scale settings
+    cardwidth = 180;
+    cardheight = 180;
     cardscale = 0.8;
     cardscaleup = 1.1;
-    opacity = 0.7;
+    opacity = 0.45;
     opacityup = 1;
-    margin_hori = 16;
+    margin_hori = 8;
     margin_ver = 36;
 
     scrollx = 0;
     prev_delta = 0;
+
+    @ViewChild('indicator', {static:true}) indicator : ElementRef;
+    indicator_view = [];
 
     // actionbar emit click close
     actionbar_click_close(isclose){
@@ -48,14 +53,17 @@ export class OctopusNewComponent implements OnInit {
 
         let cardlist = [
             "~/images/card_ezlink.png",
+            "~/images/card_octopus.png",
             "~/images/card_oyster.png",
-            "~/images/card_octopus.png"
+            "~/images/card_ezlink.png",
         ];
         // let cardoffset = 0;
 
         // let sv = this.scrollview.nativeElement as ScrollView;
         let si = this.scrollitems.nativeElement as LayoutBase;
+        let ind = this.indicator.nativeElement as LayoutBase;
 
+        let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
         let middle_of_screen = screen.mainScreen.widthDIPs / 2
         let one_card_width = this.cardwidth + this.margin_hori * 2;
         let firstloc = middle_of_screen - one_card_width / 2;
@@ -72,7 +80,6 @@ export class OctopusNewComponent implements OnInit {
             img.marginTop = this.margin_ver * 2;
             // img.marginBottom = this.margin_ver;
             if(this.card_index === i){
-                let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
                 img.scaleX = this.cardscaleup;
                 img.scaleY = this.cardscaleup;
 
@@ -81,6 +88,9 @@ export class OctopusNewComponent implements OnInit {
                         const elementHeight = img.getMeasuredHeight()
                         console.log("img.getMeasuredHeight() = ", elementHeight)
                         img.translateY = -(elementHeight * (this.cardscaleup - this.cardscale) / 2 * p);
+
+                        this.cardheight = this.card_view[this.card_index].getMeasuredHeight() * p;
+                        console.log("card height = " + this.cardheight);
                     })
                 })
             }else{
@@ -95,57 +105,36 @@ export class OctopusNewComponent implements OnInit {
             this.card_view.push(img);
             // img.left = this.margin + (i * this.margin * 2) + (i * this.cardwidth);
             si.addChild(img);
+
+            // indicators
+            let lbl = new Label();
+            lbl.width = 12;
+            lbl.height = 12;
+            lbl.marginLeft = 4;
+            lbl.marginRight = 4;
+            lbl.borderRadius = "50%";
+            if(this.card_index === i){
+                lbl.backgroundColor = "#ff5722";
+            }else{
+                lbl.backgroundColor = "#cccccc";
+            }
+            this.indicator_view.push(lbl);
+            ind.addChild(lbl);
         }
+
+        ind.on(ViewBase.loadedEvent, (load_data) =>{
+            setTimeout(() => {
+                // set indicators layout height
+                ind.top = this.cardheight + 96;
+                ind.left = (screen.mainScreen.widthDIPs - ind.getMeasuredWidth() * p) / 2;
+            })
+        })
         
         setTimeout(() => {
             si.translateX = this.cards[this.card_index];
         });
     }
     
-    onScroll(args: ScrollEventData){
-        let sv = this.scrollview.nativeElement as ScrollView;
-        let si = this.scrollitems.nativeElement as LayoutBase;
-
-        // let middle_of_screen = screen.mainScreen.widthDIPs / 2
-        // let one_card_width = this.cardwidth + this.margin * 2;
-        // let firstloc = middle_of_screen - one_card_width / 2;
-        // si.eachChild((view) => {
-        //     let img = view as Image;
-        //     // console.log(img.getLocationRelativeTo(si).x - firstloc);
-        //     return true;
-        // });
-
-        // let prev_middle = 0;
-        // let next_middle = this.cards[this.cards.length];
-        // if(this.card_index == 0){
-        //     next_middle = this.cards[(this.card_index + 1)];
-        // }else if(this.card_index >= this.cards.length){
-        //     prev_middle = this.cards[(this.card_index - 1)];
-        // }else{
-        //     prev_middle = this.cards[(this.card_index - 1)];
-        //     next_middle = this.cards[(this.card_index + 1)];
-        // }
-        // console.log("args.scrollX = " + args.scrollX + " prev_middle = " + prev_middle + " next_middle = " + next_middle);
-
-        // // console.log("scrollX: " + args.scrollX);
-        this.scrollx = args.scrollX;
-
-        // if(args.scrollX < (this.cards[this.card_index] - prev_middle) / 2){
-        //     // left of current index
-        //     this.card_index = this.card_index - 1;
-        //     console.log("change card index = " + this.card_index);
-
-        // }else if(args.scrollX > (next_middle - this.cards[this.card_index] + this.cards[this.card_index]) / 2){
-        //     // right of current index
-        //     this.card_index = this.card_index + 1;
-        //     console.log("change card index = " + this.card_index);
-        // }
-
-        // if(args.eventName){
-
-        // }
-    }
-
     onPanCarousel(event){
         let si = this.scrollitems.nativeElement as LayoutBase;
         
@@ -241,6 +230,7 @@ export class OctopusNewComponent implements OnInit {
                 console.log("to the right");
                 
                 if(this.card_index < this.cards.length - 1){
+                    // move
                     this.card_view[this.card_index].animate({
                         scale:{x:this.cardscale, y:this.cardscale},
                         translate:{x:0, y: 0},
@@ -255,6 +245,16 @@ export class OctopusNewComponent implements OnInit {
                         duration: 200,
                         curve: AnimationCurve.easeOut
                     });
+                    this.indicator_view[this.card_index].animate({
+                        backgroundColor: "#cccccc",
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
+                    this.indicator_view[this.card_index + 1].animate({
+                        backgroundColor: "#ff5722",
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
                     si.animate({
                         translate: {x:this.cards[this.card_index + 1], y:si.translateY},
                         duration: 200,
@@ -264,6 +264,7 @@ export class OctopusNewComponent implements OnInit {
                         console.log("this card index = " + this.card_index);
                     });
                 }else {
+                    // not move, goto origin
                     this.card_view[this.card_index].animate({
                         scale:{x:this.cardscaleup, y:this.cardscaleup},
                         translate:{x:0, y: -(this.card_view[this.card_index].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
@@ -283,6 +284,7 @@ export class OctopusNewComponent implements OnInit {
                 // to the left
                 console.log("to the left");
                 if(0 < this.card_index){
+                    // move
                     this.card_view[this.card_index].animate({
                         scale:{x:this.cardscale, y:this.cardscale},
                         translate:{x:0, y: 0},
@@ -297,6 +299,16 @@ export class OctopusNewComponent implements OnInit {
                         duration: 200,
                         curve: AnimationCurve.easeOut
                     });
+                    this.indicator_view[this.card_index].animate({
+                        backgroundColor: "#cccccc",
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
+                    this.indicator_view[this.card_index - 1].animate({
+                        backgroundColor: "#ff5722",
+                        duration: 200,
+                        curve: AnimationCurve.easeOut
+                    });
                     si.animate({
                         translate: {x:this.cards[this.card_index - 1], y:si.translateY},
                         duration: 200,
@@ -306,6 +318,7 @@ export class OctopusNewComponent implements OnInit {
                         console.log("this card index = " + this.card_index);
                     });
                 }else {
+                    // not move, go to origin
                     this.card_view[this.card_index].animate({
                         scale:{x:this.cardscaleup, y:this.cardscaleup},
                         translate:{x:0, y: -(this.card_view[this.card_index].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p)},
@@ -357,21 +370,6 @@ export class OctopusNewComponent implements OnInit {
         }
     }
     
-    scrolltest(num){
-        let sv = this.scrollview.nativeElement as ScrollView;
-        let si = this.scrollitems.nativeElement as LayoutBase;
-        
-        sv.scrollToHorizontalOffset(this.cards[num - 1], true);
-        // console.log("offset1: " + sv.horizontalOffset);
-
-
-        // console.log(sv.scrollableWidth);
-        // console.log(screen.mainScreen.widthDIPs);
-        // sv.scrollToHorizontalOffset(
-        //     this.cardwidth + this.margin * 2 + 
-        //     num * (this.cardwidth + this.margin * 2) 
-        //     - this.cardwidth / 2 - this.margin - screen.mainScreen.widthDIPs / 2, true);
-    }
     onLoadedScroll(event){
         console.log(this.tag + " onLoadedScroll");
         // sv.scrollToHorizontalOffset(firstloc, false);

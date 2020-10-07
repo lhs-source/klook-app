@@ -1,13 +1,35 @@
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>
-<GridLayout #rootlayout rows="84, 48, *, 20" class="nav" height="100%" width="100%">
+<GridLayout #rootlayout rows="84, auto, *, auto, auto" class="nav" height="100%" width="100%">
 
-    <Label row="1" text="Octopus New" margin="8" style="font-size: 24;"></Label>
-    <AbsoluteLayout row="2" width="100%" , height="100%" (pan)="onPanCarousel($event)">
-        <StackLayout #scroll_items orientation="horizontal" (loaded)="onLoadedScrollLayout($event)"
-            style="padding: 48 0; background-color:bisque;">
-        </StackLayout>
-    </AbsoluteLayout>
-
+    <!-- <Label row="1" text="Octopus New" margin="8" style="font-size: 24;"></Label> -->
+    <GridLayout class="title" row="1">
+        <Label class="str" text="교통카드 > 발급하기" verticalAlignment="center"></Label>
+    </GridLayout>
+    <GridLayout row="2" rows="auto, auto">
+        <AbsoluteLayout row="0" width="100%" height="100%" (pan)="onPanCarousel($event)">
+            <StackLayout #scroll_items orientation="horizontal" (loaded)="onLoadedScrollLayout($event)"
+                style="padding-top: 24; padding-bottom: 8;">
+            </StackLayout>
+            
+            <StackLayout #indicator orientation="horizontal" horizontalAlignment="center" marginBottom="12">
+                <!-- <Label width="12" height="12" marginLeft="4" marginRight="4" borderRadius="50%" backgroundColor="#888888"></Label>
+                <Label width="12" height="12" marginLeft="4" marginRight="4" borderRadius="50%" backgroundColor="#ff5722"></Label>
+                <Label width="12" height="12" marginLeft="4" marginRight="4" borderRadius="50%" backgroundColor="#888888"></Label> -->
+            </StackLayout>
+        </AbsoluteLayout>
+    </GridLayout>
+    
+    <StackLayout row="3" class="description">
+        <GridLayout columns="auto, auto" horizontalAlignment="center">
+            <Image col="0" src="~/images/ico_info2.png" height="16"></Image>
+            <Label col="1" class="str" text="교통카드 발급하기를 누르시면"></Label>
+        </GridLayout>
+        <Label class="str" text="홍콩, 런던, 싱가포르 교통수단을 이용할 수 있습니다" horizontalAlignment="center"></Label>
+    </StackLayout>
+    <!-- <Button row="4" class="issue-btn -primary" text="발급하기"></Button> -->
+    <GridLayout row="4" class="issue">
+        <Label text="발급하기" verticalAlignment="center" textAlignment="center"></Label>
+    </GridLayout>
 </GridLayout>

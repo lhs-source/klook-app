@@ -1,7 +1,8 @@
-<GridLayout #rootlayout rows="108,auto, *" class="nav" height="100%" width="100%" backgroundColor="#f2e6ff">
-    <Label row="0" text="Octopus" margin="24" style="font-size: 24;"></Label>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
+</GridLayout>
 
-
+<GridLayout #rootlayout rows="84,auto, *" class="nav" height="100%" width="100%">
     <StackLayout row="1">
         <Button text="go to New" (tap)="navigateNew($event)"></Button>
         <Button text="go to UseLoc" (tap)="navigateUseLoc($event)"></Button>
