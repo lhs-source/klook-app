@@ -12,6 +12,8 @@ import { screen } from "tns-core-modules/platform/platform"
 })
 export class OctopusNewComponent implements OnInit {
     tag = this.constructor.name;
+
+    // carousel
     @ViewChild('scroll', {static:true}) scrollview : ElementRef;
     @ViewChild('scroll_items', {static:true}) scrollitems : ElementRef;
     cards=[];
@@ -28,6 +30,13 @@ export class OctopusNewComponent implements OnInit {
 
     scrollx = 0;
     prev_delta = 0;
+
+    // actionbar emit click close
+    actionbar_click_close(isclose){
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
+
+        this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+    }
 
     constructor(private routerExtensions : RouterExtensions) {
         console.log(`${this.tag} constructor `)

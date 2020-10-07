@@ -208,7 +208,7 @@ export class HomeComponent implements OnInit {
 
     }
     // show Transaction embedded view
-    navigateTrEmb(event) {
+    actionbar_click_close(event) {
         console.log(this.tag + " navigateTrEmb");
         if (this.isQrPay == true) {
             this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });

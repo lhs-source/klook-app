@@ -10,6 +10,7 @@ import { TrHistoryEmbeddedComponent } from "./tr-history-embedded/tr-history-emb
 import { BarcodeScanner } from "nativescript-barcodescanner";
 registerElement("MLKitBarcodeScanner", () => require("nativescript-plugin-firebase/mlkit/barcodescanning").MLKitBarcodeScanner);
 
+import { ComponentsModule } from "../../components/components.module";
 
 @NgModule({
     exports:[
@@ -18,6 +19,7 @@ registerElement("MLKitBarcodeScanner", () => require("nativescript-plugin-fireba
     ],
     imports: [
         NativeScriptCommonModule,
+        ComponentsModule
     ],
     declarations: [
         HomeComponent,
