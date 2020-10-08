@@ -32,6 +32,7 @@ export class OctopusNewComponent implements OnInit {
 
     scrollx = 0;
     prev_delta = 0;
+    veloc = 0;
 
     @ViewChild('indicator', {static:true}) indicator : ElementRef;
     indicator_view = [];
@@ -156,6 +157,7 @@ export class OctopusNewComponent implements OnInit {
         {
             // console.log("event.deltaX = " + event.deltaX);
             
+            this.veloc = event.deltaX - this.prev_delta;
             si.translateX += (event.deltaX - this.prev_delta) / 2.5;
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
             
@@ -224,7 +226,7 @@ export class OctopusNewComponent implements OnInit {
             console.log("(this.cards[this.card_index] + one_card_width / 4) = " + (this.cards[this.card_index] + one_card_width / 4));
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
 
-
+            console.log("veloc = " + this.veloc);
             let animation_card_to_origin = {
                 scale:{x:this.cardscale, y:this.cardscale},
                 translate:{x:0, y: 0},
@@ -251,7 +253,7 @@ export class OctopusNewComponent implements OnInit {
                 curve: AnimationCurve.easeOut
             };
 
-            if(si.translateX < (this.cards[this.card_index] - one_card_width / 4)){
+            if(si.translateX < (this.cards[this.card_index] - one_card_width / 4) || this.veloc < -35){
                 // to the right
                 console.log("to the right");
                 
@@ -281,7 +283,7 @@ export class OctopusNewComponent implements OnInit {
                         console.log("this card index = " + this.card_index);
                     });
                 }
-            }else if(si.translateX > (this.cards[this.card_index] + one_card_width / 4)){
+            }else if(si.translateX > (this.cards[this.card_index] + one_card_width / 4) || this.veloc > 35){
                 // to the left
                 console.log("to the left");
                 if(0 < this.card_index){
