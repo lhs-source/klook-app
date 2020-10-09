@@ -30,6 +30,7 @@ export class OctopusMainComponent implements OnInit {
     cards = [];
     card_view = [];
     card_index = 1;
+    cards_loaded = false;
 
     // carousel style, scale settings
     cardwidth = 180;
@@ -88,6 +89,12 @@ export class OctopusMainComponent implements OnInit {
     }
 
     onLoadedCard(event, index) {
+        if(this.card_view.length >= this.cardlist.length){
+            return;
+        }
+        if(this.cards_loaded == true){
+            return;
+        }
         let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
         let middle_of_screen = screen.mainScreen.widthDIPs / 2
         let one_card_width = this.cardwidth + this.margin_hori * 2;
@@ -121,7 +128,7 @@ export class OctopusMainComponent implements OnInit {
             frame.opacity = this.opacity;
         }
         frame.verticalAlignment = "bottom";
-        console.log("image count = " + index);
+        // console.log("image count = " + index);
         this.cards.push(-(index * one_card_width));
         console.log("card offset = " + (-(index * one_card_width)));
         this.card_view.push(frame);
@@ -137,6 +144,9 @@ export class OctopusMainComponent implements OnInit {
     }
 
     onLoadedIndicator(event, index){
+        if(this.indicator_view.length >= this.cardlist.length){
+            return;
+        }
         let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
         let middle_of_screen = screen.mainScreen.widthDIPs / 2
         let one_card_width = this.cardwidth + this.margin_hori * 2;
@@ -158,8 +168,8 @@ export class OctopusMainComponent implements OnInit {
         this.indicator_view.push(frame);
         // ind.addChild(frame);
 
-        console.log(index);
-        console.log(frame);
+        // console.log(index);
+        // console.log(frame);
 
         if (index == this.cardlist.length - 1) {
             setTimeout(() => {
@@ -173,7 +183,7 @@ export class OctopusMainComponent implements OnInit {
 
     onTapCard(event, index){
         console.log("tap card = " + index);
-        this.routerExtensions.navigate(['/main/octopus/use-loc'], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/octopus/charge', index], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut },  });
     }
 
     onPanCarousel(event) {
@@ -194,8 +204,7 @@ export class OctopusMainComponent implements OnInit {
             if (si.translateX < this.cards[this.card_index]) {
                 // right
                 let rate = (this.cards[this.card_index] - si.translateX) / one_card_width;
-                console.log("drag to the right");
-                console.log("drag rate = ", rate);
+                console.log("drag to the right, rate = ", rate);
 
                 let thisview = this.card_view[this.card_index];
                 let nextview = this.card_view[this.card_index + 1];
@@ -220,8 +229,7 @@ export class OctopusMainComponent implements OnInit {
             } else if (si.translateX > this.cards[this.card_index]) {
                 // left
                 let rate = (si.translateX - this.cards[this.card_index]) / one_card_width;
-                console.log("drag to the left");
-                console.log("drag rate = ", rate);
+                console.log("drag to the left, rate = ", rate);
 
                 let thisview = this.card_view[this.card_index];
                 let prevview = this.card_view[this.card_index - 1];
@@ -289,6 +297,7 @@ export class OctopusMainComponent implements OnInit {
 
                 if (this.card_index < this.cards.length - 1) {
                     // move
+                    console.log("this.cards.length = " + this.cards.length);
                     animation_card_scale_up.translate = { x: 0, y: -(this.card_view[this.card_index + 1].getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p) };
                     this.card_view[this.card_index].animate(animation_card_to_origin);
                     this.card_view[this.card_index + 1].animate(animation_card_scale_up);
