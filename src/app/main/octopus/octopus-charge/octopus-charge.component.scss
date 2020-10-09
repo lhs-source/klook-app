@@ -5,17 +5,59 @@ $maincolor: #ff5722;
     font-size: 16; 
     color:#ffffff; 
 
-    border-radius: 6; 
+    border-radius: 8; 
     background-color: $maincolor; 
     margin:0 16;
     margin-top: 10;
     .str{
-        color:#ffffff; 
         font-size: 16; 
         margin:8 16;
     }
     .change{
         margin-right:16;
+    }
+}
+
+.card{
+    &-elems{
+        margin-top: 30;
+        margin-bottom: 24;
+        margin-left: 64;
+        margin-right: 56;
+        .point{
+            &-img{
+                width:28;
+            }
+            &-str{
+                font-size: 20; 
+                font-weight:600; 
+                margin-left: 8;
+            }
+            &-inuse{
+                height:100%; 
+                background-color: #ff5722; 
+                border-bottom-left-radius: 8; 
+                border-bottom-right-radius: 8;
+                .str{
+                    color:white; 
+                    font-size: 14; 
+                    margin:8;
+                }
+            }
+        }
+        .input{
+            font-size:16;
+            margin:0;
+            border-bottom-width: 2;
+            padding-bottom: 4;
+            margin-bottom: 16;
+        }
+        .aftercharge{
+            font-size: 16;
+            .amount{
+                color:#ff5722;
+            }
+        }
     }
 }
 

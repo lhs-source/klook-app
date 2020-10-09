@@ -1,7 +1,7 @@
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>
-<GridLayout #rootlayout rows="84, auto, *, auto, auto" class="nav" height="100%" width="100%">
+<GridLayout #rootlayout rows="96, auto, auto, *, auto" class="nav" height="100%" width="100%">
 
     <!-- <Label row="1" text="Octopus New" margin="8" style="font-size: 24;"></Label> -->
     <GridLayout class="title" row="1" columns="*, auto, auto">
@@ -10,29 +10,25 @@
         <Label class="change" text="(3,245 THB)" col="2" verticalAlignment="center"></Label>
     </GridLayout>
 
-    <GridLayout row="2" rows="auto, auto" width="320">
-        <Image src="~/images/box_card.png" width="300"></Image>
-        <GridLayout rows="64, *, 36" columns="auto, *, auto" marginTop="24" marginLeft="64" marginRight="56">
-            <Image row="0" col="0" src="~/images/ico_point3.png" verticalAlignment="bottom" width="28"></Image>
-            <Label row="0" col="1" text="충전하기" verticalAlignment="bottom" style="font-size: 20; font-weight:600; margin-left: 8;"></Label>
-            <GridLayout row="0" col="2" style="height:100%; background-color: #ff5722; border-bottom-left-radius: 8; border-bottom-right-radius: 8;">
-                <Label text="사용중" verticalAlignment="bottom" style=" color:white; font-size: 14; margin:8; "></Label>
+    <GridLayout class="card" row="2" width="320" marginTop="16">
+        <Image #cardframe src="~/images/box_card.png" width="300" (loaded)="onLoadedCardImage($event)"></Image>
+        <GridLayout #cardelems class="card-elems" rows="60, 60, 60">
+            <GridLayout row="0" columns="auto, *, auto">
+                <Image col="0" class="point-img" src="~/images/ico_point3.png" verticalAlignment="bottom"></Image>
+                <Label col="1" class="point-str" text="충전하기" verticalAlignment="bottom"></Label>
+                <GridLayout class="point-inuse" col="2">
+                    <Label class="str" text="사용중" verticalAlignment="bottom"></Label>
+                </GridLayout>
             </GridLayout>
-            <TextField row="1" col="0" colspan="3" hint="충전 금액을 입력하세요"></TextField>
-            <FlexboxLayout row="2" col="0" colspan="3">
-                <Label text="충전 후 금액: " style=" font-size: 16;"></Label>
-                <Label text="800THB" style="color:#ff5722; font-size: 16;"></Label>
-            </FlexboxLayout>
+            <TextField class="input" row="1" verticalAlignment="center" hint="충전 금액을 입력하세요"></TextField>
+            <StackLayout row="2" class="aftercharge" orientation="horizontal">
+                <Label text="충전 후 금액: "></Label>
+                <Label class="amount" text="800"></Label>
+                <Label class="amount" text="THB"></Label>
+            </StackLayout>
         </GridLayout>
     </GridLayout>
-    
-    <StackLayout row="3" class="description">
-        <GridLayout columns="auto, auto" horizontalAlignment="center">
-            <Image col="0" src="~/images/ico_info2.png" height="16"></Image>
-            <Label col="1" class="str" text="교통카드 발급하기를 누르시면"></Label>
-        </GridLayout>
-        <Label class="str" text="홍콩, 런던, 싱가포르 교통수단을 이용할 수 있습니다" horizontalAlignment="center"></Label>
-    </StackLayout>
+
     <!-- <Button row="4" class="issue-btn -primary" text="발급하기"></Button> -->
     <GridLayout row="4" class="issue">
         <Label text="충전하기" verticalAlignment="center" textAlignment="center"></Label>

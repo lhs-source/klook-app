@@ -1,7 +1,7 @@
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="(isQrScan || isQrPay)"></myactionbar>
 </GridLayout>
-<GridLayout #rootlayout rows="92,48,*,auto,96" height="100%" width="100%">
+<GridLayout #rootlayout rows="92,auto,*,auto,96" height="100%" width="100%">
     <!-- Point view -->
     <GridLayout class="point" row="1" columns="*, auto, auto">
         <Label class="str" text="보유 포인트" col="0" verticalAlignment="center"></Label>

@@ -17,11 +17,13 @@ Button{
     font-size: 16; 
     color:#ffffff; 
 
-    border-radius: 20px; 
+    border-radius: 8; 
     background-color: $maincolor; 
     margin: 0 12;
+    margin-top: 10;
     .str{
-        margin-left:16;
+        font-size: 16; 
+        margin:8 16;
     }
     .change{
         margin-right:16;
