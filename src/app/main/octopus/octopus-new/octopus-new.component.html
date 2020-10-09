@@ -7,19 +7,8 @@
     <GridLayout class="title" row="1">
         <Label class="str" text="교통카드 > 발급하기" verticalAlignment="center"></Label>
     </GridLayout>
-    <GridLayout row="2" rows="auto, auto">
-        <AbsoluteLayout row="0" width="100%" height="100%" (pan)="onPanCarousel($event)">
-            <StackLayout #scroll_items orientation="horizontal" (loaded)="onLoadedScrollLayout($event)"
-                style="padding-top: 24; padding-bottom: 8;">
-            </StackLayout>
-            
-            <StackLayout #indicator orientation="horizontal" horizontalAlignment="center" marginBottom="12">
-                <!-- <Label width="12" height="12" marginLeft="4" marginRight="4" borderRadius="50%" backgroundColor="#888888"></Label>
-                <Label width="12" height="12" marginLeft="4" marginRight="4" borderRadius="50%" backgroundColor="#ff5722"></Label>
-                <Label width="12" height="12" marginLeft="4" marginRight="4" borderRadius="50%" backgroundColor="#888888"></Label> -->
-            </StackLayout>
-        </AbsoluteLayout>
-    </GridLayout>
+    
+    <carousel-card [elem_list]="cardlist" (onTapElem)="onTapCard($event)"></carousel-card>
     
     <StackLayout row="3" class="description">
         <GridLayout columns="auto, auto" horizontalAlignment="center">

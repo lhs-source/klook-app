@@ -1,0 +1,13 @@
+<GridLayout class="actionbar" columns="*, auto, auto" height="96">
+    <Image col="0" class="logo" height="28" src="~/images/logo.png" horizontalAlignment="left"></Image>
+    <GridLayout col="1" class="locale">
+        <Image src="~/images/select_arrow.png" height="30"></Image>
+        <GridLayout rows="auto, auto" columns="24, *, auto" width="100%" horizontalAlignment="right">
+            <Label row="0" col="1" class="locale-txt" text="{{locale[locale_index]}}" verticalAlignment="center" translateY="1"></Label>
+            <Label row="1" col="1" class="locale-initial" text="(THB)" verticalAlignment="center" translateY="-3"></Label>
+            <Image row="0" rowspan="2" col="2" height="30" src="~/images/ico_th.png"></Image>
+        </GridLayout>
+    </GridLayout>
+    <Image col="2" class="close-btn" height="30" *ngIf="!isClose" src="~/images/btn_person.png" verticalAlignment="center"></Image>
+    <Image col="2" class="close-btn" height="30" *ngIf="isClose" src="~/images/btn_close.png" verticalAlignment="center" (tap)="onTapClose($event)"></Image>
+</GridLayout>

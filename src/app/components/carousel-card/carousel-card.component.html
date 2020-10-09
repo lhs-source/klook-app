@@ -1,0 +1,26 @@
+<GridLayout row="2" rows="auto, auto">
+    <AbsoluteLayout row="0" width="100%" height="100%" (pan)="onPanCarousel($event)">
+        <StackLayout #scrollitems orientation="horizontal"
+            style="padding-top: 24; padding-bottom: 8;" >
+            <ng-container *ngFor="let card of cardlist; index as i">
+                <GridLayout (loaded)="onLoadedCard($event, i)" (tap)="onTapCard($event, i)">
+                    <Image [src]="card"></Image>
+                    <Label [text]="card" style="color:white; background-color: black;" height="20"></Label>
+                </GridLayout>
+            </ng-container>
+        </StackLayout>
+        
+        <StackLayout #indicator orientation="horizontal" horizontalAlignment="center" marginBottom="12">
+            <ng-container *ngFor="let card of cardlist; index as i">
+                <!--  width="{{cardwidth}}" marginLeft="{{margin_hori}}" marginRight="{{margin_hori}}"  -->
+                <Label (loaded)="onLoadedIndicator($event, i)"></Label>
+            </ng-container>
+        </StackLayout>
+    </AbsoluteLayout>
+    <ng-template #element>
+        <GridLayout (loaded)="onLoadedCard($event, i)">
+            <Image [src]="card"></Image>
+            <Label [text]="card" style="color:white; background-color: black;" height="20"></Label>
+        </GridLayout>
+    </ng-template>
+</GridLayout>

@@ -9,6 +9,7 @@ import { OctopusUseLocComponent } from "./octopus-use-loc/octopus-use-loc.compon
 import { OctopusRoutingModule } from "./octopus.routing";
 
 import { ComponentsModule } from "../../components/components.module";
+import { CarouselCardModule } from "../../components/carousel-card/carousel-card.module";
 
 import { Carousel, CarouselItem } from "nativescript-carousel";
 registerElement('Carousel', () => Carousel);
@@ -21,7 +22,8 @@ registerElement('CarouselItem', () => CarouselItem);
     imports: [
         NativeScriptCommonModule,
         OctopusRoutingModule,
-        ComponentsModule
+        ComponentsModule,
+        CarouselCardModule
     ],
     declarations: [
         OctopusMainComponent,

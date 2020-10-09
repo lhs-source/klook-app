@@ -14,7 +14,7 @@ export class MyActionBarComponent implements OnInit {
     tag = this.constructor.name;
     
     // when close button clicked
-    @Output() close_click : EventEmitter<boolean> = new EventEmitter();
+    @Output() close_click : EventEmitter<any> = new EventEmitter();
     @Input() isClose = false;
 
     locale = [
