@@ -8,32 +8,39 @@
         <Button text="go to UseLoc" (tap)="navigateUseLoc($event)"></Button>
     </StackLayout>
 
-    <GridLayout row="2">
-        <Carousel #myCarousel height="100%" width="100%" pageChanged="myChangeEvent" pageTapped="mySelectedEvent" indicatorColor="#fff000" finite="true" bounce="false" showIndicator="true" verticalAlignment="top" android:indicatorAnimation="swap" color="white">
-            <CarouselItem id="slide1" width="300" backgroundColor="#b3cde0" verticalAlignment="middle">
-                <!-- <Label text="Slide 1" backgroundColor="#50000000" horizontalAlignment="center"></Label> -->
-                <Image src="~/images/card_ezlink.png" verticalAlignment="bottom" width="200" margin="24"></Image>
-            </CarouselItem>
-            <CarouselItem id="slide2" backgroundColor="#6497b1" verticalAlignment="middle">
-                <!-- <Label text="Slide 2" backgroundColor="#50000000" horizontalAlignment="center"></Label> -->
-                <Image src="~/images/card_oyster.png" verticalAlignment="bottom" width="200" margin="24"></Image>
-            </CarouselItem>
-            <CarouselItem id="slide3" backgroundColor="#005b96" verticalAlignment="middle">
-                <!-- <Label text="Slide 3" backgroundColor="#50000000" horizontalAlignment="center"></Label> -->
-                <Image src="~/images/card_octopus.png" verticalAlignment="bottom" width="200" margin="24"></Image>
-            </CarouselItem>
-            <CarouselItem id="slide4" backgroundColor="#03396c" verticalAlignment="middle">
-                <!-- <Label text="Slide 4" backgroundColor="#50000000" horizontalAlignment="center"></Label> -->
-                <Image src="~/images/card_ezlink.png" verticalAlignment="bottom" width="200" margin="24"></Image>
-            </CarouselItem>
-        </Carousel>
+    
+    <GridLayout row="2" rows="auto, auto">
+        <AbsoluteLayout row="0" width="100%" height="100%" (pan)="onPanCarousel($event)">
+            <StackLayout #scrollitems orientation="horizontal"
+                style="padding-top: 24; padding-bottom: 8;" >
+                <ng-container *ngFor="let card of cardlist; index as i">
+                    <!--  width="{{cardwidth}}" marginLeft="{{margin_hori}}" marginRight="{{margin_hori}}"  -->
+                    <GridLayout (loaded)="onLoadedCard($event, i)" (tap)="onTapCard($event, i)">
+                        <Image [src]="card"></Image>
+                        <Label [text]="card" style="color:white; background-color: black;" height="20"></Label>
+                    </GridLayout>
+                    <!-- <GridLayout *ngElse (loaded)="onLoadedCard($event, i)">
+                        <Image [src]="card"></Image>
+                    </GridLayout> -->
+                </ng-container>
+            </StackLayout>
+            
+            <StackLayout #indicator orientation="horizontal" horizontalAlignment="center" marginBottom="12">
+                <!-- <Label width="12" height="12" marginLeft="4" marginRight="4" borderRadius="50%" backgroundColor="#888888"></Label>
+                <Label width="12" height="12" marginLeft="4" marginRight="4" borderRadius="50%" backgroundColor="#ff5722"></Label>
+                <Label width="12" height="12" marginLeft="4" marginRight="4" borderRadius="50%" backgroundColor="#888888"></Label> -->
+                <ng-container *ngFor="let card of cardlist; index as i">
+                    <!--  width="{{cardwidth}}" marginLeft="{{margin_hori}}" marginRight="{{margin_hori}}"  -->
+                    <Label (loaded)="onLoadedIndicator($event, i)"></Label>
+                </ng-container>
+            </StackLayout>
+        </AbsoluteLayout>
+        <ng-template #element>
+            <GridLayout (loaded)="onLoadedCard($event, i)">
+                <Image [src]="card"></Image>
+                <Label [text]="card" style="color:white; background-color: black;" height="20"></Label>
+            </GridLayout>
+        </ng-template>
     </GridLayout>
 
-    <!-- <StackLayout #scroll_items orientation="horizontal">
-        <Label width="200" margin="24"></Label>
-        <Image src="~/images/card_ezlink.png" verticalAlignment="bottom" width="200" margin="24"></Image>
-        <Image src="~/images/card_oyster.png" verticalAlignment="bottom" width="200" margin="24"></Image>
-        <Image src="~/images/card_octopus.png" verticalAlignment="bottom" width="200" margin="24"></Image>
-        <Label width="200" margin="24"></Label>
-    </StackLayout> -->
 </GridLayout>
