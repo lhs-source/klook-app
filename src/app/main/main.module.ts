@@ -6,6 +6,7 @@ import { MainComponent } from "./main.component";
 import { ChangePointComponent } from "./change-point/change-point.component";
 import { ChargePointComponent } from "./charge-point/charge-point.component";
 import { OnlinepayComponent } from "./onlinepay/onlinepay.component";
+import { ComponentsModule } from "../components/components.module";
 
 @NgModule({
     exports: [
@@ -13,7 +14,8 @@ import { OnlinepayComponent } from "./onlinepay/onlinepay.component";
     ],
     imports: [
         NativeScriptCommonModule,
-        MainRoutingModule
+        MainRoutingModule,
+        ComponentsModule
     ],
     declarations: [
         MainComponent,
