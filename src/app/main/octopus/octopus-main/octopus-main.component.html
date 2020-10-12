@@ -3,16 +3,7 @@
 </GridLayout>
 
 <GridLayout #rootlayout rows="88, auto, *, auto, auto" class="nav" height="100%" width="100%">
-    <!-- <StackLayout row="1">
-        <Button text="go to New" (tap)="navigateNew($event)"></Button>
-        <Button text="go to UseLoc" (tap)="navigateUseLoc($event)"></Button>
-    </StackLayout> -->
-    
-    <GridLayout class="title" row="1" columns="*, auto, auto">
-        <Label class="str" text="홍콩 옥토퍼스 보유 잔액" col="0" verticalAlignment="center"></Label>
-        <Label text="800" col="1" verticalAlignment="center"></Label>
-        <Label class="change" text="HKD" col="2" verticalAlignment="center"></Label>
-    </GridLayout>
+    <title row="1" title="홍콩 옥토퍼스 보유 잔액" point="800" point_unit="HKD" backgroundColor="#ff5722"></title>
 
     <carousel-card row="2" [elem_list]="cardlist" (onTapElem)="onTapCard($event)"></carousel-card>
     <GridLayout row="3" columns="auto, *" backgroundColor="#f8f8f8">

@@ -4,6 +4,7 @@ import { AccountRoutingModule } from "./account.routing";
 import { AccountComponent } from "./account/account.component";
 import { AccountLinkComponent } from "./account-link/account-link.component";
 import { PassportComponent } from "./passport/passport.component";
+import { ComponentsModule } from "../../components/components.module";
 
 @NgModule({
     exports: [
@@ -11,7 +12,8 @@ import { PassportComponent } from "./passport/passport.component";
     ],
     imports: [
         NativeScriptCommonModule,
-        AccountRoutingModule
+        AccountRoutingModule,
+        ComponentsModule
     ],
     declarations: [
         AccountComponent,

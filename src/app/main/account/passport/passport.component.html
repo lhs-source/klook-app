@@ -1,7 +1,70 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#fff5e6">
-    <Label row="0" text="Passport" margin="24" style="font-size: 24;"></Label>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
+</GridLayout>
 
-    <StackLayout row="1">
-        <Button text="go to Account" (tap)="navigateBack($event)"></Button>
+<GridLayout #rootlayout rows="88, auto, auto, *, auto, auto" class="nav" height="100%" width="100%">
+    <title row="1" title="계정관리 > 여권정보 등록" backgroundColor="#888"></title>
+    <GridLayout row="2" rows="auto, auto, auto, auto, auto, auto, auto, auto" columns="108, *" class="list" marginTop="8">
+        <StackLayout row="0" col="0" orientation="horizontal" verticalAlignment="center" marginLeft="4">
+            <Label class="label" text="여권번호" verticalAlignment="bottom"></Label>
+            <Label class="label-small" text="(No.)" verticalAlignment="bottom"></Label>
+        </StackLayout>
+        <TextField row="0" col="1" class="tf" hint="입력해주세요"></TextField>
+        
+        <StackLayout row="1" col="0" orientation="horizontal" verticalAlignment="center" marginLeft="4">
+            <Label class="label" text="성" verticalAlignment="bottom"></Label>
+            <Label class="label-small" text="(영문)" verticalAlignment="bottom"></Label>
+        </StackLayout>
+        <TextField row="1" col="1" class="tf" hint="입력해주세요"></TextField>
+        
+        <StackLayout row="2" col="0" orientation="horizontal" verticalAlignment="center" marginLeft="4">
+            <Label class="label" text="이름" verticalAlignment="bottom"></Label>
+            <Label class="label-small" text="(영문)" verticalAlignment="bottom"></Label>
+        </StackLayout>
+        <TextField row="2" col="1" class="tf" hint="입력해주세요"></TextField>
+
+        <StackLayout row="3" col="0" orientation="horizontal" verticalAlignment="center" marginLeft="4">
+            <Label class="label" text="국적" verticalAlignment="bottom"></Label>
+            <Label class="label-small" text="(한글)" verticalAlignment="bottom"></Label>
+        </StackLayout>
+        <TextField row="3" col="1" class="tf" hint="대한민국"></TextField>
+        
+        <StackLayout row="4" col="0" orientation="horizontal" verticalAlignment="center" marginLeft="4">
+            <Label class="label" text="생년월일" verticalAlignment="bottom"></Label>
+            <!-- <Label class="label-small" text="(영문)" verticalAlignment="bottom"></Label> -->
+        </StackLayout>
+        <TextField row="4" col="1" class="tf" hint="YYYY/MM/DD 입력해주세요"></TextField>
+        
+        <StackLayout row="5" col="0" orientation="horizontal" verticalAlignment="center" marginLeft="4">
+            <Label class="label" text="주민등록번호" verticalAlignment="bottom"></Label>
+            <!-- <Label class="label-small" text="(영문)" verticalAlignment="bottom"></Label> -->
+        </StackLayout>
+        <TextField row="5" col="1" class="tf" hint="뒤 7자리를 입력해주세요"></TextField>
+        
+        <StackLayout row="6" col="0" orientation="horizontal" verticalAlignment="center" marginLeft="4">
+            <Label class="label" text="여권발급일" verticalAlignment="bottom"></Label>
+            <!-- <Label class="label-small" text="(영문)" verticalAlignment="bottom"></Label> -->
+        </StackLayout>
+        <TextField row="6" col="1" class="tf" hint="YYYY/MM/DD 입력해주세요"></TextField>
+        
+        <StackLayout row="7" col="0" orientation="horizontal" verticalAlignment="center" marginLeft="4">
+            <Label class="label" text="여권만료일" verticalAlignment="bottom"></Label>
+            <!-- <Label class="label-small" text="(영문)" verticalAlignment="bottom"></Label> -->
+        </StackLayout>
+        <TextField row="7" col="1" class="tf" hint="YYYY/MM/DD 입력해주세요"></TextField>
+    </GridLayout>
+
+    <StackLayout row="3" verticalAlignment="top" marginLeft="16" marginRight="16" marginTop="8" paddingTop="8" borderTopWidth="1" borderTopColor="#ddd">
+        <Label text="여권정보를 등록하면 UTU 가맹점에서 결제 시 자동으로" style="font-size: 13; color: #888;"></Label>
+        <Label text="Tax-refund를 받을 수 있습니다" style="font-size: 13; color: #888;"></Label>
     </StackLayout>
+    
+    <GridLayout row="4" rows="auto, auto" marginBottom="32">
+        <StackLayout row="0" orientation="horizontal" horizontalAlignment="center">
+            <Image src="~/images/ico_info3.png" width="16" marginRight="8"></Image>
+            <Label text="여권의 개인정보는" style="font-size: 14; color: #888;"></Label>
+        </StackLayout>
+        <Label row="1" text="Tax-refund 이외 다른 목적으로 사용되지 않습니다" horizontalAlignment="center" style="font-size: 14; color: #888;"></Label>
+    </GridLayout>
+    <ripple-button row="5" text="등록하기" backgroundColor="#ff5722" textColor="white" (click)="navigateBack($event)"></ripple-button>
 </GridLayout>

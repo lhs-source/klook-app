@@ -1,7 +1,26 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#fff5e6">
-    <Label row="0" text="Account link" margin="24" style="font-size: 24;"></Label>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
+</GridLayout>
 
-    <StackLayout row="1">
-        <Button text="go to Account" (tap)="navigateBack($event)"></Button>
+<GridLayout #rootlayout rows="88, auto, auto, *, auto, auto" class="nav" height="100%" width="100%">
+    <title row="1" title="계정관리 > KB국민카드 계정 연동" backgroundColor="#888"></title>
+
+    <StackLayout row="2" class="noti">
+        <Label text="회원님의 KLOOK Pay 와 KB국민카드의" horizontalAlignment="center" style="font-size: 14;"></Label>
+        <Label text="계정 연동을 해지 하겠습니까?" horizontalAlignment="center" style="font-size: 14;"></Label>
     </StackLayout>
+
+    <StackLayout row="3" orientation="horizontal" marginRight="16" marginLeft="16" verticalAlignment="top" horizontalAlignment="center">
+        <Button class="btn-disconnect" text="아니오" verticalAlignment="center" (tap)="onTapNo($event)"></Button>
+        <Button class="btn-register" text="예" verticalAlignment="center" (tap)="onTapYes($event)"></Button>
+    </StackLayout>
+
+    <GridLayout row="4" rows="auto, auto" marginBottom="32">
+        <StackLayout row="0" orientation="horizontal" horizontalAlignment="center">
+            <Image src="~/images/ico_info3.png" width="16" marginRight="8"></Image>
+            <Label text="해당 변동 사항은 KLOOK Pay" style="font-size: 14; color: #888;"></Label>
+        </StackLayout>
+        <Label row="1" text="로그아웃 이후 자동 적용 예정입니다" horizontalAlignment="center" style="font-size: 14; color: #888;"></Label>
+    </GridLayout>
+    <ripple-button row="5" text="해지하기" backgroundColor="#ff5722" textColor="white" (click)="onTabDisconnect($event)"></ripple-button>
 </GridLayout>

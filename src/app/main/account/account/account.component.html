@@ -1,9 +1,39 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#fff5e6">
-    <Label row="0" text="Account" margin="24" style="font-size: 24;"></Label>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
+</GridLayout>
+
+<GridLayout #rootlayout rows="88, auto, *, auto, auto" class="nav" height="100%" width="100%">
+    <title row="1" title="계정관리" backgroundColor="#888"></title>
 
 
-    <StackLayout row="1">
-        <Button text="go to Link" (tap)="navigateLink($event)"></Button>
-        <Button text="go to Passport" (tap)="navigatePassport($event)"></Button>
+    <StackLayout row="2" marginTop="4">
+        <!-- <Button text="go to Link" (tap)="navigateLink($event)"></Button>
+        <Button text="go to Passport" (tap)="navigatePassport($event)"></Button> -->
+        <GridLayout rows="auto, auto" columns="auto, *" class="list">
+            <Image row="0" rowspan="2" col="0" class="img" src="~/images/ico_kbcard.png"></Image>
+            <Label row="0" col="1" text="KB국민카드 계정 연동" style="font-size: 16; margin-bottom:2;" verticalAlignment="bottom"></Label>
+            <StackLayout row="1" col="1" orientation="horizontal">
+                <Button class="btn-disconnect" text="해지" verticalAlignment="center" (tap)="navigateLink($event)"></Button>
+                <Button class="btn-register" text="등록" verticalAlignment="center"></Button>
+            </StackLayout>
+        </GridLayout>
+        
+        <GridLayout rows="auto, auto" columns="auto, *" class="list">
+            <Image row="0" rowspan="2" col="0" class="img" src="~/images/ico_passport.png"></Image>
+            <Label row="0" col="1" text="여권정보" style="font-size: 16; margin-bottom:2;" verticalAlignment="bottom"></Label>
+            <StackLayout row="1" col="1" orientation="horizontal">
+                <Button class="btn-disconnect" text="해지" verticalAlignment="center"></Button>
+                <Button class="btn-register" text="등록" verticalAlignment="center" (tap)="navigatePassport($event)"></Button>
+            </StackLayout>
+        </GridLayout>
     </StackLayout>
+
+    <GridLayout row="3" rows="auto, auto" marginBottom="32">
+        <StackLayout row="0" orientation="horizontal" horizontalAlignment="center">
+            <Image src="~/images/ico_info3.png" width="16" marginRight="8"></Image>
+            <Label text="해당 변동 사항은 KLOOK Pay" style="font-size: 14; color: #888;"></Label>
+        </StackLayout>
+        <Label row="1" text="로그아웃 이후 자동 적용 예정입니다" horizontalAlignment="center" style="font-size: 14; color: #888;"></Label>
+    </GridLayout>
+    <ripple-button row="4" text="해지하기" backgroundColor="#ff5722" textColor="white" (click)="navigateLink($event)"></ripple-button>
 </GridLayout>

@@ -31,6 +31,17 @@ export class AccountComponent implements OnInit {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
+
+    // actionbar emit click close
+    actionbar_click_close(isclose) {
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
+
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+    }
+
+    onTabDisconnect(event){
+
+    }
     navigateLink(event) {
         console.log(`${this.tag} navigateChargePoint`);
         this.routerExtensions.navigate(['/main/account/link'], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut } });
