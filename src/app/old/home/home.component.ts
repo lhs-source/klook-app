@@ -47,52 +47,6 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    onClickTab(args: EventData) {
-        console.log("tab!")
-    }
-    onTouchTab(args: TouchGestureEventData) {
-        console.log("touch!");
-        if (args.action !== "down") {
-            return;
-        }else{
-            let x = args.getX();
-            let y = args.getY();
-    
-            let btn = args.object as View;
-            let wrapper = btn.parentNode as LayoutBase;
-            console.log(wrapper.typeName);
-            console.log(wrapper.className);
-    
-            let circle = new Label();
-    
-            let d = Math.max(Number(btn.height), Number(btn.width));
-    
-            circle.width = d;
-            circle.height = d;
-            circle.borderRadius = d / 2;
-            circle.top = y - d / 2;
-            circle.left = x - d / 2;
-            circle.backgroundColor = 'white';
-            circle.opacity = 0;
-    
-            wrapper.addChild(circle);
-    
-            circle.animate({
-                scale:{x:0, y:0},
-                opacity: 0.4,
-                duration: 1
-            }).then(()=>{
-                circle.animate({
-                    scale:{x:2, y:2},
-                    opacity: 0,
-                    duration: 500
-                }).then(()=>{
-                    wrapper.removeChild(circle);
-                });
-            });
-        }
-
-    }
 
     // charge money textfield
     onReturnPress(args) {

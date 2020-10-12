@@ -65,6 +65,10 @@ export class OctopusChargeComponent implements OnInit {
         console.log(this.tag + " ngAfterViewInit");
     }
 
+    onTabCharge(event){
+        console.log("emit the button");
+    }
+
     navigateBack(event) {
         console.log(this.tag + " navigateChargePoint");
         if(this.routerExtensions.canGoBack()){

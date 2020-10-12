@@ -50,29 +50,3 @@ Label {
 .point{
     background-color: #FDF4EC;
 }
-
-.ripple-button {
-    width: 200;
-    height: 30;
-
-    background-color: whitesmoke;
-    &-blue{
-        background-color: lightskyblue;
-    }
-    &-red{
-        background-color: lightcoral;
-    }
-
-    .btn {
-        width: 200;
-        height: 30;
-
-        margin: 0;
-        padding: 0;
-
-        background-color: transparent;
-        box-shadow: transparent;
-        border-color: transparent;
-        z-index: 0;
-    }
-}
