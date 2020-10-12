@@ -34,13 +34,13 @@ export class CarouselCardComponent implements OnInit {
     cards_loaded = false;
 
     // carousel style, scale settings
-    cardwidth = 196;
+    cardwidth = 208;
     cardheight = 180;
     cardscale = 0.8;
     cardscaleup = 1.1;
-    opacity = 0.45;
+    opacity = 0.35;
     opacityup = 1;
-    margin_hori = 8;
+    margin_hori = 0;
     margin_ver = 36;
     shadowmargin = 0;
 
