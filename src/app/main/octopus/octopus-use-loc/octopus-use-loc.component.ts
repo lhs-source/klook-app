@@ -19,6 +19,13 @@ export class OctopusUseLocComponent implements OnInit {
         console.log(this.routerExtensions.router.url);
     }
     
+    // actionbar emit click close
+    actionbar_click_close(isclose) {
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
+
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+    }
+    
     navigateBack(event) {
         console.log(this.tag + " OctopusMainComponent");
         if(this.routerExtensions.canGoBack()){

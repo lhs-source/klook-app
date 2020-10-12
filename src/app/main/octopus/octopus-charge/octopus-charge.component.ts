@@ -23,7 +23,7 @@ export class OctopusChargeComponent implements OnInit {
     // actionbar emit click close
     actionbar_click_close(isclose){
         console.log(this.tag + " actionbar close button clicked = " + isclose);
-        this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
     }
 
     constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute) {

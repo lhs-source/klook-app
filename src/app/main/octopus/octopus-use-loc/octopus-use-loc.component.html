@@ -1,7 +1,36 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#f2e6ff">
-    <Label row="0" text="Octopus Use Loc" margin="24" style="font-size: 24;"></Label>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
+</GridLayout>
 
-    <StackLayout row="1">
-        <Button text="go to Octopus" (tap)="navigateBack($event)"></Button>
-    </StackLayout>
+<GridLayout #rootlayout rows="88, auto, auto, auto, auto" class="nav" height="100%" width="100%">
+    <GridLayout class="title" row="1" columns="*, auto, auto">
+        <Label class="str" text="홍콩 옥토퍼스 보유 잔액" col="0" verticalAlignment="center"></Label>
+        <Label text="800" col="1" verticalAlignment="center"></Label>
+        <Label class="change" text="HKD" col="2" verticalAlignment="center"></Label>
+    </GridLayout>
+
+    <GridLayout row="2" marginLeft="16" marginTop="24">
+        <Image src="~/images/box_use.png" height="32" horizontalAlignment="left"></Image>
+        <Label text="Where to use" style="padding: 12; font-size: 14; font-weight: 700; color:white;"></Label>
+    </GridLayout>
+
+    <GridLayout row="3" columns="1*, 1*" rows="1*, 1*" marginLeft="18" marginRight="18" marginTop="4">
+        <GridLayout row="0" col="0" rows="auto, auto, auto">
+            <Image src="~/images/box_use01.png" margin="3"></Image>
+        </GridLayout>
+        <GridLayout row="0" col="1" rows="auto, auto, auto">
+            <Image src="~/images/box_use02.png" margin="3"></Image>
+        </GridLayout>
+        <GridLayout row="1" col="0" rows="auto, auto, auto">
+            <Image src="~/images/box_use03.png" margin="3"></Image>
+        </GridLayout>
+        <GridLayout row="1" col="1" rows="auto, auto, auto">
+            <Image src="~/images/box_use04.png" margin="3"></Image>
+        </GridLayout>
+
+    </GridLayout>
+    <GridLayout row="4" columns="auto, *">
+        <Image col="0" src="~/images/ico_octopus.png" margin="8" marginLeft="16" marginRight="16"></Image>
+        <Label col="1" text="Use it anywhere with an Octopus logo" style="color:#888; font-size:14;" verticalAlignment="center"></Label>
+    </GridLayout>
 </GridLayout>
