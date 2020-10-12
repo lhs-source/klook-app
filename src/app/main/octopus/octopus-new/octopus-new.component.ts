@@ -45,6 +45,10 @@ export class OctopusNewComponent implements OnInit {
         console.log(this.tag + " onTapCard = " + index);
     }
 
+    onTabIssue(event){
+        console.log(this.tag + " onTabIssue");
+    }
+
     navigateBack(event) {
         console.log(this.tag + " navigateChargePoint");
         if(this.routerExtensions.canGoBack()){

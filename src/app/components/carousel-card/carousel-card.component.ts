@@ -18,6 +18,8 @@ export class CarouselCardComponent implements OnInit {
     @ViewChild('scroll', { static: true }) scrollview: ElementRef;
     @ViewChild('scrollitems', { static: true }) scrollitems: ElementRef;
     @ViewChild('element', { static: true }) element: ElementRef;
+    @ViewChild('shadow', {static:true}) shadow:ElementRef;
+    @ViewChild('abs', {static:true}) abs:ElementRef;
     // cardlist = [
     //     "~/images/card_ezlink.png",
     //     "~/images/card_octopus.png",
@@ -32,7 +34,7 @@ export class CarouselCardComponent implements OnInit {
     cards_loaded = false;
 
     // carousel style, scale settings
-    cardwidth = 180;
+    cardwidth = 196;
     cardheight = 180;
     cardscale = 0.8;
     cardscaleup = 1.1;
@@ -40,6 +42,11 @@ export class CarouselCardComponent implements OnInit {
     opacityup = 1;
     margin_hori = 8;
     margin_ver = 36;
+    shadowmargin = 0;
+
+    // calced position
+    origin_y = 0;
+    scaleup_y = 0;
 
     scrollx = 0;
     prev_delta = 0;
@@ -92,6 +99,21 @@ export class CarouselCardComponent implements OnInit {
         frame.marginLeft = this.margin_hori;
         frame.marginRight = this.margin_hori;
         frame.marginTop = this.margin_ver * 2;
+
+        setTimeout(() => {
+            if(this.shadowmargin === 0){
+                let imgs : Image[] = [];
+                frame.eachChild((view)=>{
+                    if(view.typeName === "Image"){
+                        imgs.push(view as Image);
+                    }
+                    return true;
+                });
+                this.shadowmargin = -(imgs[0].getMeasuredHeight() - imgs[1].getMeasuredHeight()) * p / 2;
+                console.log("shadowmargin = " , this.shadowmargin * (this.cardscaleup - this.cardscale));
+            }
+            frame.translateY = this.shadowmargin * (this.cardscaleup - this.cardscale);
+        });
 
         if (this.card_index === index) {
             frame.scaleX = this.cardscaleup;
@@ -160,7 +182,7 @@ export class CarouselCardComponent implements OnInit {
             setTimeout(() => {
                 let ind = this.indicator.nativeElement as LayoutBase;
                 // set indicators layout height
-                ind.top = this.cardheight + 96;
+                ind.top = this.cardheight + 92;
                 ind.left = (screen.mainScreen.widthDIPs - ind.getMeasuredWidth() * p) / 2;
             });
         }
@@ -185,6 +207,7 @@ export class CarouselCardComponent implements OnInit {
         }
         else if (event.state === 2) // panning
         {
+            // moving the scroll
             si.translateX += (event.deltaX - this.prev_delta) / 2.5;
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
 
@@ -201,9 +224,9 @@ export class CarouselCardComponent implements OnInit {
 
                     nextview.opacity = this.opacity + (1 - this.opacity) * rate;
 
-                    let temp_y = -(nextview.getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p);
+                    let temp_y = -(nextview.getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p) ;
 
-                    nextview.translateY = 0 + temp_y * rate;
+                    nextview.translateY = this.shadowmargin * (this.cardscaleup - this.cardscale) + temp_y * rate;
                 }
                 let temp_y = -(thisview.getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p);
 
@@ -228,7 +251,7 @@ export class CarouselCardComponent implements OnInit {
 
                     let temp_y = -(prevview.getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p);
 
-                    prevview.translateY = 0 + temp_y * rate;
+                    prevview.translateY = this.shadowmargin * (this.cardscaleup - this.cardscale) + temp_y * rate;
                 }
                 let temp_y = -(thisview.getMeasuredHeight() * (this.cardscaleup - this.cardscale) / 2 * p);
 
@@ -254,7 +277,7 @@ export class CarouselCardComponent implements OnInit {
 
             let animation_card_to_origin = {
                 scale: { x: this.cardscale, y: this.cardscale },
-                translate: { x: 0, y: 0 },
+                translate: { x: 0, y: this.shadowmargin * (this.cardscaleup - this.cardscale) },
                 opacity: this.opacity,
                 duration: 200,
                 curve: AnimationCurve.easeOut

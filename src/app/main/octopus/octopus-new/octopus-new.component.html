@@ -18,7 +18,9 @@
         <Label class="str" text="홍콩, 런던, 싱가포르 교통수단을 이용할 수 있습니다" horizontalAlignment="center"></Label>
     </StackLayout>
     <!-- <Button row="4" class="issue-btn -primary" text="발급하기"></Button> -->
-    <GridLayout row="4" class="issue">
+    <!-- <GridLayout row="4" class="issue">
         <Label text="발급하기" verticalAlignment="center" textAlignment="center"></Label>
-    </GridLayout>
+    </GridLayout> -->
+    
+    <ripple-button row="4" text="충전하기" backgroundColor="#ff5722" textColor="white" (click)="onTabIssue($event)"></ripple-button>
 </GridLayout>
