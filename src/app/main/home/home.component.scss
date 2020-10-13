@@ -33,33 +33,29 @@ Button{
 .menu{
     background-color: #ffae6c; 
     border-radius: 30px; 
-    padding:0 8; 
+    padding:0 12; 
     margin: 0 16;
-    padding-bottom: 4;
+    // padding-bottom: 4;
 
-    transition:width 2s, height 2s, background-color 2s, transform 2s;
     .item{
-        height: $menuitem-height;
+        // height: $menuitem-height;
+        padding-bottom: 16;
         .image{
-            margin-left:24;
-            margin-top:4;
-            margin-right: 24;
-            margin-bottom: 8;
+            width:44;
+            margin-bottom: 6;
+            // margin-left:24;
+            // margin-top:4;
+            // margin-right: 24;
+            // margin-bottom: 8;
             // width:56;
         }
+    }
+    .str{
+        font-size:13;
     }
 }
 
 .octopus{
-    bottom:96;
-    background-color: #000;
-    opacity: 0;
-    .card{
-        // transform: rotate(90deg) translateY(-156) scale(0.65);
-    }
-}
-
-.octo{
     @keyframes arrow {
         0% {
             opacity: 0.8;
@@ -74,18 +70,42 @@ Button{
         }
     }
 
+    .octo-blur{
+        bottom:96;
+        background-color: #000;
+        opacity: 0;
+    }
+    .octo-frame{
+        opacity: 0;
+        background-color: #fff;
+        border-top-left-radius: 16;
+        border-top-right-radius: 16;
+        border-width: 4;
+        border-color: #ccc;
+    }
+    .octo-content{
+        .arrow{
+            animation-name: arrow;
+            animation-duration: 1s;
+            animation-delay: 1s;
+            animation-iteration-count : infinite;
+            animation-timing-function: ease-out;
+            animation-direction: alternate;
+    
+            width:24;
+            margin : 8 0;
+            margin-bottom: 16;
+        }
+        .octo-card{
+            // transform: rotate(90deg) translateY(-156) scale(0.65);
+            height:400;
+        }
+    }
+}
+
+.octo{
     .str{
         color:$maincolor;
-        font-size: 16;
-    }
-    .arrow{
-        animation-name: arrow;
-        animation-duration: 1s;
-        animation-delay: 1s;
-        animation-iteration-count : infinite;
-        animation-timing-function: ease-out;
-        animation-direction: alternate;
-
-        margin : 4 0;
+        font-size: 14;
     }
 }

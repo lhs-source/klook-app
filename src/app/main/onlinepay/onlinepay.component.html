@@ -1,19 +1,19 @@
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>
-<GridLayout #rootlayout rows="88,auto,*,auto,56" height="100%" width="100%">
+<GridLayout #rootlayout rows="72,auto,*,auto, 52" height="100%" width="100%">
     
     <!-- <title title="title" point="122" point_unit="HKD" backgroundColor="#ff5722"></title> -->
     <title row="1" title="온라인 결제" backgroundColor="#888"></title>
 
-    <GridLayout row="2" height="440" marginTop="16">
+    <GridLayout row="2" height="360" marginTop="16" marginBottom="16">
         <ng-template [ngTemplateOutlet]="is_front === true ? front : back"></ng-template>
 
         <ng-template #front>
             <GridLayout class="front" (tap)="onTapFront()">
                 <Image src="~/images/card_klookf.png"></Image>
                 <StackLayout verticalAlignment="center">
-                    <Image src="~/images/btn_click.png" horizontalAlignment="center" width="64"></Image>
+                    <Image src="~/images/btn_click.png" horizontalAlignment="center" width="56"></Image>
                     <Label class="cardinfo" text="카드정보보기" horizontalAlignment="center"></Label>
                 </StackLayout>
             </GridLayout>
@@ -22,7 +22,7 @@
             <GridLayout (tap)="onTapBack()">
                 <Image src="~/images/card_klookb.png"></Image>
             </GridLayout>
-            <GridLayout class="back" rows="36, 36, 12, 36, 36, 36, 36">
+            <StackLayout class="back">
                 <Label class="cardlabel" row="0" text="카드번호" horizontalAlignment="right"></Label>
                 <Label class="cardinfo" row="1" text="{{card_info.cardno}}" horizontalAlignment="right"></Label>
                 <Label class="hr" row="2"></Label>
@@ -30,17 +30,17 @@
                 <Label class="cardinfo" row="4" text="{{card_info.exp}}" horizontalAlignment="right"></Label>
                 <Label class="cardlabel" row="5" text="CVC" horizontalAlignment="right"></Label>
                 <Label class="cardinfo" row="6" text="{{card_info.cvc}}" horizontalAlignment="right" ></Label>
-            </GridLayout>
+            </StackLayout>
         </ng-template>
     </GridLayout>
-    <GridLayout row="3" backgroundColor="#f8f8f8">
-        <StackLayout marginTop="36" marginBottom="36">
-            <Label text="온라인 쇼핑몰 결제창에" style="font-size:16; font-weight:600; color:#888" horizontalAlignment="center"></Label>
-            <Label text="조회된 카드정보를 입력하여 결제해주세요" style="font-size:16; font-weight:600; color:#888" horizontalAlignment="center"></Label>
+    <GridLayout row="3" class="gray-bg">
+        <StackLayout class="info">
+            <Label class="str" text="온라인 쇼핑몰 결제창에" horizontalAlignment="center"></Label>
+            <Label class="str" text="조회된 카드정보를 입력하여 결제해주세요" horizontalAlignment="center"></Label>
         </StackLayout>
     </GridLayout>
-    <GridLayout row="4" backgroundColor="#f8f8f8">
-        <ripple-button *ngIf="is_front !== true" row="4" text="확인" backgroundColor="#ff5722" textColor="white" (click)="onTabIssue($event)"></ripple-button>
+    <GridLayout row="4" class="gray-bg">
+        <ripple-button *ngIf="is_front !== true" row="4" text="확인" backgroundColor="#ff5722" textColor="white" (click)="onTapOk()"></ripple-button>
     </GridLayout>
     <!-- <StackLayout row="1">
         <Button text="go to Home" (tap)="navigateBack($event)"></Button>

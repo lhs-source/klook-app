@@ -1,1 +1,21 @@
 
+.qr{
+   &-img{
+       width:172;
+       margin:16;
+   } 
+   &-str{
+        color:#888;
+        font-size: 14;
+   }
+}
+.remain{
+    &-str{
+        color:#ff5722;
+        font-size: 14;
+    }
+    &-img{
+        width:12;
+        margin:0 2;
+    }
+}

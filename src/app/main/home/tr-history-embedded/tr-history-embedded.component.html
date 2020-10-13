@@ -1,4 +1,4 @@
-<GridLayout #rootlayout height="100%" width="100%" backgroundColor="#f0f5f5">
+<GridLayout #rootlayout height="100%" width="100%">
     <!-- <Label row="0" text="Tr Emb" margin="24" style="font-size: 24;"></Label> -->
 
     <!-- <StackLayout row="1">
@@ -6,7 +6,7 @@
     </StackLayout> -->
     <ScrollView>
         <StackLayout class="timeline">
-            <GridLayout class="day" columns="24, *" width="100%" height="16">
+            <GridLayout class="day" columns="16" width="100%" height="16">
                 <Label class="line" col="0" width="100%"></Label>
             </GridLayout>
             <GridLayout class="day" rows="auto, auto" columns="24, *" width="100%">
@@ -16,15 +16,15 @@
                     <Label class="date-str" text="10월 30일 수요일" col="0"></Label>
                     <!-- <Label class="amount" text="2.01" col="1"></Label> -->
                 </GridLayout>
-                <StackLayout col="1" row="1">
+                <StackLayout col="1" row="1" class="items">
                     <GridLayout class="item" rows="auto, auto" columns="auto, *, auto">
-                        <Image class="icon" row="0" rowspan="2" col="0" width="24" src="~/images/ico_shop1.png" verticalAlignment="top"></Image>
+                        <Image class="icon" row="0" rowspan="2" col="0" src="~/images/ico_shop1.png" verticalAlignment="top"></Image>
                         <Label class="merchant" row="0" rowspan="2" col="1" text="Central Department Store" verticalAlignment="top"></Label>
                         <Label class="point" row="0" text="25,000 P" col="2" textAlignment="right"></Label>
                         <Label class="change" row="1" col="2" text="676 THB" textAlignment="right"></Label>
                     </GridLayout>
                     <GridLayout class="item" rows="auto, auto" columns="auto, *, auto">
-                        <Image class="icon" row="0" rowspan="2" col="0" width="24" src="~/images/ico_shop2.png" verticalAlignment="top"></Image>
+                        <Image class="icon" row="0" rowspan="2" col="0" src="~/images/ico_shop2.png" verticalAlignment="top"></Image>
                         <Label class="merchant" row="0" rowspan="2" col="1" text="Family mart" verticalAlignment="top"></Label>
                         <Label class="point" row="0" text="4,500 P" col="2" textAlignment="right"></Label>
                         <Label class="change" row="1" col="2" text="122 THB" textAlignment="right"></Label>
@@ -38,10 +38,10 @@
                     <Label class="date-str" text="10월 27일 화요일" col="0"></Label>
                     <!-- <Label class="amount" text="2.01" col="1"></Label> -->
                 </GridLayout>
-                <StackLayout col="1" row="1">
+                <StackLayout col="1" row="1" class="items">
                     <GridLayout class="item" rows="auto, auto" columns="auto, *, auto">
                         <Image class="icon" row="0" rowspan="2" col="0" width="24" src="~/images/ico_point.png" verticalAlignment="top"></Image>
-                        <Label class="merchant" row="0" rowspan="2" col="1" text="KB국민카드 Nori카드 충전" verticalAlignment="top"></Label>
+                        <Label class="merchant" row="0" rowspan="2" col="1" text="KB국민 해피Nori카드 충전" verticalAlignment="top"></Label>
                         <Label class="point" row="0" text="+ 100,000 P" col="2" textAlignment="right"></Label>
                         <Label class="change" row="1" col="2" text="??? THB" textAlignment="right"></Label>
                     </GridLayout>
@@ -54,7 +54,7 @@
                     <Label class="date-str" text="10월 25일 화요일" col="0"></Label>
                     <!-- <Label class="amount" text="2.01" col="1"></Label> -->
                 </GridLayout>
-                <StackLayout col="1" row="1">
+                <StackLayout col="1" row="1" class="items">
                     <GridLayout class="item" rows="auto, auto" columns="auto, *, auto">
                         <Image class="icon" row="0" rowspan="2" col="0" width="24" src="~/images/ico_shop2.png" verticalAlignment="top"></Image>
                         <Label class="merchant" row="0" rowspan="2" col="1" text="Big C (Thap Thiang)" verticalAlignment="top"></Label>

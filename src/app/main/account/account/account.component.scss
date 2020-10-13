@@ -1,23 +1,27 @@
 
 .list{
     // width:100%;
-    margin:4 16;
+    margin:2 16;
     
     // background-color:red;
-    padding:16;
-    padding-bottom: 18;
-    border-radius:8; 
+    padding:12;
+    padding-bottom: 16;
+    border-radius:10; 
     border-width:1;
-    border-color:#dedede;
+    border-color:#eee;
 
     .img{
         margin:8;
         margin-right: 24;
     }
+    .title{
+        font-size: 14;
+    }
     .btn{
         &-register{
-            height: 28;
-            font-size:14; 
+            width : 52;
+            height: 24;
+            font-size:13; 
             border-radius: 5; 
             // padding: 0 14; 
             margin: 0;
@@ -26,8 +30,9 @@
             color:white;
         }
         &-disconnect{
-            height: 28;
-            font-size:14; 
+            width : 52;
+            height: 24;
+            font-size:13; 
             border-radius: 5; 
             // padding: 0 14; 
             margin: 0;

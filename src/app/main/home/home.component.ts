@@ -4,7 +4,7 @@ import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { LayoutBase, Image } from "@nativescript/core/ui";
 import { isAndroid, screen } from "tns-core-modules/platform/platform"
-import { Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
+import { Application, AndroidApplication, AndroidActivityBackPressedEventData, Color } from "tns-core-modules";
 import { exit } from "nativescript-exit";
 
 @Component({
@@ -16,16 +16,21 @@ export class HomeComponent implements OnInit {
     tag = this.constructor.name;
     @ViewChild('octopus', { static: true }) octopus: ElementRef;
     @ViewChild('octopuscard', { static: true }) octopuscard: ElementRef;
+    @ViewChild('octopusframe', { static: true }) octopusframe: ElementRef;
+
     @ViewChild('rootlayout', { static: true }) rootlayout: ElementRef;
     @ViewChild('menubtn', { static: true }) menubtn: ElementRef;
     @ViewChild('menu', { static: true }) menu: ElementRef;
-    @ViewChild('menuitems', { static: true }) menuitems: ElementRef;
+    @ViewChild('qrbg', { static: true }) qrbg: ElementRef;
 
     // qr page variables
     isQrPay = false;
     isQrScan = false;
 
     isMenuExt = false;
+
+    qr_anim_duration = 250;
+    transition_duration = 250;
 
     // octopus pan vairables
     octopus_card_loc = {
@@ -34,6 +39,13 @@ export class HomeComponent implements OnInit {
         originX: 0,
         originY: 0,
     };
+    octopus_frame_loc = {
+        originX: 0,
+        originY: 0,
+    }
+
+    card_height = 420;
+    card_marginTop = 8;
 
     constructor(private routerExtensions: RouterExtensions) {
         console.log(`${this.tag} constructor `)
@@ -60,27 +72,19 @@ export class HomeComponent implements OnInit {
 
     }
 
-    ngOnDestroy(){
+    ngOnDestroy() {
         console.log(`${this.tag} ngOnDestroy`);
     }
 
 
     onLoadedMenu(event) {
         let menu = this.menu.nativeElement as LayoutBase;
-        menu.effectiveHeight = menu.getMeasuredHeight() - 96;
-        console.log(menu.effectiveHeight);
-        console.log(menu.getMeasuredHeight());
-        console.log(menu.getActualSize());
+        // menu.effectiveHeight = menu.getMeasuredHeight() - 96;
     }
 
     onLoadedMenuItem(event) {
         console.log(this.tag + " onLoadedMenuItem ");
-        let menuitems = this.menuitems.nativeElement as LayoutBase;
-        console.log(menuitems.translateY);
-        console.log(menuitems.getLocationInWindow());
-        console.log(menuitems.getLocationOnScreen());
-        console.log(menuitems.getLocationRelativeTo(menuitems.parentNode.viewController));
-        menuitems.translateY = menuitems.translateY - 96;
+
     }
     onTapMenu(event) {
         if (this.isQrScan == true || this.isQrPay == true) {
@@ -92,18 +96,20 @@ export class HomeComponent implements OnInit {
         console.log(img);
         console.log("height = " + menu.getMeasuredHeight());
         let h = menu.getMeasuredHeight();
+        let item_height = 92;
 
-        console.log(screen.mainScreen.heightDIPs);
-        console.log(screen.mainScreen.heightPixels);
+        // console.log(screen.mainScreen.heightDIPs);
+        // console.log(screen.mainScreen.heightPixels);
         let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
-        console.log(p);
+        console.log("p = ", screen.mainScreen.heightDIPs);
+
         if (this.isMenuExt === false) {
             // unfold
             this.isMenuExt = !this.isMenuExt;
             img.src = "~/images/btn_down.png"
             console.log("height = " + menu.getMeasuredHeight());
             menu.animate({
-                height: 678 * p - 16,
+                height: h * p + item_height,
                 duration: 250,
                 curve: AnimationCurve.easeOut
             }).then(() => {
@@ -114,7 +120,7 @@ export class HomeComponent implements OnInit {
             img.src = "~/images/btn_up.png"
             console.log("height = " + menu.getMeasuredHeight());
             menu.animate({
-                height: 374 * p,
+                height: h * p - item_height,
                 duration: 250,
                 curve: AnimationCurve.easeOut
             }).then(() => {
@@ -126,27 +132,27 @@ export class HomeComponent implements OnInit {
 
     navigateOnlinepay(event) {
         console.log(this.tag + " navigateOnlinepay");
-        this.routerExtensions.navigate(['/main/onlinepay'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory:true });
+        this.routerExtensions.navigate(['/main/onlinepay'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
 
     }
     navigateChargePoint(event) {
         console.log(this.tag + " navigateChargePoint");
-        this.routerExtensions.navigate(['/main/charge-point'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory:true });
+        this.routerExtensions.navigate(['/main/charge-point'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
 
     }
     navigateChangePoint(event) {
         console.log(this.tag + " navigateChangePoint");
-        this.routerExtensions.navigate(['/main/change-point'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory:true });
+        this.routerExtensions.navigate(['/main/change-point'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
 
     }
     navigateTransaction(event) {
         console.log(this.tag + " navigateTransaction");
-        this.routerExtensions.navigate(['/main/tr'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory:true });
+        this.routerExtensions.navigate(['/main/tr'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
 
     }
     navigateAccount(event) {
         console.log(this.tag + " navigateAccount");
-        this.routerExtensions.navigate(['/main/account'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory:true });
+        this.routerExtensions.navigate(['/main/account'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
 
     }
 
@@ -173,10 +179,22 @@ export class HomeComponent implements OnInit {
                     this.isMenuExt = !this.isMenuExt;
                 });
             }
-
-            this.routerExtensions.navigate(['/main/home/qr-scan'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
             this.isQrScan = true;
             this.isQrPay = false;
+            this.routerExtensions.navigate(['/main/home/qr-scan'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }, clearHistory: true }).then(() => {
+                let bg = this.qrbg.nativeElement as LayoutBase;
+                // bg.backgroundColor = "#333";
+                bg.borderWidth = 0;
+                // bg.borderWidth = 1;
+                bg.animate({
+                    opacity: 1,
+                    backgroundColor: new Color("#333"),
+                    duration: this.qr_anim_duration,
+                    curve: AnimationCurve.easeOut
+                }).then(() => {
+                    // bg.borderColor = "#333";
+                });
+            });
         }
     }
     // start QR Pay
@@ -201,9 +219,21 @@ export class HomeComponent implements OnInit {
                     this.isMenuExt = !this.isMenuExt;
                 });
             }
-            this.routerExtensions.navigate(['/main/home/qr-pay'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
             this.isQrScan = false;
             this.isQrPay = true;
+            this.routerExtensions.navigate(['/main/home/qr-pay'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }, clearHistory: true }).then(() => {
+                let bg = this.qrbg.nativeElement as LayoutBase;
+                bg.borderWidth = 1;
+                // bg.borderColor = "#bbb";
+                bg.animate({
+                    opacity: 1,
+                    backgroundColor: new Color(0, 255, 255, 255),
+                    duration: this.qr_anim_duration,
+                    curve: AnimationCurve.easeOut
+                }).then(() => {
+                    bg.borderColor = "#ddd";
+                });
+            });
         }
 
     }
@@ -211,38 +241,61 @@ export class HomeComponent implements OnInit {
     actionbar_click_close(event) {
         console.log(this.tag + " navigateTrEmb");
         if (this.isQrPay == true) {
-            this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } });
             this.isQrPay = false;
         }
         if (this.isQrScan == true) {
-            this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } });
             this.isQrScan = false;
         }
+
+        let bg = this.qrbg.nativeElement as LayoutBase;
+        bg.animate({
+            opacity: 0,
+            duration: this.qr_anim_duration,
+            curve: AnimationCurve.easeOut
+        });
     }
 
     // translate octopus view to bottom of screen
     onLoadOctopus(event) {
         console.log(this.tag + " onLoadOctopus");
         let lbc = this.octopuscard.nativeElement as LayoutBase;
+        let lbf = this.octopusframe.nativeElement as LayoutBase;
         let lb = this.octopus.nativeElement as LayoutBase;
         console.log(screen.mainScreen.heightDIPs);
         console.log(screen.mainScreen.heightPixels);
-        lbc.translateY = screen.mainScreen.heightDIPs - 168;
+        // lbc.translateY = screen.mainScreen.heightDIPs / 2;
+        lbc.translateY = screen.mainScreen.heightDIPs - 124;
+        lbf.translateY = lbc.translateY - this.card_marginTop;
     }
 
     onPan(event) {
         // console.log("onDragCard HomeComponent");
         let lbc = this.octopuscard.nativeElement as LayoutBase;
+        let lbf = this.octopusframe.nativeElement as LayoutBase;
         let lb = this.octopus.nativeElement as LayoutBase;
+
         if (event.state === 1) // down
         {
             this.octopus_card_loc.originX = lbc.translateX;
             this.octopus_card_loc.originY = lbc.translateY;
             this.octopus_card_loc.prevDeltaY = 0;
+
+            this.octopus_frame_loc.originX = lbf.translateX;
+            this.octopus_frame_loc.originY = lbf.translateY;
         }
         else if (event.state === 2) // panning
         {
-            lbc.translateY += event.deltaY - this.octopus_card_loc.prevDeltaY;
+            if (lbc.translateY < screen.mainScreen.heightDIPs / 2) {
+                // low velocity
+                lbc.translateY += (event.deltaY - this.octopus_card_loc.prevDeltaY) / 2;
+                lbf.translateY += (event.deltaY - this.octopus_card_loc.prevDeltaY) / 2;
+            } else {
+                // normal veloc
+                lbc.translateY += event.deltaY - this.octopus_card_loc.prevDeltaY;
+                lbf.translateY += event.deltaY - this.octopus_card_loc.prevDeltaY;
+            }
 
             this.octopus_card_loc.prevDeltaY = event.deltaY;
 
@@ -252,40 +305,57 @@ export class HomeComponent implements OnInit {
             } else if (lb.opacity < 0) {
                 lb.opacity = 0;
             }
+
+            lbf.opacity = (1 - (lbc.translateY / screen.mainScreen.heightDIPs)) * 1.5;
+            console.log(lbf.opacity);
+            if (lbf.opacity > 1) {
+                lbf.opacity = 1;
+            } else if (lbf.opacity < 0) {
+                lbf.opacity = 0;
+            }
         }
         else if (event.state === 3) // up
         {
             console.log("lbc.translateY  => " + lbc.translateY);
             console.log("event.deltaY  => " + event.deltaY);
-            if (lbc.translateY < (screen.mainScreen.heightDIPs / 2)) {
+            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+            if (lbc.translateY < (screen.mainScreen.heightDIPs / 1.5)) {
                 // goto octopus page
                 lbc.animate({
-                    translate: { x: this.octopus_card_loc.originX, y: 35 },
-                    duration: 100,
-                    curve: AnimationCurve.easeOut
+                    translate: { x: this.octopus_card_loc.originX, y: (screen.mainScreen.heightDIPs - lbc.getMeasuredHeight() * p) / 3 },
+                    duration: 150,
+                    curve: AnimationCurve.easeInOut
                 }).then(() => {
-                    lbc.animate({
-                        translate: { x: this.octopus_card_loc.originX, y: 20 },
-                        duration: 80,
-                        curve: AnimationCurve.easeOut
-                    }).then(() => {
-                        this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
-                    });
+                    this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
                 });
+                lbf.animate({
+                    translate: { x: this.octopus_frame_loc.originX, y: (screen.mainScreen.heightDIPs - lbc.getMeasuredHeight() * p) / 3 - this.card_marginTop },
+                    opacity: 1,
+                    duration: 150,
+                    curve: AnimationCurve.easeInOut
+                })
             } else {
                 // goto origin location
                 lbc.animate({
                     translate: { x: this.octopus_card_loc.originX, y: this.octopus_card_loc.originY },
-                    duration: 350,
+                    duration: 250,
                     curve: AnimationCurve.easeOut
                 });
                 lb.animate({
                     opacity: 0,
-                    duration: 350,
+                    duration: 250,
                     curve: AnimationCurve.easeOut
                 });
                 lbc.translateX = this.octopus_card_loc.originX;
                 lbc.translateY = this.octopus_card_loc.originY;
+
+
+                lbf.animate({
+                    translate: { x: this.octopus_frame_loc.originX, y: this.octopus_frame_loc.originY },
+                    opacity: 0,
+                    duration: 100,
+                    curve: AnimationCurve.easeOut
+                })
             }
         }
     }

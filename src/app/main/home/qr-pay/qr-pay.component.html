@@ -1,12 +1,10 @@
-
-
-<GridLayout #rootlayout rows="*, auto, auto, 64" height="100%" width="100%" backgroundColor="#f0f5f5">
-    <Image row="0" src="~/images/qr.png" margin="16"></Image>
-    <Label row="1" text="생성된 코드를 직원에게 보여주세요" horizontalAlignment="center"></Label>
+<GridLayout #rootlayout rows="*, auto, auto, 64" height="100%" margin="16" borderLeftWidth="1" borderRightWidth="1" borderLeftColor="#ddd" borderRightColor="#ddd">
+    <Image row="0" class="qr-img" src="~/images/qr.png"></Image>
+    <Label row="1" class="qr-str" text="생성된 코드를 직원에게 보여주세요" horizontalAlignment="center"></Label>
     <StackLayout row="2" orientation="horizontal" horizontalAlignment="center">
-        <Label text="남은시간"></Label>
-        <Label text="{{ secounds * 1000 | date:'mm:ss' }} "></Label>
-        <Image src="~/images/btn_re.png" width="8" (tap)="resetTimer()"></Image>
+        <Label class="remain-str" text="남은시간 "></Label>
+        <Label class="remain-str"text="{{ secounds * 1000 | date:'mm:ss' }} "></Label>
+        <Image class="remain-img" src="~/images/btn_re.png" (tap)="resetTimer()"></Image>
     </StackLayout>
     <GridLayout row="3" rows="auto, auto" columns="36, *" margin="8" horizontalAlignment="center">
         <Image row="0" col="0" rowspan="2" src="~/images/ico_point2.png" marginRight="8"></Image>

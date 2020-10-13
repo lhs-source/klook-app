@@ -3,19 +3,20 @@ $maincolor: #ff5722;
 .title{
     color:#ffffff; 
 
-    border-radius: 8; 
+    border-radius: 6; 
     background-color: #888888; 
     margin:0 16;
     margin-top: 10;
     .str{
-        font-size: 16; 
+        font-size: 15; 
         margin:8 16;
+        margin-top:7;
     }
     .point{
-        font-size: 16; 
+        font-size: 15; 
     }
     .change{
-        font-size: 16; 
+        font-size: 15; 
         margin-right:16;
     }
 }

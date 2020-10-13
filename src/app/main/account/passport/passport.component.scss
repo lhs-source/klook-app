@@ -1,23 +1,54 @@
 
 .list{
-    margin : 0 16;
+    margin : 2 24;
     .label{
-        font-size: 16;
+        font-size: 14;
 
         &-small{
-            font-size: 12;
+            font-size: 11;
         }
     }
     .tf{
-        font-size : 14;
+        font-size : 12;
         placeholder-color: #888;
         placeholder: font size 10;
 
+        background-color: #F4F4F4;
+
+        margin-right: 0;
+
         padding-left: 8;
+        padding-top: 8;
+        padding-bottom: 8;
 
         border-radius: 4;
         border-width: 1;
-        border-color: #ddd;
+        border-color: #e8e8e8;
     }
     
+}
+.noti{
+    //marginLeft="16" marginRight="16" marginTop="8" paddingTop="8" borderTopWidth="1" borderTopColor="#ddd"
+    margin-left: 16;
+    margin-right: 16;
+    margin-top: 8;
+    padding-top: 16;
+
+    border-top-width: 1;
+    border-top-color: #e8e8e8;
+    .str{
+        font-size: 13; 
+        color: #999;
+    }
+}
+.info{
+    background-color: #F4F4F4;
+    padding:32 0;
+    .ico{
+        width: 14;
+        margin-right: 12;
+    }
+    .str{
+        font-size: 14; color: #888;
+    }
 }

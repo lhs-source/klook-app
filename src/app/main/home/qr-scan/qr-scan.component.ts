@@ -18,6 +18,7 @@ export class QrScanComponent implements OnInit {
     tag = this.constructor.name;
     barcodes: Array<MLKitScanBarcodesResultBarcode>;
 
+    is_cam_allowed = false;
     pause: boolean = false;
     torchOn: boolean = false;
 
@@ -47,7 +48,17 @@ export class QrScanComponent implements OnInit {
             if (available) {
                 this.barcodeScanner.hasCameraPermission().then((granted) => {
                     if (!granted) {
-                        this.barcodeScanner.requestCameraPermission();
+                        // if not allowed yet
+                        this.barcodeScanner.requestCameraPermission().then((yes)=>{
+                            // request permission
+                            if(yes === true){
+                                // grant permission done
+                                this.is_cam_allowed = true;
+                            }
+                        });
+                    }else{
+                        // allowed cam already
+                        this.is_cam_allowed = true;
                     }
                 });
             }

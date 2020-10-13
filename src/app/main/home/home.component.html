@@ -1,7 +1,10 @@
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="(isQrScan || isQrPay)"></myactionbar>
+    <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderColor="#ddd" margin="16" height="64%">
+    </GridLayout>
+    <!-- <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderWidth="1" borderColor="#ccc" margin="16" height="64%"></GridLayout> -->
 </GridLayout>
-<GridLayout #rootlayout rows="88,auto,*,auto,96" height="100%" width="100%">
+<GridLayout #rootlayout rows="72,auto,*,auto,108" height="100%" width="100%">
     <!-- Point view -->
     <GridLayout class="point" row="1" columns="*, auto, auto">
         <Label class="str" text="보유 포인트" col="0" verticalAlignment="center"></Label>
@@ -21,52 +24,56 @@
 
         <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="0" (tap)="navigateOnlinepay($event)">
             <Image src="~/images/btn_quick5.png" class="image"></Image>
-            <Label text="온라인결제" style="font-size:14;" horizontalAlignment="center"></Label>
+            <Label class="str" text="온라인결제" horizontalAlignment="center"></Label>
         </StackLayout>
         <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="1" (tap)="navigateTransaction($event)">
             <Image src="~/images/btn_quick6.png" class="image"></Image>
-            <Label text="이용내역" style="font-size:14;" horizontalAlignment="center"></Label>
+            <Label class="str" text="이용내역" horizontalAlignment="center"></Label>
         </StackLayout>
         <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="2" (tap)="navigateTrEmb($event)">
             <Image src="~/images/btn_quick7.png" class="image"></Image>
-            <Label text="사용중지" style="font-size:14;" horizontalAlignment="center"></Label>
+            <Label class="str" text="사용중지" horizontalAlignment="center"></Label>
         </StackLayout>
         <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="3" (tap)="navigateAccount($event)">
             <Image src="~/images/btn_quick8.png" class="image"></Image>
-            <Label text="계정관리" style="font-size:14;" horizontalAlignment="center"></Label>
+            <Label class="str" text="계정관리" horizontalAlignment="center"></Label>
         </StackLayout>
 
         <StackLayout class="item" row="2" col="0" (tap)="navigateQrScan($event)">
             <Image src="~/images/btn_quick1.png" class="image"></Image>
-            <Label text="QR스캔" style="font-size:14;" horizontalAlignment="center"></Label>
+            <Label class="str" text="QR스캔" horizontalAlignment="center"></Label>
         </StackLayout>
         <StackLayout class="item" row="2" col="1" (tap)="navigateQrPay($event)">
             <Image src="~/images/btn_quick2.png" class="image"></Image>
-            <Label text="QR결제" style="font-size:14;" horizontalAlignment="center"></Label>
+            <Label class="str" text="QR결제" horizontalAlignment="center"></Label>
         </StackLayout>
         <StackLayout class="item" row="2" col="2" (tap)="navigateChangePoint($event)">
             <Image src="~/images/btn_quick3.png" class="image"></Image>
-            <Label text="포인트교환" style="font-size:14;" horizontalAlignment="center"></Label>
+            <Label class="str" text="포인트교환" horizontalAlignment="center"></Label>
         </StackLayout>
         <StackLayout class="item" row="2" col="3" (tap)="navigateChargePoint($event)">
             <Image src="~/images/btn_quick4.png" class="image"></Image>
-            <Label text="충전" style="font-size:14;" horizontalAlignment="center"></Label>
+            <Label class="str" text="충전" horizontalAlignment="center"></Label>
         </StackLayout>
     </GridLayout>
 
 
     <GridLayout row="4" class="octo" rows="24, 24, *" marginTop="8">
-        <Label class="str" text="Octopus 교통카드 이용을 위해 올려주세요" row="0" textAlignment="center"></Label>
-        <Image class="arrow" src="~/images/buscard_arrow.png" row="1" (tap)="navigateOctopus($event)"></Image>
+        <Label class="str" text="Octopus 교통카드 이용을 위해 올려주세요" row="0" textAlignment="center"
+            verticalAlignment="bottom"></Label>
     </GridLayout>
 </GridLayout>
 
 <!-- octopus -->
-<GridLayout #octopus class="octopus" rows="24, 24, auto" marginTop="8" (loaded)="onLoadOctopus($event)">
-    <!-- <Label class="str" text="Octopus 교통카드 이용을 위해 올려주세요" row="0" textAlignment="center"></Label>
-        <Image class="arrow" src="~/images/buscard_arrow.png" row="1" (tap)="navigateOctopus($event)"></Image> -->
-</GridLayout>
-<GridLayout>
-    <Image #octopuscard class="card" src="~/images/card_octopus.png" row="2" height="72%"
-        (tap)="navigateOctopus($event)" (pan)="onPan($event)"></Image>
+<GridLayout class="octopus">
+    <!-- blur -->
+    <GridLayout #octopus class="octo-blur" (loaded)="onLoadOctopus($event)"></GridLayout>
+    <!-- (tap)="navigateOctopus($event)" -->
+    <!-- frame -->
+    <GridLayout #octopusframe class="octo-frame"></GridLayout>
+    <!-- card -->
+    <GridLayout rows="auto, auto" class="octo-content" #octopuscard (pan)="onPan($event)" verticalAlignment="top">
+        <Image row="0" class="arrow" src="~/images/buscard_arrow.png" horizontalAlignment="center"></Image>
+        <Image row="1" class="octo-card" src="~/images/card_octopus.png" height="420"></Image>
+    </GridLayout>
 </GridLayout>

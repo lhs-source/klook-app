@@ -1,7 +1,7 @@
 .actionbar{
     padding:0 16;
-    padding-top: 42;
-    padding-bottom: 18;
+    padding-top: 36;
+    padding-bottom: 16;
 
     background-color: white;
 
@@ -13,15 +13,15 @@
         margin: 0 4;
 
         &-txt{
-            font-size: 14; 
+            font-size: 13; 
             font-weight: 700;
             text-align: center;
             vertical-align: center;
             margin:0 8;
             padding:0;
         }
-        &-initial{
-            font-size: 11; 
+        &-currency{
+            font-size: 9; 
             font-weight: 700;
             text-align: center;
             vertical-align: center;

@@ -3,27 +3,41 @@
 .front{
     .cardinfo{
         font-size: 14;
+        margin-top: 4;
     }
 }
 .back{
     color:white;
-    margin-top:48;
+    margin-top:40;
     margin-right:104;
     margin-left:96;
 
     .cardlabel{
+        font-size: 10;
         margin:0;
         padding:0;
         margin-top: 16;
     }
     .cardinfo{
-        font-size:16; 
+        font-size:14; 
         font-weight: 600;
     }
     .hr{
         // margin-bottom: 16;
-        border-bottom-color: rgba(48, 48, 48, 0.096);
+        margin-top: 12;
+        border-bottom-color: rgba(48, 48, 48, 0.1);
         border-bottom-width: 2;
     }
+}
+.info{
+    margin: 36 0;
+    .str{
+        font-size:15; 
+        color:#5D5D5D;
+    }
+}
+
+.gray-bg{
+    background-color: #F4F4F4;
 }
 
