@@ -33,7 +33,7 @@ export class ChangePointComponent implements OnInit {
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back({relativeTo: this.activatedRoute});
         }else{
-            this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory : true });
+            this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut }, clearHistory : true });
         }
     }
 }

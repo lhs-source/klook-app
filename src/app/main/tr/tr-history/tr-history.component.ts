@@ -34,7 +34,7 @@ export class TrHistoryComponent implements OnInit {
 
     navigateDetails(event) {
         console.log(this.tag + " navigateChargePoint");
-        this.routerExtensions.navigate(['/main/tr/detail'], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/tr/detail'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
 
     }
 }

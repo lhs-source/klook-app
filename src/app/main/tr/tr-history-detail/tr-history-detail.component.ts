@@ -22,7 +22,7 @@ export class TrHistoryDetailComponent implements OnInit {
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back();
         }else{
-            this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+            this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
         }
     }
 }

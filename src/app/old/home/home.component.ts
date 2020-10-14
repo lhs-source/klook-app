@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
 
                 rootView.animate({
                     translate: { x: loc.x - 8, y: 0 },
-                    duration: 350,
+                    duration: 250,
                     curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1)
                 });
             });

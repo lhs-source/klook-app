@@ -50,7 +50,7 @@ export class OctopusMainComponent implements OnInit {
     actionbar_click_close(isclose) {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
 
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory: true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
     }
 
     onTapCard(index){
@@ -69,13 +69,13 @@ export class OctopusMainComponent implements OnInit {
 
     navigateNew(event) {
         console.log(this.tag + " navigateChargePoint OctopusMainComponent");
-        this.routerExtensions.navigate(['/main/octopus/new'], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/octopus/new'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
 
     }
 
     navigateUseLoc(event) {
         console.log(this.tag + " navigateChargePoint OctopusMainComponent");
-        this.routerExtensions.navigate(['/main/octopus/use-loc'], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/octopus/use-loc'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
 
     }
 }

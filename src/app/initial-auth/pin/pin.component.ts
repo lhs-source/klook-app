@@ -55,7 +55,7 @@ export class PinComponent implements OnInit {
                 if(this.pin.length === 6){
                     // 6 chars ok
                     this.routerExtensions.navigate(["../../main"], {relativeTo: this.route, clearHistory : true, transition:{name: 'fade', 
-                    duration: 350, 
+                    duration: 250, 
                     curve: AnimationCurve.easeOut}});
                 }
             });

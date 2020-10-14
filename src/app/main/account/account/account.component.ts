@@ -44,13 +44,13 @@ export class AccountComponent implements OnInit {
     }
     navigateLink(event) {
         console.log(`${this.tag} navigateChargePoint`);
-        this.routerExtensions.navigate(['/main/account/link'], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/account/link'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
 
     }
     
     navigatePassport(event) {
         console.log(`${this.tag} navigateChargePoint`);
-        this.routerExtensions.navigate(['/main/account/passport'], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/account/passport'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
 
     }
 }
