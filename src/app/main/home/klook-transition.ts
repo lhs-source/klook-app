@@ -5,7 +5,6 @@ import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-cor
 
 export class CustomTransition extends Transition {
     public createAndroidAnimator(transitionType: string): android.animation.Animator {
-        
         var screenWidth = screen.mainScreen.widthPixels;
 
         const scaleValues = (<any>Array).create("float", 2);
@@ -16,9 +15,6 @@ export class CustomTransition extends Transition {
         switch (transitionType) {
             case AndroidTransitionType.enter:{
                 console.log("AndroidTransitionType.enter");
-            }
-            case AndroidTransitionType.popEnter:{
-                console.log("AndroidTransitionType.popEnter");
                 scaleValues[0] = 1;
                 scaleValues[1] = 1;
 
@@ -35,12 +31,26 @@ export class CustomTransition extends Transition {
                 alphaValues[1] = 1;
                 break;
             }
+            case AndroidTransitionType.popEnter:{
+                console.log("AndroidTransitionType.popEnter");
+                scaleValues[0] = 1;
+                scaleValues[1] = 1;
+
+                yValues[0] = 32;
+                yValues[1] = 0;
+
+                xValues[0] = 72;
+                xValues[1] = 0;
+                
+                zValues[1] = -1;
+                zValues[0] = -1;
+
+                alphaValues[0] = 0;
+                alphaValues[1] = 1;
+                break;
+            }
             case AndroidTransitionType.exit:{
                 console.log("AndroidTransitionType.exit");
-
-            }
-            case AndroidTransitionType.popExit:{
-                console.log("AndroidTransitionType.popExit");
                 scaleValues[0] = 1;
                 scaleValues[1] = 1;
 
@@ -53,6 +63,25 @@ export class CustomTransition extends Transition {
                 zValues[0] = -1;
                 zValues[1] = -1;
                 
+                alphaValues[0] = 1;
+                alphaValues[1] = 0;
+                break;
+
+            }
+            case AndroidTransitionType.popExit:{
+                console.log("AndroidTransitionType.popExit");
+                scaleValues[0] = 1;
+                scaleValues[1] = 1;
+                
+                yValues[0] = 0;
+                yValues[1] = 0;
+
+                xValues[0] = 0;
+                xValues[1] = screenWidth;
+                
+                zValues[1] = 100;
+                zValues[0] = 100;
+
                 alphaValues[0] = 1;
                 alphaValues[1] = 0;
                 break;
