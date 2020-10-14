@@ -7,6 +7,7 @@ import { screen } from "tns-core-modules/platform/platform"
 
 
 import { Carousel } from "nativescript-carousel";
+import { CustomTransition, CustomTransitionBack } from "../../home/klook-transition";
 
 @Component({
     selector: "octopus-main",
@@ -33,8 +34,30 @@ export class OctopusMainComponent implements OnInit {
                 console.log(this.tag + " back button pressed ");
                 if (this.routerExtensions.router.isActive('/main/octopus/main', false) === true) {
                     data.cancel = true;
-                    this.routerExtensions.navigate(['/main/home'], { clearHistory: true });
+                    this.routerExtensions.navigate(['/main/home'], { 
+                        transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut), }, 
+                        clearHistory: true 
+                    });
                 } else {
+                    // data.cancel = true;
+                    // if (this.routerExtensions.router.isActive('/main/octopus/charge', false) === true) {
+                    //     this.routerExtensions.navigate(['/main/octopus/main'], { 
+                    //         transition: {instance : new CustomTransitionBack(250, AnimationCurve.easeOut), }, 
+                    //         clearHistory: false 
+                    //     });
+                    // }else if (this.routerExtensions.router.isActive('/main/octopus/new', false) === true) {
+                    //     this.routerExtensions.navigate(['/main/octopus/main'], { 
+                    //         transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut), }, 
+                    //         clearHistory: false 
+                    //     });
+                    // }else if (this.routerExtensions.router.isActive('/main/octopus/use-loc', false) === true) {
+                    //     this.routerExtensions.navigate(['/main/octopus/main'], { 
+                    //         transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut), }, 
+                    //         clearHistory: false 
+                    //     });
+                    // }else{
+                    //     data.cancel = false;
+                    // }
                     data.cancel = false;
                 }
             });
@@ -50,12 +73,12 @@ export class OctopusMainComponent implements OnInit {
     actionbar_click_close(isclose) {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
 
-        this.routerExtensions.navigate(['/main/home'], { clearHistory: true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory: true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
     }
 
     onTapCard(index){
         console.log(this.tag + " onTapCard = " + index);
-        this.routerExtensions.navigate(['/main/octopus/charge', index], { transition: { name: 'slide', duration: 350, curve: AnimationCurve.easeOut },  });
+        this.routerExtensions.navigate(['/main/octopus/charge', index], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) },  });
     }
 
 
@@ -69,13 +92,13 @@ export class OctopusMainComponent implements OnInit {
 
     navigateNew(event) {
         console.log(this.tag + " navigateChargePoint OctopusMainComponent");
-        this.routerExtensions.navigate(['/main/octopus/new'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/octopus/new'], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) } });
 
     }
 
     navigateUseLoc(event) {
         console.log(this.tag + " navigateChargePoint OctopusMainComponent");
-        this.routerExtensions.navigate(['/main/octopus/use-loc'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/octopus/use-loc'], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) } });
 
     }
 }

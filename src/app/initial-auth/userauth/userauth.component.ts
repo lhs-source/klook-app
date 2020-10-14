@@ -21,6 +21,6 @@ export class UserAuthComponent implements OnInit {
     
     onTapNext(event){
         console.log("onTapNext TermsComponent");
-        this.routerExtensions.navigate(['/initial-auth/pin-new'], {transition : {name:'slide', duration:350, curve: AnimationCurve.easeOut}});
+        this.routerExtensions.navigate(['/initial-auth/pin-new'], {transition : {name:'slide', duration:250, curve: AnimationCurve.easeOut}});
     }
 }

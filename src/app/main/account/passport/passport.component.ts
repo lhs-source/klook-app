@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { CustomTransitionBack } from "../../home/klook-transition";
 
 @Component({
     selector: "passport",
@@ -22,7 +23,7 @@ export class PassportComponent implements OnInit {
     actionbar_click_close(isclose) {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
 
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
     }
     
     navigateBack(event) {
@@ -30,7 +31,7 @@ export class PassportComponent implements OnInit {
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back();
         }else{
-            this.routerExtensions.navigate(['/main/account/list'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+            this.routerExtensions.navigate(['/main/account/list'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
         }
     }
 }

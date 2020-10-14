@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData, isAndroid } from "tns-core-modules";
+import { CustomTransition, CustomTransitionBack } from "../../home/klook-transition";
 
 @Component({
     selector: "tr-history",
@@ -19,7 +20,7 @@ export class TrHistoryComponent implements OnInit {
                 console.log("back button pressed on " + this.tag);
                 if(this.routerExtensions.router.isActive('/main/tr/history', false) === true){
                     data.cancel = true;
-                    this.routerExtensions.navigate(['/main/home'], { clearHistory: true });
+                    this.routerExtensions.navigate(['/main/home'], { transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut)}, clearHistory: true });
                 }else{
                     data.cancel = false;
                 }
@@ -34,7 +35,7 @@ export class TrHistoryComponent implements OnInit {
 
     navigateDetails(event) {
         console.log(this.tag + " navigateChargePoint");
-        this.routerExtensions.navigate(['/main/tr/detail'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/tr/detail'], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) } });
 
     }
 }

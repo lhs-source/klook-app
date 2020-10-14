@@ -21,6 +21,6 @@ export class TermsComponent implements OnInit {
 
     onTapNext(event){
         console.log("onTapNext TermsComponent");
-        this.routerExtensions.navigate(['/initial-auth/userauth'], {transition : {name:'slide', duration:350, curve: AnimationCurve.easeOut}});
+        this.routerExtensions.navigate(['/initial-auth/userauth'], {transition : {name:'slide', duration:250, curve: AnimationCurve.easeOut}});
     }
 }

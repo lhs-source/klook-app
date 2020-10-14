@@ -6,6 +6,7 @@ import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase, GridLa
 import { screen } from "tns-core-modules/platform/platform"
 import { ActivatedRoute } from "@angular/router";
 import { ItemSpec } from "tns-core-modules/ui/layouts/grid-layout";
+import { CustomTransitionBack } from "../../home/klook-transition";
 
 @Component({
     selector: "octopus-charge",
@@ -23,7 +24,7 @@ export class OctopusChargeComponent implements OnInit {
     // actionbar emit click close
     actionbar_click_close(isclose){
         console.log(this.tag + " actionbar close button clicked = " + isclose);
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
     }
 
     constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute) {
@@ -67,14 +68,13 @@ export class OctopusChargeComponent implements OnInit {
 
     onTabCharge(event){
         console.log("emit the button");
+        this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
     }
 
     navigateBack(event) {
         console.log(this.tag + " navigateChargePoint");
-        if(this.routerExtensions.canGoBack()){
-            this.routerExtensions.back();
-        }else{
-            this.routerExtensions.navigate(['/main/octopus/main'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
-        }
+        
+        this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+        
     }
 }

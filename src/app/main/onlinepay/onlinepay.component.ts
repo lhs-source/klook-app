@@ -4,6 +4,7 @@ import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData, isAndroid } from "tns-core-modules";
 import { trigger, transition, style, animate } from "@angular/animations";
+import { CustomTransitionBack } from "../home/klook-transition";
 
 @Component({
     selector: "onlinepay",
@@ -36,6 +37,16 @@ export class OnlinepayComponent implements OnInit {
     constructor(private routerExtensions: RouterExtensions, private activatedRoute: ActivatedRoute) {
         console.log(`${this.tag} constructor `)
 
+        if (isAndroid) {
+            Application.android.off(AndroidApplication.activityBackPressedEvent);
+            Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+                console.log("back button pressed on " + this.tag);
+                data.cancel = true;
+                // this.routerExtensions.back();
+                this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut)}, clearHistory : true});
+                // exit();
+            });
+        }
     }
 
     ngOnInit(): void {
@@ -58,14 +69,14 @@ export class OnlinepayComponent implements OnInit {
 
         this.routerExtensions.navigate(['/main/home'], {
             clearHistory: true,
-            transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut }
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) }
         });
     }
 
     onTapOk() {
         this.routerExtensions.navigate(['/main/home'], {
             clearHistory: true,
-            transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut }
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) }
         });
     }
 
@@ -74,7 +85,7 @@ export class OnlinepayComponent implements OnInit {
         if (this.routerExtensions.canGoBack()) {
             this.routerExtensions.back({ relativeTo: this.activatedRoute });
         } else {
-            this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
+            this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut }, clearHistory: true });
         }
     }
 }

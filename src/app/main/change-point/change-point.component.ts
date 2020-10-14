@@ -3,6 +3,7 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
+import { CustomTransitionBack } from "../home/klook-transition";
 
 @Component({
     selector: "change-point",
@@ -19,7 +20,7 @@ export class ChangePointComponent implements OnInit {
             Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
                 console.log(this.tag + " back button pressed ");
                 data.cancel = true;
-                this.routerExtensions.navigate(['/main/home'], { clearHistory: true });
+                this.routerExtensions.navigate(['/main/home'], { transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut)}, clearHistory: true });
             });
         }
     }
@@ -33,7 +34,7 @@ export class ChangePointComponent implements OnInit {
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back({relativeTo: this.activatedRoute});
         }else{
-            this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut }, clearHistory : true });
+            this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) }, clearHistory : true });
         }
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { CustomTransition, CustomTransitionBack } from "../../home/klook-transition";
 
 @Component({
     selector: "account-link",
@@ -22,17 +23,18 @@ export class AccountLinkComponent implements OnInit {
     actionbar_click_close(isclose) {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
 
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
     }
     
     onTapYes(event) {
         console.log(`${this.tag} navigateChargePoint`);
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { name: 'slideRight', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
 
     }
     onTapNo(event) {
         console.log(`${this.tag} navigateChargePoint`);
-        this.routerExtensions.back();
+        // this.routerExtensions.backToPreviousPage();
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
     }
 
 
@@ -41,7 +43,7 @@ export class AccountLinkComponent implements OnInit {
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back();
         }else{
-            this.routerExtensions.navigate(['/main/account/list'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+            this.routerExtensions.navigate(['/main/account/list'], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) } });
         }
     }
 }

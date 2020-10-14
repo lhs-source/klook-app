@@ -3,6 +3,7 @@ import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { ActivatedRoute } from "@angular/router";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
+import { CustomTransitionBack } from "../home/klook-transition";
 
 @Component({
     selector: "charge-point",
@@ -14,19 +15,11 @@ export class ChargePointComponent implements OnInit {
     constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute) {
         console.log(`${this.tag} constructor `)
         
-        // if (isAndroid) {
-        //     Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-        //         console.log("back button pressed on " + this.tag);
-        //         data.cancel = true;
-        //         this.routerExtensions.navigate(['/main/home'], {clearHistory : true});
-        //     });
-        // }
-        
         Application.android.off(AndroidApplication.activityBackPressedEvent);
         Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
             console.log("back button pressed on " + this.tag);
             data.cancel = true;
-            this.routerExtensions.navigate(['/main/home'], {clearHistory : true});
+            this.routerExtensions.navigate(['/main/home'], {transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut)}, clearHistory : true});
         });
     }
 
@@ -39,7 +32,7 @@ export class ChargePointComponent implements OnInit {
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back({relativeTo: this.activatedRoute});
         }else{
-            this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut }, clearHistory : true });
+            this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) }, clearHistory : true });
         }
     }
 }

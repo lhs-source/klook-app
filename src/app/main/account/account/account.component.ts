@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
+import { CustomTransition, CustomTransitionBack } from "../../home/klook-transition";
 
 @Component({
     selector: "account",
@@ -19,7 +20,7 @@ export class AccountComponent implements OnInit {
                 console.log(this.tag + " back button pressed ");
                 if(this.routerExtensions.router.isActive('/main/account/list', false) === true){
                     data.cancel = true;
-                    this.routerExtensions.navigate(['/main/home'], { clearHistory: true });
+                    this.routerExtensions.navigate(['/main/home'], { transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut)}, clearHistory: true });
                 }else{
                     data.cancel = false;
                 }
@@ -36,7 +37,7 @@ export class AccountComponent implements OnInit {
     actionbar_click_close(isclose) {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
 
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
     }
 
     onTabDisconnect(event){
@@ -44,13 +45,13 @@ export class AccountComponent implements OnInit {
     }
     navigateLink(event) {
         console.log(`${this.tag} navigateChargePoint`);
-        this.routerExtensions.navigate(['/main/account/link'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/account/link'], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) } });
 
     }
     
     navigatePassport(event) {
         console.log(`${this.tag} navigateChargePoint`);
-        this.routerExtensions.navigate(['/main/account/passport'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/account/passport'], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) } });
 
     }
 }

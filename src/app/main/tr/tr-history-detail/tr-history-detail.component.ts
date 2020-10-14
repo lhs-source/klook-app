@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { CustomTransitionBack } from "../../home/klook-transition";
 
 @Component({
     selector: "tr-history-detail",
@@ -19,10 +20,7 @@ export class TrHistoryDetailComponent implements OnInit {
     }
     navigateBack(event) {
         console.log(this.tag + " navigateChargePoint");
-        if(this.routerExtensions.canGoBack()){
-            this.routerExtensions.back();
-        }else{
-            this.routerExtensions.navigate(['/main/home'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
-        }
+        
+        this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
     }
 }

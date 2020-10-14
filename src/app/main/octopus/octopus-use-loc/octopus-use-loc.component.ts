@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
+import { CustomTransitionBack } from "../../home/klook-transition";
 
 @Component({
     selector: "octopus-use-loc",
@@ -23,7 +24,7 @@ export class OctopusUseLocComponent implements OnInit {
     actionbar_click_close(isclose) {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
 
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
     }
     
     navigateBack(event) {
@@ -31,7 +32,7 @@ export class OctopusUseLocComponent implements OnInit {
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back();
         }else{
-            this.routerExtensions.navigate(['/main/octopus/main'], { transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+            this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
         }
     }
 }

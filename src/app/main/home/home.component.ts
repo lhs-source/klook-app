@@ -6,6 +6,7 @@ import { LayoutBase, Image } from "@nativescript/core/ui";
 import { isAndroid, screen } from "tns-core-modules/platform/platform"
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData, Color } from "tns-core-modules";
 import { exit } from "nativescript-exit";
+import { CustomTransition, CustomTransitionBack } from './klook-transition';
 
 @Component({
     selector: "home",
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
 
     isMenuExt = false;
 
+    trans_duration = 250;
     qr_anim_duration = 250;
     transition_duration = 250;
 
@@ -110,7 +112,7 @@ export class HomeComponent implements OnInit {
             console.log("height = " + menu.getMeasuredHeight());
             menu.animate({
                 height: h * p + item_height,
-                duration: 250,
+                duration: this.trans_duration,
                 curve: AnimationCurve.easeOut
             }).then(() => {
                 console.log("end height = " + menu.getMeasuredHeight());
@@ -121,7 +123,7 @@ export class HomeComponent implements OnInit {
             console.log("height = " + menu.getMeasuredHeight());
             menu.animate({
                 height: h * p - item_height,
-                duration: 250,
+                duration: this.trans_duration,
                 curve: AnimationCurve.easeOut
             }).then(() => {
                 console.log("end height = " + menu.getMeasuredHeight());
@@ -132,27 +134,27 @@ export class HomeComponent implements OnInit {
 
     navigateOnlinepay(event) {
         console.log(this.tag + " navigateOnlinepay");
-        this.routerExtensions.navigate(['/main/onlinepay'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
-
+        // this.routerExtensions.navigate(['/main/onlinepay'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/onlinepay'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
     }
     navigateChargePoint(event) {
         console.log(this.tag + " navigateChargePoint");
-        this.routerExtensions.navigate(['/main/charge-point'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/charge-point'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
 
     }
     navigateChangePoint(event) {
         console.log(this.tag + " navigateChangePoint");
-        this.routerExtensions.navigate(['/main/change-point'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/change-point'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
 
     }
     navigateTransaction(event) {
         console.log(this.tag + " navigateTransaction");
-        this.routerExtensions.navigate(['/main/tr'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/tr'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
 
     }
     navigateAccount(event) {
         console.log(this.tag + " navigateAccount");
-        this.routerExtensions.navigate(['/main/account'], { transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/account'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
 
     }
 
@@ -172,7 +174,7 @@ export class HomeComponent implements OnInit {
                 console.log("height = " + menu.getMeasuredHeight());
                 menu.animate({
                     height: 374 * p,
-                    duration: 250,
+                    duration: this.trans_duration,
                     curve: AnimationCurve.easeOut
                 }).then(() => {
                     console.log("end height = " + menu.getMeasuredHeight());
@@ -212,7 +214,7 @@ export class HomeComponent implements OnInit {
                 console.log("height = " + menu.getMeasuredHeight());
                 menu.animate({
                     height: 374 * p,
-                    duration: 250,
+                    duration: this.trans_duration,
                     curve: AnimationCurve.easeOut
                 }).then(() => {
                     console.log("end height = " + menu.getMeasuredHeight());
@@ -326,7 +328,7 @@ export class HomeComponent implements OnInit {
                     duration: 150,
                     curve: AnimationCurve.easeInOut
                 }).then(() => {
-                    this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut } });
+                    this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name:'fada', duration: this.trans_duration, curve: AnimationCurve.easeOut } });
                 });
                 lbf.animate({
                     translate: { x: this.octopus_frame_loc.originX, y: (screen.mainScreen.heightDIPs - lbc.getMeasuredHeight() * p) / 3 - this.card_marginTop },
@@ -338,12 +340,12 @@ export class HomeComponent implements OnInit {
                 // goto origin location
                 lbc.animate({
                     translate: { x: this.octopus_card_loc.originX, y: this.octopus_card_loc.originY },
-                    duration: 250,
+                    duration: this.trans_duration,
                     curve: AnimationCurve.easeOut
                 });
                 lb.animate({
                     opacity: 0,
-                    duration: 250,
+                    duration: this.trans_duration,
                     curve: AnimationCurve.easeOut
                 });
                 lbc.translateX = this.octopus_card_loc.originX;
@@ -372,12 +374,12 @@ export class HomeComponent implements OnInit {
         console.log(lbc.getLocationRelativeTo(lbc.parentNode.viewController));
         lb.animate({
             opacity: 0.5,
-            duration: 350,
+            duration: this.trans_duration,
             curve: AnimationCurve.easeOut
         });
         lbc.animate({
             translate: { x: lbc.translateX, y: 0 },
-            duration: 350,
+            duration: this.trans_duration,
             curve: AnimationCurve.easeOut
         }).then(() => {
             lbc.animate({
@@ -390,7 +392,7 @@ export class HomeComponent implements OnInit {
                     duration: 80,
                     curve: AnimationCurve.easeOut
                 }).then(() => {
-                    this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name: 'fade', duration: 350, curve: AnimationCurve.easeOut } });
+                    this.routerExtensions.navigate(['/main/octopus'], { clearHistory: true, transition: { name:'fada', duration: this.trans_duration, curve: AnimationCurve.easeOut } });
                 });
             });
         });
