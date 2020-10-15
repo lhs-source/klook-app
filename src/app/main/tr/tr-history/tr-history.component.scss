@@ -66,7 +66,7 @@ $timeline-border-line-color: #CCCCCC;
 
 $timeline-marginleft: 20;
 
-$gap_line_value:16;
+$gap_line_value:4;
 $pad_line:4;
 
 
@@ -77,7 +77,7 @@ $pad_line:4;
     .day{
         // right space
         padding-right: 24;
-        // padding-bottom:8;
+        
         .line{
             margin-left: $timeline-border-marginleft + $timeline-border-width;
             border-left-color: $timeline-border-line-color;
@@ -87,8 +87,8 @@ $pad_line:4;
             // transform: translateX(-12);
             // font-size: 16; 
             // font-weight: 700;
-            width:16;
-            height:16;
+            width:14;
+            height:14;
             border-radius: 50%;
             margin-top: 4;
             background-color:white;
@@ -116,25 +116,59 @@ $pad_line:4;
             margin-bottom: 24;
             .item{
                 margin-left: $gap_line_value;
-                margin-bottom : $pad_line - 4;
+                margin-bottom : $pad_line;
                 .icon{
                     width:20;
                     margin-right: 8; 
                     margin-top:8;
                 }
                 .merchant{
-                    font-size:14;
+                    font-size:15;
+                    margin:0;
+                    padding:0;
                     margin-top:6;
                 }
                 .point{
                     font-size:12;
-                    margin-top: 2;
+                    padding:0;
+                    margin-top:2;
                     margin-bottom: 0;
                     padding-bottom: 0;
                 }
                 .change{
+                    margin:0;
+                    padding:0;
                     font-size:10;
                     color: #888888;
+                }
+                .date{
+                    font-size:14;
+                    margin:0;
+                    padding:0;
+                    margin-left:0;
+                }
+                .description{
+                    margin:0;
+                    padding:0;
+                    font-size:14;
+                }
+                .seperate{
+                    width:1;
+                    height:10;
+                    padding:0;
+                    margin:0 6;
+                    border-right-width: 1;
+                    border-right-color: #ccc;
+                }
+                .label-img{
+                    
+                }
+                .savepoint{
+                    font-size:12;
+                    margin:0;
+                    padding:0;
+                    margin-bottom: 0;
+                    padding-bottom: 0;
                 }
             }
         }
