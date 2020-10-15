@@ -1,3 +1,4 @@
+import { KeyValue } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
@@ -9,55 +10,169 @@ import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedE
 })
 export class TrHistoryEmbeddedComponent implements OnInit {
     tag = this.constructor.name;
+
     // trs
     icons = {
-        "department":"~/images/ico_type2.png",
-        "grocery":"~/images/ico_type3.png",
-        "restorant":"~/images/ico_type5.png",
-        "point":"~/images/ico_type1.png",
-        "mart":"~/images/ico_type4.png",
-        "sport":"~/images/ico_type6.png",
-        "cafe":"~/images/ico_type7.png",
-        "exchange":"~/images/ico_type8.png",
+        "department": "~/images/ico_type2.png",
+        "grocery": "~/images/ico_type3.png",
+        "restaurant": "~/images/ico_type5.png",
+        "point": "~/images/ico_type1.png",
+        "mart": "~/images/ico_type4.png",
+        "sport": "~/images/ico_type6.png",
+        "cafe": "~/images/ico_type7.png",
+        "exchange": "~/images/ico_type8.png",
     };
-    trs={
-        "10월 30일 금요일":[
+    trs = {
+        "10월 30일 금요일": [
             {
-                icon:"department",
-                merchant:"Central Department Store",
-                point:25000,
-                curr:676,
+                icon: "department",
+                merchant: "Central Department Store",
+                point: 25000,
+                curr: 676,
                 date: new Date(2020, 10, 30, 14, 23, 0, 0),
-                description:"포인트사용",
+                description: "포인트사용",
                 taxfree: true,
-                utu:false,
-                save_point:1250,
-            },{
-                icon:"grocery",
-                merchant:"Family mart",
-                point:4500,
-                curr:122,
+                utu: false,
+                save_point: 1250,
+            }, {
+                icon: "grocery",
+                merchant: "Family mart",
+                point: 4500,
+                curr: 122,
                 date: new Date(2020, 10, 30, 11, 30, 0, 0),
-                description:"포인트사용",
+                description: "포인트사용",
                 taxfree: false,
-                utu:true,
-                save_point:45,
+                utu: true,
+                save_point: 45,
             }
         ],
-        "10월 27일 화요일":[
+        "10월 27일 화요일": [
             {
-                icon:"point",
-                merchant:"KB국민카드 Nori카드 충전",
-                point:100000,
-                curr:0,
+                icon: "point",
+                merchant: "KB국민카드 Nori카드 충전",
+                point: 100000,
+                curr: 0,
                 date: new Date(2020, 10, 27, 21, 10, 0, 0),
-                description:"포인트 일반충전",
+                description: "포인트 일반충전",
                 taxfree: false,
-                utu:false,
-                save_point:0,
+                utu: false,
+                save_point: 0,
             }
-        ]
+        ],
+        "10월 25일 일요일": [
+            {
+                icon: "mart",
+                merchant: "Big C (Thap Thiang)",
+                point: 5500,
+                curr: 145,
+                date: new Date(2020, 10, 25, 13, 10, 0, 0),
+                description: "포인트사용",
+                taxfree: false,
+                utu: true,
+                save_point: 55,
+            }, {
+                icon: "restaurant",
+                merchant: "MK Restaurants",
+                point: 13500,
+                curr: 365,
+                date: new Date(2020, 10, 25, 12, 35, 0, 0),
+                description: "포인트사용",
+                taxfree: false,
+                utu: true,
+                save_point: 135,
+            }, {
+                icon: "point",
+                merchant: "KB국민카드 포인트 자동충전",
+                point: 50000,
+                curr: 0,
+                date: new Date(2020, 10, 25, 9, 45, 0, 0),
+                description: "포인트 자동충전",
+                taxfree: false,
+                utu: false,
+                save_point: 0,
+            }
+        ],
+        "10월 24일 토요일": [
+            {
+                icon: "restaurant",
+                merchant: "EATHAI",
+                point: 37000,
+                curr: 1001,
+                date: new Date(2020, 10, 25, 18, 20, 0, 0),
+                description: "포인트사용",
+                taxfree: false,
+                utu: true,
+                save_point: 370,
+            }, {
+                icon: "department",
+                merchant: "Robinson",
+                point: 38000,
+                curr: 1028,
+                date: new Date(2020, 10, 24, 17, 24, 0, 0),
+                description: "포인트사용",
+                taxfree: true,
+                utu: false,
+                save_point: 1900,
+            }, {
+                icon: "mart",
+                merchant: "Tops daily mini supermarket",
+                point: 19000,
+                curr: 324,
+                date: new Date(2020, 10, 24, 13, 15, 0, 0),
+                description: "포인트사용",
+                taxfree: false,
+                utu: true,
+                save_point: 600,
+            }
+        ],
+        "10월 23일 금요일": [
+            {
+                icon: "sport",
+                merchant: "SuperSports",
+                point: 12000,
+                curr: 324,
+                date: new Date(2020, 10, 23, 19, 20, 0, 0),
+                description: "포인트사용",
+                taxfree: true,
+                utu: false,
+                save_point: 600,
+            }, {
+                icon: "cafe",
+                merchant: "Segafredo Zanetti Espresso",
+                point: 5000,
+                curr: 135,
+                date: new Date(2020, 10, 23, 18, 45, 0, 0),
+                description: "포인트사용",
+                taxfree: false,
+                utu: true,
+                save_point: 50,
+            }
+        ],
+        "10월 20일 화요일": [
+            {
+                icon: "point",
+                merchant: "KB국민카드 해피Nori카드 충전",
+                point: 100000,
+                curr: 0,
+                date: new Date(2020, 10, 20, 21, 0, 0, 0),
+                description: "포인트 일반충전",
+                taxfree: false,
+                utu: false,
+                save_point: 0,
+            }, {
+                icon: "exchange",
+                merchant: "KB국민카드 포인트리 교환",
+                point: 20000,
+                curr: 0,
+                date: new Date(2020, 10, 20, 20, 50, 0, 0),
+                description: "포인트교환",
+                taxfree: false,
+                utu: false,
+                save_point: 0,
+            }
+        ],
     }
+    currency="THB"
 
     constructor(private routerExtensions: RouterExtensions) {
         console.log(`${this.tag} constructor `)
@@ -74,5 +189,9 @@ export class TrHistoryEmbeddedComponent implements OnInit {
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
+    }
+    
+    keyDescOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
+        return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
     }
 }

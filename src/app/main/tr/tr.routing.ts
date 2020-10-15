@@ -7,7 +7,7 @@ import {TrHistoryDetailComponent} from "./tr-history-detail/tr-history-detail.co
 const routes: Routes = [
         {path:'', redirectTo:'history', pathMatch:'full'},
         {path:'history', component: TrHistoryComponent},
-        {path:'detail', component:TrHistoryDetailComponent},
+        {path:'detail/:id', component:TrHistoryDetailComponent},
 ];
 
 @NgModule({

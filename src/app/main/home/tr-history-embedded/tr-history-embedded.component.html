@@ -9,9 +9,11 @@
             <GridLayout class="day" columns="16" width="100%" height="16">
                 <Label class="line" col="0" width="100%"></Label>
             </GridLayout>
-            <GridLayout *ngFor="let item of trs | keyvalue" class="day" rows="auto, auto" columns="24, *" width="100%">
+            <GridLayout *ngFor="let item of trs | keyvalue : keyDescOrder; let index = index" class="day"
+                rows="auto, auto" columns="24, *" width="100%">
                 <Label class="line" col="0" rowspan="2" width="100%"></Label>
-                <Label class="dot" col="0" rowspan="2" verticalAlignment="top"></Label>
+                <Label class="dot" col="0" [ngClass]="{'even': index % 2 === 1}" rowspan="2"
+                    verticalAlignment="top"></Label>
                 <GridLayout class="date" col="1" row="0" columns="*, auto">
                     <Label class="date-str" text="{{item.key}}" col="0"></Label>
                 </GridLayout>
@@ -22,8 +24,14 @@
                             verticalAlignment="top"></Image>
                         <Label class="merchant" row="0" rowspan="2" col="1" text="{{tr.value.merchant}}"
                             verticalAlignment="top"></Label>
-                        <Label class="point" row="0" text="{{tr.value.point}}" col="2" textAlignment="right"></Label>
-                        <Label class="change" row="1" col="2" text="{{tr.value.curr}}" textAlignment="right"></Label>
+                        <StackLayout row="0" col="2" verticalAlignment="center">
+                            <Label class="point"
+                                text="{{ (tr.value.curr === 0 ? '+' : '') + (tr.value.point | number:'1.0':'en-US') + ' P' }}"
+                                textAlignment="right" verticalAlignment="center" translateY="2"></Label>
+                            <Label class="change" *ngIf="tr.value.curr !== 0"
+                                text="{{(tr.value.curr | number:'1.0':'en-US') + ' ' + currency}}"
+                                textAlignment="right"></Label>
+                        </StackLayout>
                     </GridLayout>
                 </StackLayout>
             </GridLayout>
