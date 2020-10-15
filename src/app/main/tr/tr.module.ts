@@ -1,14 +1,15 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptCommonModule } from "@nativescript/angular";
+import { NativeScriptCommonModule, registerElement } from "@nativescript/angular";
 import { TrRoutingModule } from "./tr.routing";
 import { TrHistoryComponent } from "./tr-history/tr-history.component";
 import { TrHistoryDetailComponent } from "./tr-history-detail/tr-history-detail.component";
 
 import { ComponentsModule } from "../../components/components.module";
+registerElement("MapView", () => require("nativescript-google-maps-sdk").MapView);
 
 @NgModule({
     exports:[
-        TrHistoryComponent
+        TrHistoryComponent,
     ],
     imports: [
         NativeScriptCommonModule,

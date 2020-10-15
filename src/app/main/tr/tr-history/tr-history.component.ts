@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
-import { Application, AndroidApplication, AndroidActivityBackPressedEventData, isAndroid, EventData, LayoutBase, View, Color } from "tns-core-modules";
+import { Application, AndroidApplication, AndroidActivityBackPressedEventData, isAndroid, EventData, LayoutBase, View, Color, Label } from "tns-core-modules";
 import { CubicBezierAnimationCurve } from "@nativescript/core/ui/animation";
 import { screen } from "tns-core-modules/platform";
 
@@ -186,7 +186,7 @@ export class TrHistoryComponent implements OnInit {
             }
         ],
     }
-    currency="THB"
+    currency = "THB"
 
     constructor(private routerExtensions: RouterExtensions) {
         console.log(`${this.tag} constructor `)
@@ -236,17 +236,17 @@ export class TrHistoryComponent implements OnInit {
                     animate(250, [color_anim]);
 
                     setTimeout(() => {
-                        let label = a.object as View;
+                        let label = view as View;
                         let loc = label.getLocationRelativeTo(lb);
                         let width = label.getMeasuredWidth();
                         console.log(loc);
                         console.log(width);
-                        // rootView.animate({
-                        //     translate: { x: loc.x, y: 0 },
-                        //     width:width * p,
-                        //     duration: 250,
-                        //     curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1)
-                        // });
+                        rootView.animate({
+                            translate: { x: 0, y: 0 },
+                            width:65,
+                            duration: 250,
+                            curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1)
+                        });
                     });
                 });
             }
@@ -287,15 +287,36 @@ export class TrHistoryComponent implements OnInit {
         });
     }
 
+    onLoadedTab(){
+        console.log(`${this.tag} onLoadedTab`);
+
+        // let lb = this.tab.nativeElement as LayoutBase;
+        // let rootView = lb.parentNode.getViewById("selected") as View;
+
+        // for(let ta of this.tab_view){
+        //     console.log(ta);
+        // }
+        
+        // setTimeout(() => {
+        //     let label = this.tab_view[0] as Label;
+        //     let loc = label.getLocationRelativeTo(lb);
+        //     let width = label.getMeasuredWidth();
+        //     console.log(loc);
+        //     console.log(width);
+        // });
+    }
+
     keyDescOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
         return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
     }
-    hiAmountOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>):number =>{
+    hiAmountOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
         return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
     }
 
-    onTapTr(tr){
+    onTapTr(tr) {
         console.log(this.tag, " onTapTr tr = ", tr);
+        console.log("date = ", tr.date);
+        this.routerExtensions.navigate(['/main/tr/detail', (tr.date as Date).getTime()], { transition: { instance: new CustomTransition(250, AnimationCurve.linear) }, });
     }
 
     // actionbar emit click close

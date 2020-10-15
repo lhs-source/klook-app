@@ -1,8 +1,44 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#f0f0f5">
-    <Label row="0" text="Tr History Detail" margin="24" style="font-size: 24;"></Label>
-
-
-    <StackLayout row="1">
-        <Button text="go to tr" (tap)="navigateBack($event)"></Button>
-    </StackLayout>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
+</GridLayout>
+<GridLayout #rootlayout rows="72,auto,280,auto,auto,auto, auto, auto" height="100%" width="100%">
+    <title row="1" title="이용 내역 > 영수증" backgroundColor="#888"></title>
+    <GridLayout row="2" marginLeft="16" marginRight="16" marginTop="16">
+        
+        <MapView #mapView [latitude]="latitude" [longitude]="longitude"
+        [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
+        [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+        (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
+        (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
+        (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+        (cameraChanged)="onCameraChanged($event)"
+        (cameraMove)="onCameraMove($event)"></MapView>
+        <!-- <MapView #MapView (mapReady)="onMapReady($event)" (markerSelect)="onMarkerEvent($event)" iosOverflowSafeArea="true"></MapView> -->
+    </GridLayout>
+    <Label row="3" text="상품이용정보" style="font-size: 16; font-weight: 600;" marginTop="16" marginLeft="16"></Label>
+    <GridLayout row="4" rows="auto, auto, auto, auto" columns="120, *" marginTop="16" marginLeft="16">
+        <Label row="0" col="0" text="가맹점명"></Label>
+        <Label row="0" col="1" text="{{tr.merchant}}"></Label>
+        <Label row="1" col="0" text="사용일시"></Label>
+        <Label row="1" col="1" text="{{tr.date | date:'y.MM.dd hh:mm:ss'}}"></Label>
+        <Label row="2" col="0" text="포인트사용"></Label>
+        <StackLayout row="2" col="1" orientation="horizontal">
+            <Label text="{{tr.point | number:'1.0':'en-US' + ' P'}}"></Label>
+            <Label text="P (현지 결제금액 " marginLeft="2"></Label>
+            <Label text="{{tr.curr | number:'1.0':'en-US'}}"></Label>
+            <Label text="{{currency + ')'}}" marginLeft="4"></Label>
+        </StackLayout>
+        <Label row="3" col="0" text="가맹점업종"></Label>
+        <Label row="3" col="1" text="{{tr.icon}}"></Label>
+    </GridLayout>
+    <Label row="5" text="KLOOK Pay 부가서비스" style="font-size: 16; font-weight: 600;" marginTop="16" marginLeft="16"></Label>
+    <GridLayout row="6" rows="auto" columns="120, *" marginTop="16" marginLeft="16">
+        <Label row="0" col="0" text="포인트적립"></Label>
+        <StackLayout row="0" col="1" orientation="horizontal">
+            <Label  text="{{tr.save_point + 'P'}}"></Label>
+            <Label *ngIf="tr.taxfree" text="(Tax-free 가맹점)" marginLeft="4"></Label>
+            <Label *ngIf="tr.utu" text="(UTU 가맹점)" marginLeft="4"></Label>
+        </StackLayout>
+    </GridLayout>
+    <Button row="7" class="btn" text="이의제기" (tap)="addMarker()"></Button>
 </GridLayout>

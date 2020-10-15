@@ -26,7 +26,7 @@
     <AbsoluteLayout row="4" class="tab-frame" columns="auto, auto,auto, auto" verticalAlignment="middle" marginTop="8">
         
         <StackLayout class="stack" orientation="horizontal" width="100%" #tab>
-            <Label class="btn" col="0" text="최신순"></Label>
+            <Label class="btn" col="0" text="최신순" (loaded)="onLoadedTab()"></Label>
             <Label class="btn" col="1" text="고액순"></Label>
             <Label class="btn" col="2" text="충전/교환"></Label>
             <Label class="btn" col="3" text="적립"></Label>
@@ -45,22 +45,22 @@
                         <Label class="date-str" text="{{item.key}}" col="0"></Label>
                     </GridLayout>
                     <StackLayout col="1" row="1" class="items">
-                        <GridLayout class="item" *ngFor="let tr of item.value | keyvalue" rows="auto, auto" columns="auto, *, auto" (tap)="onTapTr(tr)">
-                            <Image class="icon" row="0" rowspan="2" col="0" src="{{icons[tr.value.icon]}}" verticalAlignment="top"></Image>
-                            <Label class="merchant" row="0" col="1" text="{{tr.value.merchant}}" verticalAlignment="center"></Label>
+                        <GridLayout class="item" *ngFor="let tr of item.value" rows="auto, auto" columns="auto, *, auto" (tap)="onTapTr(tr)">
+                            <Image class="icon" row="0" rowspan="2" col="0" src="{{icons[tr.icon]}}" verticalAlignment="top"></Image>
+                            <Label class="merchant" row="0" col="1" text="{{tr.merchant}}" verticalAlignment="center"></Label>
                             <StackLayout row="0" col="2" verticalAlignment="center">
-                                <Label class="point" text="{{ (tr.value.curr === 0 ? '+' : '') + (tr.value.point | number:'1.0':'en-US') + ' P' }}" textAlignment="right" verticalAlignment="center" translateY="2"></Label>
-                                <Label class="change" *ngIf="tr.value.curr !== 0" text="{{(tr.value.curr | number:'1.0':'en-US') + ' ' + currency}}" textAlignment="right"></Label>
+                                <Label class="point" text="{{ (tr.curr === 0 ? '+' : '') + (tr.point | number:'1.0':'en-US') + ' P' }}" textAlignment="right" verticalAlignment="center" translateY="2"></Label>
+                                <Label class="change" *ngIf="tr.curr !== 0" text="{{(tr.curr | number:'1.0':'en-US') + ' ' + currency}}" textAlignment="right"></Label>
                             </StackLayout>
                             <StackLayout row="1" col="1" orientation="horizontal">
-                                <Label class="date" text="{{tr.value.date | date:'HH:mm'}}" textAlignment="right" verticalAlignment="center"></Label>
+                                <Label class="date" text="{{tr.date | date:'HH:mm'}}" textAlignment="right" verticalAlignment="center"></Label>
                                 <Label class="seperate" verticalAlignment="center"></Label>
-                                <Label class="description" text="{{tr.value.description}}" textAlignment="right" verticalAlignment="center"></Label>
-                                <Label *ngIf="tr.value.taxfree || tr.value.utu" class="seperate" verticalAlignment="center"></Label>
-                                <Image *ngIf="tr.value.taxfree" class="label-img" src="~/images/ico_taxfree.png" height="16" verticalAlignment="center"></Image>
-                                <Image *ngIf="tr.value.utu" class="label-img" src="~/images/ico_utu.png" height="16"  verticalAlignment="center"></Image>
+                                <Label class="description" text="{{tr.description}}" textAlignment="right" verticalAlignment="center"></Label>
+                                <Label *ngIf="tr.taxfree || tr.utu" class="seperate" verticalAlignment="center"></Label>
+                                <Image *ngIf="tr.taxfree" class="label-img" src="~/images/ico_taxfree.png" height="16" verticalAlignment="center"></Image>
+                                <Image *ngIf="tr.utu" class="label-img" src="~/images/ico_utu.png" height="16"  verticalAlignment="center"></Image>
                             </StackLayout>
-                            <Label class="savepoint" row="1" col="2" *ngIf="tr.value.save_point !== 0" text="{{'+' + (tr.value.save_point) + ' P'}}" textAlignment="right"></Label>
+                            <Label class="savepoint" row="1" col="2" *ngIf="tr.save_point !== 0" text="{{'+' + (tr.save_point) + ' P'}}" textAlignment="right"></Label>
                         </GridLayout>
                     </StackLayout>
                 </GridLayout>
