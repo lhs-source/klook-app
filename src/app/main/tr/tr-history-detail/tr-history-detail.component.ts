@@ -21,6 +21,6 @@ export class TrHistoryDetailComponent implements OnInit {
     navigateBack(event) {
         console.log(this.tag + " navigateChargePoint");
         
-        this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
 }

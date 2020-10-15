@@ -35,24 +35,24 @@ export class OctopusMainComponent implements OnInit {
                 if (this.routerExtensions.router.isActive('/main/octopus/main', false) === true) {
                     data.cancel = true;
                     this.routerExtensions.navigate(['/main/home'], { 
-                        transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut), }, 
+                        transition:{instance : new CustomTransitionBack(250, AnimationCurve.linear), }, 
                         clearHistory: true 
                     });
                 } else {
                     // data.cancel = true;
                     // if (this.routerExtensions.router.isActive('/main/octopus/charge', false) === true) {
                     //     this.routerExtensions.navigate(['/main/octopus/main'], { 
-                    //         transition: {instance : new CustomTransitionBack(250, AnimationCurve.easeOut), }, 
+                    //         transition: {instance : new CustomTransitionBack(250, AnimationCurve.linear), }, 
                     //         clearHistory: false 
                     //     });
                     // }else if (this.routerExtensions.router.isActive('/main/octopus/new', false) === true) {
                     //     this.routerExtensions.navigate(['/main/octopus/main'], { 
-                    //         transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut), }, 
+                    //         transition:{instance : new CustomTransitionBack(250, AnimationCurve.linear), }, 
                     //         clearHistory: false 
                     //     });
                     // }else if (this.routerExtensions.router.isActive('/main/octopus/use-loc', false) === true) {
                     //     this.routerExtensions.navigate(['/main/octopus/main'], { 
-                    //         transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut), }, 
+                    //         transition:{instance : new CustomTransitionBack(250, AnimationCurve.linear), }, 
                     //         clearHistory: false 
                     //     });
                     // }else{
@@ -73,12 +73,12 @@ export class OctopusMainComponent implements OnInit {
     actionbar_click_close(isclose) {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
 
-        this.routerExtensions.navigate(['/main/home'], { clearHistory: true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory: true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
 
     onTapCard(index){
         console.log(this.tag + " onTapCard = " + index);
-        this.routerExtensions.navigate(['/main/octopus/charge', index], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) },  });
+        this.routerExtensions.navigate(['/main/octopus/charge', index], { transition: { instance : new CustomTransition(250, AnimationCurve.linear) },  });
     }
 
 
@@ -92,13 +92,13 @@ export class OctopusMainComponent implements OnInit {
 
     navigateNew(event) {
         console.log(this.tag + " navigateChargePoint OctopusMainComponent");
-        this.routerExtensions.navigate(['/main/octopus/new'], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/octopus/new'], { transition: { instance : new CustomTransition(250, AnimationCurve.linear) } });
 
     }
 
     navigateUseLoc(event) {
         console.log(this.tag + " navigateChargePoint OctopusMainComponent");
-        this.routerExtensions.navigate(['/main/octopus/use-loc'], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/octopus/use-loc'], { transition: { instance : new CustomTransition(250, AnimationCurve.linear) } });
 
     }
 }

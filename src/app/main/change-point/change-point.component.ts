@@ -20,7 +20,7 @@ export class ChangePointComponent implements OnInit {
             Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
                 console.log(this.tag + " back button pressed ");
                 data.cancel = true;
-                this.routerExtensions.navigate(['/main/home'], { transition:{instance : new CustomTransitionBack(250, AnimationCurve.easeOut)}, clearHistory: true });
+                this.routerExtensions.navigate(['/main/home'], { transition:{instance : new CustomTransitionBack(250, AnimationCurve.linear)}, clearHistory: true });
             });
         }
     }
@@ -34,7 +34,7 @@ export class ChangePointComponent implements OnInit {
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back({relativeTo: this.activatedRoute});
         }else{
-            this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) }, clearHistory : true });
+            this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
         }
     }
 }

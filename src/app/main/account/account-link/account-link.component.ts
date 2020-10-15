@@ -23,18 +23,18 @@ export class AccountLinkComponent implements OnInit {
     actionbar_click_close(isclose) {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
 
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
     
     onTapYes(event) {
         console.log(`${this.tag} navigateChargePoint`);
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
 
     }
     onTapNo(event) {
         console.log(`${this.tag} navigateChargePoint`);
         // this.routerExtensions.backToPreviousPage();
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
 
 
@@ -43,7 +43,7 @@ export class AccountLinkComponent implements OnInit {
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back();
         }else{
-            this.routerExtensions.navigate(['/main/account/list'], { transition: { instance : new CustomTransition(250, AnimationCurve.easeOut) } });
+            this.routerExtensions.navigate(['/main/account/list'], { transition: { instance : new CustomTransition(250, AnimationCurve.linear) } });
         }
     }
 }

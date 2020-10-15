@@ -23,7 +23,7 @@ export class PassportComponent implements OnInit {
     actionbar_click_close(isclose) {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
 
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
     
     navigateBack(event) {
@@ -31,7 +31,7 @@ export class PassportComponent implements OnInit {
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back();
         }else{
-            this.routerExtensions.navigate(['/main/account/list'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+            this.routerExtensions.navigate(['/main/account/list'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
         }
     }
 }

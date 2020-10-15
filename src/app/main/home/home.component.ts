@@ -135,26 +135,26 @@ export class HomeComponent implements OnInit {
     navigateOnlinepay(event) {
         console.log(this.tag + " navigateOnlinepay");
         // this.routerExtensions.navigate(['/main/onlinepay'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
-        this.routerExtensions.navigate(['/main/onlinepay'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/onlinepay'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
     }
     navigateChargePoint(event) {
         console.log(this.tag + " navigateChargePoint");
-        this.routerExtensions.navigate(['/main/charge-point'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/charge-point'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
 
     }
     navigateChangePoint(event) {
         console.log(this.tag + " navigateChangePoint");
-        this.routerExtensions.navigate(['/main/change-point'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/change-point'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
 
     }
     navigateTransaction(event) {
         console.log(this.tag + " navigateTransaction");
-        this.routerExtensions.navigate(['/main/tr'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/tr'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
 
     }
     navigateAccount(event) {
         console.log(this.tag + " navigateAccount");
-        this.routerExtensions.navigate(['/main/account'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/account'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
 
     }
 

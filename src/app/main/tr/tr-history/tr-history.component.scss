@@ -1,1 +1,142 @@
+$maincolor: #ff5722;
 
+.month{
+    font-size: 16;
+    font-weight: 600;
+    margin: 0 8;
+}
+
+.info{
+    margin:0 16;
+    padding:12;
+    border-radius: 6;
+    background-color: #eee;
+    .str{
+        font-size:15;
+        margin:0;
+    }
+    .point{
+        font-size:15;
+        font-weight: 600;
+        color:$maincolor;
+        margin:0 4;
+    }
+}
+
+.tab-frame {
+    height: 40;
+    margin: 0 16;
+    
+    .stack{
+        border-bottom-width: 2;
+        border-bottom-color: #dddddd;
+        margin:0;
+        padding:0;
+
+        .btn {
+            color:#888;
+            font-size: 14;
+            font-weight: 600;
+            text-align: center;
+            padding:8 12;
+    
+            border-radius: 12%;
+            vertical-align: center;
+    
+        }
+    }
+    .toggle {
+        // move thing
+        font-size: 14;
+        padding:8 0;
+
+        border-width: 0;
+        border-color: transparent;
+
+        border-bottom-width: 3;
+        border-bottom-color: black;
+        z-index: 0;
+    }
+}
+
+$timeline-border-width : 1;
+$timeline-border-marginleft : 22;
+$timeline-border-dot-color: #ff5721;
+$timeline-border-line-color: #CCCCCC;
+
+$timeline-marginleft: 20;
+
+$gap_line_value:16;
+$pad_line:4;
+
+
+.timeline{
+    margin-top: 8; 
+    margin-left: $timeline-marginleft;
+    // margin-bottom:14;
+    .day{
+        // right space
+        padding-right: 24;
+        // padding-bottom:8;
+        .line{
+            margin-left: $timeline-border-marginleft + $timeline-border-width;
+            border-left-color: $timeline-border-line-color;
+            border-left-width: $timeline-border-width;
+        }
+        .dot{
+            // transform: translateX(-12);
+            // font-size: 16; 
+            // font-weight: 700;
+            width:16;
+            height:16;
+            border-radius: 50%;
+            margin-top: 4;
+            background-color:white;
+            border-color: $timeline-border-dot-color;
+            border-width: 2;
+        }
+        .even{
+            background-color:$timeline-border-dot-color;
+        }
+        .date{
+            margin-left: $gap_line_value;
+            margin-bottom: $pad_line;
+            .date-str{
+                font-size: 14;
+                // font-weight: 600;
+                color:#888;
+            }
+            .amount{
+                font-size: 14;
+                color: darkgray;
+                // display :none;
+            }
+        }
+        .items{
+            margin-bottom: 24;
+            .item{
+                margin-left: $gap_line_value;
+                margin-bottom : $pad_line - 4;
+                .icon{
+                    width:20;
+                    margin-right: 8; 
+                    margin-top:8;
+                }
+                .merchant{
+                    font-size:14;
+                    margin-top:6;
+                }
+                .point{
+                    font-size:12;
+                    margin-top: 2;
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                }
+                .change{
+                    font-size:10;
+                    color: #888888;
+                }
+            }
+        }
+    }
+}

@@ -43,7 +43,7 @@ export class OnlinepayComponent implements OnInit {
                 console.log("back button pressed on " + this.tag);
                 data.cancel = true;
                 // this.routerExtensions.back();
-                this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut)}, clearHistory : true});
+                this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear)}, clearHistory : true});
                 // exit();
             });
         }
@@ -69,14 +69,14 @@ export class OnlinepayComponent implements OnInit {
 
         this.routerExtensions.navigate(['/main/home'], {
             clearHistory: true,
-            transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) }
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }
         });
     }
 
     onTapOk() {
         this.routerExtensions.navigate(['/main/home'], {
             clearHistory: true,
-            transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) }
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }
         });
     }
 

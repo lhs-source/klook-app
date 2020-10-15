@@ -4,6 +4,7 @@ import { TrRoutingModule } from "./tr.routing";
 import { TrHistoryComponent } from "./tr-history/tr-history.component";
 import { TrHistoryDetailComponent } from "./tr-history-detail/tr-history-detail.component";
 
+import { ComponentsModule } from "../../components/components.module";
 
 @NgModule({
     exports:[
@@ -11,7 +12,8 @@ import { TrHistoryDetailComponent } from "./tr-history-detail/tr-history-detail.
     ],
     imports: [
         NativeScriptCommonModule,
-        TrRoutingModule
+        TrRoutingModule,
+        ComponentsModule
     ],
     declarations: [
         TrHistoryComponent,

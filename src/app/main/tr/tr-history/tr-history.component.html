@@ -1,8 +1,109 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#f0f0f5">
-    <Label row="0" text="Tr History" margin="24" style="font-size: 24;"></Label>
-
-
-    <StackLayout row="1">
-        <Button text="go to Detail" (tap)="navigateDetails($event)"></Button>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
+</GridLayout>
+<GridLayout #rootlayout rows="72,auto,auto,auto,auto, *, 52" height="100%" width="100%">
+    <title row="1" title="보유포인트" point="120,000P" point_unit=" (3,245THB)" backgroundColor="#ff5722"></title>
+    <StackLayout row="2" horizontalAlignment="center" orientation="horizontal" marginTop="16">
+        <Image src="~/images/btn_pre.png" width="24"></Image>
+        <Label class="month" text="{{today | date:'yyyy년 MM월'}}"></Label>
+        <Image src="~/images/btn_next.png" width="24"></Image>
     </StackLayout>
+
+    <StackLayout row="3" class="info" marginTop="16">
+        <Label class="str" text="KLOOK Pay"></Label>
+        <StackLayout orientation="horizontal">
+            <Label class="str" text="이용 포인트는"></Label>
+            <Label class="point" text="{{use_point}}"></Label>
+            <Label class="str" text="Point 이며,"></Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal">
+            <Label class="str" text="적립된 포인트는"></Label>
+            <Label class="point" text="{{stack_point}}"></Label>
+            <Label class="str" text="Point 입니다"></Label>
+        </StackLayout>
+    </StackLayout>
+
+    <AbsoluteLayout row="4" class="tab-frame" columns="auto, auto,auto, auto" verticalAlignment="middle" marginTop="8">
+        
+        <StackLayout class="stack" orientation="horizontal" width="100%" #tab>
+            <Label class="btn" col="0" text="최신순"></Label>
+            <Label class="btn" col="1" text="고액순"></Label>
+            <Label class="btn" col="2" text="충전/교환"></Label>
+            <Label class="btn" col="3" text="적립"></Label>
+        </StackLayout>
+        <!-- <Label class="tab-btn" col="2" text="right"></Label> -->
+        <Label id="selected" class="toggle"></Label>
+    </AbsoluteLayout>
+
+    <GridLayout row="5">
+        <ScrollView>
+            <StackLayout class="timeline">
+                <GridLayout class="day" columns="16" width="100%" height="16">
+                    <Label class="line" col="0" width="100%"></Label>
+                </GridLayout>
+                <GridLayout class="day" rows="auto, auto" columns="24, *" width="100%">
+                    <Label class="line" col="0" rowspan="2" width="100%"></Label>
+                    <Label class="dot" col="0" rowspan="2" verticalAlignment="top"></Label>
+                    <GridLayout class="date" col="1" row="0" columns="*, auto">
+                        <Label class="date-str" text="10월 30일 수요일" col="0"></Label>
+                        <!-- <Label class="amount" text="2.01" col="1"></Label> -->
+                    </GridLayout>
+                    <StackLayout col="1" row="1" class="items">
+                        <GridLayout class="item" rows="auto, auto" columns="auto, *, auto">
+                            <Image class="icon" row="0" rowspan="2" col="0" src="~/images/ico_shop1.png" verticalAlignment="top"></Image>
+                            <Label class="merchant" row="0" rowspan="2" col="1" text="Central Department Store" verticalAlignment="top"></Label>
+                            <Label class="point" row="0" text="25,000 P" col="2" textAlignment="right"></Label>
+                            <Label class="change" row="1" col="2" text="676 THB" textAlignment="right"></Label>
+                        </GridLayout>
+                        <GridLayout class="item" rows="auto, auto" columns="auto, *, auto">
+                            <Image class="icon" row="0" rowspan="2" col="0" src="~/images/ico_shop2.png" verticalAlignment="top"></Image>
+                            <Label class="merchant" row="0" rowspan="2" col="1" text="Family mart" verticalAlignment="top"></Label>
+                            <Label class="point" row="0" text="4,500 P" col="2" textAlignment="right"></Label>
+                            <Label class="change" row="1" col="2" text="122 THB" textAlignment="right"></Label>
+                        </GridLayout>
+                    </StackLayout>
+                </GridLayout>
+                <GridLayout class="day" rows="auto, auto" columns="24, *" width="100%">
+                    <Label class="line" col="0" rowspan="2" width="100%"></Label>
+                    <Label class="dot even" col="0" rowspan="2" verticalAlignment="top"></Label>
+                    <GridLayout class="date" col="1" row="0" columns="*, auto">
+                        <Label class="date-str" text="10월 27일 화요일" col="0"></Label>
+                        <!-- <Label class="amount" text="2.01" col="1"></Label> -->
+                    </GridLayout>
+                    <StackLayout col="1" row="1" class="items">
+                        <GridLayout class="item" rows="auto, auto" columns="auto, *, auto">
+                            <Image class="icon" row="0" rowspan="2" col="0" width="24" src="~/images/ico_point.png" verticalAlignment="top"></Image>
+                            <Label class="merchant" row="0" rowspan="2" col="1" text="KB국민 해피Nori카드 충전" verticalAlignment="top"></Label>
+                            <Label class="point" row="0" text="+ 100,000 P" col="2" textAlignment="right"></Label>
+                            <Label class="change" row="1" col="2" text="??? THB" textAlignment="right"></Label>
+                        </GridLayout>
+                    </StackLayout>
+                </GridLayout>
+                <GridLayout class="day" rows="auto, auto" columns="24, *" width="100%">
+                    <Label class="line" col="0" rowspan="2" width="100%"></Label>
+                    <Label class="dot" col="0" rowspan="2" verticalAlignment="top"></Label>
+                    <GridLayout class="date" col="1" row="0" columns="*, auto">
+                        <Label class="date-str" text="10월 25일 화요일" col="0"></Label>
+                        <!-- <Label class="amount" text="2.01" col="1"></Label> -->
+                    </GridLayout>
+                    <StackLayout col="1" row="1" class="items">
+                        <GridLayout class="item" rows="auto, auto" columns="auto, *, auto">
+                            <Image class="icon" row="0" rowspan="2" col="0" width="24" src="~/images/ico_shop2.png" verticalAlignment="top"></Image>
+                            <Label class="merchant" row="0" rowspan="2" col="1" text="Big C (Thap Thiang)" verticalAlignment="top"></Label>
+                            <Label class="point" row="0" text="5,500 P" col="2" textAlignment="right"></Label>
+                            <Label class="change" row="1" col="2" text="122 THB" textAlignment="right"></Label>
+                        </GridLayout>
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+        </ScrollView>
+    </GridLayout>
+
+    <!-- <StackLayout row="1">
+        <Button text="go to Detail" (tap)="navigateDetails($event)"></Button>
+    </StackLayout> -->
+    
+    <GridLayout row="6" class="gray-bg">
+        <ripple-button row="4" text="처음으로" backgroundColor="#ff5722" textColor="white" (click)="onTapFirst()"></ripple-button>
+    </GridLayout>
 </GridLayout>

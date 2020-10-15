@@ -24,7 +24,7 @@ export class OctopusChargeComponent implements OnInit {
     // actionbar emit click close
     actionbar_click_close(isclose){
         console.log(this.tag + " actionbar close button clicked = " + isclose);
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
 
     constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute) {
@@ -68,13 +68,13 @@ export class OctopusChargeComponent implements OnInit {
 
     onTabCharge(event){
         console.log("emit the button");
-        this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
 
     navigateBack(event) {
         console.log(this.tag + " navigateChargePoint");
         
-        this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.easeOut) } });
+        this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
         
     }
 }
