@@ -7,6 +7,7 @@ import { isAndroid, screen } from "tns-core-modules/platform/platform"
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData, Color } from "tns-core-modules";
 import { exit } from "nativescript-exit";
 import { CustomTransition, CustomTransitionBack } from './klook-transition';
+import { HomeRoutingService } from "./home-routing.service";
 
 @Component({
     selector: "home",
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
     // qr page variables
     isQrPay = false;
     isQrScan = false;
+    isPay = false;
 
     isMenuExt = false;
 
@@ -49,8 +51,29 @@ export class HomeComponent implements OnInit {
     card_height = 420;
     card_marginTop = 8;
 
-    constructor(private routerExtensions: RouterExtensions) {
+    constructor(private routerExtensions: RouterExtensions, private routingservice : HomeRoutingService) {
         console.log(`${this.tag} constructor `)
+
+        this.routingservice.changeEmitted$.subscribe(url=>{
+            console.log("emitted ", url);
+            if(url === 'pay'){
+                this.isPay = true;
+                this.isQrScan = false;
+                this.isQrPay = false;
+
+                let bg = this.qrbg.nativeElement as LayoutBase;
+                bg.borderWidth = 1;
+                // bg.borderColor = "#bbb";
+                bg.animate({
+                    opacity: 1,
+                    backgroundColor: new Color(0, 255, 255, 255),
+                    duration: this.qr_anim_duration,
+                    curve: AnimationCurve.easeOut
+                }).then(() => {
+                    bg.borderColor = "#ddd";
+                });
+            }
+        });
 
         if (isAndroid) {
             Application.android.off(AndroidApplication.activityBackPressedEvent);
@@ -78,6 +101,10 @@ export class HomeComponent implements OnInit {
         console.log(`${this.tag} ngOnDestroy`);
     }
 
+
+    callbackRouting(url){
+        console.log(this.tag, " callbackRouting = ", url);
+    }
 
     onLoadedMenu(event) {
         let menu = this.menu.nativeElement as LayoutBase;

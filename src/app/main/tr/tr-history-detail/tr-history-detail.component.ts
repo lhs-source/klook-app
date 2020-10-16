@@ -271,6 +271,7 @@ export class TrHistoryDetailComponent implements OnInit {
             marker.title = this.tr["merchant"];
             marker.snippet = this.mer["address"];
             marker.userData = { index: 1 };
+            this.mapView.addMarker(marker);
         }
     }
     onCoordinateTapped(args) {

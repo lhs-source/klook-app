@@ -1,5 +1,5 @@
 <GridLayout rows="auto, *">
-    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="(isQrScan || isQrPay)"></myactionbar>
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="(isQrScan || isQrPay || isPay)"></myactionbar>
     <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderColor="#ddd" margin="16" height="64%">
     </GridLayout>
     <!-- <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderWidth="1" borderColor="#ccc" margin="16" height="64%"></GridLayout> -->
@@ -14,7 +14,7 @@
 
     <!-- sub router (qr, tr) -->
     <GridLayout row="2">
-        <page-router-outlet actionBarVisibility="never"></page-router-outlet>
+        <page-router-outlet actionBarVisibility="never" (routing)="callbackRouting($event)"></page-router-outlet>
     </GridLayout>
 
     <!-- menu -->

@@ -1,6 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
+import { AnimationCurve } from "@nativescript/core/ui/enums";
+
+import { CustomTransitionBack } from "../klook-transition";
+import { HomeRoutingService } from "../home-routing.service";
 
 @Component({
     selector: "qr-pay",
@@ -9,13 +13,14 @@ import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedE
 })
 export class QrPayComponent implements OnInit {
     tag = this.constructor.name;
+    @Output() routing : EventEmitter<any> = new EventEmitter();
 
     timer = Date.now();
     // 3 mins
     secounds = 180;
     interval;
 
-    constructor(private routerExtensions: RouterExtensions) {
+    constructor(private routerExtensions: RouterExtensions, private routingService:HomeRoutingService) {
         console.log(`${this.tag} constructor `)
         
         if (isAndroid) {
@@ -52,5 +57,14 @@ export class QrPayComponent implements OnInit {
                 this.secounds = 60;
             }
         }, 1000);
+    }
+
+    onTapInfo(){
+        console.log(this.tag, " onTapInfo ", this.routing);
+        this.routing.emit('pay');
+
+        this.routingService.emitChange('pay');
+
+        this.routerExtensions.navigate(['/main/home/pay'], { transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
 }

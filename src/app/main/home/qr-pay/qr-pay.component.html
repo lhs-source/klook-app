@@ -6,7 +6,7 @@
         <Label class="remain-str"text="{{ secounds * 1000 | date:'mm:ss' }} "></Label>
         <Image class="remain-img" src="~/images/btn_re.png" (tap)="resetTimer()"></Image>
     </StackLayout>
-    <GridLayout row="3" rows="auto, auto" columns="36, *" margin="8" horizontalAlignment="center">
+    <GridLayout row="3" rows="auto, auto" columns="36, *" margin="8" horizontalAlignment="center" (tap)="onTapInfo()">
         <Image row="0" col="0" rowspan="2" src="~/images/ico_point2.png" marginRight="8"></Image>
         <Label row="0" col="1" text="홍콩 ThaiQR 결제 시 자동 Tax-Refund"></Label>
         <Label row="1" col="1" text="결제금액 2% 포인트 자동 적립"></Label>

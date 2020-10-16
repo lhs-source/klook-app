@@ -5,6 +5,7 @@ import { HomeComponent } from "./home.component";
 import { TrHistoryEmbeddedComponent } from "./tr-history-embedded/tr-history-embedded.component";
 import { QrScanComponent } from "./qr-scan/qr-scan.component";
 import { QrPayComponent } from "./qr-pay/qr-pay.component";
+import { PayComponent } from "./pay/pay.component";
 
 const routes: Routes = [
     {
@@ -13,6 +14,7 @@ const routes: Routes = [
             { path: 'tr-embedded', component: TrHistoryEmbeddedComponent },
             { path: 'qr-scan', component: QrScanComponent },
             { path: 'qr-pay', component: QrPayComponent },
+            { path: 'pay', component: PayComponent },
         ]
     },
 ];

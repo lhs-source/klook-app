@@ -11,7 +11,7 @@ import { QrScanComponent } from "./home/qr-scan/qr-scan.component";
 import { QrPayComponent } from "./home/qr-pay/qr-pay.component";
 
 const routes: Routes = [
-    { path: '', redirectTo: 'tr', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     // { path: 'home', component: HomeComponent , children: [
     //     { path: '', redirectTo: 'tr-embedded', pathMatch: 'full' },
     //     { path: 'tr-embedded', component: TrHistoryEmbeddedComponent },

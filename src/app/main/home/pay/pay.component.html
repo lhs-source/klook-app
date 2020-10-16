@@ -1,0 +1,22 @@
+<GridLayout #rootlayout rows="auto, auto, auto" height="100%" margin="16" borderLeftWidth="1" borderRightWidth="1" borderLeftColor="#ddd" borderRightColor="#ddd">
+    <Label row="0" class="title" text="결제정보" marginLeft="16" marginTop="24"></Label>
+    <StackLayout row="1" class="info" marginLeft="16" marginRight="16">
+        <StackLayout class="row" orientation="horizontal">
+            <Label class="label label-first" text="가맹점명" verticalAlignment="center"></Label>
+            <Label class="content" text="{{pay_info.merchant}}" verticalAlignment="center"></Label>
+        </StackLayout>
+        <StackLayout class="row row-end" orientation="horizontal">
+            <Label row="2" col="0" class="label" text="이용금액"></Label>
+            <StackLayout row="2" col="1" orientation="horizontal">
+                <Label class="content-point" text="{{(pay_info.amount | number:'1.0':'en-US') + ' ' + currency}}" verticalAlignment="center" marginLeft="16"></Label>
+                <Label class="str" text="(" marginLeft="4" verticalAlignment="center"></Label>
+                <Label class="str" text="{{pay_info.point | number:'1.0':'en-US'}}" verticalAlignment="center"></Label>
+                <Label class="str" text=" Point 사용)" verticalAlignment="center"></Label>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+    <StackLayout row="2" orientation="horizontal" marginRight="16" marginLeft="16" verticalAlignment="top" horizontalAlignment="center" marginTop="16">
+        <Button class="btn-disconnect" text="취소" verticalAlignment="center" (tap)="onTapNo($event)"></Button>
+        <Button class="btn-register" text="확인" verticalAlignment="center" (tap)="onTapYes($event)"></Button>
+    </StackLayout>
+</GridLayout>
