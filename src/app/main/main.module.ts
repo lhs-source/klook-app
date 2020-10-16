@@ -8,6 +8,8 @@ import { ChargePointComponent } from "./charge-point/charge-point.component";
 import { OnlinepayComponent } from "./onlinepay/onlinepay.component";
 import { ComponentsModule } from "../components/components.module";
 
+import { DataService } from "./data.service";
+
 @NgModule({
     exports: [
         MainComponent,
@@ -22,6 +24,9 @@ import { ComponentsModule } from "../components/components.module";
         ChangePointComponent,
         ChargePointComponent,
         OnlinepayComponent,
+    ],
+    providers:[
+        DataService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

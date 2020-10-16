@@ -8,6 +8,7 @@ import { Application, AndroidApplication, AndroidActivityBackPressedEventData, C
 import { exit } from "nativescript-exit";
 import { CustomTransition, CustomTransitionBack } from './klook-transition';
 import { HomeRoutingService } from "./home-routing.service";
+import { DataService } from "../data.service";
 
 @Component({
     selector: "home",
@@ -51,7 +52,14 @@ export class HomeComponent implements OnInit {
     card_height = 420;
     card_marginTop = 8;
 
-    constructor(private routerExtensions: RouterExtensions, private routingservice : HomeRoutingService) {
+    // data
+    point = 0;
+    country ='';
+    country_obj = {};
+    exchange = 0;
+    
+
+    constructor(private routerExtensions: RouterExtensions, private routingservice : HomeRoutingService, private dataService:DataService) {
         console.log(`${this.tag} constructor `)
 
         this.routingservice.changeEmitted$.subscribe(url=>{
@@ -74,6 +82,12 @@ export class HomeComponent implements OnInit {
                 });
             }
         });
+
+        console.log(this.dataService.country);
+        this.point = this.dataService.point;
+        this.country = this.dataService.country;
+        this.country_obj = this.dataService.countries[this.country];
+        this.exchange = Math.floor(this.point / this.country_obj['exchange']);
 
         if (isAndroid) {
             Application.android.off(AndroidApplication.activityBackPressedEvent);
