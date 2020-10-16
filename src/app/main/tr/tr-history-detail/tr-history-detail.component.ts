@@ -16,10 +16,62 @@ export class TrHistoryDetailComponent implements OnInit {
 
     id = 0;
 
+    merchants={
+        "Central Department Store (Central Hat Yai)":{
+            "lat":7.0057298,
+            "long":100.4712895,
+            "address":"33 Prachathipat Road, Hat Yai, Hat Yai District, Songkhla 90110 태국",
+        },
+        "Family mart":{
+            "lat":8.417832,
+            "long":99.9213329,
+            "address":"Pho Sadet, Mueang Nakhon Si Thammarat District, Nakhon Si Thammarat 80000 태국",
+        },
+        "Big C (Thap Thiang)":{
+            "lat":13.7370533,
+            "long":100.5458161,
+            "address":"78 Soi Sukhumvit 63, Phra Khanong Nuea, Watthana, Bangkok 10110 태국",
+        },
+        "MK Restaurants":{
+            "lat":7.5642549,
+            "long":99.6268338,
+            "address":"Thap Thiang, Mueang Trang District, Trang 92000 태국",
+        },
+        "EATHAI":{
+            "lat":13.7437507,
+            "long":100.5444492,
+            "address":"1031 Phloen Chit Rd, Lumphini, Pathum Wan District, Bangkok 10330 태국",
+        },
+        "Robinson":{
+            "lat":13.7379627,
+            "long":100.5573337,
+            "address":"259 Sukhumvit Rd, Khlong Toei Nuea, Watthana, Bangkok 10110 태국",
+        },
+        "Tops daily mini supermarket":{
+            "lat":13.7483256,
+            "long":100.5634094,
+            "address":"New Petchaburi Rd, Bang Kapi, Huai Khwang, Krung Thep Maha Nakhon 10310 태국",
+        },
+        "SuperSports":{
+            "lat":13.7578103,
+            "long":100.5660056,
+            "address":"L3,327, Centralplaza Grand Rama 9, Ratchadaphisek Rd, Huai Khwang, Din Daeng, Bangkok 10400 태국",
+        },
+        "Segafredo Zanetti Espresso":{
+            "lat":13.7467127,
+            "long":100.537083,
+            "address":"centralwOrld, Rama I Rd, Pathum Wan, Pathum Wan District, Bangkok 10330 태국",
+        },
+        "Jaspal":{
+            "lat":13.7467125,
+            "long":100.5305169,
+            "address":"Phloen Chit Rd, Lumphini, Pathum Wan District, Bangkok 10330 태국",
+        }
+    }
     trs = [
         {
-            icon: "department",
-            merchant: "Central Department Store",
+            icon: "백화점",
+            merchant: "Central Department Store (Central Hat Yai)",
             point: 25000,
             curr: 676,
             date: new Date(2020, 10, 30, 14, 23, 0, 0),
@@ -28,7 +80,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: false,
             save_point: 1250,
         }, {
-            icon: "grocery",
+            icon: "편의점",
             merchant: "Family mart",
             point: 4500,
             curr: 122,
@@ -38,7 +90,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: true,
             save_point: 45,
         }, {
-            icon: "point",
+            icon: "포인트충전",
             merchant: "KB국민카드 Nori카드 충전",
             point: 100000,
             curr: 0,
@@ -48,7 +100,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: false,
             save_point: 0,
         }, {
-            icon: "mart",
+            icon: "마트",
             merchant: "Big C (Thap Thiang)",
             point: 5500,
             curr: 145,
@@ -58,7 +110,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: true,
             save_point: 55,
         }, {
-            icon: "restaurant",
+            icon: "식당",
             merchant: "MK Restaurants",
             point: 13500,
             curr: 365,
@@ -68,7 +120,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: true,
             save_point: 135,
         }, {
-            icon: "point",
+            icon: "포인트충전",
             merchant: "KB국민카드 포인트 자동충전",
             point: 50000,
             curr: 0,
@@ -78,7 +130,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: false,
             save_point: 0,
         }, {
-            icon: "restaurant",
+            icon: "식당",
             merchant: "EATHAI",
             point: 37000,
             curr: 1001,
@@ -88,7 +140,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: true,
             save_point: 370,
         }, {
-            icon: "department",
+            icon: "백화점",
             merchant: "Robinson",
             point: 38000,
             curr: 1028,
@@ -98,7 +150,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: false,
             save_point: 1900,
         }, {
-            icon: "mart",
+            icon: "마트",
             merchant: "Tops daily mini supermarket",
             point: 19000,
             curr: 324,
@@ -108,7 +160,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: true,
             save_point: 600,
         }, {
-            icon: "sport",
+            icon: "스포츠",
             merchant: "SuperSports",
             point: 12000,
             curr: 324,
@@ -118,7 +170,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: false,
             save_point: 600,
         }, {
-            icon: "cafe",
+            icon: "카페",
             merchant: "Segafredo Zanetti Espresso",
             point: 5000,
             curr: 135,
@@ -128,7 +180,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: true,
             save_point: 50,
         }, {
-            icon: "point",
+            icon: "포인트충전",
             merchant: "KB국민카드 해피Nori카드 충전",
             point: 100000,
             curr: 0,
@@ -138,7 +190,7 @@ export class TrHistoryDetailComponent implements OnInit {
             utu: false,
             save_point: 0,
         }, {
-            icon: "exchange",
+            icon: "포인트교환",
             merchant: "KB국민카드 포인트리 교환",
             point: 20000,
             curr: 0,
@@ -150,6 +202,7 @@ export class TrHistoryDetailComponent implements OnInit {
         }
     ];
     tr = {};
+    mer = {};
     currency = "THB"
 
     // google map
@@ -181,6 +234,13 @@ export class TrHistoryDetailComponent implements OnInit {
                 return (Number(this.id) === element.date.getTime());
             })[0];
             console.log(this.tr);
+
+            // set lat / long of merchant
+            this.mer = this.merchants[this.tr["merchant"]];
+            if(this.mer){
+                this.latitude = this.mer["lat"];
+                this.longitude = this.mer["long"];
+            }
         }));
     }
     addMarker(){
@@ -201,25 +261,27 @@ export class TrHistoryDetailComponent implements OnInit {
         console.log('Map Ready');
 
         this.mapView = event.object as MapView;
+        this.mapView.clear();
 
         console.log("Setting a marker... ", this.mapView);
 
-        var marker = new Marker();
-        marker.position = Position.positionFromLatLng(7.0057298, 100.4712895);
-        marker.title = "Sydney";
-        marker.snippet = "Australia";
-        marker.userData = { index: 1 };
-        console.log(this.mapView.addMarker(marker));
+        if(this.mer){
+            var marker = new Marker();
+            marker.position = Position.positionFromLatLng(this.latitude, this.longitude);
+            marker.title = this.tr["merchant"];
+            marker.snippet = this.mer["address"];
+            marker.userData = { index: 1 };
+        }
     }
     onCoordinateTapped(args) {
         console.log("Coordinate Tapped, Lat: " + args.position.latitude + ", Lon: " + args.position.longitude, args);
         
-        var marker = new Marker();
-        marker.position = Position.positionFromLatLng(args.position.latitude, args.position.longitude);
-        marker.title = "Sydney";
-        marker.snippet = "Australia";
-        marker.userData = {index: 1};
-        this.mapView.addMarker(marker);
+        // var marker = new Marker();
+        // marker.position = Position.positionFromLatLng(args.position.latitude, args.position.longitude);
+        // marker.title = "Sydney";
+        // marker.snippet = "Australia";
+        // marker.userData = {index: 1};
+        // this.mapView.addMarker(marker);
     }
 
     onMarkerEvent(args) {

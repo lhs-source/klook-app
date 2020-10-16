@@ -15,30 +15,40 @@
         (cameraMove)="onCameraMove($event)"></MapView>
         <!-- <MapView #MapView (mapReady)="onMapReady($event)" (markerSelect)="onMarkerEvent($event)" iosOverflowSafeArea="true"></MapView> -->
     </GridLayout>
-    <Label row="3" text="상품이용정보" style="font-size: 16; font-weight: 600;" marginTop="16" marginLeft="16"></Label>
-    <GridLayout row="4" rows="auto, auto, auto, auto" columns="120, *" marginTop="16" marginLeft="16">
-        <Label row="0" col="0" text="가맹점명"></Label>
-        <Label row="0" col="1" text="{{tr.merchant}}"></Label>
-        <Label row="1" col="0" text="사용일시"></Label>
-        <Label row="1" col="1" text="{{tr.date | date:'y.MM.dd hh:mm:ss'}}"></Label>
-        <Label row="2" col="0" text="포인트사용"></Label>
-        <StackLayout row="2" col="1" orientation="horizontal">
-            <Label text="{{tr.point | number:'1.0':'en-US' + ' P'}}"></Label>
-            <Label text="P (현지 결제금액 " marginLeft="2"></Label>
-            <Label text="{{tr.curr | number:'1.0':'en-US'}}"></Label>
-            <Label text="{{currency + ')'}}" marginLeft="4"></Label>
+    <Label row="3" class="title" text="상품이용정보" marginTop="16" marginLeft="16"></Label>
+    <StackLayout row="4" class="info" marginLeft="16" marginRight="16">
+        <StackLayout class="row" orientation="horizontal">
+            <Label class="label label-first" text="가맹점명" verticalAlignment="center"></Label>
+            <Label class="content" text="{{tr.merchant}}" verticalAlignment="center"></Label>
         </StackLayout>
-        <Label row="3" col="0" text="가맹점업종"></Label>
-        <Label row="3" col="1" text="{{tr.icon}}"></Label>
-    </GridLayout>
-    <Label row="5" text="KLOOK Pay 부가서비스" style="font-size: 16; font-weight: 600;" marginTop="16" marginLeft="16"></Label>
-    <GridLayout row="6" rows="auto" columns="120, *" marginTop="16" marginLeft="16">
-        <Label row="0" col="0" text="포인트적립"></Label>
-        <StackLayout row="0" col="1" orientation="horizontal">
-            <Label  text="{{tr.save_point + 'P'}}"></Label>
-            <Label *ngIf="tr.taxfree" text="(Tax-free 가맹점)" marginLeft="4"></Label>
-            <Label *ngIf="tr.utu" text="(UTU 가맹점)" marginLeft="4"></Label>
+        <StackLayout class="row" orientation="horizontal">
+            <Label row="1" col="0" class="label" text="사용일시" verticalAlignment="center"></Label>
+            <Label row="1" col="1" class="content" text="{{tr.date | date:'y.MM.dd HH:mm:ss'}}" verticalAlignment="center"></Label>
         </StackLayout>
-    </GridLayout>
-    <Button row="7" class="btn" text="이의제기" (tap)="addMarker()"></Button>
+        <StackLayout class="row" orientation="horizontal">
+            <Label row="2" col="0" class="label" text="포인트사용"></Label>
+            <StackLayout row="2" col="1" orientation="horizontal">
+                <Label class="content" text="{{(tr.point | number:'1.0':'en-US') + ' P'}}" verticalAlignment="center"></Label>
+                <Label class="content-point" text="(현지 결제금액 " marginLeft="2" verticalAlignment="center"></Label>
+                <Label class="content-point" text="{{tr.curr | number:'1.0':'en-US'}}" verticalAlignment="center"></Label>
+                <Label class="content-point" text="{{currency + ')'}}" marginLeft="4" verticalAlignment="center"></Label>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout class="row row-end" orientation="horizontal">
+            <Label row="3" col="0" class="label label-end" text="가맹점업종" verticalAlignment="center"></Label>
+            <Label row="3" col="1" class="content" text="{{tr.icon}}" verticalAlignment="center"></Label>
+        </StackLayout>
+    </StackLayout>
+    <Label row="5" class="title" text="KLOOK Pay 부가서비스" marginTop="16" marginLeft="16"></Label>
+    <StackLayout row="6" class="info" marginLeft="16"  marginRight="16">
+        <StackLayout class="row row-end" orientation="horizontal">
+            <Label row="0" class="label" col="0" text="포인트적립"></Label>
+            <StackLayout row="0" col="1" orientation="horizontal">
+                <Label class="content" text="{{tr.save_point + 'P'}}" verticalAlignment="center"></Label>
+                <Label class="content" *ngIf="tr.taxfree" text="(Tax-free 가맹점)"  verticalAlignment="center"></Label>
+                <Label class="content" *ngIf="tr.utu" text="(UTU 가맹점)"  verticalAlignment="center"></Label>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+    <Button row="7" class="btn" text="이의제기" marginTop="24" (tap)="addMarker()"></Button>
 </GridLayout>

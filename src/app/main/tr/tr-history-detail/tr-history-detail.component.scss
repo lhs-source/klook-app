@@ -1,4 +1,57 @@
 
+$border-color:#eee;
+$label-color:#f8f8f8;
+
+.title{
+    font-size: 16; 
+    font-weight: 600;
+    margin:4;
+}
+
+.info{
+    border-radius: 8;
+    border-width: 1;
+    border-color:$border-color;
+
+    // background-color: gray;
+
+    .row{
+        border-bottom-width: 1;
+        border-bottom-color:$border-color;
+        .label{
+            width:120;
+            background-color:$label-color;
+            
+            border-right-width: 1;
+            border-right-color:$border-color;
+    
+            color:#333;
+            font-size: 15;
+    
+            padding:12;
+            &-first{
+                border-top-left-radius: 6;
+            }
+            &-end{
+                border-bottom-left-radius: 6;
+                border-bottom-width: 0;
+            }
+        }
+        .content{
+            font-size: 15;
+            margin:8;
+            margin-left: 16;
+    
+            &-point{
+                font-size: 15;
+                color: #ff5722;
+            }
+        }
+        &-end{
+            border-bottom-width: 0;
+        }
+    }
+}
 
 .btn{
     

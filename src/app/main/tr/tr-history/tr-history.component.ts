@@ -27,20 +27,20 @@ export class TrHistoryComponent implements OnInit {
 
     // trs
     icons = {
-        "department": "~/images/ico_type2.png",
-        "grocery": "~/images/ico_type3.png",
-        "restaurant": "~/images/ico_type5.png",
-        "point": "~/images/ico_type1.png",
-        "mart": "~/images/ico_type4.png",
-        "sport": "~/images/ico_type6.png",
-        "cafe": "~/images/ico_type7.png",
-        "exchange": "~/images/ico_type8.png",
+        "백화점": "~/images/ico_type2.png",
+        "편의점": "~/images/ico_type3.png",
+        "식당": "~/images/ico_type5.png",
+        "포인트충전": "~/images/ico_type1.png",
+        "마트": "~/images/ico_type4.png",
+        "스포츠": "~/images/ico_type6.png",
+        "카페": "~/images/ico_type7.png",
+        "포인트교환": "~/images/ico_type8.png",
     };
     trs = {
         "10월 30일 금요일": [
             {
-                icon: "department",
-                merchant: "Central Department Store",
+                icon: "백화점",
+                merchant: "Central Department Store (Central Hat Yai)",
                 point: 25000,
                 curr: 676,
                 date: new Date(2020, 10, 30, 14, 23, 0, 0),
@@ -49,7 +49,7 @@ export class TrHistoryComponent implements OnInit {
                 utu: false,
                 save_point: 1250,
             }, {
-                icon: "grocery",
+                icon: "편의점",
                 merchant: "Family mart",
                 point: 4500,
                 curr: 122,
@@ -62,7 +62,7 @@ export class TrHistoryComponent implements OnInit {
         ],
         "10월 27일 화요일": [
             {
-                icon: "point",
+                icon: "포인트충전",
                 merchant: "KB국민카드 Nori카드 충전",
                 point: 100000,
                 curr: 0,
@@ -75,7 +75,7 @@ export class TrHistoryComponent implements OnInit {
         ],
         "10월 25일 일요일": [
             {
-                icon: "mart",
+                icon: "마트",
                 merchant: "Big C (Thap Thiang)",
                 point: 5500,
                 curr: 145,
@@ -85,7 +85,7 @@ export class TrHistoryComponent implements OnInit {
                 utu: true,
                 save_point: 55,
             }, {
-                icon: "restaurant",
+                icon: "식당",
                 merchant: "MK Restaurants",
                 point: 13500,
                 curr: 365,
@@ -95,7 +95,7 @@ export class TrHistoryComponent implements OnInit {
                 utu: true,
                 save_point: 135,
             }, {
-                icon: "point",
+                icon: "포인트충전",
                 merchant: "KB국민카드 포인트 자동충전",
                 point: 50000,
                 curr: 0,
@@ -108,7 +108,7 @@ export class TrHistoryComponent implements OnInit {
         ],
         "10월 24일 토요일": [
             {
-                icon: "restaurant",
+                icon: "식당",
                 merchant: "EATHAI",
                 point: 37000,
                 curr: 1001,
@@ -118,7 +118,7 @@ export class TrHistoryComponent implements OnInit {
                 utu: true,
                 save_point: 370,
             }, {
-                icon: "department",
+                icon: "백화점",
                 merchant: "Robinson",
                 point: 38000,
                 curr: 1028,
@@ -128,7 +128,7 @@ export class TrHistoryComponent implements OnInit {
                 utu: false,
                 save_point: 1900,
             }, {
-                icon: "mart",
+                icon: "마트",
                 merchant: "Tops daily mini supermarket",
                 point: 19000,
                 curr: 324,
@@ -141,7 +141,7 @@ export class TrHistoryComponent implements OnInit {
         ],
         "10월 23일 금요일": [
             {
-                icon: "sport",
+                icon: "스포츠",
                 merchant: "SuperSports",
                 point: 12000,
                 curr: 324,
@@ -151,7 +151,7 @@ export class TrHistoryComponent implements OnInit {
                 utu: false,
                 save_point: 600,
             }, {
-                icon: "cafe",
+                icon: "카페",
                 merchant: "Segafredo Zanetti Espresso",
                 point: 5000,
                 curr: 135,
@@ -164,7 +164,7 @@ export class TrHistoryComponent implements OnInit {
         ],
         "10월 20일 화요일": [
             {
-                icon: "point",
+                icon: "포인트충전",
                 merchant: "KB국민카드 해피Nori카드 충전",
                 point: 100000,
                 curr: 0,
@@ -174,7 +174,7 @@ export class TrHistoryComponent implements OnInit {
                 utu: false,
                 save_point: 0,
             }, {
-                icon: "exchange",
+                icon: "포인트교환",
                 merchant: "KB국민카드 포인트리 교환",
                 point: 20000,
                 curr: 0,
