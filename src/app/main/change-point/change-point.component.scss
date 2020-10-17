@@ -119,3 +119,16 @@ $maincolor: #ff5722;
         color:#333;
     }
 }
+
+.select-point{
+    background-color: white;
+    padding-bottom: 16;
+    .info{
+        background-color: #ddd;
+        padding:8 16;
+        .str{
+            font-size: 12;
+            color:#333;
+        }
+    }
+}

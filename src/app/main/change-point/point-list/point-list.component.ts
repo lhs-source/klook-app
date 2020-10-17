@@ -14,21 +14,27 @@ export class PointListComponent implements OnInit {
     @Output('selectPoint') selectPoint : EventEmitter<any> = new EventEmitter();
     
     // prepared data
-    cards=[
+    pointry=[
         {
+            img:"~/images/img_kbcard.png",
             title:"KB국민카드 포인트리",
             balance: 25000,
             exchange:1,
+            selected:true,
         },
         {
+            img:"~/images/img_asiana.png",
             title:"아시아나항공 마일리지",
             balance: 13000,
             exchange:20/13,
+            selected:false,
         },
         {
+            img:"~/images/img_jeju.png",
             title:"제주항공 마일리지",
-            balance: 1800000,
+            balance: 18000,
             exchange:3/2,
+            selected:false,
         }
     ];
 
@@ -43,13 +49,13 @@ export class PointListComponent implements OnInit {
 
         
     }
-    onTapCard(card){
-        let output = card;
-        this.selectPoint.emit(output);
-    }
-
-    onTapBank(bank){
-        let output = bank;
+    onTapPoint(point){
+        let output = point;
+        this.pointry.forEach((elem)=>{
+            if(elem.selected === true)
+            elem.selected = false;
+        });
+        point.selected = true;
         this.selectPoint.emit(output);
     }
 

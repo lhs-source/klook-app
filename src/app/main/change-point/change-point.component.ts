@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
-import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData, TextField } from "tns-core-modules";
+import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData, TextField, LayoutBase, Color } from "tns-core-modules";
+import { screen } from "tns-core-modules/platform";
 import { CustomTransitionBack } from "../home/klook-transition";
 import { DataService } from "../data.service";
 
@@ -28,6 +29,11 @@ export class ChangePointComponent implements OnInit {
     // amount
     amount = '1000';
     amount_num = 1000;
+    
+    // modal
+    @ViewChild('modalframe', {static:true}) modalframe : ElementRef;
+    @ViewChild('modal', {static:true}) modal : ElementRef;
+    isModalShow=false;
 
     constructor(private routerExtensions : RouterExtensions, 
         private activatedRoute : ActivatedRoute,
@@ -49,6 +55,74 @@ export class ChangePointComponent implements OnInit {
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
+        
+        let modal = this.modal.nativeElement as LayoutBase;
+        console.log(modal);
+        modal.on('loaded', (a)=>{
+            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+            setTimeout(() => {
+                let height = modal.getMeasuredHeight() * p;
+                console.log("height =",height);
+                modal.animate({
+                    translate:{x:modal.translateX, y:height},
+                    duration:250,
+                })
+            });
+        });
+    }
+
+    modal_show(target : LayoutBase, flag : Boolean, afterrun:Function){        
+        if(flag === false){
+            let modalframe = this.modalframe.nativeElement as LayoutBase;
+            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+            let height = target.getMeasuredHeight() * p;
+
+            modalframe.animate({
+                backgroundColor:new Color(128, 48, 48, 48),
+                duration:250,
+            });
+
+            target.animate({
+                translate:{x:target.translateX, y:0},
+                duration:250,
+            }).then(()=>{
+                afterrun();
+            });
+        }
+    }
+    modal_hide(target : LayoutBase, flag : Boolean, afterrun: Function){        
+        if(flag === true){
+            let modalframe = this.modalframe.nativeElement as LayoutBase;
+            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+            let height = target.getMeasuredHeight() * p;
+
+            modalframe.animate({
+                backgroundColor:new Color(0, 0, 0, 0),
+                duration:250,
+            });
+
+            target.animate({
+                translate:{x:target.translateX, y:height},
+                duration:250,
+            }).then(()=>{
+                afterrun();
+            })
+        }
+    }
+    
+    onTapTarget(){
+        let kl = this.modal.nativeElement as LayoutBase;
+        this.modal_show(kl, this.isModalShow, ()=>{
+            this.isModalShow = true;
+        });
+    }
+
+    callback_selectPoint(event){
+        let kl = this.modal.nativeElement as LayoutBase;
+        this.modal_hide(kl, this.isModalShow, ()=>{
+            this.isModalShow = false;
+            this.pointy = event;
+        });
     }
 
     onReturnPress(event){

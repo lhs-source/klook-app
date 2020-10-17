@@ -14,7 +14,7 @@
     </GridLayout>
     
     <GridLayout row="3" rows="auto, auto, auto" columns="auto, *"  class="change" marginTop="16">
-        <Image row="0" rowspan="2" col="0" class="img" src="~/images/img_charge02.png" width="56"></Image>
+        <Image row="0" rowspan="2" col="0" class="img" src="~/images/img_charge02.png" width="56" (tap)="onTapTarget()"></Image>
         <Label row="0" col="1" class="title" text="교환 대상 포인트" verticalAlignment="bottom"></Label>
         <TextField row="1" col="1" class="tf" hint="교환 포인트를 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField>
         
@@ -47,4 +47,15 @@
 
     <ripple-button row="6" text="포인트 교환하기" backgroundColor="#ff5722" textColor="white" (click)="change($event)"></ripple-button>
     
+</GridLayout>
+
+<GridLayout #modalframe rows="*,auto" backgroundColor="#00000000">
+    <GridLayout row="0" *ngIf="isModalShow || isKeypadShow" (tap)="onTapBack()"></GridLayout>
+    <GridLayout #modal row="1" class="select-point" rows="auto, auto" verticalAlignment="bottom">
+        <StackLayout row="0" class="info" orientation="horizontal">
+            <Image src="~/images/ico_info.png" width="16" marginRight="4"></Image>
+            <Label class="str" text="교환 포인트를 선택해주세요"></Label>
+        </StackLayout>
+        <point-list row="1" (selectPoint)="callback_selectPoint($event)"></point-list>
+    </GridLayout>
 </GridLayout>
