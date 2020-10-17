@@ -1,7 +1,50 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#f9ecf2">
-    <Label row="0" text="Charge Point" margin="24" style="font-size: 24;"></Label>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
+</GridLayout>
 
-    <StackLayout row="1">
-        <Button text="go to Home" (tap)="navigateBack($event)"></Button>
+<GridLayout #rootlayout rows="72,auto,auto,auto,auto, *, auto" height="100%" width="100%">
+    <title row="1" title="{{title}}" backgroundColor="#888"></title>
+    <GridLayout row="2" rows="auto, auto" columns="auto, *"  class="point" marginTop="16">
+        <Image row="0" rowspan="2" col="0" class="img" src="~/images/img_charge01.png" width="56"></Image>
+        <Label row="0" col="1" class="title" text="보유 KLOOK 포인트" verticalAlignment="bottom"></Label>
+        <StackLayout row="1" col="1" orientation="horizontal" verticalAlignment="top">
+            <Label class="point-num" text="{{point | number:'1.0':'en-US'}}"></Label>
+            <Label class="str" text=" Point"></Label>
+        </StackLayout>
+    </GridLayout>
+    
+    <GridLayout row="3" rows="auto, auto, auto" columns="auto, *"  class="change" marginTop="16">
+        <Image row="0" rowspan="2" col="0" class="img" src="~/images/img_charge02.png" width="56"></Image>
+        <Label row="0" col="1" class="title" text="교환 대상 포인트" verticalAlignment="bottom"></Label>
+        <TextField row="1" col="1" class="tf" hint="교환 포인트를 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField>
+        
+        <StackLayout row="2" col="1" orientation="horizontal" verticalAlignment="top">
+            <Image class="question" src="~/images/ico_q.png" width="12"></Image>
+            <Label class="str" text="교환 가능한 포인트는 "></Label>
+            <Label class="str" text="{{pointy.balance | number:'1.0':'en-US'}}"></Label>
+            <Label class="str" text=" P입니다"></Label>
+        </StackLayout>
+    </GridLayout>
+
+    <GridLayout row="4" class="result" rows="auto, auto, auto, auto" columns="*, *" marginTop="24">
+        <Image row="0" col="0" colspan="2" class="img" src="~/images/img_charge03.png" width="216" horizontalAlignment="center"></Image>
+        <Label row="1" col="0" class="from-title" text="{{pointy.title}}" horizontalAlignment="center"></Label>
+        <Label row="1" col="1" class="to-title" text="KLOOK 포인트" horizontalAlignment="center"></Label>
+        <StackLayout row="2" col="0" orientation="horizontal" horizontalAlignment="center">
+            <Label class="from-point" text="{{amount_num | number:'1.0':'en-US'}}" verticalAlignment="center"></Label>
+            <Label class="str" text=" Point" verticalAlignment="center"></Label>
+        </StackLayout>
+        <StackLayout row="2" col="1" orientation="horizontal" horizontalAlignment="center">
+            <Label class="to-point" text="{{amount_num * pointy.exchange | number:'1.0':'en-US'}}" verticalAlignment="center"></Label>
+            <Label class="str" text=" Point" verticalAlignment="center"></Label>
+        </StackLayout>
+    </GridLayout>
+    
+    <StackLayout row="5" class="description" orientation="horizontal" verticalAlignment="bottom" margin="8" marginLeft="16" marginRight="16">
+        <Image src="~/images/ico_info3.png" height="14" marginRight="4"></Image>
+        <Label class="str" text="(유의사항) 교환 후 환불 취소는 불가합니다"></Label>
     </StackLayout>
+
+    <ripple-button row="6" text="포인트 교환하기" backgroundColor="#ff5722" textColor="white" (click)="change($event)"></ripple-button>
+    
 </GridLayout>

@@ -7,6 +7,7 @@ import { ChangePointComponent } from "./change-point/change-point.component";
 import { OnlinepayComponent } from "./onlinepay/onlinepay.component";
 import { ComponentsModule } from "../components/components.module";
 import { ChargeModule } from "./charge-point/charge.module";
+import { ChangeModule } from "./change-point/change.module";
 
 import { DataService } from "./data.service";
 
@@ -18,11 +19,11 @@ import { DataService } from "./data.service";
         NativeScriptCommonModule,
         MainRoutingModule,
         ChargeModule,
+        ChangeModule,
         ComponentsModule
     ],
     declarations: [
         MainComponent,
-        ChangePointComponent,
         OnlinepayComponent,
     ],
     providers:[
