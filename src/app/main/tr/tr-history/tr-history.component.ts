@@ -213,8 +213,8 @@ export class TrHistoryComponent implements OnInit {
         return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
     }
 
-    callback_tab_tap(number){
-        console.log(this.tag, "callback_tab_tap = ", number);
+    callback_tapElem(number){
+        console.log(this.tag, "callback_tapElem = ", number);
     }
 
     onTapTr(tr) {

@@ -7,7 +7,7 @@ import { CubicBezierAnimationCurve } from "@nativescript/core/ui/animation";
 import { animate, JsAnimationDefinition } from "./animation-helpers";
 
 
-// <tab row="4" [tab_labels]="['최신순', '고액순', '충전/교환', '적립']" (tap_elem)="callback_tab_tap($event)"></tab>
+// <tab row="4" [tab_labels]="['최신순', '고액순', '충전/교환', '적립']" (tapElem)="callback_tab_tap($event)"></tab>
 @Component({
     selector: "tab",
     templateUrl: "./tab.component.html",
@@ -16,7 +16,7 @@ import { animate, JsAnimationDefinition } from "./animation-helpers";
 export class TabComponent implements OnInit {
     tag = this.constructor.name;
     @Input() tab_labels = [];
-    @Output('tap_elem') tap_elem : EventEmitter<any> = new EventEmitter();
+    @Output('tapElem') tapElem : EventEmitter<any> = new EventEmitter();
 
     // tab
     @ViewChild('tab', { static: true }) tab: ElementRef;
@@ -122,7 +122,7 @@ export class TabComponent implements OnInit {
             curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1)
         }).then(()=>{
             this.selected = index;
-            this.tap_elem.emit(index);
+            this.tapElem.emit(index);
         });
     }
 

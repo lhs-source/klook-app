@@ -127,3 +127,25 @@ $maincolor: #ff5722;
         }
     }
 }
+.keypad{
+    background-color: #eee;
+    padding-bottom: 16;
+    .info{
+        background-color: #ddd;
+        padding:8 16;
+        .str{
+            font-size: 12;
+            color:#333;
+        }
+    }
+    .shortcut{
+        padding:16;
+        .item{
+            padding:8;
+            margin:4;
+            border-radius: 4;
+            background-color: #aaa;
+            color: white;
+        }
+    }
+}

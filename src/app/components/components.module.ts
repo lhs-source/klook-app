@@ -5,6 +5,7 @@ import { MyActionBarComponent } from './actionbar/actionbar.component';
 import { RippleButtonComponent } from "./ripple-button/ripple-button.component";
 import { TitleComponent } from "./title/title.component";
 import { TabComponent } from "./tab/tab.component";
+import { KeypadNumberComponent } from './keypad-number/keypad-number.component';
 
 @NgModule({
     exports: [
@@ -12,6 +13,7 @@ import { TabComponent } from "./tab/tab.component";
         RippleButtonComponent,
         TitleComponent,
         TabComponent,
+        KeypadNumberComponent,
     ],
     imports: [
         NativeScriptCommonModule
@@ -21,6 +23,7 @@ import { TabComponent } from "./tab/tab.component";
         RippleButtonComponent,
         TitleComponent,
         TabComponent,
+        KeypadNumberComponent,
     ],
     schemas: [
         NO_ERRORS_SCHEMA
