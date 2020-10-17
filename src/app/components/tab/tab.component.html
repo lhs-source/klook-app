@@ -2,11 +2,6 @@
         
     <StackLayout class="stack" orientation="horizontal" width="100%" #tab>
         <Label class="btn" *ngFor="let lb of tab_labels; let index = index" text="{{lb}}" (loaded)="onLoadedTab($event)" (tap)="onTapTab($event, index)"></Label>
-        <!-- <Label class="btn" col="0" text="최신순"></Label>
-        <Label class="btn" col="1" text="고액순"></Label>
-        <Label class="btn" col="2" text="충전/교환"></Label>
-        <Label class="btn" col="3" text="적립"></Label> -->
     </StackLayout>
-    <!-- <Label class="tab-btn" col="2" text="right"></Label> -->
     <Label id="selected" class="toggle"></Label>
 </AbsoluteLayout>

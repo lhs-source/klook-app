@@ -1,7 +1,68 @@
-<GridLayout #rootlayout rows="108,*" class="nav" height="100%" width="100%" backgroundColor="#f9ecf2">
-    <Label row="0" text="Charge Point" margin="24" style="font-size: 24;"></Label>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
+</GridLayout>
+<GridLayout #rootlayout rows="72,auto,auto,auto,auto" height="100%" width="100%">
 
-    <StackLayout row="1">
-        <Button text="go to Home" (tap)="navigateBack($event)"></Button>
+    <title row="1" title="{{title}}" backgroundColor="#888"></title>
+    <tab row="2" [tab_labels]="['일반충전', '자동충전']" (tap_elem)="callback_tab_tap($event)"></tab>
+    <GridLayout row="3" class="way-frame">
+        <ng-template [ngTemplateOutlet]="selected_way.isCard === true ? card : bank"></ng-template>
+        <ng-template #card>
+            <GridLayout row="3" class="card" rows="auto, auto" columns="auto, *, auto" class="way">
+                <Image row="0" rowspan="2" col="0" class="img" src="{{selected_way.img}}" height="48"></Image>
+                <Label row="0" col="1" class="str" text="{{selected_way.title}}"></Label>
+                <Label row="1" col="1" class="str" text="{{selected_way.number}}"></Label>
+                <Image row="0" rowspan="2" col="2" class="check" src="~/images/check_big_on.png"></Image>
+            </GridLayout>
+        </ng-template>
+        <ng-template #bank>
+            <GridLayout row="3" class="Bank" rows="auto" columns="auto, auto, *, auto" class="way">
+                <Image row="0" rowspan="2" col="0" class="img" src="{{selected_way.img}}" height="36"></Image>
+                <Label row="0" col="1" class="str" text="{{selected_way.title}}" verticalAlignment="center" marginRight="8"></Label>
+                <Label row="0" col="2" class="str" text="{{selected_way.number}}" verticalAlignment="center"></Label>
+                <Image row="0" col="3" class="check" src="~/images/check_big_on.png"></Image>
+            </GridLayout>
+        </ng-template>
+    </GridLayout>
+    <StackLayout row="4" class="amount">
+        <TextField class="tf" hint="충전 금액을 입력해주세요"></TextField>
+        <StackLayout orientation="horizontal">
+            <Image src="~/images/ico_q.png" width="16"></Image>
+            <Label class="str" text="충전가능금액 : "></Label>
+            <Label class="str-point" text="{{selected_way.balance | number:'1.0':'en-US'}}"></Label>
+            <Label class="str-point" text="원"></Label>
+        </StackLayout>
+    </StackLayout>
+
+
+</GridLayout>
+<GridLayout class="select-way" rows="auto, auto, auto, auto, auto, auto" verticalAlignment="bottom">
+    <StackLayout row="1" class="info" orientation="horizontal">
+        <Image src="~/images/ico_info.png" width="16" marginRight="4"></Image>
+        <Label class="str" text="충전을 하기 위해 카드 및 은행(계좌)를 선택해주세요"></Label>
+    </StackLayout>
+    <GridLayout row="2" class="title-card" columns="*, auto, auto">
+        <Label col="0" class="title" text="카드"></Label>
+        <Image class="img" src="~/images/btn_plus.png"  marginRight="2" horizontalAlignment="right" verticalAlignment="bottom"></Image>
+        <Label col="2" class="add" text="카드추가" verticalAlignment="bottom"></Label>
+    </GridLayout>
+    <StackLayout row="3" class="list-card">
+        <GridLayout *ngFor="let card of cards" class="item" rows="auto, auto" columns="auto, *" (tap)="onTapCard(card)">
+            <image row="0" rowspan="2" col="0" class="img" src="{{card.img}}"></image>
+            <Label row="0" col="1" class="str" text="{{card.title}}"></Label>
+            <Label row="1" col="1" class="str" text="{{card.number}}"></Label>
+        </GridLayout>
+    </StackLayout>
+    <GridLayout row="4" class="title-bank" columns="*, auto, auto">
+        <Label col="0" class="title" text="은행(계좌)"></Label>
+        <Image class="img" src="~/images/btn_plus.png" marginRight="2" horizontalAlignment="right" verticalAlignment="bottom"></Image>
+        <Label col="2" class="add" text="계좌추가" verticalAlignment="bottom"></Label>
+    </GridLayout>
+    <StackLayout row="5" class="list-bank">
+        <GridLayout *ngFor="let bank of banks" class="item" columns="auto, auto, *" (tap)="onTapBank(bank)">
+            <image col="0" class="img" src="{{bank.img}}"></image>
+            <Label col="1" class="str" text="{{bank.title}}"></Label>
+            <Label col="2" class="str" text="{{bank.number}}"></Label>
+        </GridLayout>
     </StackLayout>
 </GridLayout>

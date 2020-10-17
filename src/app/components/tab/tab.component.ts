@@ -6,8 +6,8 @@ import { CubicBezierAnimationCurve } from "@nativescript/core/ui/animation";
 
 import { animate, JsAnimationDefinition } from "./animation-helpers";
 
-// <tab [tab_labels]="['label1', 'label2']">
-// </tab>
+
+// <tab row="4" [tab_labels]="['최신순', '고액순', '충전/교환', '적립']" (tap_elem)="callback_tab_tap($event)"></tab>
 @Component({
     selector: "tab",
     templateUrl: "./tab.component.html",
@@ -21,6 +21,7 @@ export class TabComponent implements OnInit {
     // tab
     @ViewChild('tab', { static: true }) tab: ElementRef;
     tab_view = [];
+    selected = 0;
     
     temp_color = new Color("black");
     origin_color = new Color("#888");
@@ -76,6 +77,7 @@ export class TabComponent implements OnInit {
                     duration: 250,
                     curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1)
                 });
+                this.selected = 0;
             });
         }
     }
@@ -91,6 +93,10 @@ export class TabComponent implements OnInit {
         // console.log(loc);
         let width = label.getMeasuredWidth();
 
+        if(this.selected == index){
+            // if this view is already selected
+            return;
+        }
         // v = variation
         // step: (v) => label.color = new Color(255, v, v, v)
         let color_anim: JsAnimationDefinition = {
@@ -115,6 +121,7 @@ export class TabComponent implements OnInit {
             duration: 250,
             curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1)
         }).then(()=>{
+            this.selected = index;
             this.tap_elem.emit(index);
         });
     }
