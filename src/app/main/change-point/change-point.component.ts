@@ -27,6 +27,7 @@ export class ChangePointComponent implements OnInit {
     }
 
     // amount
+    @ViewChild('tf') tf : ElementRef;
     amount = '1000';
     amount_num = 1000;
     
@@ -71,6 +72,10 @@ export class ChangePointComponent implements OnInit {
         });
     }
 
+    onTapBack(){
+        let modal = this.modal.nativeElement as LayoutBase;
+        this.modal_hide(modal, this.isModalShow, ()=>{this.isModalShow = false});
+    }
     modal_show(target : LayoutBase, flag : Boolean, afterrun:Function){        
         if(flag === false){
             let modalframe = this.modalframe.nativeElement as LayoutBase;
@@ -122,6 +127,14 @@ export class ChangePointComponent implements OnInit {
         this.modal_hide(kl, this.isModalShow, ()=>{
             this.isModalShow = false;
             this.pointy = event;
+            
+            let tf = this.tf.nativeElement as TextField;
+            this.amount_num = Number(tf.text);
+            if(this.amount_num > this.pointy.balance){
+                this.amount_num = this.pointy.balance;
+                tf.text = String(this.amount_num);
+                tf.android.setSelection(tf.text.length);
+            }
         });
     }
 

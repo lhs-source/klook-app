@@ -5,9 +5,9 @@
             <Label row="0" col="1" class="title" text="{{point.title}}"></Label>
             <StackLayout row="1" col="1" orientation="horizontal">
                 <Label class="change-str" text="보유 포인트리: "></Label>
-                <Label class="change-str" text="{{point.balance | number:'1.0':'en-US'}}"></Label>
+                <Label class="change-str" text="{{point.balance | number:'1.0-0'}}"></Label>
                 <Label class="change-str" text=" → 포인트 교환: "></Label>
-                <Label class="change-str" text="{{(point.balance * point.exchange) | number:'1.0':'en-US' }}"></Label>
+                <Label class="change-str" text="{{(point.balance * point.exchange) | number:'1.0-0' }}"></Label>
             </StackLayout>
             <Image row="0" rowspan="2" col="2" class="check" src="{{point.selected === true ? '~/images/check_big_on.png' : '~/images/check_big_off.png'}}"></Image>
             <!-- <Image row="0" rowspan="2" col="2" class="check" *ngIf="!point.selected" src="~/images/check_small_off.png"></Image> -->

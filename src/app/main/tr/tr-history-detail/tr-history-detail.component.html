@@ -28,9 +28,9 @@
         <StackLayout class="row" orientation="horizontal">
             <Label row="2" col="0" class="label" text="포인트사용"></Label>
             <StackLayout row="2" col="1" orientation="horizontal">
-                <Label class="content" text="{{(tr.point | number:'1.0':'en-US') + ' P'}}" verticalAlignment="center"></Label>
+                <Label class="content" text="{{(tr.point | number:'1.0-0') + ' P'}}" verticalAlignment="center"></Label>
                 <Label class="content-point" text="(현지 결제금액 " marginLeft="2" verticalAlignment="center"></Label>
-                <Label class="content-point" text="{{tr.curr | number:'1.0':'en-US'}}" verticalAlignment="center"></Label>
+                <Label class="content-point" text="{{tr.curr | number:'1.0-0'}}" verticalAlignment="center"></Label>
                 <Label class="content-point" text="{{currency + ')'}}" marginLeft="4" verticalAlignment="center"></Label>
             </StackLayout>
         </StackLayout>

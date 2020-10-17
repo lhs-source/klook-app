@@ -6,7 +6,7 @@
 </GridLayout>
 <GridLayout #rootlayout rows="72,auto,*,auto,108" height="100%" width="100%">
     <!-- Point view -->
-    <title row="1" title="보유포인트" point="{{point | number:'1.0':'en-US'}}" point_unit="{{' (' + ( exchange | number:'1.0':'en-US') + ' ' + (country_obj['currency']) + ')' }}" backgroundColor="#ff5722"></title>
+    <title row="1" title="보유포인트" point="{{point | number:'1.0-0'}}" point_unit="{{' (' + ( exchange | number:'1.0-0') + ' ' + (country_obj['currency']) + ')' }}" backgroundColor="#ff5722"></title>
 
     <!-- sub router (qr, tr) -->
     <GridLayout row="2">

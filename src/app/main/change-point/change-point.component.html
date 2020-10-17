@@ -8,7 +8,7 @@
         <Image row="0" rowspan="2" col="0" class="img" src="~/images/img_charge01.png" width="56"></Image>
         <Label row="0" col="1" class="title" text="보유 KLOOK 포인트" verticalAlignment="bottom"></Label>
         <StackLayout row="1" col="1" orientation="horizontal" verticalAlignment="top">
-            <Label class="point-num" text="{{point | number:'1.0':'en-US'}}"></Label>
+            <Label class="point-num" text="{{point | number:'1.0-0'}}"></Label>
             <Label class="str" text=" Point"></Label>
         </StackLayout>
     </GridLayout>
@@ -16,12 +16,12 @@
     <GridLayout row="3" rows="auto, auto, auto" columns="auto, *"  class="change" marginTop="16">
         <Image row="0" rowspan="2" col="0" class="img" src="~/images/img_charge02.png" width="56" (tap)="onTapTarget()"></Image>
         <Label row="0" col="1" class="title" text="교환 대상 포인트" verticalAlignment="bottom"></Label>
-        <TextField row="1" col="1" class="tf" hint="교환 포인트를 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField>
+        <TextField row="1" col="1" #tf class="tf" hint="교환 포인트를 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField>
         
         <StackLayout row="2" col="1" orientation="horizontal" verticalAlignment="top">
             <Image class="question" src="~/images/ico_q.png" width="12"></Image>
             <Label class="str" text="교환 가능한 포인트는 "></Label>
-            <Label class="str" text="{{pointy.balance | number:'1.0':'en-US'}}"></Label>
+            <Label class="str" text="{{pointy.balance | number:'1.0-0'}}"></Label>
             <Label class="str" text=" P입니다"></Label>
         </StackLayout>
     </GridLayout>
@@ -31,11 +31,11 @@
         <Label row="1" col="0" class="from-title" text="{{pointy.title}}" horizontalAlignment="center"></Label>
         <Label row="1" col="1" class="to-title" text="KLOOK 포인트" horizontalAlignment="center"></Label>
         <StackLayout row="2" col="0" orientation="horizontal" horizontalAlignment="center">
-            <Label class="from-point" text="{{amount_num | number:'1.0':'en-US'}}" verticalAlignment="center"></Label>
+            <Label class="from-point" text="{{amount_num | number:'1.0-0'}}" verticalAlignment="center"></Label>
             <Label class="str" text=" Point" verticalAlignment="center"></Label>
         </StackLayout>
         <StackLayout row="2" col="1" orientation="horizontal" horizontalAlignment="center">
-            <Label class="to-point" text="{{amount_num * pointy.exchange | number:'1.0':'en-US'}}" verticalAlignment="center"></Label>
+            <Label class="to-point" text="{{ amount_num * pointy.exchange | number:'1.0-0'}}" verticalAlignment="center"></Label>
             <Label class="str" text=" Point" verticalAlignment="center"></Label>
         </StackLayout>
     </GridLayout>
