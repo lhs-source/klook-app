@@ -55,40 +55,15 @@
 <!-- <GridLayout #modalframe backgroundColor="#00000000"> -->
 <GridLayout #modalframe rows="*,auto" backgroundColor="#00000000">
     <GridLayout row="0" *ngIf="isModalShow || isKeypadShow" (tap)="onTapBack()"></GridLayout>
-    <GridLayout row="1" #modal class="select-way" rows="auto, auto, auto, auto, auto, auto" verticalAlignment="bottom">
-        <StackLayout row="1" class="info" orientation="horizontal">
+    <GridLayout #modal row="1" class="select-way" rows="auto, auto" verticalAlignment="bottom">
+        <StackLayout row="0" class="info" orientation="horizontal">
             <Image src="~/images/ico_info.png" width="16" marginRight="4"></Image>
             <Label class="str" text="충전을 하기 위해 카드 및 은행(계좌)를 선택해주세요"></Label>
         </StackLayout>
-        <GridLayout row="2" class="title-card" columns="*, auto, auto">
-            <Label col="0" class="title" text="카드"></Label>
-            <Image class="img" src="~/images/btn_plus.png" marginRight="2" horizontalAlignment="right"
-                verticalAlignment="bottom"></Image>
-            <Label col="2" class="add" text="카드추가" verticalAlignment="bottom"></Label>
-        </GridLayout>
-        <StackLayout row="3" class="list-card">
-            <GridLayout *ngFor="let card of cards" class="item" rows="auto, auto" columns="auto, *"
-                (tap)="onTapCard(card)">
-                <image row="0" rowspan="2" col="0" class="img" src="{{card.img}}"></image>
-                <Label row="0" col="1" class="str" text="{{card.title}}"></Label>
-                <Label row="1" col="1" class="str" text="{{card.number}}"></Label>
-            </GridLayout>
-        </StackLayout>
-        <GridLayout row="4" class="title-bank" columns="*, auto, auto">
-            <Label col="0" class="title" text="은행(계좌)"></Label>
-            <Image class="img" src="~/images/btn_plus.png" marginRight="2" horizontalAlignment="right"
-                verticalAlignment="bottom"></Image>
-            <Label col="2" class="add" text="계좌추가" verticalAlignment="bottom"></Label>
-        </GridLayout>
-        <StackLayout row="5" class="list-bank">
-            <GridLayout *ngFor="let bank of banks" class="item" columns="auto, auto, *" (tap)="onTapBank(bank)">
-                <image col="0" class="img" src="{{bank.img}}"></image>
-                <Label col="1" class="str" text="{{bank.title}}"></Label>
-                <Label col="2" class="str" text="{{bank.number}}"></Label>
-            </GridLayout>
-        </StackLayout>
+        <way-list row="1" (selectWay)="callback_selectWay($event)"></way-list>
     </GridLayout>
-    <GridLayout row="1" #modalkeypad class="keypad" rows="auto, auto, auto" verticalAlignment="bottom">
+
+    <GridLayout #modalkeypad row="1" class="keypad" rows="auto, auto, auto" verticalAlignment="bottom">
         <StackLayout row="0" class="info" orientation="horizontal">
             <Image src="~/images/ico_info.png" width="16" marginRight="4"></Image>
             <Label class="str" text="자동 충전 기준 포인트를 입력해주세요"></Label>

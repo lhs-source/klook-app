@@ -29,29 +29,6 @@ export class ChargePointComponent implements OnInit {
         balance: 1800000,
     };
 
-    // prepared data
-    cards=[
-        {
-            img:"~/images/img_kbcard.png",
-            title:"KB국민카드 해피nori",
-            number:"9445-****-****-****",
-            balance: 1800000,
-        }
-    ];
-    banks=[
-        {
-            img:"~/images/ico_kbcard_small.png",
-            title:"국민은행",
-            number:"1002-**-***031",
-            balance: 3600000,
-        },
-        {
-            img:"~/images/ico_shcard_small.png",
-            title:"신한은행",
-            number:"3123-**-****932",
-            balance: 2400000,
-        }
-    ]
 
     // modal
     @ViewChild('modalframe', {static:true}) modalframe : ElementRef;
@@ -86,6 +63,7 @@ export class ChargePointComponent implements OnInit {
 
         
         let modal = this.modal.nativeElement as LayoutBase;
+        console.log(modal);
         modal.on('loaded', (a)=>{
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
             setTimeout(() => {
@@ -98,6 +76,7 @@ export class ChargePointComponent implements OnInit {
             });
         });
         let kl = this.modalkeypad.nativeElement as LayoutBase;
+        console.log(kl);
         kl.on('loaded', (a)=>{
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
             setTimeout(() => {
@@ -235,8 +214,8 @@ export class ChargePointComponent implements OnInit {
 
         this.modal_show(modal, this.isModalShow, ()=>{this.isModalShow = true});
     }
-
-    onTapCard(card){
+    
+    callback_selectWay(way){
         // console.log(this.tag, "card =", card);
 
         let frame = this.modalframe.nativeElement as LayoutBase;
@@ -253,44 +232,25 @@ export class ChargePointComponent implements OnInit {
             translate:{x:modal.translateX, y:height},
             duration:250,
         }).then(()=>{
-            
-            this.selected_way.isCard = true;
-            this.selected_way.img = card.img;
-            this.selected_way.title = card.title;
-            this.selected_way.number = card.number;
-            this.selected_way.balance = card.balance;
+            if(way.isCard === true){
+                this.selected_way.isCard = true;
+                this.selected_way.img = way.img;
+                this.selected_way.title = way.title;
+                this.selected_way.number = way.number;
+                this.selected_way.balance = way.balance;
+            }else{
+                this.selected_way.isCard = false;
+                this.selected_way.img = way.img;
+                this.selected_way.title = way.title;
+                this.selected_way.number = way.number;
+                this.selected_way.balance = way.balance;
+            }
             
             this.isModalShow = false;
         })
     }
 
-    onTapBank(bank){
-        // console.log(this.tag, "bank =", bank);
-        
-        let frame = this.modalframe.nativeElement as LayoutBase;
-        let modal = this.modal.nativeElement as LayoutBase;
-        frame.animate({
-            backgroundColor:new Color(0, 0, 0, 0),
-            duration:250,
-        });
 
-        let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
-        let height = modal.getMeasuredHeight() * p;
-
-        modal.animate({
-            translate:{x:modal.translateX, y:height},
-            duration:250,
-        }).then(()=>{
-            
-            this.selected_way.isCard = false;
-            this.selected_way.img = bank.img;
-            this.selected_way.title = bank.title;
-            this.selected_way.number = bank.number;
-            this.selected_way.balance = bank.balance;
-
-            this.isModalShow = false;
-        });
-    }
 
     navigateBack(event) {
         console.log(`${this.tag} navigateBack`);

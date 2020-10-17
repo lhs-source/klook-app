@@ -4,9 +4,9 @@ import { NativeScriptCommonModule } from "@nativescript/angular";
 import { MainRoutingModule } from "./main-routing.module";
 import { MainComponent } from "./main.component";
 import { ChangePointComponent } from "./change-point/change-point.component";
-import { ChargePointComponent } from "./charge-point/charge-point.component";
 import { OnlinepayComponent } from "./onlinepay/onlinepay.component";
 import { ComponentsModule } from "../components/components.module";
+import { ChargeModule } from "./charge-point/charge.module";
 
 import { DataService } from "./data.service";
 
@@ -17,12 +17,12 @@ import { DataService } from "./data.service";
     imports: [
         NativeScriptCommonModule,
         MainRoutingModule,
+        ChargeModule,
         ComponentsModule
     ],
     declarations: [
         MainComponent,
         ChangePointComponent,
-        ChargePointComponent,
         OnlinepayComponent,
     ],
     providers:[
