@@ -2,11 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData, isAndroid, EventData, LayoutBase, View, Color, Label } from "tns-core-modules";
-import { CubicBezierAnimationCurve } from "@nativescript/core/ui/animation";
 import { screen } from "tns-core-modules/platform";
 
 import { CustomTransition, CustomTransitionBack } from "../../home/klook-transition";
-import { animate, JsAnimationDefinition } from "./animation-helpers";
+import { animate, JsAnimationDefinition } from "../../../components/tab/animation-helpers";
 import { KeyValue } from "@angular/common";
 
 @Component({
@@ -16,10 +15,6 @@ import { KeyValue } from "@angular/common";
 })
 export class TrHistoryComponent implements OnInit {
     tag = this.constructor.name;
-
-    // tab
-    @ViewChild('tab', { static: true }) tab: ElementRef;
-    tab_view = [];
 
     today = Date.now();
     use_point = 150000;
@@ -209,101 +204,6 @@ export class TrHistoryComponent implements OnInit {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
 
-        // tab init
-        // let lb = args.object as LayoutBase;
-        let lb = this.tab.nativeElement as LayoutBase;
-        let rootView = lb.parentNode.getViewById("selected") as View;
-        let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
-
-        lb.eachChildView((view: View) => {
-            if (view.className === "selected") {
-                return;
-            }
-            this.tab_view.push(view);
-
-            let temp_color = new Color("black");
-            let origin_color = new Color("#888");
-
-            // first sel elems
-            if (this.tab_view.length === 1) {
-                view.on('loaded', (a) => {
-                    console.log(view);
-                    let color_anim: JsAnimationDefinition = {
-                        curve: t => t,
-                        getRange: () => { return { from: view.color.r, to: temp_color.r }; },
-                        step: (v) => view.color = new Color(255, v, v, v)
-                    };
-                    animate(250, [color_anim]);
-
-                    setTimeout(() => {
-                        let label = view as View;
-                        let loc = label.getLocationRelativeTo(lb);
-                        let width = label.getMeasuredWidth();
-                        console.log(loc);
-                        console.log(width);
-                        rootView.animate({
-                            translate: { x: 0, y: 0 },
-                            width:65,
-                            duration: 250,
-                            curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1)
-                        });
-                    });
-                });
-            }
-
-            view.on("tap", (a: EventData) => {
-                let label = a.object as View;
-                let loc = label.getLocationRelativeTo(lb);
-                // console.log(loc);
-                let width = label.getMeasuredWidth();
-
-                // v = variation
-                // step: (v) => label.color = new Color(255, v, v, v)
-                let color_anim: JsAnimationDefinition = {
-                    curve: t => t,
-                    getRange: () => { return { from: label.color.r, to: temp_color.r }; },
-                    step: (v) => label.color = new Color(255, v, v, v)
-                };
-                animate(250, [color_anim]);
-                this.tab_view.forEach((t) => {
-                    if (t !== label) {
-                        let color_anim: JsAnimationDefinition = {
-                            curve: t => t,
-                            getRange: () => { return { from: t.color.r, to: origin_color.r }; },
-                            step: (v) => t.color = new Color(255, v, v, v)
-                        };
-                        animate(250, [color_anim]);
-                    }
-                });
-                rootView.animate({
-                    translate: { x: loc.x, y: 0 },
-                    width: width * p,
-                    duration: 250,
-                    curve: new CubicBezierAnimationCurve(0.6, 0.72, 0, 1)
-                });
-            });
-
-            return true;
-        });
-    }
-
-    onLoadedTab(){
-        console.log(`${this.tag} onLoadedTab`);
-
-        // let lb = this.tab.nativeElement as LayoutBase;
-        // let rootView = lb.parentNode.getViewById("selected") as View;
-
-        // for(let ta of this.tab_view){
-        //     console.log(ta);
-        // }
-        
-        // setTimeout(() => {
-        //     let label = this.tab_view[0] as Label;
-        //     let loc = label.getLocationRelativeTo(lb);
-        //     let width = label.getMeasuredWidth();
-        //     console.log(loc);
-        //     console.log(width);
-        // });
     }
 
     keyDescOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
@@ -311,6 +211,10 @@ export class TrHistoryComponent implements OnInit {
     }
     hiAmountOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
         return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+    }
+
+    callback_tab_tap(number){
+        console.log(this.tag, "callback_tab_tap = ", number);
     }
 
     onTapTr(tr) {

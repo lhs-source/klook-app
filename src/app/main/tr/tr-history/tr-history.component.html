@@ -23,7 +23,7 @@
         </StackLayout>
     </StackLayout>
 
-    <AbsoluteLayout row="4" class="tab-frame" columns="auto, auto,auto, auto" verticalAlignment="middle" marginTop="8">
+    <!-- <AbsoluteLayout row="4" class="tab-frame" columns="auto, auto,auto, auto" verticalAlignment="middle" marginTop="8">
         
         <StackLayout class="stack" orientation="horizontal" width="100%" #tab>
             <Label class="btn" col="0" text="최신순" (loaded)="onLoadedTab()"></Label>
@@ -31,9 +31,9 @@
             <Label class="btn" col="2" text="충전/교환"></Label>
             <Label class="btn" col="3" text="적립"></Label>
         </StackLayout>
-        <!-- <Label class="tab-btn" col="2" text="right"></Label> -->
         <Label id="selected" class="toggle"></Label>
-    </AbsoluteLayout>
+    </AbsoluteLayout> -->
+    <tab row="4" [tab_labels]="['최신순', '고액순', '충전/교환', '적립']" (tap_elem)="callback_tab_tap($event)"></tab>
 
     <GridLayout row="5">
         <ScrollView>
