@@ -332,7 +332,12 @@ export class ChargePointComponent implements OnInit {
         this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
     }
 
+    // actionbar emit click close
+    actionbar_click_close(isclose) {
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
 
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
+    }
     navigateBack(event) {
         console.log(`${this.tag} navigateBack`);
         if(this.routerExtensions.canGoBack()){

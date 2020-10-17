@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { BarcodeScanner } from "nativescript-barcodescanner";
 import {
     MLKitScanBarcodesOnDeviceResult,
@@ -8,6 +9,8 @@ import * as firebase from "nativescript-plugin-firebase";
 import { isAndroid, PropertyChangeData } from "tns-core-modules/ui/content-view/content-view";
 import { RouterExtensions } from "@nativescript/angular";
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
+import { HomeRoutingService } from "../home-routing.service";
+import { CustomTransitionBack } from "../klook-transition";
 
 @Component({
     selector: "qr-scan",
@@ -28,7 +31,7 @@ export class QrScanComponent implements OnInit {
         }
     }
 
-    constructor(private barcodeScanner: BarcodeScanner, private routerExtensions: RouterExtensions) {
+    constructor(private barcodeScanner: BarcodeScanner, private routerExtensions: RouterExtensions, private routingService:HomeRoutingService) {
         console.log(`${this.tag} constructor `)
         
         if (isAndroid) {
@@ -54,11 +57,13 @@ export class QrScanComponent implements OnInit {
                             if(yes === true){
                                 // grant permission done
                                 this.is_cam_allowed = true;
+                                console.log("new allowed!!");
                             }
                         });
                     }else{
                         // allowed cam already
                         this.is_cam_allowed = true;
+                        console.log("already allowed!!");
                     }
                 });
             }
@@ -72,6 +77,10 @@ export class QrScanComponent implements OnInit {
             console.log("this.barcodes: " + JSON.stringify(this.barcodes));
             // this.pause = true;
             // setTimeout(() => this.pause = false, 500)
+            
+            this.routingService.emitChange('pay');
+
+            this.routerExtensions.navigate(['/main/home/pay'], { transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) } });
         }
     }
 }

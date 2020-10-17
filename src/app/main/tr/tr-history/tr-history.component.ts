@@ -7,6 +7,7 @@ import { screen } from "tns-core-modules/platform";
 import { CustomTransition, CustomTransitionBack } from "../../home/klook-transition";
 import { animate, JsAnimationDefinition } from "../../../components/tab/animation-helpers";
 import { KeyValue } from "@angular/common";
+import { DataService } from "../../data.service";
 
 @Component({
     selector: "tr-history",
@@ -21,6 +22,7 @@ export class TrHistoryComponent implements OnInit {
     stack_point = 4120;
 
     // trs
+    trs ={};
     icons = {
         "백화점": "~/images/ico_type2.png",
         "편의점": "~/images/ico_type3.png",
@@ -31,160 +33,11 @@ export class TrHistoryComponent implements OnInit {
         "카페": "~/images/ico_type7.png",
         "포인트교환": "~/images/ico_type8.png",
     };
-    trs = {
-        "10월 30일 금요일": [
-            {
-                icon: "백화점",
-                merchant: "Central Department Store (Central Hat Yai)",
-                point: 25000,
-                curr: 676,
-                date: new Date(2020, 10, 30, 14, 23, 0, 0),
-                description: "포인트사용",
-                taxfree: true,
-                utu: false,
-                save_point: 1250,
-            }, {
-                icon: "편의점",
-                merchant: "Family mart",
-                point: 4500,
-                curr: 122,
-                date: new Date(2020, 10, 30, 11, 30, 0, 0),
-                description: "포인트사용",
-                taxfree: false,
-                utu: true,
-                save_point: 45,
-            }
-        ],
-        "10월 27일 화요일": [
-            {
-                icon: "포인트충전",
-                merchant: "KB국민카드 Nori카드 충전",
-                point: 100000,
-                curr: 0,
-                date: new Date(2020, 10, 27, 21, 10, 0, 0),
-                description: "포인트 일반충전",
-                taxfree: false,
-                utu: false,
-                save_point: 0,
-            }
-        ],
-        "10월 25일 일요일": [
-            {
-                icon: "마트",
-                merchant: "Big C (Thap Thiang)",
-                point: 5500,
-                curr: 145,
-                date: new Date(2020, 10, 25, 13, 10, 0, 0),
-                description: "포인트사용",
-                taxfree: false,
-                utu: true,
-                save_point: 55,
-            }, {
-                icon: "식당",
-                merchant: "MK Restaurants",
-                point: 13500,
-                curr: 365,
-                date: new Date(2020, 10, 25, 12, 35, 0, 0),
-                description: "포인트사용",
-                taxfree: false,
-                utu: true,
-                save_point: 135,
-            }, {
-                icon: "포인트충전",
-                merchant: "KB국민카드 포인트 자동충전",
-                point: 50000,
-                curr: 0,
-                date: new Date(2020, 10, 25, 9, 45, 0, 0),
-                description: "포인트 자동충전",
-                taxfree: false,
-                utu: false,
-                save_point: 0,
-            }
-        ],
-        "10월 24일 토요일": [
-            {
-                icon: "식당",
-                merchant: "EATHAI",
-                point: 37000,
-                curr: 1001,
-                date: new Date(2020, 10, 25, 18, 20, 0, 0),
-                description: "포인트사용",
-                taxfree: false,
-                utu: true,
-                save_point: 370,
-            }, {
-                icon: "백화점",
-                merchant: "Robinson",
-                point: 38000,
-                curr: 1028,
-                date: new Date(2020, 10, 24, 17, 24, 0, 0),
-                description: "포인트사용",
-                taxfree: true,
-                utu: false,
-                save_point: 1900,
-            }, {
-                icon: "마트",
-                merchant: "Tops daily mini supermarket",
-                point: 19000,
-                curr: 324,
-                date: new Date(2020, 10, 24, 13, 15, 0, 0),
-                description: "포인트사용",
-                taxfree: false,
-                utu: true,
-                save_point: 600,
-            }
-        ],
-        "10월 23일 금요일": [
-            {
-                icon: "스포츠",
-                merchant: "SuperSports",
-                point: 12000,
-                curr: 324,
-                date: new Date(2020, 10, 23, 19, 20, 0, 0),
-                description: "포인트사용",
-                taxfree: true,
-                utu: false,
-                save_point: 600,
-            }, {
-                icon: "카페",
-                merchant: "Segafredo Zanetti Espresso",
-                point: 5000,
-                curr: 135,
-                date: new Date(2020, 10, 23, 18, 45, 0, 0),
-                description: "포인트사용",
-                taxfree: false,
-                utu: true,
-                save_point: 50,
-            }
-        ],
-        "10월 20일 화요일": [
-            {
-                icon: "포인트충전",
-                merchant: "KB국민카드 해피Nori카드 충전",
-                point: 100000,
-                curr: 0,
-                date: new Date(2020, 10, 20, 21, 0, 0, 0),
-                description: "포인트 일반충전",
-                taxfree: false,
-                utu: false,
-                save_point: 0,
-            }, {
-                icon: "포인트교환",
-                merchant: "KB국민카드 포인트리 교환",
-                point: 20000,
-                curr: 0,
-                date: new Date(2020, 10, 20, 20, 50, 0, 0),
-                description: "포인트교환",
-                taxfree: false,
-                utu: false,
-                save_point: 0,
-            }
-        ],
-    }
     currency = "THB"
 
-    constructor(private routerExtensions: RouterExtensions) {
+    constructor(private routerExtensions: RouterExtensions, private dataService: DataService) {
         console.log(`${this.tag} constructor `)
+        console.log("today ", this.today.toLocaleString());
 
         if (isAndroid) {
             Application.android.off(AndroidApplication.activityBackPressedEvent);
@@ -204,6 +57,7 @@ export class TrHistoryComponent implements OnInit {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
 
+        this.trs = this.dataService.getTrsGrouped();
     }
 
     keyDescOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {

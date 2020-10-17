@@ -80,6 +80,10 @@ export class HomeComponent implements OnInit {
                 }).then(() => {
                     bg.borderColor = "#ddd";
                 });
+            }else if('tr'){
+                this.isPay = false;
+                this.isQrScan = false;
+                this.isQrPay = false;
             }
         });
 
