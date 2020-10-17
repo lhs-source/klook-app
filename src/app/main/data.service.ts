@@ -237,4 +237,9 @@ export class DataService {
             }
         ],
     };
+    
+    addPoint(point){
+        this.point = this.point + point;
+        console.log("DataService ", this.point);
+    }
 }

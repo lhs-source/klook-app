@@ -2,12 +2,14 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { ActivatedRoute } from "@angular/router";
-import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData, LayoutBase, Color, TextField } from "tns-core-modules";
+import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData, LayoutBase, Color, TextField, TouchGestureEventData } from "tns-core-modules";
 import * as app from "tns-core-modules/application";
+import * as utils from "tns-core-modules/utils/utils";
 
 import { screen } from "tns-core-modules/platform/platform"
 
 import { CustomTransitionBack } from "../home/klook-transition";
+import { DataService } from "../data.service";
 
 
 @Component({
@@ -36,24 +38,42 @@ export class ChargePointComponent implements OnInit {
     isModalShow=false;
 
     @ViewChild('modalkeypad', {static:true}) modalkeypad : ElementRef;
+
     @ViewChild('amounttf', {static:true}) amounttf : ElementRef;
     isKeypadShow= false;
     amount = '';
     cursor = 0;
+    
+    @ViewChild('amounttf_autounder', {static:true}) amounttf_autounder : ElementRef;
+    @ViewChild('amounttf_auto', {static:true}) amounttf_auto : ElementRef;
+    focused_tf : TextField;
+    amount_auto_under = '';
+    cursor_auto_under = 0;
+    amount_auto = '';
+    cursor_auto = 0;
+    isUnder = true;
 
-    constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute) {
+
+    constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute, private dataService: DataService) {
         console.log(`${this.tag} constructor `)
         if(isAndroid){
             Application.android.off(AndroidApplication.activityBackPressedEvent);
             Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
                 console.log("back button pressed on " + this.tag);
                 data.cancel = true;
-                this.routerExtensions.navigate(['/main/home'], {transition:{instance : new CustomTransitionBack(250, AnimationCurve.linear)}, clearHistory : true});
+                if(this.isKeypadShow || this.isModalShow){
+                    this.onTapBack();
+                }else{
+                    this.routerExtensions.navigate(['/main/home'], {transition:{instance : new CustomTransitionBack(250, AnimationCurve.linear)}, clearHistory : true});
+                }
             });
 
             // prevent the soft keyboard from showing initially when textfields are present
             app.android.startActivity.getWindow().setSoftInputMode(
             android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+            app.android.startActivity.getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+            utils.ad.dismissSoftInput();
         }
     }
 
@@ -88,6 +108,16 @@ export class ChargePointComponent implements OnInit {
                 })
             });
         });
+
+        // let tf = this.amounttf.nativeElement as TextField;
+        // tf.dismissSoftInput();
+        // tf.android.setTextIsSelectable(true);
+        // tf.android.setFocusable(false);
+        // tf.android.setFocusableInTouchMode(true);
+    }
+
+    onBlur(){
+        console.log("onBlur");
     }
 
     onTapBack(){
@@ -107,10 +137,6 @@ export class ChargePointComponent implements OnInit {
             this.title = "포인트 충전 > 자동충전";
             this.isNormal = false;
         }
-    }
-
-    onTapModalframe(){
-        console.log(this.tag, "onTapModalframe");
     }
 
     modal_show(target : LayoutBase, flag : Boolean, afterrun:Function){        
@@ -153,22 +179,59 @@ export class ChargePointComponent implements OnInit {
     }
 
     // keypad //
-    onTapTextfield(event){
+    onTouchShortcut(event : TouchGestureEventData, point){
+        if(event.action === 'down'){
+            return;
+        }
+        let fp = Number(this.focused_tf.text);
+        console.log("onTouchShortcut", this.focused_tf);
+        fp = fp + point;
+        this.focused_tf.text = String(fp);
+    }
+    onReturnPress(event){
+        let tf = event.object as TextField;
+        this.amount = tf.text;
+    }
+    onTapTextfield(event, index){
         console.log("onTapTextfield");
         let kf = event.object as TextField;
         let kl = this.modalkeypad.nativeElement as LayoutBase;
-        kf.dismissSoftInput();
         this.modal_show(kl, this.isKeypadShow, ()=>{
             this.isKeypadShow = true;
         });
+        kf.editable = false;
+        kf.android.setRawInputType(0x00000000);
+        kf.android.setTextIsSelectable(true);
+        kf.android.setCursorVisible(true);
+        kf.android.setFocusable(true);
+        this.focused_tf = kf;
+        if(index === 1){
+            this.isUnder = true;
+        }else if(index === 2){
+            this.isUnder = false;
+        }
+        // kf.android.setFocusableInTouchMode(true);
+        // kf.focus();
+    }
+    onFocusTf(event){
+        console.log("onFocusTf");
+        let kf = event.object as TextField;
+        kf.dismissSoftInput();
+        return true;
     }
     onChangeTextField(event){
         let kf = event.object as TextField;
-        kf.android.setSelection(this.cursor);
+        if(this.isUnder){
+            kf.android.setSelection(this.cursor_auto_under);
+        }else if(!this.isUnder){
+            kf.android.setSelection(this.cursor_auto);
+        }
+        console.log("onChangeTextField", kf.android.getSelectionStart());
     }
     callback_tapNumber(num){
         console.log(this.tag, "callback_tapNumber =", num);
-        let kf = this.amounttf.nativeElement as TextField;
+        // let kf = this.amounttf.nativeElement as TextField;
+        let kf = this.focused_tf;
         let sel = kf.android.getSelectionStart();
         if(num == 'enter'){
             let kl = this.modalkeypad.nativeElement as LayoutBase;
@@ -176,33 +239,47 @@ export class ChargePointComponent implements OnInit {
                 this.isKeypadShow = false;
             });
         }else if(num == 'back'){
-            if(this.amount.length <= 0){
+            if(sel <= 0){
 
             }
-            else if(sel === this.amount.length){
-                this.amount = this.amount.slice(0, this.amount.length - 1);
-                this.cursor = sel - 1;
+            else if(sel === kf.text.length){
+                if(this.isUnder)
+                    this.cursor_auto_under = sel - 1;
+                else if(!this.isUnder)
+                    this.cursor_auto = sel - 1;
+                kf.text = kf.text.slice(0, kf.text.length - 1);
             }else{
-                let front = this.amount.slice(0, sel - 1);
-                let back = this.amount.slice(sel, this.amount.length);
-                this.amount = front + back;
-                this.cursor = sel - 1;
+                let front = kf.text.slice(0, sel - 1);
+                let back = kf.text.slice(sel, kf.text.length);
+                if(this.isUnder)
+                    this.cursor_auto_under = sel - 1;
+                else if(!this.isUnder)
+                    this.cursor_auto = sel - 1;
+                kf.text = front + back;
             }
         }else if(num=='-1'){}
         else{
-            if(this.amount.length > 20){}
-            else if(sel === this.amount.length){
-                this.amount = this.amount + String(num);
-                this.cursor = sel + 1;
+            if(kf.text.length > 20){}
+            else if(sel === kf.text.length){
+                if(this.isUnder)
+                    this.cursor_auto_under = sel + 1;
+                else if(!this.isUnder)
+                    this.cursor_auto = sel + 1;
+                kf.text = kf.text + String(num);
             }else{
-                let front = this.amount.slice(0, sel);
-                let back = this.amount.slice(sel, this.amount.length);
+                let front = kf.text.slice(0, sel);
+                let back = kf.text.slice(sel, kf.text.length);
                 front = front + String(num);
-                this.amount = front + back;
-                this.cursor = sel + 1;
+                if(this.isUnder)
+                    this.cursor_auto_under = sel + 1;
+                else if(!this.isUnder)
+                    this.cursor_auto = sel + 1;
+                    kf.text = front + back;
             }
         }
-        console.log(this.amount);
+        console.log("this.cursor_auto_under ", this.cursor_auto_under);
+        console.log("this.cursor_auto ", this.cursor_auto);
+        // console.log(kf.text);
     }
 
     // lists //
@@ -250,6 +327,10 @@ export class ChargePointComponent implements OnInit {
         })
     }
 
+    charge(){
+        this.dataService.addPoint(Number(this.amount));
+        this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
+    }
 
 
     navigateBack(event) {

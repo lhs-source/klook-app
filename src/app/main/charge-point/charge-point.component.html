@@ -1,7 +1,7 @@
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>
-<GridLayout #rootlayout rows="72,auto,auto,auto,auto" height="100%" width="100%">
+<GridLayout #rootlayout rows="72,auto,auto,auto,*, auto, auto" height="100%" width="100%">
 
     <title row="1" title="{{title}}" backgroundColor="#888"></title>
     <tab row="2" [tab_labels]="['일반충전', '자동충전']" (tapElem)="callback_tapTab($event)"></tab>
@@ -25,21 +25,10 @@
             </GridLayout>
         </ng-template>
     </GridLayout>
-    <StackLayout row="4" class="amount">
-        <!-- <TextField hint="충전 금액을 입력해주세요" 
-           [text]='name' 
-           secure="false"
-           keyboardType="datetime"
-           returnKeyType="done" 
-           (returnPress)="onReturnPress($event)"
-           autocorrect="false"
-           maxLength="10"
-           (focus)="onFocus($event)" 
-           (blur)="onBlur($event)"
-           > 
-        </TextField>-->
-        <TextField #amounttf class="tf" hint="충전 금액을 입력해주세요" (tap)="onTapTextfield($event)" [text]="amount"
-            (textChange)="onChangeTextField($event)"></TextField>
+    <StackLayout row="4" *ngIf="isNormal === true" class="amount">
+        <!-- <TextField #amounttf class="tf" hint="충전 금액을 입력해주세요" (tap)="onTapTextfield($event)" [text]="amount"
+            (textChange)="onChangeTextField($event)" (blur)="onBlur($event)" editable="false"></TextField> -->
+            <TextField #amounttf class="tf" hint="충전 금액을 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField>
         <StackLayout orientation="horizontal">
             <Image src="~/images/ico_q.png" width="16"></Image>
             <Label class="str" text="충전가능금액 : "></Label>
@@ -47,8 +36,29 @@
             <Label class="str-point" text="원"></Label>
         </StackLayout>
     </StackLayout>
+    <StackLayout row="4" *ngIf="isNormal === false" class="amount">
+        <Label class="str" text="KLOOK Pay 포인트가"></Label>
+        <StackLayout orientation="horizontal">
+            <TextField #amounttf_autounder class="tf-auto" hint="1만 포인트" (tap)="onTapTextfield($event, 1)"
+            (textChange)="onChangeTextField($event)" (blur)="onBlur($event)" (focus)="onFocusTf($event)" [text]="amount_auto_under"></TextField>
+            <Label class="str" text="미만인 경우"></Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal">
+            <TextField #amounttf_auto class="tf-auto" hint="5만 포인트" (tap)="onTapTextfield($event, 2)"
+            (textChange)="onChangeTextField($event)" (blur)="onBlur($event)" (focus)="onFocusTf($event)" [text]="amount_auto"></TextField>
+            <Label class="str" text="를(을) 자동 충전합니다"></Label>
+        </StackLayout>
+    </StackLayout>
+    <StackLayout row="5" *ngIf="!isNormal" class="description">
+        <GridLayout columns="auto, auto" horizontalAlignment="center">
+            <Image col="0" src="~/images/ico_info3.png" height="16" marginRight="4"></Image>
+            <Label col="1" class="str" text="충전 시점에 카드 또는 계좌의"></Label>
+        </GridLayout>
+        <Label class="str" text="금액이 부족하면 자동 충전되지 않습니다" horizontalAlignment="center"></Label>
+    </StackLayout>
 
-
+    <ripple-button row="6" *ngIf="isNormal" text="포인트 충전하기" backgroundColor="#ff5722" textColor="white" (click)="charge($event)"></ripple-button>
+    <ripple-button row="6" *ngIf="!isNormal" text="자동 충전 설정하기" backgroundColor="#ff5722" textColor="white" (click)="charge($event)"></ripple-button>
 </GridLayout>
 
 
@@ -69,10 +79,10 @@
             <Label class="str" text="자동 충전 기준 포인트를 입력해주세요"></Label>
         </StackLayout>
         <GridLayout row="1" class="shortcut" columns="*, *, *, *">
-            <Label col="0" class="item" text="5만 P" textAlignment="center"></Label>
-            <Label col="1" class="item" text="3만 P" textAlignment="center"></Label>
-            <Label col="2" class="item" text="2만 P" textAlignment="center"></Label>
-            <Label col="3" class="item" text="1만 P" textAlignment="center"></Label>
+            <Label col="0" class="item" text="5만 P" textAlignment="center" (touch)="onTouchShortcut($event, 50000)"></Label>
+            <Label col="1" class="item" text="3만 P" textAlignment="center" (touch)="onTouchShortcut($event, 30000)"></Label>
+            <Label col="2" class="item" text="2만 P" textAlignment="center" (touch)="onTouchShortcut($event, 20000)"></Label>
+            <Label col="3" class="item" text="1만 P" textAlignment="center" (touch)="onTouchShortcut($event, 10000)"></Label>
         </GridLayout>
         <keypad-number row="2" (tapNumber)="callback_tapNumber($event)" verticalAlignment="bottom"></keypad-number>
     </GridLayout>

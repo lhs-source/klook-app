@@ -47,13 +47,13 @@ export class TabComponent implements OnInit {
         let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
 
         let label = event.object as Label;
-        console.log(label);
+        // console.log(label);
             
         this.tab_view.push(label);
 
         // first sel elems
         if (this.tab_view.length === 1) {
-            console.log("first label");
+            // console.log("first label");
             let color_anim: JsAnimationDefinition = {
                 curve: t => t,
                 getRange: () => { return { from: label.color.r, to: this.temp_color.r }; },
@@ -64,8 +64,8 @@ export class TabComponent implements OnInit {
             setTimeout(() => {
                 let loc = label.getLocationRelativeTo(lb);
                 let width = label.getMeasuredWidth();
-                console.log(loc);
-                console.log(width * p);
+                // console.log(loc);
+                // console.log(width * p);
                 if(width == 0){
                     width=65;
                 }else{
