@@ -23,6 +23,9 @@ export class RippleButtonComponent implements OnInit {
     @Input() width = 0;
     @Input() height = 0;
     @Input() margin = 0;
+    @Input() disabled_bgColor = "#ccc";
+    @Input() disabled_fontColor = "#888";
+    @Input() disabled = false;
 
 
     constructor(private routerExtensions: RouterExtensions) {
@@ -39,6 +42,7 @@ export class RippleButtonComponent implements OnInit {
         console.log("text = ", this.text);
         console.log("textColor = ", this.textColor);
         console.log("backgroundColor = ", this.backgroundColor);
+        console.log("backgroundColor = ", this.backgroundColor.constructor.name);
         console.log("width = ", this.width);
         console.log("height = ", this.height);
         console.log("margin = ", this.margin);
@@ -49,7 +53,7 @@ export class RippleButtonComponent implements OnInit {
         // if(this.height == 0){
         //     root.height = 0;
         // }
-        root.backgroundColor = this.backgroundColor;
+        // root.backgroundColor = this.backgroundColor;
         
         // const isKnown = colors.isKnownName(this.textColor);
         // if (isKnown) {
@@ -60,7 +64,14 @@ export class RippleButtonComponent implements OnInit {
 
     onClickTab(args: EventData) {
         console.log("tab!")
-        this.click.emit();
+        // console.log("disabled = ", this.disabled);
+        // console.log("disabled = ", this.disabled.constructor.name);
+        if(String(this.disabled) === "false"){
+            console.log("false!")
+            this.click.emit();
+        }else{
+            console.log("true!")
+        }
     }
     onTouchTab(args: TouchGestureEventData) {
         console.log("touch!");

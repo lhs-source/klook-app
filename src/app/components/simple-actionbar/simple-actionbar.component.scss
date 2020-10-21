@@ -1,0 +1,35 @@
+.actionbar{
+    padding:0 16;
+    padding-top: 36;
+    padding-bottom: 16;
+
+    background-color: white;
+
+    .logo{
+        // margin:0 4;
+    }
+
+    .locale{
+        margin: 0 4;
+
+        &-txt{
+            font-size: 13; 
+            font-weight: 700;
+            text-align: center;
+            vertical-align: center;
+            margin:0 8;
+            padding:0;
+        }
+        &-currency{
+            font-size: 9; 
+            font-weight: 700;
+            text-align: center;
+            vertical-align: center;
+            margin:0 8;
+            padding:0;
+        }
+    }
+    .close-btn{
+        // margin:0 4;
+    }
+}

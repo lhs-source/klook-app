@@ -1,1 +1,44 @@
 
+
+.info-str{
+    font-size:15;
+}
+
+
+.terms{
+    margin:0 16;
+    border-radius: 4;
+    border-color: #eee;
+    .all-agree{
+        padding:8;
+        margin-bottom: 8;
+        background-color: #f4f4f4;
+        border-top-left-radius: 4;
+        border-top-right-radius: 4;
+
+        &-btn{
+            width:24;
+        }
+        &-str{
+            font-size:15;
+            font-weight: 600;
+        }
+    }
+    .term{
+        padding:2 8;
+        &-img{
+            width:16;
+            margin:4;
+        }
+        &-str{
+            font-size: 12;
+            color:#888;
+            &-activated{
+                color:black;
+            }
+        }
+        &-show{
+            height:12;
+        }
+    }
+}

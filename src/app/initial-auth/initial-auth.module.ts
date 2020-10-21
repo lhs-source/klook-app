@@ -8,6 +8,8 @@ import { NewPinComponent } from "./pin/new-pin.component";
 import { TermsComponent } from "./terms/terms.component";
 import { UserAuthComponent } from "./userauth/userauth.component";
 
+import { ComponentsModule } from "../components/components.module";
+
 @NgModule({
     exports: [
         KlookMainComponent,
@@ -15,7 +17,8 @@ import { UserAuthComponent } from "./userauth/userauth.component";
     ],
     imports: [
         NativeScriptCommonModule,
-        InitialAuthRoutingModule
+        InitialAuthRoutingModule,
+        ComponentsModule
     ],
     declarations: [
         KlookMainComponent,

@@ -3,7 +3,7 @@ import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "@nativescript/angular";
 
 const routes: Routes = [
-    { path: "", redirectTo: "main", pathMatch: "full" },
+    { path: "", redirectTo: "initial-auth", pathMatch: "full" },
     { path: "initial-auth", loadChildren: () => import("./initial-auth/initial-auth.module").then((m) => m.InitialAuthModule) },
     { path: "main", loadChildren: () => import("./main/main.module").then((m) => m.MainModule) },
 
