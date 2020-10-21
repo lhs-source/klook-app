@@ -1,1 +1,37 @@
 
+.info-str{
+    font-size:15;
+}
+
+
+.auth-frame{
+    background-color: #eee;
+    border-radius: 4;
+    border-width: 1;
+    border-color: #e4e4e4;
+
+    margin:0 16;
+    margin-top: 8;
+    padding:16 0;
+    padding-right: 16;
+
+    .img{
+        height: 40;
+    }
+    .title{
+        font-size: 15;
+    }
+    .str{
+        font-size: 12;
+        color:#888;
+    }
+}
+
+.warn{
+    font-size: 13;
+    color:#888;
+}
+
+
+
+

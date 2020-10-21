@@ -1,4 +1,24 @@
-<GridLayout #rootlayout class="nav" height="100%" width="100%" backgroundColor="#ffe6e6">
-    <Label text="User Auth" margin="24" style="font-size: 24;"></Label>
-    <Button text="go to Next(pin-new)" [nsRouterLink]="['/initial-auth/pin-new']" pageTransition="slide" clearHistory="false" (tap)="onTapNext($event)"></Button>
+<GridLayout rows="auto, *">
+    <simple-actionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></simple-actionbar>
+</GridLayout>
+<GridLayout #rootlayout rows="72,auto,auto, auto, *,auto" height="100%" width="100%">
+    <StackLayout row="1" marginTop="16">
+        <Label class="info-str" text="회원가입을 위한 최종단계인 보인인증 단계입니다" horizontalAlignment="center"></Label>
+        <Label class="info-str" text="본인인증 후 KLOOK Pay의 모든 서비스를" horizontalAlignment="center"></Label>
+        <Label class="info-str" text="이용하실 수 있습니다" horizontalAlignment="center"></Label>
+    </StackLayout>
+    <GridLayout row="2" class="auth-frame" rows="auto, auto" columns="96, *" (tap)="onTapPhone($event)">
+        <Image row="0" rowspan="2" col="0" class="img" src="~/images/ico_hp.png"></Image>
+        <Label row="0" col="1" class="title" text="휴대폰 인증"></Label>
+        <Label row="1" col="1" class="str" textWrap="true" text="본인 명의로 된 휴대폰으로 인증번호를 전송 받아 인증"></Label>
+    </GridLayout>
+    <GridLayout row="3" class="auth-frame" rows="auto, auto" columns="96, *" (tap)="onTapCert($event)">
+        <Image row="0" rowspan="2" col="0" class="img" src="~/images/ico_pw.png"></Image>
+        <Label row="0" col="1" class="title" text="KB모바일인증서"></Label>
+        <Label row="1" col="1" class="str" textWrap="true" text="지문, 패턴으로 로그인하고 간편비밀번호로 거래 인증"></Label>
+    </GridLayout>
+    <StackLayout row="4" marginLeft="16" marginRight="16" marginTop="16">
+        <Label class="warn" text="본인인증 시 제공되는 정보는 해당 인증기관에서 직접" textWrap="true" textAlignment="center" horizontalAlignment="center"></Label>
+        <Label class="warn" text="수집하며, 인증 이외의 용도로 이용 또는 저장하지 않습니다" textWrap="true" textAlignment="center" horizontalAlignment="center"></Label>
+    </StackLayout>
 </GridLayout>
