@@ -1,5 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "@nativescript/angular";
+import { NativeScriptHttpClientModule } from "@nativescript/angular/http-client";
 
 import { MainRoutingModule } from "./main-routing.module";
 import { MainComponent } from "./main.component";
@@ -10,6 +11,7 @@ import { ChargeModule } from "./charge-point/charge.module";
 import { ChangeModule } from "./change-point/change.module";
 
 import { DataService } from "./data.service";
+import { PaymentService } from "./payment.service";
 
 @NgModule({
     exports: [
@@ -17,6 +19,7 @@ import { DataService } from "./data.service";
     ],
     imports: [
         NativeScriptCommonModule,
+        NativeScriptHttpClientModule,
         MainRoutingModule,
         ChargeModule,
         ChangeModule,
@@ -27,7 +30,8 @@ import { DataService } from "./data.service";
         OnlinepayComponent,
     ],
     providers:[
-        DataService
+        DataService,
+        PaymentService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

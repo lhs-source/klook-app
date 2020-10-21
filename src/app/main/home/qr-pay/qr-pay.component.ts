@@ -5,6 +5,7 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 
 import { CustomTransitionBack } from "../klook-transition";
 import { HomeRoutingService } from "../home-routing.service";
+import { PaymentService } from "../../payment.service";
 
 @Component({
     selector: "qr-pay",
@@ -13,16 +14,17 @@ import { HomeRoutingService } from "../home-routing.service";
 })
 export class QrPayComponent implements OnInit {
     tag = this.constructor.name;
-    @Output() routing : EventEmitter<any> = new EventEmitter();
+    @Output() routing: EventEmitter<any> = new EventEmitter();
 
     timer = Date.now();
     // 3 mins
     secounds = 180;
     interval;
 
-    constructor(private routerExtensions: RouterExtensions, private routingService:HomeRoutingService) {
+    constructor(private routerExtensions: RouterExtensions, private routingService: HomeRoutingService,
+        private paymentService : PaymentService) {
         console.log(`${this.tag} constructor `)
-        
+
         if (isAndroid) {
             // Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
             //     console.log("back button pressed on " + this.tag);
@@ -44,9 +46,24 @@ export class QrPayComponent implements OnInit {
                 this.secounds = 60;
             }
         }, 1000);
+
+        
+        this.getToken();
+    }
+    
+    getToken(){
+        this.paymentService.getToken().subscribe(
+            (res)=>{
+                console.log(this.tag, "success ", res);
+            },
+            (err)=>{
+                console.log(this.tag, "error ", err);
+            },
+            ()=>{},
+        )
     }
 
-    resetTimer(){
+    resetTimer() {
         clearInterval(this.interval);
         this.secounds = 180;
         this.interval = setInterval(() => {
@@ -59,7 +76,7 @@ export class QrPayComponent implements OnInit {
         }, 1000);
     }
 
-    onTapInfo(){
+    onTapInfo() {
         console.log(this.tag, " onTapInfo ", this.routing);
         this.routing.emit('pay');
 
