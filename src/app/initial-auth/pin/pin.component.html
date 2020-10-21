@@ -1,4 +1,32 @@
+<GridLayout rows="auto, *">
+    <simple-actionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></simple-actionbar>
+</GridLayout>
+<GridLayout #rootlayout rows="72,auto,2*,4*, auto, auto" height="100%" width="100%">
+    <StackLayout row="1" class="info" verticalAlignment="center">
+        <Label class="str" text="KLOOK Pay 이용을 위한" horizontalAlignment="center"></Label>
+        <Label class="str" text="초기 비밀번호 설정 단계입니다" horizontalAlignment="center"></Label>
+    </StackLayout>
+    <StackLayout row="3" class="pin" verticalAlignment="top">
+        <Label class="str" text="새로운 비밀번호를 입력해주세요" horizontalAlignment="center"></Label>
+        <StackLayout #pincode class="pin-code-pannel" horizontalAlignment="center" orientation="horizontal">
+            <Label class="pin-code"></Label>
+            <Label class="pin-code"></Label>
+            <Label class="pin-code"></Label>
+            <Label class="pin-code"></Label>
+            <Label class="pin-code"></Label>
+            <Label class="pin-code"></Label>
+        </StackLayout>
+    </StackLayout>
+    <StackLayout row="4" class="finger" orientation="horizontal">
+        <Image class="img" src="~/images/ico_finger.png"></Image>
+        <Label class="str" text="지문/생체 인증 사용하기"></Label>
+    </StackLayout>
+    <GridLayout row="5" class="keypad">
+        <keypad-number (tapNumber)="callback_tapNumber($event)" margin="16"></keypad-number>
+    </GridLayout>
+</GridLayout>
 
+<!-- 
 
 <DockLayout stretchLastChil="false">
     <GridLayout #pinpad dock="bottom" class="pin-pad" columns="*, *, *" rows="*, *, *, *">
@@ -30,4 +58,4 @@
         </StackLayout>
         <Label style="font-size:16px" horizontalAlignment="center" text="비밀번호 재설정"></Label>
     </StackLayout>
-</DockLayout>
+</DockLayout> -->

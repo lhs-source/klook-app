@@ -1,7 +1,7 @@
-<GridLayout rows="auto, auto" columns="*, *" marginLeft="16" marginRight="16">
+<GridLayout rows="auto, auto" columns="*, *">
     <WrapLayout #wrap row="0" col="0" colspan="2" itemWidth="25%">
         <Label *ngFor="let num of nums" class="num" text="{{num}}" textAlignment="center" (touch)="onTouchNum($event, num)"></Label>
     </WrapLayout>
-    <Label row="1" col="0" class="num" text="back" textAlignment="center" (touch)="onTouchNum($event, 'back')"></Label>
+    <Label row="1" col="0" class="num" text="←" textAlignment="center" (touch)="onTouchNum($event, 'back')"></Label>
     <Label row="1" col="1" class="num" text="입력완료" textAlignment="center" (touch)="onTouchNum($event, 'enter')"></Label>
 </GridLayout>

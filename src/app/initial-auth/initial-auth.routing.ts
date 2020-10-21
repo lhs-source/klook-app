@@ -11,7 +11,7 @@ import { KlookMainComponent } from "./klookmain/klookmain.component";
 const routes: Routes = [
     // { path: '', redirectTo: '(pinoutlet:input)', pathMatch: 'full' },
     // { path: '',  },
-    { path: '', redirectTo: 'klook-main', pathMatch: 'full' },
+    { path: '', redirectTo: 'pin', pathMatch: 'full' },
     { path: 'klook-main', component : KlookMainComponent },
     { path: 'terms', component: TermsComponent },
     { path: 'userauth', component: UserAuthComponent },

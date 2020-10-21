@@ -15,6 +15,7 @@ export class KeypadNumberComponent implements OnInit {
 
     @ViewChild('wrap', {static:true}) wrap : ElementRef;
 
+    @Input('margin') margin = 16;
     @Output('tapNumber') tapNumber : EventEmitter<any> = new EventEmitter();
 
     nums=[
@@ -32,7 +33,7 @@ export class KeypadNumberComponent implements OnInit {
 
         let wraplb = this.wrap.nativeElement as WrapLayout;
         console.log(screen.mainScreen.widthDIPs);
-        wraplb.itemWidth = screen.mainScreen.widthDIPs / 4 - 8;
+        wraplb.itemWidth = screen.mainScreen.widthDIPs / 4 - this.margin/2;
     }
 
     onTouchNum(event : TouchGestureEventData, input){

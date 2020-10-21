@@ -11,14 +11,18 @@ import { ActivatedRoute } from "@angular/router";
 @Component({
     selector: "Pin",
     templateUrl: "./pin.component.html",
-    styleUrls:["./pin.component.scss"]
+    styleUrls: ["./pin.component.scss"]
 })
 export class PinComponent implements OnInit {
-    @ViewChild('pincode', {static: true}) pincode : ElementRef;
-    @ViewChild('pinpad', {static: true}) pinpad : ElementRef;
-    pin : string = "";
+    tag = this.constructor.name;
+    @ViewChild('pincode', { static: true }) pincode: ElementRef;
+    @ViewChild('pinpad', { static: true }) pinpad: ElementRef;
+    pin: string = "";
 
-    constructor(private routerExtensions : RouterExtensions, private route: ActivatedRoute) {
+    old_color = "#ddd";
+    new_color = "gold";
+
+    constructor(private routerExtensions: RouterExtensions, private route: ActivatedRoute) {
         // Use the component constructor to inject providers.
         console.log("[PinComponent] constructor");
     }
@@ -28,52 +32,83 @@ export class PinComponent implements OnInit {
         console.log("[PinComponent] ngOnInit");
 
         console.log(this.routerExtensions.router.url);
-        let pinpad_lb = this.pinpad.nativeElement as LayoutBase;
-        pinpad_lb.eachChildView((view:View)=>{
-            let la = view as Label;
-            // console.log(la);
-            la.on("touch", (args:TouchGestureEventData) =>{
-                console.log("tab! " + la.text);
-                if(args.action !== "down"){
-                    return;
-                }
-                else{
-                    if(la.text === "del"){
-                        if(this.pin.length > 0){
-                            // console.log("ok del")
-                            this.pin = this.pin.substring(0, this.pin.length - 1);
-                        }
-                    }else{
-                        if(this.pin.length < 6){
-                            this.pin += la.text;
-                        }
-                    }
-                    console.log("pin = " + this.pin);
-                    this.changePinCode();
-                }
-                
-                if(this.pin.length === 6){
-                    // 6 chars ok
-                    this.routerExtensions.navigate(["../../main"], {relativeTo: this.route, clearHistory : true, transition:{name: 'fade', 
-                    duration: 250, 
-                    curve: AnimationCurve.easeOut}});
-                }
-            });
-            return true;
-        });
+        // let pinpad_lb = this.pinpad.nativeElement as LayoutBase;
+        // pinpad_lb.eachChildView((view:View)=>{
+        //     let la = view as Label;
+        //     // console.log(la);
+        //     la.on("touch", (args:TouchGestureEventData) =>{
+        //         console.log("tab! " + la.text);
+        //         if(args.action !== "down"){
+        //             return;
+        //         }
+        //         else{
+        //             if(la.text === "del"){
+        //                 if(this.pin.length > 0){
+        //                     // console.log("ok del")
+        //                     this.pin = this.pin.substring(0, this.pin.length - 1);
+        //                 }
+        //             }else{
+        //                 if(this.pin.length < 6){
+        //                     this.pin += la.text;
+        //                 }
+        //             }
+        //             console.log("pin = " + this.pin);
+        //             this.changePinCode();
+        //         }
+
+        //         if(this.pin.length === 6){
+        //             // 6 chars ok
+        //             this.routerExtensions.navigate(["../../main"], {relativeTo: this.route, clearHistory : true, transition:{name: 'fade', 
+        //             duration: 250, 
+        //             curve: AnimationCurve.easeOut}});
+        //         }
+        //     });
+        //     return true;
+        // });
     }
 
-    changePinCode(){
+
+    callback_tapNumber(num) {
+        console.log(this.tag, "callback_tapNumber =", num);
+        // let kf = this.amounttf.nativeElement as TextField;
+        // console.log(kf.text);
+        
+        if (num === "back") {
+            if (this.pin.length > 0) {
+                // console.log("ok del")
+                this.pin = this.pin.substring(0, this.pin.length - 1);
+            }
+        } else if(num === "enter") {
+        }
+        else {
+            if (this.pin.length < 6) {
+                this.pin += String(num);
+            }
+        }
+        console.log("pin = " + this.pin);
+        this.changePinCode();
+
+        if (this.pin.length === 6) {
+            // 6 chars ok
+            this.routerExtensions.navigate(["../../main"], {
+                relativeTo: this.route, clearHistory: true, transition: {
+                    name: 'fade',
+                    duration: 250,
+                    curve: AnimationCurve.easeOut
+                }
+            });
+        }
+    }
+
+    changePinCode() {
         let pincode_lb = this.pincode.nativeElement as LayoutBase;
         let count = 0;
-        let old_color = "gray";
-        pincode_lb.eachChildView((view:View)=>{
+        pincode_lb.eachChildView((view: View) => {
             let la = view as Label;
-            // console.log(count);
-            if(count < this.pin.length){
-                la.backgroundColor = "gold";
-            }else{
-                la.backgroundColor = old_color;
+            if (count < this.pin.length) {
+                la.backgroundColor = this.new_color;
+            } else {
+                la.backgroundColor = this.old_color;
             }
             count = count + 1;
             return true;
