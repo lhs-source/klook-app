@@ -7,6 +7,7 @@ import { NewPinComponent } from "./pin/new-pin.component";
 import { TermsComponent } from "./terms/terms.component";
 import { UserAuthComponent } from "./userauth/userauth.component";
 import { KlookMainComponent } from "./klookmain/klookmain.component";
+import { DoneComponent } from "./done/done.component";
 
 const routes: Routes = [
     // { path: '', redirectTo: '(pinoutlet:input)', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'userauth', component: UserAuthComponent },
     { path: 'pin-new', component: NewPinComponent },
     { path: 'pin', component: PinComponent },
+    { path: 'done', component: DoneComponent },
 ];
 
 @NgModule({

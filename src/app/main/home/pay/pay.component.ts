@@ -39,7 +39,12 @@ export class PayComponent implements OnInit {
     }
 
     onTapNo(event){
-        this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
+        this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
+            name: 'fade',
+            duration: 250,
+            curve: AnimationCurve.easeOut
+        } });
+        
     }
     onTapYes(event){
         this.dataService.addTr({
@@ -54,6 +59,10 @@ export class PayComponent implements OnInit {
             save_point: 370,
         });
         this.routingService.emitChange('tr');
-        this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
+        this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
+            name: 'fade',
+            duration: 250,
+            curve: AnimationCurve.easeOut
+        } });
     }
 }

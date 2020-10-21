@@ -12,6 +12,7 @@ import { ChangeModule } from "./change-point/change.module";
 
 import { DataService } from "./data.service";
 import { PaymentService } from "./payment.service";
+import { AuthService } from "./auth.service";
 
 @NgModule({
     exports: [
@@ -31,7 +32,8 @@ import { PaymentService } from "./payment.service";
     ],
     providers:[
         DataService,
-        PaymentService
+        PaymentService,
+        AuthService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

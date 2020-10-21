@@ -7,8 +7,10 @@ import { PinComponent } from "./pin/pin.component";
 import { NewPinComponent } from "./pin/new-pin.component";
 import { TermsComponent } from "./terms/terms.component";
 import { UserAuthComponent } from "./userauth/userauth.component";
+import { DoneComponent } from "./done/done.component";
 
 import { ComponentsModule } from "../components/components.module";
+import { AuthService } from "../main/auth.service";
 
 @NgModule({
     exports: [
@@ -25,7 +27,8 @@ import { ComponentsModule } from "../components/components.module";
         PinComponent,
         NewPinComponent,
         TermsComponent,
-        UserAuthComponent
+        UserAuthComponent,
+        DoneComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

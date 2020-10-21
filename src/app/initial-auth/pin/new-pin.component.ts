@@ -6,6 +6,7 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 
 import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
+import { AuthService } from "../../main/auth.service";
 
 @Component({
     selector: "NewPin",
@@ -20,7 +21,7 @@ export class NewPinComponent implements OnInit {
     old_color = "#ddd";
     new_color = "gold";
 
-    constructor(private routerExtensions : RouterExtensions, private route: ActivatedRoute) {
+    constructor(private routerExtensions : RouterExtensions, private route: ActivatedRoute, private authService : AuthService) {
         // Use the component constructor to inject providers.
         console.log("[NewPinComponent] constructor");
     }
@@ -54,9 +55,10 @@ export class NewPinComponent implements OnInit {
 
         if (this.pin.length === 6) {
             // 6 chars ok
+            this.authService.pin = this.pin;
             this.routerExtensions.navigate(["../pin"], {
                 relativeTo: this.route, clearHistory: true, transition: {
-                    name: 'fade',
+                    name: 'slide',
                     duration: 250,
                     curve: AnimationCurve.easeOut
                 }

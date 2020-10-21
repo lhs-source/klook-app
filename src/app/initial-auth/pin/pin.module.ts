@@ -5,6 +5,7 @@ import { PinRoutingModule } from "./pin-routing.module";
 import { PinRootComponent } from "./pin-root.component";
 import { PinComponent } from "./pin.component";
 import { NewPinComponent } from "./new-pin.component";
+import { AuthService } from "../../main/auth.service";
 
 @NgModule({
     exports:[
@@ -18,6 +19,9 @@ import { NewPinComponent } from "./new-pin.component";
         PinComponent,
         NewPinComponent,
         PinRootComponent,
+    ],
+    providers:[
+        AuthService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
