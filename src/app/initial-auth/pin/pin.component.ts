@@ -57,7 +57,7 @@ export class PinComponent implements OnInit {
 
         if (this.pin.length === 6) {
             // 6 chars ok
-            if(this.authService.pin.length > 0){
+            if(this.authService.pin === this.pin){
                 this.routerExtensions.navigate(["../done"], {
                     relativeTo: this.route, clearHistory: true, transition: {
                         name: 'slide',
