@@ -16,7 +16,6 @@ import { ActivatedRoute } from "@angular/router";
 export class PinComponent implements OnInit {
     tag = this.constructor.name;
     @ViewChild('pincode', { static: true }) pincode: ElementRef;
-    @ViewChild('pinpad', { static: true }) pinpad: ElementRef;
     pin: string = "";
 
     old_color = "#ddd";
@@ -32,39 +31,6 @@ export class PinComponent implements OnInit {
         console.log("[PinComponent] ngOnInit");
 
         console.log(this.routerExtensions.router.url);
-        // let pinpad_lb = this.pinpad.nativeElement as LayoutBase;
-        // pinpad_lb.eachChildView((view:View)=>{
-        //     let la = view as Label;
-        //     // console.log(la);
-        //     la.on("touch", (args:TouchGestureEventData) =>{
-        //         console.log("tab! " + la.text);
-        //         if(args.action !== "down"){
-        //             return;
-        //         }
-        //         else{
-        //             if(la.text === "del"){
-        //                 if(this.pin.length > 0){
-        //                     // console.log("ok del")
-        //                     this.pin = this.pin.substring(0, this.pin.length - 1);
-        //                 }
-        //             }else{
-        //                 if(this.pin.length < 6){
-        //                     this.pin += la.text;
-        //                 }
-        //             }
-        //             console.log("pin = " + this.pin);
-        //             this.changePinCode();
-        //         }
-
-        //         if(this.pin.length === 6){
-        //             // 6 chars ok
-        //             this.routerExtensions.navigate(["../../main"], {relativeTo: this.route, clearHistory : true, transition:{name: 'fade', 
-        //             duration: 250, 
-        //             curve: AnimationCurve.easeOut}});
-        //         }
-        //     });
-        //     return true;
-        // });
     }
 
 

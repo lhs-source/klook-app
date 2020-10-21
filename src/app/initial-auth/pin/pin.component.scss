@@ -45,32 +45,3 @@ $maincolor : #ff5721;
 }
 
 
-
-
-.pin-code-pannel{
-    // background-color: honeydew;
-    padding: 8px;
-    margin:12px 0;
-
-    .pin-code{
-        width:32;
-        height:32;
-    
-        border-radius: 50%;
-        background-color: gray;
-        // border-color: gold;
-        // border-width: 8px;
-    
-        margin:12px;
-    }
-}
-.pin-pad{
-    background-color: #ffe066;
-    height:720px;
-
-    .pin-btn{
-        font-size:32px; 
-        vertical-align: center; 
-        // background-color: #ffe066;
-    }
-}
