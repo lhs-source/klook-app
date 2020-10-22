@@ -1,24 +1,17 @@
 <GridLayout row="2" rows="auto, auto">
     <AbsoluteLayout #abs row="0" width="100%" height="100%" (pan)="onPanCarousel($event)">
-        <!-- <Image #shadow src="~/images/box_card.png" width="196" opacity="0"></Image> -->
         <StackLayout #scrollitems orientation="horizontal"
             style="padding-top: 24; padding-bottom: 8;" >
             <ng-container *ngFor="let card of cardlist; index as i">
-                <GridLayout (loaded)="onLoadedCard($event, i)" (tap)="onTapCard($event, i)">
+                <GridLayout (loaded)="onLoadedCard($event, i)" (tap)="onTapCard($event, i)" androidElevation="4">
                     <Image src="~/images/box_card.png" rotateX="180" rotateY="180"></Image>
-                    <!-- <Label android:borderRadius="20"
-                    androidElevation="12"
-                    android:backgroundColor="white" zIndex="-1" margin="16"></Label> -->
-                    <Image [src]="card" marginLeft="12" marginRight="12" marginBottom></Image>
-                    
-                    <!-- <Label [text]="card" style="color:white; background-color: black;" height="20"></Label> -->
+                    <Image [src]="card" marginLeft="12" marginRight="12" androidElevation="4"></Image>
                 </GridLayout>
             </ng-container>
         </StackLayout>
         
         <StackLayout #indicator orientation="horizontal" horizontalAlignment="center" marginBottom="12">
             <ng-container *ngFor="let card of cardlist; index as i">
-                <!--  width="{{cardwidth}}" marginLeft="{{margin_hori}}" marginRight="{{margin_hori}}"  -->
                 <Label (loaded)="onLoadedIndicator($event, i)"></Label>
             </ng-container>
         </StackLayout>

@@ -10,7 +10,7 @@ import { UserAuthComponent } from "./userauth/userauth.component";
 import { DoneComponent } from "./done/done.component";
 
 import { ComponentsModule } from "../components/components.module";
-import { AuthService } from "../main/auth.service";
+import { AuthService } from "../service/auth.service";
 
 @NgModule({
     exports: [

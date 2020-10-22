@@ -4,7 +4,7 @@ import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData, isAndroid } from "tns-core-modules";
 import { trigger, transition, style, animate } from "@angular/animations";
-import { CustomTransitionBack } from "../home/klook-transition";
+import { CustomTransitionBack } from "../../util/klook-transition";
 
 @Component({
     selector: "onlinepay",

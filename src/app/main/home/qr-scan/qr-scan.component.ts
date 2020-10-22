@@ -10,8 +10,8 @@ import { isAndroid, PropertyChangeData } from "tns-core-modules/ui/content-view/
 import { RouterExtensions } from "@nativescript/angular";
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
 import { HomeRoutingService } from "../home-routing.service";
-import { CustomTransitionBack } from "../klook-transition";
-import { PaymentService } from "../../payment.service";
+import { CustomTransitionBack } from "../../../util/klook-transition";
+import { PaymentService } from "../../../service/payment.service";
 
 @Component({
     selector: "qr-scan",

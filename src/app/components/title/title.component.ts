@@ -1,8 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, Input } from "@angular/core";
-import { RouterExtensions } from "@nativescript/angular";
+import { Component, OnInit, Input } from "@angular/core";
 
-// <title title="title" point="122" point_unit="HKD" backgroundColor="#ff5722">
-// </title>
+// * Usage
+// <title title="title" point="122" point_unit="HKD" backgroundColor="#ff5722"></title>
 @Component({
     selector: "title",
     templateUrl: "./title.component.html",
@@ -16,19 +15,6 @@ export class TitleComponent implements OnInit {
     @Input() point_unit;
     @Input() backgroundColor;
 
-    constructor(private routerExtensions: RouterExtensions) {
-        console.log(`${this.tag} constructor `)
-
-    }
-
-    ngOnInit(): void {
-        console.log(`${this.tag} ngOnInit`);
-        console.log(this.routerExtensions.router.url);
-
-        
-    }
-
-    ngOnDestroy(){
-        console.log(`${this.tag} ngOnDestroy`);
-    }
+    constructor() {}
+    ngOnInit(): void {}
 }

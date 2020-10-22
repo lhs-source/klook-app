@@ -4,7 +4,7 @@ import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from "@angular
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";
 import { isAndroid } from "tns-core-modules/platform";
 import { RouterExtensions } from "@nativescript/angular";
-import { AuthService } from "./main/auth.service";
+import { AuthService } from "./service/auth.service";
 
 @Component({
     selector: "ns-app",
@@ -17,8 +17,10 @@ export class AppComponent implements OnInit {
         console.log(this.tag, "constructor");
         
         if(this.authService.pin.length > 0){
+            // already registered
             this.routerExtensions.navigate(['/initial-auth/pin'], { clearHistory:true });
         }else{
+            // not registered, should register new user
             this.routerExtensions.navigate(['/initial-auth'], { clearHistory:true });
         }
     }

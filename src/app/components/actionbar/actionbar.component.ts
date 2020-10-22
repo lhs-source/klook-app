@@ -1,5 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, Input } from "@angular/core";
-import { RouterExtensions } from "@nativescript/angular";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 
 // <myactionbar 
 //      (close_click)="actionbar_click_close(isclose)" 
@@ -26,24 +25,9 @@ export class MyActionBarComponent implements OnInit {
     ]
     locale_index=0;
 
-    constructor(private routerExtensions: RouterExtensions) {
-        console.log(`${this.tag} constructor `)
-
-    }
-
-    ngOnInit(): void {
-        console.log(`${this.tag} ngOnInit`);
-        console.log(this.routerExtensions.router.url);
-
-        
-    }
-
-    ngOnDestroy(){
-        console.log(`${this.tag} ngOnDestroy`);
-    }
-
+    constructor() {}
+    ngOnInit(): void {}
     onTapClose(event){
-
         // call parent function
         this.close_click.emit();
     }

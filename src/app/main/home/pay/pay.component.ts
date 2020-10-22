@@ -2,10 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData, LayoutBase } from "tns-core-modules";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
-import { DataService } from "../../data.service";
-import { CustomTransitionBack } from "../klook-transition";
+import { DataService } from "../../../service/data.service";
+import { CustomTransitionBack } from "../../../util/klook-transition";
 import { HomeRoutingService } from "../home-routing.service";
-import { PaymentService } from "../../payment.service";
+import { PaymentService } from "../../../service/payment.service";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({

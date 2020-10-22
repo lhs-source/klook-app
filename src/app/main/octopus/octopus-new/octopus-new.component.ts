@@ -4,7 +4,7 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
 import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase } from "tns-core-modules";
 import { screen } from "tns-core-modules/platform/platform"
-import { CustomTransitionBack } from "../../home/klook-transition";
+import { CustomTransitionBack } from "../../../util/klook-transition";
 
 @Component({
     selector: "octopus-new",

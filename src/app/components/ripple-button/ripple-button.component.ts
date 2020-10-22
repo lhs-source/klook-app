@@ -1,9 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, Input, ViewChildren } from "@angular/core";
-import { RouterExtensions } from "@nativescript/angular";
-import { EventData, TouchGestureEventData, View, LayoutBase, Label, Color, knownFolders, Style } from "tns-core-modules";
-import * as colors from "tns-core-modules/color/known-colors";
+import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, Input } from "@angular/core";
+import { EventData, TouchGestureEventData, View, LayoutBase, Label } from "tns-core-modules";
 
-// <ripple-button row="4" text="충전하기" backgroundColor="#ff5722" textColor="white"></ripple-button>
+// <ripple-button row="4" text="충전하기" backgroundColor="#ff5722" textColor="white" disabled="false"></ripple-button>
 @Component({
     selector: "ripple-button",
     templateUrl: "./ripple-button.component.html",
@@ -23,58 +21,32 @@ export class RippleButtonComponent implements OnInit {
     @Input() width = 0;
     @Input() height = 0;
     @Input() margin = 0;
+
     @Input() disabled_bgColor = "#ccc";
     @Input() disabled_fontColor = "#888";
     @Input() disabled = false;
 
-
-    constructor(private routerExtensions: RouterExtensions) {
-        console.log(`${this.tag} constructor `)
-
-    }
-
+    constructor() {}
     ngOnInit(): void {
-        console.log(`${this.tag} ngOnInit`);
-        console.log(this.routerExtensions.router.url);
-
         let root = this.button.nativeElement as LayoutBase;
 
-        console.log("text = ", this.text);
-        console.log("textColor = ", this.textColor);
-        console.log("backgroundColor = ", this.backgroundColor);
-        console.log("backgroundColor = ", this.backgroundColor.constructor.name);
-        console.log("width = ", this.width);
-        console.log("height = ", this.height);
-        console.log("margin = ", this.margin);
+        // console.log("text = ", this.text);
+        // console.log("textColor = ", this.textColor);
+        // console.log("backgroundColor = ", this.backgroundColor);
+        // console.log("backgroundColor = ", this.backgroundColor.constructor.name);
+        // console.log("width = ", this.width);
+        // console.log("height = ", this.height);
+        // console.log("margin = ", this.margin);
 
-        // if(this.width == 0){
-        //     root.width = 0;
-        // }
-        // if(this.height == 0){
-        //     root.height = 0;
-        // }
-        // root.backgroundColor = this.backgroundColor;
-        
-        // const isKnown = colors.isKnownName(this.textColor);
-        // if (isKnown) {
-        //     root.color = new Color(this.textColor);
-        // }
         root.css = ".btn{color:" + this.textColor + ";}";
     }
 
     onClickTab(args: EventData) {
-        console.log("tab!")
-        // console.log("disabled = ", this.disabled);
-        // console.log("disabled = ", this.disabled.constructor.name);
         if(String(this.disabled) === "false"){
-            console.log("false!")
             this.click.emit();
-        }else{
-            console.log("true!")
         }
     }
     onTouchTab(args: TouchGestureEventData) {
-        console.log("touch!");
         if (args.action !== "down") {
             return;
         }else{
@@ -114,9 +86,5 @@ export class RippleButtonComponent implements OnInit {
                 });
             });
         }
-    }
-
-    ngOnDestroy(){
-        console.log(`${this.tag} ngOnDestroy`);
     }
 }

@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
-import { CustomTransitionBack } from "../../home/klook-transition";
+import { CustomTransitionBack } from "../../../util/klook-transition";
 
 import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
-import { DataService } from "../../data.service";
+import { DataService } from "../../../service/data.service";
 
 @Component({
     selector: "tr-history-detail",

@@ -4,8 +4,6 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { screen } from "tns-core-modules/platform/platform"
 import { LayoutBase, Image, Label } from "tns-core-modules";
 
-
-
 @Component({
     selector: "carousel-card",
     templateUrl: "./carousel-card.component.html",

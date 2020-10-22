@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
-import { CustomTransition, CustomTransitionBack } from "../../home/klook-transition";
+import { CustomTransition, CustomTransitionBack } from "../../../util/klook-transition";
 
 @Component({
     selector: "account-link",

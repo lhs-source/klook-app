@@ -6,7 +6,7 @@ import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase, GridLa
 import { screen } from "tns-core-modules/platform/platform"
 import { ActivatedRoute } from "@angular/router";
 import { ItemSpec } from "tns-core-modules/ui/layouts/grid-layout";
-import { CustomTransitionBack } from "../../home/klook-transition";
+import { CustomTransitionBack } from "../../../util/klook-transition";
 
 @Component({
     selector: "octopus-charge",

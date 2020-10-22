@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
-import { CustomTransitionBack } from "../../home/klook-transition";
+import { CustomTransitionBack } from "../../../util/klook-transition";
 
 @Component({
     selector: "passport",

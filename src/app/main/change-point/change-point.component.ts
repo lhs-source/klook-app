@@ -4,8 +4,8 @@ import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData, TextField, LayoutBase, Color } from "tns-core-modules";
 import { screen } from "tns-core-modules/platform";
-import { CustomTransitionBack } from "../home/klook-transition";
-import { DataService } from "../data.service";
+import { CustomTransitionBack } from "../../util/klook-transition";
+import { DataService } from "../../service/data.service";
 
 @Component({
     selector: "change-point",

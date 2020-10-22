@@ -10,9 +10,9 @@ import { ComponentsModule } from "../components/components.module";
 import { ChargeModule } from "./charge-point/charge.module";
 import { ChangeModule } from "./change-point/change.module";
 
-import { DataService } from "./data.service";
-import { PaymentService } from "./payment.service";
-import { AuthService } from "./auth.service";
+import { DataService } from "../service/data.service";
+import { PaymentService } from "../service/payment.service";
+import { AuthService } from "../service/auth.service";
 import { HttpInterceptorService } from "./http-interceptor.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ClassProvider } from "@angular/core";

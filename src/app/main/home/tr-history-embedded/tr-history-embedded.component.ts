@@ -2,7 +2,7 @@ import { KeyValue } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
-import { DataService } from "../../data.service";
+import { DataService } from "../../../service/data.service";
 
 @Component({
     selector: "tr-history-embedded",

@@ -4,10 +4,10 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData, isAndroid, EventData, LayoutBase, View, Color, Label } from "tns-core-modules";
 import { screen } from "tns-core-modules/platform";
 
-import { CustomTransition, CustomTransitionBack } from "../../home/klook-transition";
-import { animate, JsAnimationDefinition } from "../../../components/tab/animation-helpers";
+import { CustomTransition, CustomTransitionBack } from "../../../util/klook-transition";
+import { animate, JsAnimationDefinition } from "../../../util/animation-helpers";
 import { KeyValue } from "@angular/common";
-import { DataService } from "../../data.service";
+import { DataService } from "../../../service/data.service";
 
 @Component({
     selector: "tr-history",

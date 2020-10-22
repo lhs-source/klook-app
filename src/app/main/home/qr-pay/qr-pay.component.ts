@@ -3,9 +3,9 @@ import { RouterExtensions } from "@nativescript/angular";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 
-import { CustomTransitionBack } from "../klook-transition";
+import { CustomTransitionBack } from "../../../util/klook-transition";
 import { HomeRoutingService } from "../home-routing.service";
-import { PaymentService } from "../../payment.service";
+import { PaymentService } from "../../../service/payment.service";
 
 @Component({
     selector: "qr-pay",

@@ -4,7 +4,7 @@ import { LayoutBase, View, Color, EventData, Label } from "tns-core-modules";
 import { screen } from "tns-core-modules/platform";
 import { CubicBezierAnimationCurve } from "@nativescript/core/ui/animation";
 
-import { animate, JsAnimationDefinition } from "./animation-helpers";
+import { animate, JsAnimationDefinition } from "../../util/animation-helpers";
 
 
 // <tab row="4" [tab_labels]="['최신순', '고액순', '충전/교환', '적립']" (tapElem)="callback_tab_tap($event)"></tab>

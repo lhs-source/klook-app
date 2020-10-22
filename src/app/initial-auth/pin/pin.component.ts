@@ -7,7 +7,7 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 
 import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
-import { AuthService } from "../../main/auth.service";
+import { AuthService } from "../../service/auth.service";
 
 @Component({
     selector: "Pin",

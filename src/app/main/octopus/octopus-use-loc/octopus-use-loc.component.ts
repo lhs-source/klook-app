@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
-import { CustomTransitionBack } from "../../home/klook-transition";
+import { CustomTransitionBack } from "../../../util/klook-transition";
 
 @Component({
     selector: "octopus-use-loc",

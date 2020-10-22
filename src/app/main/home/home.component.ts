@@ -6,9 +6,9 @@ import { LayoutBase, Image } from "@nativescript/core/ui";
 import { isAndroid, screen } from "tns-core-modules/platform/platform"
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData, Color } from "tns-core-modules";
 import { exit } from "nativescript-exit";
-import { CustomTransition, CustomTransitionBack } from './klook-transition';
+import { CustomTransition, CustomTransitionBack } from '../../util/klook-transition';
 import { HomeRoutingService } from "./home-routing.service";
-import { DataService } from "../data.service";
+import { DataService } from "../../service/data.service";
 
 @Component({
     selector: "home",

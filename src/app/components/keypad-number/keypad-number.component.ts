@@ -15,37 +15,30 @@ export class KeypadNumberComponent implements OnInit {
 
     @ViewChild('wrap', {static:true}) wrap : ElementRef;
 
+    // keypad margin not padding
     @Input('margin') margin = 16;
+
+    // when user tap a number pad
     @Output('tapNumber') tapNumber : EventEmitter<any> = new EventEmitter();
 
     nums=[
         1, 2, 3, 4, 5, ' ', 6, ' ', 7, 8, 9, 0
     ]
 
-    constructor(private routerExtensions: RouterExtensions) {
-        console.log(`${this.tag} constructor `)
-
-    }
-
+    constructor() {}
     ngOnInit(): void {
-        console.log(`${this.tag} ngOnInit`);
-        console.log(this.routerExtensions.router.url);
-
+        // setting wrap container children width
         let wraplb = this.wrap.nativeElement as WrapLayout;
-        console.log(screen.mainScreen.widthDIPs);
         wraplb.itemWidth = screen.mainScreen.widthDIPs / 4 - this.margin/2;
     }
 
+    // on touch number pad
     onTouchNum(event : TouchGestureEventData, input){
         if (event.action !== "down") {
             return;
         }else{
-            console.log(input);
+            // emit parent callback
             this.tapNumber.emit(input);
         }
-    }
-
-    ngOnDestroy(){
-        console.log(`${this.tag} ngOnDestroy`);
     }
 }

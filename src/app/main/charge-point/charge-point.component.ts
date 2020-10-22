@@ -8,8 +8,8 @@ import * as utils from "tns-core-modules/utils/utils";
 
 import { screen } from "tns-core-modules/platform/platform"
 
-import { CustomTransitionBack } from "../home/klook-transition";
-import { DataService } from "../data.service";
+import { CustomTransitionBack } from "../../util/klook-transition";
+import { DataService } from "../../service/data.service";
 
 
 @Component({
