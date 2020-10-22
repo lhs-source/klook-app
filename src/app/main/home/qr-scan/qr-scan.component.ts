@@ -1,17 +1,18 @@
 import { Component, OnInit } from "@angular/core";
-import { AnimationCurve } from "@nativescript/core/ui/enums";
-import { BarcodeScanner } from "nativescript-barcodescanner";
+import { hasCameraPermissions, requestCameraPermissions } from 'nativescript-advanced-permissions/camera';
 import {
     MLKitScanBarcodesOnDeviceResult,
     MLKitScanBarcodesResultBarcode
 } from "nativescript-plugin-firebase/mlkit/barcodescanning";
-import * as firebase from "nativescript-plugin-firebase";
 import { isAndroid, PropertyChangeData } from "tns-core-modules/ui/content-view/content-view";
 import { RouterExtensions } from "@nativescript/angular";
-import { Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
-import { HomeRoutingService } from "../home-routing.service";
+import { AnimationCurve } from "@nativescript/core/ui/enums";
+
 import { CustomTransitionBack } from "../../../util/klook-transition";
+import { HomeRoutingService } from "../home-routing.service";
 import { PaymentService } from "../../../service/payment.service";
+
+import * as Toast from 'nativescript-toast';
 
 @Component({
     selector: "qr-scan",
@@ -32,48 +33,35 @@ export class QrScanComponent implements OnInit {
         }
     }
 
-    constructor(private barcodeScanner: BarcodeScanner,
+    constructor(
         private routerExtensions: RouterExtensions,
         private routingService: HomeRoutingService,
         private paymentService: PaymentService) {
         console.log(`${this.tag} constructor `)
 
-        if (isAndroid) {
-            // Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-            //     console.log("back button pressed on " + this.tag);
-            //     data.cancel = true;
-            //     this.routerExtensions.navigate(['/main/home'], {clearHistory : true});
-            // });
-        }
+        if (isAndroid) {}
     }
 
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
 
-        this.barcodeScanner.available().then((available) => {
-            if (available) {
-                this.barcodeScanner.hasCameraPermission().then((granted) => {
-                    console.log("granted = ", granted);
-                    if (!granted) {
-                        // if not allowed yet
-                        this.barcodeScanner.requestCameraPermission().then((yes) => {
-                            // request permission
-                            console.log("yes = ", yes);
-                            if (yes === true) {
-                                // grant permission done
-                                this.is_cam_allowed = true;
-                                console.log("new allowed!!");
-                            }
-                        });
-                    } else {
-                        // allowed cam already
-                        this.is_cam_allowed = true;
-                        console.log("already allowed!!");
-                    }
-                });
-            }
-        });
+        if( !hasCameraPermissions() ) {
+            requestCameraPermissions().then((hasPermission) => {
+                console.log("hasPermission = ", hasPermission);
+                if( hasPermission ) {
+                    // grant permission done
+                    this.is_cam_allowed = true;
+                    console.log("new allowed!!");
+                } else {
+                    // don't do something
+                    Toast.makeText("User denied the permission").show();
+                }
+            });
+        }else{
+            // allowed cam already
+            this.is_cam_allowed = true;
+        }
     }
     onBarcodeScanResult(event: any): void {
         const result: MLKitScanBarcodesOnDeviceResult = event.value;

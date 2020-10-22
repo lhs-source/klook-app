@@ -28,51 +28,61 @@ export class DataService {
     }
     merchants={
         "Central Department Store (Central Hat Yai)":{
+            type:"백화점",
             lat:7.0057298,
             long:100.4712895,
             address:"33 Prachathipat Road, Hat Yai, Hat Yai District, Songkhla 90110 태국",
         },
         "Family mart":{
+            type:"편의점",
             lat:8.417832,
             long:99.9213329,
             address:"Pho Sadet, Mueang Nakhon Si Thammarat District, Nakhon Si Thammarat 80000 태국",
         },
         "Big C (Thap Thiang)":{
+            type:"마트",
             lat:13.7370533,
             long:100.5458161,
             address:"78 Soi Sukhumvit 63, Phra Khanong Nuea, Watthana, Bangkok 10110 태국",
         },
         "MK Restaurants":{
+            type:"식당",
             lat:7.5642549,
             long:99.6268338,
             address:"Thap Thiang, Mueang Trang District, Trang 92000 태국",
         },
         "EATHAI":{
+            type:"식당",
             lat:13.7437507,
             long:100.5444492,
             address:"1031 Phloen Chit Rd, Lumphini, Pathum Wan District, Bangkok 10330 태국",
         },
         "Robinson":{
+            type:"백화점",
             lat:13.7379627,
             long:100.5573337,
             address:"259 Sukhumvit Rd, Khlong Toei Nuea, Watthana, Bangkok 10110 태국",
         },
         "Tops daily mini supermarket":{
+            type:"마트",
             lat:13.7483256,
             long:100.5634094,
             address:"New Petchaburi Rd, Bang Kapi, Huai Khwang, Krung Thep Maha Nakhon 10310 태국",
         },
         "SuperSports":{
+            type:"스포츠",
             lat:13.7578103,
             long:100.5660056,
             address:"L3,327, Centralplaza Grand Rama 9, Ratchadaphisek Rd, Huai Khwang, Din Daeng, Bangkok 10400 태국",
         },
         "Segafredo Zanetti Espresso":{
+            type:"카페",
             lat:13.7467127,
             long:100.537083,
             address:"centralwOrld, Rama I Rd, Pathum Wan, Pathum Wan District, Bangkok 10330 태국",
         },
         "Jaspal":{
+            type:"식당",
             lat:13.7467125,
             long:100.5305169,
             address:"Phloen Chit Rd, Lumphini, Pathum Wan District, Bangkok 10330 태국",
@@ -229,6 +239,9 @@ export class DataService {
     addPoint(point){
         this.point = this.point + point;
         console.log("DataService ", this.point);
+    }
+    decreasePoint(point){
+        this.point = this.point - point;
     }
 
     findTrByDate(date){

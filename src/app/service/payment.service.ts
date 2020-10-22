@@ -14,8 +14,8 @@ export class PaymentService {
 
     // payment info from qr
     pay_info = {
-        type: "식당",
-        merchant: "Central Department Store",
+        type:"백화점",
+        merchant: "Central Department Store (Central Hat Yai)",
         amount: 419,
         point : 15500,
         description: "포인트사용",
@@ -91,8 +91,8 @@ export class PaymentService {
     }
     // save a paydata
     storePayData(data){
-        this.pay_info.type = data.type;
         this.pay_info.merchant = data.merchant;
+        this.pay_info.type = this.dataService.merchants[this.pay_info.merchant].type;
         this.pay_info.amount = data.amount;
         this.pay_info.point = this.pay_info.amount * this.dataService.countries[this.dataService.country].exchange;
         this.pay_info.description = data.description;

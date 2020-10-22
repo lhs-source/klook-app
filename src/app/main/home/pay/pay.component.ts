@@ -7,6 +7,7 @@ import { CustomTransitionBack } from "../../../util/klook-transition";
 import { HomeRoutingService } from "../home-routing.service";
 import { PaymentService } from "../../../service/payment.service";
 import { ActivatedRoute } from "@angular/router";
+import * as Toast from 'nativescript-toast';
 
 @Component({
     selector: "pay",
@@ -55,6 +56,9 @@ export class PayComponent implements OnInit {
         } });
     }
     onTapYes(event){
+        if(this.dataService.point < this.pay_info.amount){
+            Toast.makeText("The amount is larger than my balance").show();
+        }
         this.paymentService.goPay().subscribe(
             res=>{ 
                 console.log(this.tag, "goPay response");
@@ -74,7 +78,7 @@ export class PayComponent implements OnInit {
                         utu: this.pay_info.utu,
                         save_point: this.pay_info.point * 0.1,
                     });
-                    this.dataService.addPoint(-this.pay_info.point);
+                    this.dataService.decreasePoint(this.pay_info.point);
                 }else{
                     // not approved
                     console.log(this.tag, "goPay response = ", res["response"])
@@ -99,6 +103,5 @@ export class PayComponent implements OnInit {
                     curve: AnimationCurve.easeOut
                 } });
             });
-        
     }
 }
