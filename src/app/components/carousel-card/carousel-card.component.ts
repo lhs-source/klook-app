@@ -32,7 +32,7 @@ export class CarouselCardComponent implements OnInit {
     cards_loaded = false;
 
     // carousel style, scale settings
-    cardwidth = 208;
+    cardwidth = 196;
     cardheight = 180;
     cardscale = 0.8;
     cardscaleup = 1.1;

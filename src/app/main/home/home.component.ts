@@ -202,7 +202,13 @@ export class HomeComponent implements OnInit {
         this.routerExtensions.navigate(['/main/account'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
 
     }
-
+    test(){
+        
+        this.routerExtensions.navigate(['/main/test'], {
+            clearHistory: true,
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }
+        });
+    }
 
     // start QR Scan 
     navigateQrScan(event) {

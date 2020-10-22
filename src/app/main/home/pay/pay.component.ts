@@ -19,7 +19,7 @@ export class PayComponent implements OnInit {
     // payment info from qr
     pay_info = {
         type:"식당",
-        merchant:"Central Department Store",
+        merchant:"Central Department Store (Central Hat Yai)",
         amount:419,
         point:15500,
         description: "포인트사용",
