@@ -5,6 +5,8 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { DataService } from "../../data.service";
 import { CustomTransitionBack } from "../klook-transition";
 import { HomeRoutingService } from "../home-routing.service";
+import { PaymentService } from "../../payment.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "pay",
@@ -13,18 +15,29 @@ import { HomeRoutingService } from "../home-routing.service";
 })
 export class PayComponent implements OnInit {
     tag = this.constructor.name;
-    @ViewChild('rootlayout', {static:true}) rootlayout : ElementRef;
     
+    // payment info from qr
     pay_info = {
+        type:"식당",
         merchant:"Central Department Store",
         amount:419,
         point:15500,
+        description: "포인트사용",
+        taxfree: false,
+        utu: true,
     }
     currency = "THB";
 
-    constructor(private routerExtensions: RouterExtensions, private elRef : ElementRef, private routingService:HomeRoutingService, private dataService : DataService) {
+    constructor(private routerExtensions: RouterExtensions, 
+        private route: ActivatedRoute,
+        private elRef : ElementRef, 
+        private routingService:HomeRoutingService, 
+        private dataService : DataService,
+        private paymentService : PaymentService) {
         console.log(`${this.tag} constructor `)
-        
+
+        this.pay_info = this.paymentService.pay_info;
+        this.currency = this.dataService.getCurrency();
         if (isAndroid) {
         }
     }
@@ -32,10 +45,6 @@ export class PayComponent implements OnInit {
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
-
-        let root = this.rootlayout.nativeElement as LayoutBase;
-        console.log(root);
-        console.log(this.elRef.nativeElement);
     }
 
     onTapNo(event){
@@ -44,25 +53,51 @@ export class PayComponent implements OnInit {
             duration: 250,
             curve: AnimationCurve.easeOut
         } });
-        
     }
     onTapYes(event){
-        this.dataService.addTr({
-            icon: "식당",
-            merchant: "EATHAI",
-            point: 37000,
-            curr: 1001,
-            date: new Date(2020, 10, 12, 18, 20, 0, 0),
-            description: "포인트사용",
-            taxfree: false,
-            utu: true,
-            save_point: 370,
-        });
-        this.routingService.emitChange('tr');
-        this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
-            name: 'fade',
-            duration: 250,
-            curve: AnimationCurve.easeOut
-        } });
+        this.paymentService.goPay().subscribe(
+            res=>{ 
+                console.log(this.tag, "goPay response");
+
+                let status = res["response"]["status"];
+                let reason = res["response"]["reason"];
+                let authorizationCode = res["authorizationCode"];
+                let transactionId = res["transactionId"];
+                console.log("status =",status);
+                console.log("reason =",reason);
+                console.log("authorizationCode =",authorizationCode);
+                console.log("transactionId =",transactionId);
+                
+                if(status === "ACCP"){
+                    // add the tr to transaction list
+                    this.dataService.addTr({
+                        icon: this.pay_info.type,
+                        merchant: this.pay_info.merchant,
+                        point: this.pay_info.point,
+                        curr: this.pay_info.amount,
+                        date: new Date(), //(2020, 10, 12, 18, 20, 0, 0),
+                        description: this.pay_info.description,
+                        taxfree: this.pay_info.taxfree,
+                        utu: this.pay_info.utu,
+                        save_point: this.pay_info.point * 0.1,
+                    });
+                }else{
+                    // not approved
+                    console.log(this.tag, "goPay response = ",res)
+                }
+            },
+            err=>{
+                console.log(this.tag, "goPay error = ", err)
+            },
+            ()=>{
+                // complete and go tr page
+                this.routingService.emitChange('tr');
+                this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
+                    name: 'fade',
+                    duration: 250,
+                    curve: AnimationCurve.easeOut
+                } });
+            });
+        
     }
 }

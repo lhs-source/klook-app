@@ -58,13 +58,25 @@ export class PinComponent implements OnInit {
         if (this.pin.length === 6) {
             // 6 chars ok
             if(this.authService.pin === this.pin){
-                this.routerExtensions.navigate(["../done"], {
-                    relativeTo: this.route, clearHistory: true, transition: {
-                        name: 'slide',
-                        duration: 250,
-                        curve: AnimationCurve.easeOut
-                    }
-                });
+                if(this.authService.is_registered === true){
+                    // already register
+                    this.routerExtensions.navigate(["/main"], { 
+                        clearHistory: true, transition: {
+                            name: 'slide',
+                            duration: 250,
+                            curve: AnimationCurve.easeOut
+                        }
+                    });
+                }else{
+                    // new register
+                    this.routerExtensions.navigate(["../done"], {
+                        relativeTo: this.route, clearHistory: true, transition: {
+                            name: 'slide',
+                            duration: 250,
+                            curve: AnimationCurve.easeOut
+                        }
+                    });
+                }
             }else{
                 console.log("pin is not valid");
                 this.pin = "";

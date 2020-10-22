@@ -48,19 +48,27 @@ export class QrPayComponent implements OnInit {
         }, 1000);
 
         
-        this.getToken();
+        this.getToken()
     }
     
     getToken(){
-        this.paymentService.getToken().subscribe(
-            (res)=>{
-                console.log(this.tag, "success ", res);
+        // this.paymentService.getToken().subscribe(
+        //     (res)=>{
+        //         console.log(this.tag, "success ", res);
+        //         this.paymentService.getAccounts();
+        //     },
+        //     (err)=>{
+        //         console.log(this.tag, "error ", err);
+        //     },
+        //     ()=>{},
+        // )
+        this.paymentService.getAccounts().subscribe(
+            res=>{ 
+                console.log(this.tag, "getAccounts response = ",res)
             },
-            (err)=>{
-                console.log(this.tag, "error ", err);
-            },
-            ()=>{},
-        )
+            err=>{
+                console.log(this.tag, "getAccounts error = ", err)
+            });
     }
 
     resetTimer() {
@@ -81,7 +89,8 @@ export class QrPayComponent implements OnInit {
         this.routing.emit('pay');
 
         this.routingService.emitChange('pay');
-
-        this.routerExtensions.navigate(['/main/home/pay'], { transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) } });
+        this.routerExtensions.navigate(['/main/home/pay'], { 
+            transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
+        });
     }
 }

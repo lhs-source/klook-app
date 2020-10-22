@@ -11,6 +11,7 @@ import { RouterExtensions } from "@nativescript/angular";
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
 import { HomeRoutingService } from "../home-routing.service";
 import { CustomTransitionBack } from "../klook-transition";
+import { PaymentService } from "../../payment.service";
 
 @Component({
     selector: "qr-scan",
@@ -31,9 +32,12 @@ export class QrScanComponent implements OnInit {
         }
     }
 
-    constructor(private barcodeScanner: BarcodeScanner, private routerExtensions: RouterExtensions, private routingService:HomeRoutingService) {
+    constructor(private barcodeScanner: BarcodeScanner,
+        private routerExtensions: RouterExtensions,
+        private routingService: HomeRoutingService,
+        private paymentService: PaymentService) {
         console.log(`${this.tag} constructor `)
-        
+
         if (isAndroid) {
             // Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
             //     console.log("back button pressed on " + this.tag);
@@ -50,17 +54,19 @@ export class QrScanComponent implements OnInit {
         this.barcodeScanner.available().then((available) => {
             if (available) {
                 this.barcodeScanner.hasCameraPermission().then((granted) => {
+                    console.log("granted = ", granted);
                     if (!granted) {
                         // if not allowed yet
-                        this.barcodeScanner.requestCameraPermission().then((yes)=>{
+                        this.barcodeScanner.requestCameraPermission().then((yes) => {
                             // request permission
-                            if(yes === true){
+                            console.log("yes = ", yes);
+                            if (yes === true) {
                                 // grant permission done
                                 this.is_cam_allowed = true;
                                 console.log("new allowed!!");
                             }
                         });
-                    }else{
+                    } else {
                         // allowed cam already
                         this.is_cam_allowed = true;
                         console.log("already allowed!!");
@@ -74,13 +80,27 @@ export class QrScanComponent implements OnInit {
         this.barcodes = result.barcodes;
 
         if (this.barcodes.length > 0) {
-            console.log("this.barcodes: " + JSON.stringify(this.barcodes));
+            // console.log("this.barcodes: " + JSON.stringify(this.barcodes));
             // this.pause = true;
             // setTimeout(() => this.pause = false, 500)
-            
+            let pay_info = {
+                type: "식당",
+                merchant: "Central Department Store",
+                amount: 419,
+                description: "포인트사용",
+                taxfree: false,
+                utu: true,
+            };
+            this.barcodes.forEach((elem) => {
+                console.log(elem.value);
+                pay_info = JSON.parse(elem.value);
+                console.log(pay_info);
+            });
+            this.paymentService.storePayData(pay_info);
             this.routingService.emitChange('pay');
-
-            this.routerExtensions.navigate(['/main/home/pay'], { transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) } });
+            this.routerExtensions.navigate(['/main/home/pay'], {
+                transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
+            });
         }
     }
 }

@@ -6,24 +6,24 @@ export class DataService {
     country="태국";
     countries={
         "태국":{
-            "currency":"THB",
-            "exchange":36.98,
+            currency:"THB",
+            exchange:36.98,
         },
         "싱가포르":{
-            "currency":"SGD",
-            "exchange":852.89,
+            currency:"SGD",
+            exchange:852.89,
         },
         "홍콩":{
-            "currency":"HKD",
-            "exchange":151.39,
+            currency:"HKD",
+            exchange:151.39,
         },
         "말레이시아":{
-            "currency":"MYR",
-            "exchange":281.47,
+            currency:"MYR",
+            exchange:281.47,
         },
         "미국":{
-            "currency":"USD",
-            "exchange":1180.00,
+            currency:"USD",
+            exchange:1180.00,
         }
     }
     merchants={
@@ -236,6 +236,13 @@ export class DataService {
             return (Number(date) === element.date.getTime());
         })[0];
         return tr;
+    }
+
+    getExchange(){
+        return this.countries[this.country].exchange;
+    }
+    getCurrency(){
+        return this.countries[this.country].currency;
     }
 
     getTrsGrouped(){        

@@ -13,6 +13,15 @@ import { ChangeModule } from "./change-point/change.module";
 import { DataService } from "./data.service";
 import { PaymentService } from "./payment.service";
 import { AuthService } from "./auth.service";
+import { HttpInterceptorService } from "./http-interceptor.service";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { ClassProvider } from "@angular/core";
+
+const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
+    provide: HTTP_INTERCEPTORS ,
+    useClass: HttpInterceptorService,
+    multi: true
+ };
 
 @NgModule({
     exports: [
@@ -33,7 +42,8 @@ import { AuthService } from "./auth.service";
     providers:[
         DataService,
         PaymentService,
-        AuthService
+        AuthService,
+        LOGGING_INTERCEPTOR_PROVIDER,
     ],
     schemas: [
         NO_ERRORS_SCHEMA
