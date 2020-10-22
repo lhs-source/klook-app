@@ -60,13 +60,6 @@ export class PayComponent implements OnInit {
                 console.log(this.tag, "goPay response");
 
                 let status = res["response"]["status"];
-                let reason = res["response"]["reason"];
-                let authorizationCode = res["authorizationCode"];
-                let transactionId = res["transactionId"];
-                console.log("status =",status);
-                console.log("reason =",reason);
-                console.log("authorizationCode =",authorizationCode);
-                console.log("transactionId =",transactionId);
                 
                 if(status === "ACCP"){
                     // add the tr to transaction list
@@ -81,9 +74,17 @@ export class PayComponent implements OnInit {
                         utu: this.pay_info.utu,
                         save_point: this.pay_info.point * 0.1,
                     });
+                    this.dataService.addPoint(-this.pay_info.point);
                 }else{
                     // not approved
-                    console.log(this.tag, "goPay response = ",res)
+                    console.log(this.tag, "goPay response = ", res["response"])
+                    // let reason = res["response"]["reason"];
+                    // let authorizationCode = res["authorizationCode"];
+                    // let transactionId = res["transactionId"];
+                    // console.log("status =",status);
+                    // console.log("reason =",reason);
+                    // console.log("authorizationCode =",authorizationCode);
+                    // console.log("transactionId =",transactionId);
                 }
             },
             err=>{

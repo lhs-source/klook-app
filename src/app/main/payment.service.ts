@@ -47,7 +47,7 @@ export class PaymentService {
                         this.interval = setInterval(() => {
                             if (this.token_exp > 0) {
                                 this.token_exp--;
-                                console.log("this.token_exp = ", this.token_exp);
+                                // console.log("this.token_exp = ", this.token_exp);
                             } else {
                                 clearInterval(this.interval);
                             }
