@@ -328,6 +328,18 @@ export class ChargePointComponent implements OnInit {
     }
 
     charge(){
+        this.dataService.addTr({
+            type:"transactions",
+            class: "포인트충전",
+            merchant: this.selected_way.title + " 충전",
+            point: Number(this.amount),
+            curr: 0,
+            date: new Date(),
+            description: "포인트교환",
+            taxfree: false,
+            utu: false,
+            save_point: 0,
+        });
         this.dataService.addPoint(Number(this.amount));
         this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
     }

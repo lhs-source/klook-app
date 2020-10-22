@@ -68,7 +68,8 @@ export class PayComponent implements OnInit {
                 if(status === "ACCP"){
                     // add the tr to transaction list
                     this.dataService.addTr({
-                        icon: this.pay_info.type,
+                        type:"transactions",
+                        class: this.pay_info.type,
                         merchant: this.pay_info.merchant,
                         point: this.pay_info.point,
                         curr: this.pay_info.amount,

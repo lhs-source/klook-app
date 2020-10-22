@@ -36,7 +36,7 @@
                     </GridLayout>
                     <StackLayout col="1" row="1" class="items">
                         <GridLayout class="item" *ngFor="let tr of item.value" rows="auto, auto" columns="auto, *, auto" (tap)="onTapTr(tr)">
-                            <Image class="icon" row="0" rowspan="2" col="0" src="{{icons[tr.icon]}}" verticalAlignment="top"></Image>
+                            <Image class="icon" row="0" rowspan="2" col="0" src="{{icons[tr.class]}}" verticalAlignment="top"></Image>
                             <Label class="merchant" row="0" col="1" text="{{tr.merchant}}" verticalAlignment="center"></Label>
                             <StackLayout row="0" col="2" verticalAlignment="center">
                                 <Label class="point" text="{{ (tr.curr === 0 ? '+' : '') + (tr.point | number:'1.0-0') + ' P' }}" textAlignment="right" verticalAlignment="center" translateY="2"></Label>

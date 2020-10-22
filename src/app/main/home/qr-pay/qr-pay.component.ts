@@ -46,29 +46,6 @@ export class QrPayComponent implements OnInit {
                 this.secounds = 60;
             }
         }, 1000);
-
-        
-        this.getToken()
-    }
-    
-    getToken(){
-        // this.paymentService.getToken().subscribe(
-        //     (res)=>{
-        //         console.log(this.tag, "success ", res);
-        //         this.paymentService.getAccounts();
-        //     },
-        //     (err)=>{
-        //         console.log(this.tag, "error ", err);
-        //     },
-        //     ()=>{},
-        // )
-        this.paymentService.getAccounts().subscribe(
-            res=>{ 
-                console.log(this.tag, "getAccounts response = ",res)
-            },
-            err=>{
-                console.log(this.tag, "getAccounts error = ", err)
-            });
     }
 
     resetTimer() {

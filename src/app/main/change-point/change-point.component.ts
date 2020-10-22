@@ -149,6 +149,18 @@ export class ChangePointComponent implements OnInit {
     }
 
     change(event){
+        this.dataService.addTr({
+            type:"transactions",
+            class: "포인트교환",
+            merchant: this.pointy.title + " 교환",
+            point: Number(this.amount),
+            curr: 0,
+            date: new Date(),
+            description: "포인트교환",
+            taxfree: false,
+            utu: false,
+            save_point: 0,
+        });
         this.dataService.addPoint(this.amount_num);
         this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
     }

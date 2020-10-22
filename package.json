@@ -29,6 +29,7 @@
     "nativescript-advanced-permissions": "^1.2.0",
     "nativescript-barcodescanner": "^3.4.2",
     "nativescript-carousel": "^6.1.1",
+    "nativescript-couchbase-plugin": "^0.9.6",
     "nativescript-exit": "^1.0.1",
     "nativescript-google-maps-sdk": "^2.9.1",
     "nativescript-ngx-shadow": "^6.5.0",

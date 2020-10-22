@@ -1,5 +1,20 @@
 import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { Couchbase } from "nativescript-couchbase-plugin";
+import { PaymentData } from "./Payment-data.model";
+
+import {
+    getBoolean,
+    setBoolean,
+    getNumber,
+    setNumber,
+    getString,
+    setString,
+    hasKey,
+    remove,
+    clear
+} from "tns-core-modules/application-settings";
+
 @Injectable()
 export class DataService {
     point=120000;
@@ -28,61 +43,61 @@ export class DataService {
     }
     merchants={
         "Central Department Store (Central Hat Yai)":{
-            type:"백화점",
+            class:"백화점",
             lat:7.0057298,
             long:100.4712895,
             address:"33 Prachathipat Road, Hat Yai, Hat Yai District, Songkhla 90110 태국",
         },
         "Family mart":{
-            type:"편의점",
+            class:"편의점",
             lat:8.417832,
             long:99.9213329,
             address:"Pho Sadet, Mueang Nakhon Si Thammarat District, Nakhon Si Thammarat 80000 태국",
         },
         "Big C (Thap Thiang)":{
-            type:"마트",
+            class:"마트",
             lat:13.7370533,
             long:100.5458161,
             address:"78 Soi Sukhumvit 63, Phra Khanong Nuea, Watthana, Bangkok 10110 태국",
         },
         "MK Restaurants":{
-            type:"식당",
+            class:"식당",
             lat:7.5642549,
             long:99.6268338,
             address:"Thap Thiang, Mueang Trang District, Trang 92000 태국",
         },
         "EATHAI":{
-            type:"식당",
+            class:"식당",
             lat:13.7437507,
             long:100.5444492,
             address:"1031 Phloen Chit Rd, Lumphini, Pathum Wan District, Bangkok 10330 태국",
         },
         "Robinson":{
-            type:"백화점",
+            class:"백화점",
             lat:13.7379627,
             long:100.5573337,
             address:"259 Sukhumvit Rd, Khlong Toei Nuea, Watthana, Bangkok 10110 태국",
         },
         "Tops daily mini supermarket":{
-            type:"마트",
+            class:"마트",
             lat:13.7483256,
             long:100.5634094,
             address:"New Petchaburi Rd, Bang Kapi, Huai Khwang, Krung Thep Maha Nakhon 10310 태국",
         },
         "SuperSports":{
-            type:"스포츠",
+            class:"스포츠",
             lat:13.7578103,
             long:100.5660056,
             address:"L3,327, Centralplaza Grand Rama 9, Ratchadaphisek Rd, Huai Khwang, Din Daeng, Bangkok 10400 태국",
         },
         "Segafredo Zanetti Espresso":{
-            type:"카페",
+            class:"카페",
             lat:13.7467127,
             long:100.537083,
             address:"centralwOrld, Rama I Rd, Pathum Wan, Pathum Wan District, Bangkok 10330 태국",
         },
         "Jaspal":{
-            type:"식당",
+            class:"식당",
             lat:13.7467125,
             long:100.5305169,
             address:"Phloen Chit Rd, Lumphini, Pathum Wan District, Bangkok 10330 태국",
@@ -102,9 +117,10 @@ export class DataService {
 
     }
     tr_group_calced = false;
-    trs = [
+    trs : PaymentData[] = [
         {
-            icon: "백화점",
+            type:"transactions",
+            class: "백화점",
             merchant: "Central Department Store (Central Hat Yai)",
             point: 25000,
             curr: 676,
@@ -114,7 +130,8 @@ export class DataService {
             utu: false,
             save_point: 1250,
         }, {
-            icon: "편의점",
+            type:"transactions",
+            class: "편의점",
             merchant: "Family mart",
             point: 4500,
             curr: 122,
@@ -124,7 +141,8 @@ export class DataService {
             utu: true,
             save_point: 45,
         }, {
-            icon: "포인트충전",
+            type:"transactions",
+            class: "포인트충전",
             merchant: "KB국민카드 Nori카드 충전",
             point: 100000,
             curr: 0,
@@ -134,7 +152,8 @@ export class DataService {
             utu: false,
             save_point: 0,
         }, {
-            icon: "마트",
+            type:"transactions",
+            class: "마트",
             merchant: "Big C (Thap Thiang)",
             point: 5500,
             curr: 145,
@@ -144,7 +163,8 @@ export class DataService {
             utu: true,
             save_point: 55,
         }, {
-            icon: "식당",
+            type:"transactions",
+            class: "식당",
             merchant: "MK Restaurants",
             point: 13500,
             curr: 365,
@@ -154,7 +174,8 @@ export class DataService {
             utu: true,
             save_point: 135,
         }, {
-            icon: "포인트충전",
+            type:"transactions",
+            class: "포인트충전",
             merchant: "KB국민카드 포인트 자동충전",
             point: 50000,
             curr: 0,
@@ -164,7 +185,8 @@ export class DataService {
             utu: false,
             save_point: 0,
         }, {
-            icon: "식당",
+            type:"transactions",
+            class: "식당",
             merchant: "EATHAI",
             point: 37000,
             curr: 1001,
@@ -174,7 +196,8 @@ export class DataService {
             utu: true,
             save_point: 370,
         }, {
-            icon: "백화점",
+            type:"transactions",
+            class: "백화점",
             merchant: "Robinson",
             point: 38000,
             curr: 1028,
@@ -184,7 +207,8 @@ export class DataService {
             utu: false,
             save_point: 1900,
         }, {
-            icon: "마트",
+            type:"transactions",
+            class: "마트",
             merchant: "Tops daily mini supermarket",
             point: 19000,
             curr: 324,
@@ -194,7 +218,8 @@ export class DataService {
             utu: true,
             save_point: 600,
         }, {
-            icon: "스포츠",
+            type:"transactions",
+            class: "스포츠",
             merchant: "SuperSports",
             point: 12000,
             curr: 324,
@@ -204,7 +229,8 @@ export class DataService {
             utu: false,
             save_point: 600,
         }, {
-            icon: "카페",
+            type:"transactions",
+            class: "카페",
             merchant: "Segafredo Zanetti Espresso",
             point: 5000,
             curr: 135,
@@ -214,7 +240,8 @@ export class DataService {
             utu: true,
             save_point: 50,
         }, {
-            icon: "포인트충전",
+            type:"transactions",
+            class: "포인트충전",
             merchant: "KB국민카드 해피Nori카드 충전",
             point: 100000,
             curr: 0,
@@ -224,7 +251,8 @@ export class DataService {
             utu: false,
             save_point: 0,
         }, {
-            icon: "포인트교환",
+            type:"transactions",
+            class: "포인트교환",
             merchant: "KB국민카드 포인트리 교환",
             point: 20000,
             curr: 0,
@@ -235,27 +263,141 @@ export class DataService {
             save_point: 0,
         }
     ];
-    
+
+    database : Couchbase;
+    constructor(){
+        console.log("setting user data...");
+        this.point = getNumber("point", 120000);
+        this.country = getString("country", "태국");
+
+        this.database = new Couchbase("klook");
+        // get countries
+        // this.database.createView("countries", "1", (document, emitter)=>{
+        //     if(document.type === "country"){
+        //         emitter.emit(document._id, document);
+        //     }
+        // });
+        // let temp_countries = this.database.executeQuery("countries");
+        let temp_countries = this.database.query({
+            select : [],
+            from: 'klook',
+            where: [{ property: 'type', comparison: 'equalTo', value: 'countries' }],
+            // order: [{ property: 'firstName', direction: 'desc' }],
+            // limit: 2
+        });
+        if(temp_countries.length === 0){
+            // create new datas
+            console.log("creating new countries data...");
+            for(let key in this.countries){
+                let item = {
+                    type:"countries",
+                    name:key,
+                    currency:this.countries[key].currency,
+                    exchange:this.countries[key].exchange
+                }
+                this.database.createDocument(item);
+            }
+        }else{
+            // store in memory
+            console.log("getting countries data...");
+            temp_countries.forEach((elem)=>{
+                this.countries[elem.name] ={
+                    currency : elem.currency,
+                    exchange : elem.exchange,
+                };
+            })
+        }
+        // for(let key in this.countries){
+        //     console.log("countries[",key,"]=",this.countries[key]);
+        // }
+
+        let temp_merchants = this.database.query({
+            select : [],
+            from: 'klook',
+            where: [{ property: 'type', comparison: 'equalTo', value: 'merchants' }],
+            // order: [{ property: 'firstName', direction: 'desc' }],
+            // limit: 2
+        });
+        if(temp_merchants.length === 0){
+            // create new datas
+            console.log("creating new merchants data...");
+            for(let key in this.merchants){
+                let item = {
+                    type:"merchants",
+                    name:key,
+                    lat:this.merchants[key].lat,
+                    long:this.merchants[key].long,
+                    address:this.merchants[key].address,
+                    class:this.merchants[key].class,
+                }
+                this.database.createDocument(item);
+            }
+        }else{
+            // store in memory
+            console.log("getting merchants data...");
+            temp_merchants.forEach((elem)=>{
+                this.merchants[elem.name] ={
+                    lat : elem.lat,
+                    long : elem.long,
+                    address : elem.address,
+                    class : elem.class,
+                };
+            })
+        }
+        // for(let key in this.merchants){
+        //     console.log("merchants[",key,"]=",this.merchants[key]);
+        // }
+
+        
+        let temp_transactions = this.database.query({
+            select : [],
+            from: 'klook',
+            where: [{ property: 'type', comparison: 'equalTo', value: 'transactions' }],
+            // order: [{ property: 'firstName', direction: 'desc' }],
+            // limit: 2
+        });
+        if(temp_transactions.length === 0){
+            // create new datas
+            console.log("creating new transactions data...");
+            this.trs.forEach((elem)=>{
+                let item = elem;
+                this.database.createDocument(item);
+            });
+        }else{
+            // store in memory
+            console.log("getting transactions data...");
+            temp_transactions.forEach((elem)=>{
+                this.trs.push(elem);
+            });
+        }
+        // this.trs.forEach((elem)=>{
+        //     console.log("trs=",elem);
+        // });
+    }
+
+    //-------
+    // point
+    //-------
     addPoint(point){
         this.point = this.point + point;
-        console.log("DataService ", this.point);
+        setNumber("point", this.point);
+        console.log("DataService point =", this.point);
     }
     decreasePoint(point){
         this.point = this.point - point;
+        setNumber("point", this.point);
+        console.log("DataService point =", this.point);
     }
 
+    
+    //--------------
+    // transactions
+    //--------------
     findTrByDate(date){
         let tr =this.trs.filter((element, index, array) => {
             return (Number(date) === element.date.getTime());
         })[0];
         return tr;
-    }
-
-    getExchange(){
-        return this.countries[this.country].exchange;
-    }
-    getCurrency(){
-        return this.countries[this.country].currency;
     }
 
     getTrsGrouped(){        
@@ -277,8 +419,19 @@ export class DataService {
         return this.tr_grouped;
     }
 
-    addTr(tr){
+    addTr(tr : PaymentData){
+        this.database.createDocument(tr);
         this.trs.push(tr);
         this.tr_group_calced = false;
     }
+    //--------------
+    // merchant
+    //--------------
+    getExchange(){
+        return this.countries[this.country].exchange;
+    }
+    getCurrency(){
+        return this.countries[this.country].currency;
+    }
+
 }
