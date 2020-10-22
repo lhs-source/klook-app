@@ -1,15 +1,15 @@
 
 export interface PaymentData {
-    type: String;
-    class: String;
-    merchant: String;
-    point: Number;
-    curr: Number;
+    type: string;
+    class: string;
+    merchant: string;
+    point: number;
+    curr: number;
     date: Date;
-    description: String;
-    taxfree: Boolean;
-    utu: Boolean;
-    save_point: Number;
+    description: string;
+    taxfree: boolean;
+    utu: boolean;
+    save_point: number;
 }
 
 function encode_utf8(s) {

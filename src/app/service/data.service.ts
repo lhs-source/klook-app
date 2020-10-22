@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Couchbase } from "nativescript-couchbase-plugin";
-import { decode_paymentData, encode_paymentData, PaymentData } from "./Payment-data.model";
+import { decode_paymentData, encode_paymentData, PaymentData } from "./payment-data.model";
 
 import {
     getBoolean,
@@ -14,6 +14,7 @@ import {
     remove,
     clear
 } from "tns-core-modules/application-settings";
+import { QrData } from './qr-data.model';
 
 function encode_utf8(s) {
     return unescape(encodeURIComponent(s));
@@ -446,11 +447,32 @@ export class DataService {
         };
         return this.tr_grouped;
     }
-
     addTr(tr: PaymentData) {
         this.database.createDocument(encode_paymentData(tr));
         this.trs.push(tr);
         this.tr_group_calced = false;
+    }
+    addTrFromQr(qr: QrData) {
+        let tr = this.qr2tr(qr);
+        this.database.createDocument(encode_paymentData(tr));
+        this.trs.push(tr);
+        this.tr_group_calced = false;
+    }
+    qr2tr(qr : QrData){
+        let point = qr.amount * this.countries[this.country].exchange;
+        let item = {
+            type:"transactions",
+            class: this.merchants[qr.merchant].class,
+            merchant: qr.merchant,
+            point: qr.amount * this.countries[this.country].exchange,
+            curr: qr.amount,
+            date: new Date(), //(2020, 10, 12, 18, 20, 0, 0),
+            description: qr.description,
+            taxfree: qr.taxfree,
+            utu: qr.utu,
+            save_point: point * 0.1,
+        };
+        return item;
     }
     //--------------
     // merchant

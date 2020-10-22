@@ -19,7 +19,7 @@ export class PayComponent implements OnInit {
     
     // payment info from qr
     pay_info = {
-        type:"식당",
+        class:"식당",
         merchant:"Central Department Store (Central Hat Yai)",
         amount:419,
         point:15500,
@@ -67,18 +67,7 @@ export class PayComponent implements OnInit {
                 
                 if(status === "ACCP"){
                     // add the tr to transaction list
-                    this.dataService.addTr({
-                        type:"transactions",
-                        class: this.pay_info.type,
-                        merchant: this.pay_info.merchant,
-                        point: this.pay_info.point,
-                        curr: this.pay_info.amount,
-                        date: new Date(), //(2020, 10, 12, 18, 20, 0, 0),
-                        description: this.pay_info.description,
-                        taxfree: this.pay_info.taxfree,
-                        utu: this.pay_info.utu,
-                        save_point: this.pay_info.point * 0.1,
-                    });
+                    this.dataService.addTrFromQr(this.pay_info);
                     this.dataService.decreasePoint(this.pay_info.point);
                 }else{
                     // not approved
