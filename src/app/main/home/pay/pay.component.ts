@@ -1,14 +1,19 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { RouterExtensions } from "@nativescript/angular";
+import { Component, ElementRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
+import { RouterExtensions, ModalDialogService, ModalDialogOptions } from "@nativescript/angular";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData, LayoutBase } from "tns-core-modules";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { ActivatedRoute } from "@angular/router";
+
+import * as Toast from 'nativescript-toast';
+import { alert } from "tns-core-modules/ui/dialogs";
+
 import { DataService } from "../../../service/data.service";
 import { CustomTransitionBack } from "../../../util/klook-transition";
 import { HomeRoutingService } from "../home-routing.service";
 import { PaymentService } from "../../../service/payment.service";
-import { ActivatedRoute } from "@angular/router";
-import * as Toast from 'nativescript-toast';
 import { QrData } from "../../../service/qr-data.model";
+import { ProgressComponent } from "../../../components/progress/progress.component";
+import { ProgressService } from "../../../components/progress/progress.service";
 
 @Component({
     selector: "pay",
@@ -32,9 +37,12 @@ export class PayComponent implements OnInit {
     constructor(private routerExtensions: RouterExtensions, 
         private route: ActivatedRoute,
         private elRef : ElementRef, 
+        private modalService : ModalDialogService,
+        private viewContainerRef : ViewContainerRef,
         private routingService:HomeRoutingService, 
         private dataService : DataService,
-        private paymentService : PaymentService) {
+        private paymentService : PaymentService,
+        private progressService : ProgressService) {
         console.log(`${this.tag} constructor `)
 
         this.pay_info = this.paymentService.pay_info;
@@ -49,6 +57,26 @@ export class PayComponent implements OnInit {
         console.log(this.routerExtensions.router.url);
     }
 
+    dialogSuccess(thenFunction : ()=>any){
+        // success dialog
+        let options = {
+            title: "결제완료",
+            message: "승인에 성공했습니다",
+            okButtonText: "확인"
+        };
+        
+        alert(options).then(thenFunction);
+    }
+    dialogError(thenFunction : ()=>any){
+        // fail dialog
+        let options = {
+            title: "결제실패",
+            message: "결제 실패하였습니다",
+            okButtonText: "확인"
+        };
+        
+        alert(options).then(thenFunction);
+    }
     onTapNo(event){
         this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
             name: 'fade',
@@ -57,21 +85,31 @@ export class PayComponent implements OnInit {
         } });
     }
     onTapYes(event){
-        if(this.dataService.point < this.pay_info.amount){
+        if(this.dataService.point < this.point){
             Toast.makeText("The amount is larger than my balance").show();
             return;
         }
+        // this.isBusy = true;
+        this.progressService.progressOn(this.viewContainerRef);
         this.paymentService.goPay().subscribe(
             res=>{ 
                 console.log(this.tag, "goPay response");
-
                 let status = res["response"]["status"];
-                
                 if(status === "ACCP"){
                     // add the tr to transaction list
-                    let point = this.pay_info.amount * this.dataService.countries[this.dataService.country].exchange;
                     this.dataService.addTrFromQr(this.pay_info);
-                    this.dataService.decreasePoint(point);
+                    this.dataService.decreasePoint(this.point);
+                    
+                    // show dialog
+                    this.dialogSuccess(()=>{
+                        // go tr page
+                        this.routingService.emitChange('tr');
+                        this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
+                            name: 'fade',
+                            duration: 250,
+                            curve: AnimationCurve.easeOut
+                        } });
+                    });
                 }else{
                     // not approved
                     console.log(this.tag, "goPay response = ", res["response"])
@@ -82,19 +120,18 @@ export class PayComponent implements OnInit {
                     // console.log("reason =",reason);
                     // console.log("authorizationCode =",authorizationCode);
                     // console.log("transactionId =",transactionId);
+                    
+                    this.dialogError(()=>{});
                 }
             },
             err=>{
                 console.log(this.tag, "goPay error = ", err)
+                this.dialogError(()=>{});
             },
             ()=>{
-                // complete and go tr page
-                this.routingService.emitChange('tr');
-                this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
-                    name: 'fade',
-                    duration: 250,
-                    curve: AnimationCurve.easeOut
-                } });
+                // complete
+                // activity indicator off
+                this.progressService.progressOff();           
             });
     }
 }

@@ -305,8 +305,8 @@ export class DataService {
                     currency: this.countries[key].currency,
                     exchange: this.countries[key].exchange
                 }
-                console.log("new country =>", item);
-                console.log(this.database.createDocument(item));
+                // console.log("new country =>", item);
+                this.database.createDocument(item);
             }
         } else {
             // store in memory
@@ -316,7 +316,7 @@ export class DataService {
                     currency: elem.currency,
                     exchange: elem.exchange,
                 };
-                console.log("get country =>", this.countries[decode_utf8(elem.name)]);
+                // console.log("get country =>", this.countries[decode_utf8(elem.name)]);
             })
         }
         // for(let key in this.countries){
@@ -343,7 +343,7 @@ export class DataService {
                     class: encode_utf8(this.merchants[key].class),
                 }
                 // console.log("new merchant =>", item);
-                console.log(this.database.createDocument(item));
+                this.database.createDocument(item);
             }
         } else {
             // store in memory
@@ -367,7 +367,7 @@ export class DataService {
             select: [],
             from: null,
             where: [{ property: 'type', comparison: 'equalTo', value: 'transactions' }],
-            // order: [{ property: 'firstName', direction: 'desc' }],
+            order: [{ property: 'date', direction: 'desc' }],
             // limit: 2
         });
         console.log(temp_transactions.length);
@@ -395,7 +395,7 @@ export class DataService {
             console.log("getting transactions data...");
             temp_transactions.forEach((elem) => {
                 let item = decode_paymentData(elem);
-                console.log("get transaction =>", item);
+                // console.log("get transaction =>", item);
                 this.trs.push(item);
             });
         }
@@ -449,13 +449,29 @@ export class DataService {
     }
     addTr(tr: PaymentData) {
         this.database.createDocument(encode_paymentData(tr));
-        this.trs.push(tr);
+        this.trs.unshift(tr);
+        // temp until 10/30
+        this.trs.sort((a, b)=>{
+            if(a.date > b.date){
+                return -1;
+            }else{
+                return 1;
+            }
+        })
         this.tr_group_calced = false;
     }
     addTrFromQr(qr: QrData) {
         let tr = this.qr2tr(qr);
         this.database.createDocument(encode_paymentData(tr));
-        this.trs.push(tr);
+        this.trs.unshift(tr);
+        // temp until 10/30
+        this.trs.sort((a, b)=>{
+            if(a.date > b.date){
+                return -1;
+            }else{
+                return 1;
+            }
+        })
         this.tr_group_calced = false;
     }
     qr2tr(qr : QrData){

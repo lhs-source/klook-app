@@ -9,6 +9,7 @@ export class PaymentService {
     tag = this.constructor.name;
     server_url = "https://yrkim-eval-prod.apigee.net"
 
+    initial_token = "Basic NmVlNGFlNWQzYWYyNGQxZjhmYTM2YjcyOWVmNmM1OjZlZTRhZTVkM2FmMjRkMQ====";
     token_type = "Basic";
     token = "NmVlNGFlNWQzYWYyNGQxZjhmYTM2YjcyOWVmNmM1OjZlZTRhZTVkM2FmMjRkMQ====";
     token_exp = 0;
@@ -28,7 +29,7 @@ export class PaymentService {
     getToken() {
         let path = "/oauth?x-apikey=1gH8WT02XvyxvqjIg24dSKaUBHeNw59i";
         let headers = new HttpHeaders({
-            "Authorization": this.token_type + " " + this.token,
+            "Authorization": this.initial_token,
             "Content-Type": "application/x-www-form-urlencoded",
         });
         return this.httpClient.post(this.server_url + path, JSON.stringify({ "formData": "<string>" }), { headers: headers })

@@ -7,6 +7,8 @@ import { screen } from "tns-core-modules/platform";
 import { CustomTransitionBack } from "../../util/klook-transition";
 import { DataService } from "../../service/data.service";
 
+import { alert } from "tns-core-modules/ui/dialogs";
+
 @Component({
     selector: "change-point",
     templateUrl: "./change-point.component.html",
@@ -148,6 +150,17 @@ export class ChangePointComponent implements OnInit {
         }
     }
 
+    dialogSuccess(thenFunction : ()=>any){
+        // success dialog
+        let options = {
+            title: "포인트교환 성공",
+            message: "포인트교환에 성공했습니다",
+            okButtonText: "확인"
+        };
+        
+        alert(options).then(thenFunction);
+    }
+
     change(event){
         this.dataService.addTr({
             type:"transactions",
@@ -162,7 +175,10 @@ export class ChangePointComponent implements OnInit {
             save_point: 0,
         });
         this.dataService.addPoint(this.amount_num);
-        this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
+        
+        this.dialogSuccess(()=>{
+            this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
+        })
     }
 
     // actionbar emit click close

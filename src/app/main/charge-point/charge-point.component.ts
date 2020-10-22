@@ -7,6 +7,7 @@ import * as app from "tns-core-modules/application";
 import * as utils from "tns-core-modules/utils/utils";
 
 import { screen } from "tns-core-modules/platform/platform"
+import { alert } from "tns-core-modules/ui/dialogs";
 
 import { CustomTransitionBack } from "../../util/klook-transition";
 import { DataService } from "../../service/data.service";
@@ -327,6 +328,17 @@ export class ChargePointComponent implements OnInit {
         })
     }
 
+    dialogSuccess(thenFunction : ()=>any){
+        // success dialog
+        let options = {
+            title: "포인트충전 성공",
+            message: "포인트충전에 성공했습니다",
+            okButtonText: "확인"
+        };
+        
+        alert(options).then(thenFunction);
+    }
+
     charge(){
         this.dataService.addTr({
             type:"transactions",
@@ -341,7 +353,9 @@ export class ChargePointComponent implements OnInit {
             save_point: 0,
         });
         this.dataService.addPoint(Number(this.amount));
-        this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
+        this.dialogSuccess(()=>{
+            this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
+        })
     }
 
     // actionbar emit click close

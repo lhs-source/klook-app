@@ -7,6 +7,7 @@ import { TitleComponent } from "./title/title.component";
 import { TabComponent } from "./tab/tab.component";
 import { KeypadNumberComponent } from './keypad-number/keypad-number.component';
 import { SimpleActionbarComponent } from './simple-actionbar/simple-actionbar.component';
+import { ProgressComponent } from './progress/progress.component';
 
 @NgModule({
     exports: [
@@ -16,6 +17,7 @@ import { SimpleActionbarComponent } from './simple-actionbar/simple-actionbar.co
         TabComponent,
         KeypadNumberComponent,
         SimpleActionbarComponent,
+        ProgressComponent,
     ],
     imports: [
         NativeScriptCommonModule
@@ -27,6 +29,7 @@ import { SimpleActionbarComponent } from './simple-actionbar/simple-actionbar.co
         TabComponent,
         KeypadNumberComponent,
         SimpleActionbarComponent,
+        ProgressComponent,
     ],
     schemas: [
         NO_ERRORS_SCHEMA

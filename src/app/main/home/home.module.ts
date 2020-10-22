@@ -8,6 +8,7 @@ import { QrScanComponent } from "./qr-scan/qr-scan.component";
 import { TrHistoryEmbeddedComponent } from "./tr-history-embedded/tr-history-embedded.component";
 import { PayComponent } from "./pay/pay.component";
 import { HomeRoutingService } from "./home-routing.service";
+import { ProgressService } from '../../components/progress/progress.service';
 
 import { BarcodeScanner } from "nativescript-barcodescanner";
 registerElement("MLKitBarcodeScanner", () => require("nativescript-plugin-firebase/mlkit/barcodescanning").MLKitBarcodeScanner);
@@ -32,7 +33,8 @@ import { ComponentsModule } from "../../components/components.module";
     ],
     providers:[
         BarcodeScanner,
-        HomeRoutingService
+        HomeRoutingService,
+        ProgressService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
