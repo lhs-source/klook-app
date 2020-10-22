@@ -8,6 +8,7 @@ import { HomeRoutingService } from "../home-routing.service";
 import { PaymentService } from "../../../service/payment.service";
 import { ActivatedRoute } from "@angular/router";
 import * as Toast from 'nativescript-toast';
+import { QrData } from "../../../service/qr-data.model";
 
 @Component({
     selector: "pay",
@@ -18,15 +19,14 @@ export class PayComponent implements OnInit {
     tag = this.constructor.name;
     
     // payment info from qr
-    pay_info = {
-        class:"식당",
+    pay_info : QrData = {
         merchant:"Central Department Store (Central Hat Yai)",
         amount:419,
-        point:15500,
         description: "포인트사용",
         taxfree: false,
         utu: true,
     }
+    point = 0;
     currency = "THB";
 
     constructor(private routerExtensions: RouterExtensions, 
@@ -38,6 +38,7 @@ export class PayComponent implements OnInit {
         console.log(`${this.tag} constructor `)
 
         this.pay_info = this.paymentService.pay_info;
+        this.point = this.pay_info.amount * this.dataService.countries[this.dataService.country].exchange;
         this.currency = this.dataService.getCurrency();
         if (isAndroid) {
         }
@@ -58,6 +59,7 @@ export class PayComponent implements OnInit {
     onTapYes(event){
         if(this.dataService.point < this.pay_info.amount){
             Toast.makeText("The amount is larger than my balance").show();
+            return;
         }
         this.paymentService.goPay().subscribe(
             res=>{ 
@@ -67,8 +69,9 @@ export class PayComponent implements OnInit {
                 
                 if(status === "ACCP"){
                     // add the tr to transaction list
+                    let point = this.pay_info.amount * this.dataService.countries[this.dataService.country].exchange;
                     this.dataService.addTrFromQr(this.pay_info);
-                    this.dataService.decreasePoint(this.pay_info.point);
+                    this.dataService.decreasePoint(point);
                 }else{
                     // not approved
                     console.log(this.tag, "goPay response = ", res["response"])

@@ -13,6 +13,7 @@ import { HomeRoutingService } from "../home-routing.service";
 import { PaymentService } from "../../../service/payment.service";
 
 import * as Toast from 'nativescript-toast';
+import { QrData } from "src/app/service/qr-data.model";
 
 @Component({
     selector: "qr-scan",
@@ -71,8 +72,7 @@ export class QrScanComponent implements OnInit {
             // console.log("this.barcodes: " + JSON.stringify(this.barcodes));
             // this.pause = true;
             // setTimeout(() => this.pause = false, 500)
-            let pay_info = {
-                type: "식당",
+            let pay_info : QrData = {
                 merchant: "Central Department Store",
                 amount: 419,
                 description: "포인트사용",

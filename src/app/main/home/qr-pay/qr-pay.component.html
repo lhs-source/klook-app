@@ -1,12 +1,12 @@
 <GridLayout #rootlayout rows="*, auto, auto, 64" height="100%" margin="16" borderLeftWidth="1" borderRightWidth="1" borderLeftColor="#ddd" borderRightColor="#ddd">
-    <Image row="0" class="qr-img" src="~/images/qr.png"></Image>
+    <Image row="0" class="qr-img" src="~/images/qr.png" (tap)="onTapInfo()"></Image>
     <Label row="1" class="qr-str" text="생성된 코드를 직원에게 보여주세요" horizontalAlignment="center"></Label>
     <StackLayout row="2" orientation="horizontal" horizontalAlignment="center">
         <Label class="remain-str" text="남은시간 "></Label>
         <Label class="remain-str"text="{{ secounds * 1000 | date:'mm:ss' }} "></Label>
         <Image class="remain-img" src="~/images/btn_re.png" (tap)="resetTimer()"></Image>
     </StackLayout>
-    <GridLayout row="3" rows="auto, auto" columns="36, *" margin="8" horizontalAlignment="center" (tap)="onTapInfo()">
+    <GridLayout row="3" rows="auto, auto" columns="36, *" margin="8" horizontalAlignment="center">
         <Image row="0" col="0" rowspan="2" src="~/images/ico_point2.png" marginRight="8"></Image>
         <Label row="0" col="1" text="홍콩 ThaiQR 결제 시 자동 Tax-Refund"></Label>
         <Label row="1" col="1" text="결제금액 2% 포인트 자동 적립"></Label>

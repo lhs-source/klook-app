@@ -21,17 +21,12 @@ export class QrPayComponent implements OnInit {
     secounds = 180;
     interval;
 
-    constructor(private routerExtensions: RouterExtensions, private routingService: HomeRoutingService,
-        private paymentService : PaymentService) {
+    constructor(private routerExtensions: RouterExtensions, 
+        private routingService: HomeRoutingService,
+        private paymentService: PaymentService) {
         console.log(`${this.tag} constructor `)
 
-        if (isAndroid) {
-            // Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-            //     console.log("back button pressed on " + this.tag);
-            //     data.cancel = true;
-            //     this.routerExtensions.navigate(['/main/home'], {clearHistory : true});
-            // });
-        }
+        if (isAndroid) { }
     }
 
     ngOnInit(): void {
@@ -66,7 +61,7 @@ export class QrPayComponent implements OnInit {
         this.routing.emit('pay');
 
         this.routingService.emitChange('pay');
-        this.routerExtensions.navigate(['/main/home/pay'], { 
+        this.routerExtensions.navigate(['/main/home/pay'], {
             transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
         });
     }

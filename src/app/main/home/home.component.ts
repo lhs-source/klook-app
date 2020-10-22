@@ -84,14 +84,17 @@ export class HomeComponent implements OnInit {
                 this.isPay = false;
                 this.isQrScan = false;
                 this.isQrPay = false;
+
+                this.updatePoint();
+            }else{
+
             }
         });
 
         console.log(this.dataService.country);
-        this.point = this.dataService.point;
         this.country = this.dataService.country;
         this.country_obj = this.dataService.countries[this.country];
-        this.exchange = Math.floor(this.point / this.country_obj['exchange']);
+        this.updatePoint();
 
         if (isAndroid) {
             Application.android.off(AndroidApplication.activityBackPressedEvent);
@@ -110,18 +113,13 @@ export class HomeComponent implements OnInit {
 
         let menu = this.menu.nativeElement as LayoutBase;
     }
-
-    ngAfterViewInit() {
-
-    }
-
     ngOnDestroy() {
         console.log(`${this.tag} ngOnDestroy`);
     }
 
-
-    callbackRouting(url){
-        console.log(this.tag, " callbackRouting = ", url);
+    updatePoint(){
+        this.point = this.dataService.point;
+        this.exchange = Math.floor(this.point / this.country_obj['exchange']);
     }
 
     onLoadedMenu(event) {
