@@ -299,6 +299,10 @@ export class HomeComponent implements OnInit {
             this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } });
             this.isQrScan = false;
         }
+        if (this.isPay === true){
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } });
+            this.isPay = false;
+        }
 
         let bg = this.qrbg.nativeElement as LayoutBase;
         bg.animate({

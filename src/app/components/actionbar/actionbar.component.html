@@ -8,5 +8,5 @@
             <Image row="0" rowspan="2" col="2" class="country" src="~/images/ico_th.png"></Image>
         </GridLayout>
     </GridLayout>
-    <Image col="2" class="close-btn" src="{{isClose === false ? '~/images/btn_person.png' : '~/images/btn_close.png'}}" verticalAlignment="center"></Image>
+    <Image col="2" class="close-btn" src="{{isClose === false ? '~/images/btn_person.png' : '~/images/btn_close.png'}}" verticalAlignment="center" (tap)="onTapClose($event)"></Image>
 </GridLayout>
