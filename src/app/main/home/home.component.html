@@ -1,9 +1,4 @@
-<GridLayout rows="auto, *">
-    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="(isQrScan || isQrPay || isPay)"></myactionbar>
-    <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderColor="#ddd" margin="16" height="64%">
-    </GridLayout>
-    <!-- <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderWidth="1" borderColor="#ccc" margin="16" height="64%"></GridLayout> -->
-</GridLayout>
+
 <GridLayout #rootlayout rows="80,auto,*,auto,108" height="100%" width="100%">
     <!-- Point view -->
     <title row="1" title="보유포인트" point="{{point | number:'1.0-0'}}" point_unit="{{' (' + ( exchange | number:'1.0-0') + ' ' + (country_obj['currency']) + ')' }}" backgroundColor="#ff5722"></title>
@@ -58,6 +53,13 @@
         <Label class="str" text="Octopus 교통카드 이용을 위해 올려주세요" row="0" textAlignment="center"
             verticalAlignment="bottom"></Label>
     </GridLayout>
+</GridLayout>
+
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" (select_country)="callback_select_country()" [isClose]="(isQrScan || isQrPay || isPay)"></myactionbar>
+    <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderColor="#ddd" margin="16" height="64%">
+    </GridLayout>
+    <!-- <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderWidth="1" borderColor="#ccc" margin="16" height="64%"></GridLayout> -->
 </GridLayout>
 
 <!-- octopus -->

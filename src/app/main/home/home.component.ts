@@ -331,6 +331,13 @@ export class HomeComponent implements OnInit {
         });
     }
 
+    // country_select
+    callback_select_country(event){
+        this.country = this.dataService.country;
+        this.country_obj = this.dataService.countries[this.country];
+        this.exchange = Math.floor(this.point / this.country_obj['exchange']);
+    }
+
     // translate octopus view to bottom of screen
     onLoadOctopus(event) {
         console.log(this.tag + " onLoadOctopus");

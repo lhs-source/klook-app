@@ -1,12 +1,30 @@
-<GridLayout class="actionbar" columns="*, auto, auto">
-    <Image col="0" class="logo" src="~/images/logo.png" horizontalAlignment="left" verticalAlignment="bottom" marginBottom="2"></Image>
-    <GridLayout col="1" class="locale" verticalAlignment="center">
-        <Image class="frame" src="~/images/select_arrow.png"></Image>
-        <GridLayout rows="auto, auto" columns="24, *, auto" width="100%" horizontalAlignment="right">
-            <Label row="0" col="1" class="locale-txt" text="{{locale[locale_index]}}" verticalAlignment="center" translateY="2"></Label>
-            <Label row="1" col="1" class="locale-currency" text="(THB)" verticalAlignment="center" translateY="-3"></Label>
-            <Image row="0" rowspan="2" col="2" class="country" src="~/images/ico_th.png"></Image>
+<GridLayout>
+    <GridLayout class="actionbar" columns="*, auto, auto">
+        <Image col="0" class="logo" src="~/images/logo.png" horizontalAlignment="left" verticalAlignment="bottom"
+            marginBottom="2"></Image>
+        <GridLayout #countryref col="1" class="locale" verticalAlignment="center" (tap)="onTapLocale()">
+            <Image class="frame" src="~/images/select_arrow.png"></Image>
+            <GridLayout rows="auto, auto" columns="16, *, auto" width="100%" horizontalAlignment="right">
+                <Label row="0" col="1" class="locale-txt" text="{{countries_mapping[country]}}" verticalAlignment="center"
+                    translateY="2"></Label>
+                <Label row="1" col="1" class="locale-currency" text="{{'(' + countries[country].currency + ')'}}" verticalAlignment="center"
+                    translateY="-3"></Label>
+                <Image row="0" rowspan="2" col="2" class="country" src="{{countries_img[country]}}"></Image>
+            </GridLayout>
         </GridLayout>
+        <Image col="2" class="close-btn"
+            src="{{isClose === false ? '~/images/btn_person.png' : '~/images/btn_close.png'}}"
+            verticalAlignment="center" (tap)="onTapClose($event)"></Image>
     </GridLayout>
-    <Image col="2" class="close-btn" src="{{isClose === false ? '~/images/btn_person.png' : '~/images/btn_close.png'}}" verticalAlignment="center" (tap)="onTapClose($event)"></Image>
+
+    <GridLayout>
+        <StackLayout class="country-modal" #countrymodalref horizontalAlignment="Right"  marginBottom="96" opacity="0">
+            <!-- <Image src="~/images/box_01.png"></Image> -->
+            <StackLayout class="list" orientation="horizontal" *ngFor="let con of countries | keyvalue" horizontalAlignment="right" (tap)="onTapCountry($event, con.key)">
+                <Label class="str" text="{{countries_mapping[con.key]}}"></Label>
+                <Image class="img" src="{{countries_img[con.key]}}" height="24"></Image>
+            </StackLayout>
+            <!-- <Image src="~/images/box_03.png"></Image> -->
+        </StackLayout>
+    </GridLayout>
 </GridLayout>
