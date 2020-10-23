@@ -8,9 +8,9 @@
         <StackLayout class="row row-end" orientation="horizontal">
             <Label row="2" col="0" class="label" text="이용금액"></Label>
             <StackLayout row="2" col="1" orientation="horizontal">
-                <Label class="content-point" text="{{(pay_info.amount | number:'1.0-0') + ' ' + currency}}" verticalAlignment="center" marginLeft="16"></Label>
+                <Label class="content-point" text="{{(pay_info.amount | abs | number:'1.0-0') + ' ' + currency}}" verticalAlignment="center" marginLeft="16"></Label>
                 <Label class="str" text="(" marginLeft="4" verticalAlignment="center"></Label>
-                <Label class="str" text="{{point | number:'1.0-0'}}" verticalAlignment="center"></Label>
+                <Label class="str" text="{{point | abs | number:'1.0-0'}}" verticalAlignment="center"></Label>
                 <Label class="str" text=" Point 사용)" verticalAlignment="center"></Label>
             </StackLayout>
         </StackLayout>

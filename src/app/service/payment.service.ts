@@ -18,7 +18,7 @@ export class PaymentService {
     // payment info from qr
     pay_info : QrData = {
         merchant: "Central Department Store (Central Hat Yai)",
-        amount: 419,
+        amount: -419,
         description: "포인트사용",
         taxfree: false,
         utu: true,
@@ -72,7 +72,7 @@ export class PaymentService {
                 "customerId": "CUST_100000076"
             },
             "totalAmount": {
-              "amount": String(this.pay_info.amount),
+              "amount": String(Math.abs(this.pay_info.amount)),
               "currency": "THB"
             },
             "transactionType": "TRANSFER"

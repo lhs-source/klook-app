@@ -67,7 +67,28 @@ export class MyActionBarComponent implements OnInit {
 
         conref.on('loaded', (arg)=>{
             setTimeout(() => {
-                // console.log("load countryref")
+                // // console.log("load countryref")
+                // console.log(conmodalref.getLocationRelativeTo(conref));
+                // console.log(conref.getLocationRelativeTo(conmodalref));
+                // let loc = conref.getLocationRelativeTo(conmodalref);
+
+                // this.modal_loc.x = loc.x - 16;
+                // this.modal_loc.y = loc.y + 32;
+
+                // conmodalref.translateX = this.modal_loc.x
+                // conmodalref.translateY = this.modal_loc.y;
+                // // conmodalref.animate({
+                // //     translate:{x:loc.x, y:loc.y}
+                // // })
+                // conmodalref.eachChild((view)=>{
+                //     this.country_views.push(view);
+                //     return true;
+                // })
+            });
+        });
+        conmodalref.on('loaded', (arg)=>{
+            setTimeout(() => {
+                console.log("load conmodalref")
                 console.log(conmodalref.getLocationRelativeTo(conref));
                 console.log(conref.getLocationRelativeTo(conmodalref));
                 let loc = conref.getLocationRelativeTo(conmodalref);
@@ -86,12 +107,6 @@ export class MyActionBarComponent implements OnInit {
                 })
             });
         });
-        // conmodalref.on('loaded', (arg)=>{
-        //     setTimeout(() => {
-        //         console.log("load conmodalref")
-        //         console.log(conmodalref.getLocationRelativeTo(conref));
-        //     });
-        // });
     }
 
     onTapLocale(){

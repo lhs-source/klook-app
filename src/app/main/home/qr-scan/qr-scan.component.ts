@@ -82,6 +82,7 @@ export class QrScanComponent implements OnInit {
             this.barcodes.forEach((elem) => {
                 // console.log(elem.value);
                 pay_info = JSON.parse(elem.value);
+                pay_info.amount = -pay_info.amount;
                 // console.log(pay_info);
             });
             this.paymentService.storePayData(pay_info);

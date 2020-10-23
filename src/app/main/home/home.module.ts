@@ -15,6 +15,8 @@ registerElement("MLKitBarcodeScanner", () => require("nativescript-plugin-fireba
 
 import { ComponentsModule } from "../../components/components.module";
 
+import { AbsoultePipe } from "../../service/absoulte.pipe";
+
 @NgModule({
     exports:[
         HomeComponent,
@@ -29,7 +31,8 @@ import { ComponentsModule } from "../../components/components.module";
         QrPayComponent,
         QrScanComponent,
         TrHistoryEmbeddedComponent,
-        PayComponent
+        PayComponent,
+        AbsoultePipe
     ],
     providers:[
         BarcodeScanner,

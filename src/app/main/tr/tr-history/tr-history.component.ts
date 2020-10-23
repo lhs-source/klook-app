@@ -39,6 +39,21 @@ export class TrHistoryComponent implements OnInit {
         console.log(`${this.tag} constructor `)
         console.log("today ", this.today.toLocaleString());
 
+
+        if(this.dataService.trs.length > 0){
+            let sumpoint = 0;
+            let sumsave = 0;
+            this.dataService.trs.forEach((elem)=>{
+                if(elem.point < 0){
+                    sumpoint = sumpoint + elem.point;
+                }
+                sumsave = sumsave + elem.save_point;
+            });
+            this.use_point = Math.abs(sumpoint);
+            this.stack_point = sumsave;
+        }
+        
+
         if (isAndroid) {
             Application.android.off(AndroidApplication.activityBackPressedEvent);
             Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
