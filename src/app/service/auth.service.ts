@@ -26,6 +26,10 @@ export class AuthService {
         this.pin = getString("pin", "");
         this.is_registered = getBoolean("isRegistered", false);
         this.has_octopus = getBoolean("hasOctopus", false);
+
+        console.log("pin =",this.pin);
+        console.log("is_registered =",this.is_registered);
+        console.log("has_octopus =",this.has_octopus);
     }
 
     reset(){
@@ -41,7 +45,15 @@ export class AuthService {
         setString("pin", this.pin);
         this.is_registered = true;
         setBoolean("isRegistered", this.is_registered);
+        
+        console.log("pin =",this.pin);
+        console.log("is_registered =",this.is_registered);
+        console.log("has_octopus =",this.has_octopus);
+    }
+
+    register_octopus(){
         this.has_octopus = true;
         setBoolean("hasOctopus", this.has_octopus);
     }
+
 }

@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     constructor(private routerExtensions : RouterExtensions, private authService: AuthService){
         console.log(this.tag, "constructor");
         
-        if(this.authService.pin.length > 0){
+        if(this.authService.is_registered === true){
             // already registered
             this.routerExtensions.navigate(['/initial-auth/pin'], { clearHistory:true });
         }else{

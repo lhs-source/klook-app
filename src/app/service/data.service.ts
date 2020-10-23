@@ -280,13 +280,13 @@ export class DataService {
 
     database: Couchbase;
     constructor() {
+        this.point = getNumber("point", 120000);
+        this.country = getString("country", "태국");
         this.initialize();
     }
 
     initialize(){
         console.log("setting user data...");
-        this.point = getNumber("point", 120000);
-        this.country = getString("country", "태국");
 
         this.database = new Couchbase("klook");
         // get countries
@@ -436,6 +436,7 @@ export class DataService {
     }
     resetPoint(){
         this.point = 120000;
+        setNumber("point", this.point);
     }
 
     //--------------

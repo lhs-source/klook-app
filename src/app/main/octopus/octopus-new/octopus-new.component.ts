@@ -5,6 +5,7 @@ import { RouterExtensions } from "@nativescript/angular";
 import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase } from "tns-core-modules";
 import { screen } from "tns-core-modules/platform/platform"
 import { CustomTransitionBack } from "../../../util/klook-transition";
+import { AuthService } from "../../../service/auth.service";
 
 @Component({
     selector: "octopus-new",
@@ -28,7 +29,8 @@ export class OctopusNewComponent implements OnInit {
         this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
 
-    constructor(private routerExtensions : RouterExtensions) {
+    constructor(private routerExtensions : RouterExtensions,
+        private authService : AuthService) {
         console.log(`${this.tag} constructor `)
     }
 
@@ -48,15 +50,7 @@ export class OctopusNewComponent implements OnInit {
 
     onTabIssue(event){
         console.log(this.tag + " onTabIssue");
+        this.authService.register_octopus();
         this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
-    }
-
-    navigateBack(event) {
-        console.log(this.tag + " navigateChargePoint");
-        if(this.routerExtensions.canGoBack()){
-            this.routerExtensions.back();
-        }else{
-            this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
-        }
     }
 }

@@ -20,7 +20,7 @@ export class DoneComponent implements OnInit {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
 
-        this.authService.register();        
+        this.authService.register();
     }
     onTapNext(){
         this.routerExtensions.navigate(["../../main"], {

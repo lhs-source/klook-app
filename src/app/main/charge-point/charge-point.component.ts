@@ -43,6 +43,7 @@ export class ChargePointComponent implements OnInit {
     @ViewChild('amounttf', {static:true}) amounttf : ElementRef;
     isKeypadShow= false;
     amount = '';
+    amount_num = 0;
     cursor = 0;
     
     @ViewChild('amounttf_autounder', {static:true}) amounttf_autounder : ElementRef;
@@ -191,7 +192,12 @@ export class ChargePointComponent implements OnInit {
     }
     onReturnPress(event){
         let tf = event.object as TextField;
-        this.amount = tf.text;
+        this.amount_num = Number(tf.text);
+        if(this.amount_num > this.selected_way.balance){
+            this.amount_num = this.selected_way.balance;
+            tf.text = String(this.amount_num);
+            tf.android.setSelection(tf.text.length);
+        }
     }
     onTapTextfield(event, index){
         console.log("onTapTextfield");
@@ -344,7 +350,7 @@ export class ChargePointComponent implements OnInit {
             type:"transactions",
             class: "포인트충전",
             merchant: this.selected_way.title + " 충전",
-            point: Number(this.amount),
+            point: this.amount_num,
             curr: 0,
             date: new Date(),
             description: "포인트교환",
@@ -352,7 +358,7 @@ export class ChargePointComponent implements OnInit {
             utu: false,
             save_point: 0,
         });
-        this.dataService.addPoint(Number(this.amount));
+        this.dataService.addPoint(this.amount_num);
         this.dialogSuccess(()=>{
             this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
         })
