@@ -21,12 +21,6 @@ export class OctopusChargeComponent implements OnInit {
 
     card_index = 0;
 
-    // actionbar emit click close
-    actionbar_click_close(isclose){
-        console.log(this.tag + " actionbar close button clicked = " + isclose);
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
-    }
-
     constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute) {
         console.log(`${this.tag} constructor `)
     }
@@ -40,6 +34,12 @@ export class OctopusChargeComponent implements OnInit {
         }));
         
         
+    }
+
+    // actionbar emit click close
+    actionbar_click_close(isclose){
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
     onLoadedCardImage(event){
         let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;

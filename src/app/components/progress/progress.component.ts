@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from "@angular/core";
 import { ProgressService } from "./progress.service";
 import { ModalInterface } from "./modal-interface";
 import { ModalDialogParams } from "@nativescript/angular";
+import { isAndroid, Page } from "tns-core-modules";
+import * as application from "tns-core-modules/application";
 
 // * Usage
 // <progress progress="progress" point="122" point_unit="HKD" backgroundColor="#ff5722"></progress>
@@ -15,9 +17,23 @@ export class ProgressComponent implements OnInit, ModalInterface {
 
     constructor(
         private params: ModalDialogParams,
-        private progressService: ProgressService) {
+        private progressService: ProgressService,
+        private page: Page) {
         this.progressService.setComponent(this);
         console.log("progress component constructor")
+
+        this.page.on("shownModally", data => {
+            if (isAndroid) {
+                console.log("here");
+                let fragmentManger = application.android.foregroundActivity.getFragmentManager();
+                let dialogFragment = fragmentManger.findFragmentByTag("dialog");
+                if (dialogFragment !== null) {
+                    dialogFragment.setCancelable(false);
+                    dialogFragment.setCanceledOnTouchOutside(false);;
+                }
+            }
+    
+        });
     }
 
     public close(result: string) {

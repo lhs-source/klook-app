@@ -16,13 +16,13 @@ export class AppComponent implements OnInit {
     constructor(private routerExtensions : RouterExtensions, private authService: AuthService){
         console.log(this.tag, "constructor");
         
-        // if(this.authService.pin.length > 0){
-        //     // already registered
-        //     this.routerExtensions.navigate(['/initial-auth/pin'], { clearHistory:true });
-        // }else{
-        //     // not registered, should register new user
-        //     this.routerExtensions.navigate(['/initial-auth'], { clearHistory:true });
-        // }
+        if(this.authService.pin.length > 0){
+            // already registered
+            this.routerExtensions.navigate(['/initial-auth/pin'], { clearHistory:true });
+        }else{
+            // not registered, should register new user
+            this.routerExtensions.navigate(['/initial-auth'], { clearHistory:true });
+        }
     }
     ngOnInit(): void {
         console.log(this.tag, "ngOnInit");

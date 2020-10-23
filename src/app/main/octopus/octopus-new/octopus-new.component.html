@@ -1,7 +1,7 @@
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>
-<GridLayout #rootlayout rows="72, auto, *, auto, auto" class="nav" height="100%" width="100%">
+<GridLayout #rootlayout rows="80, auto, *, auto, auto" class="nav" height="100%" width="100%">
     <title row="1" title="교통카드 > 발급하기" backgroundColor="#888"></title>
     
     <carousel-card [elem_list]="cardlist" (onTapElem)="onTapCard($event)"></carousel-card>

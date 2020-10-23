@@ -1,11 +1,11 @@
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>
-<GridLayout #rootlayout rows="72,auto,*,auto,auto,auto, auto, auto" height="100%" width="100%">
+<GridLayout #rootlayout rows="80,auto,*,auto,auto,auto, auto, auto" height="100%" width="100%">
     <title row="1" title="이용 내역 > 영수증" backgroundColor="#888"></title>
     <GridLayout row="2" marginLeft="16" marginRight="16" marginTop="16">
         
-        <MapView #mapView [latitude]="latitude" [longitude]="longitude"
+        <MapView *ngIf="" #mapView [latitude]="latitude" [longitude]="longitude"
         [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
         [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
         (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"

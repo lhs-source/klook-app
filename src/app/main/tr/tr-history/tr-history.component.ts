@@ -86,19 +86,11 @@ export class TrHistoryComponent implements OnInit {
             transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
         });
     }
-
-
     onTapFirst() {
-        // this.routerExtensions.navigate(['/main/home'], {
-        //     clearHistory: true,
-        //     transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }
-        // });
-        this.routerExtensions.back();
-    }
-
-    navigateDetails(event) {
-        console.log(this.tag + " navigateChargePoint");
-        this.routerExtensions.navigate(['/main/tr/detail'], { transition: { instance: new CustomTransition(250, AnimationCurve.linear) } });
-
+        this.routerExtensions.navigate(['/main/home'], {
+            clearHistory: true,
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }
+        });
+        // this.routerExtensions.back();
     }
 }

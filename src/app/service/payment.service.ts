@@ -28,11 +28,12 @@ export class PaymentService {
 
     getToken() {
         let path = "/oauth?x-apikey=1gH8WT02XvyxvqjIg24dSKaUBHeNw59i";
+        let temp_url = "https://yrkim-eval-prod.apigee.net/oauth?x-apikey=1gH8WT02XvyxvqjIg24dSKaUBHeNw59i";
         let headers = new HttpHeaders({
             "Authorization": this.initial_token,
             "Content-Type": "application/x-www-form-urlencoded",
         });
-        return this.httpClient.post(this.server_url + path, JSON.stringify({ "formData": "<string>" }), { headers: headers })
+        return this.httpClient.post(temp_url, JSON.stringify({ "formData": "<string>" }), { headers: headers })
             .pipe(
                 tap(
                     response => {

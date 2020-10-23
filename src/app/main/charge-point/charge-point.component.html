@@ -1,7 +1,7 @@
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>
-<GridLayout #rootlayout rows="72,auto,auto,auto,*, auto, auto" height="100%" width="100%">
+<GridLayout #rootlayout rows="80,auto,auto,auto,*, auto, auto" height="100%" width="100%">
     <title row="1" title="{{title}}" backgroundColor="#888"></title>
     <tab row="2" [tab_labels]="['일반충전', '자동충전']" (tapElem)="callback_tapTab($event)"></tab>
     <GridLayout row="3" class="way-frame" (tap)="onTapWay()">

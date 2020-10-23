@@ -80,9 +80,9 @@ export class QrScanComponent implements OnInit {
                 utu: true,
             };
             this.barcodes.forEach((elem) => {
-                console.log(elem.value);
+                // console.log(elem.value);
                 pay_info = JSON.parse(elem.value);
-                console.log(pay_info);
+                // console.log(pay_info);
             });
             this.paymentService.storePayData(pay_info);
             this.routingService.emitChange('pay');

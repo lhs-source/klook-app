@@ -1,16 +1,24 @@
 .actionbar{
     padding:0 16;
-    padding-top: 36;
+    padding-top: 44;
     padding-bottom: 16;
 
     background-color: white;
 
     .logo{
         // margin:0 4;
+        height:24;
     }
 
     .locale{
         margin: 0 4;
+
+        .frame{
+            height:28;
+        }
+        .country{
+            height:28;
+        }
 
         &-txt{
             font-size: 13; 
@@ -31,5 +39,6 @@
     }
     .close-btn{
         // margin:0 4;
+        height: 28;
     }
 }

@@ -28,7 +28,7 @@ function decode_utf8(s) {
 export class DataService {
     point = 120000;
     country = "태국";
-    countries = {
+    countries_init = {
         "태국": {
             currency: "THB",
             exchange: 36.98,
@@ -50,7 +50,8 @@ export class DataService {
             exchange: 1180.00,
         }
     }
-    merchants = {
+    countries = {};
+    merchants_init = {
         "Central Department Store (Central Hat Yai)": {
             class: "백화점",
             lat: 7.0057298,
@@ -112,6 +113,7 @@ export class DataService {
             address: "Phloen Chit Rd, Lumphini, Pathum Wan District, Bangkok 10330 태국",
         }
     };
+    merchants = {};
     icons = {
         "백화점": "~/images/ico_type2.png",
         "편의점": "~/images/ico_type3.png",
@@ -126,7 +128,7 @@ export class DataService {
 
     }
     tr_group_calced = false;
-    trs: PaymentData[] = [
+    trs_init: PaymentData[] = [
         {
             type: "transactions",
             class: "백화점",
@@ -273,9 +275,15 @@ export class DataService {
         }
     ];
 
+    trs : PaymentData[] = [];
+
 
     database: Couchbase;
     constructor() {
+        this.initialize();
+    }
+
+    initialize(){
         console.log("setting user data...");
         this.point = getNumber("point", 120000);
         this.country = getString("country", "태국");
@@ -298,14 +306,15 @@ export class DataService {
         if (temp_countries.length === 0) {
             // create new datas
             console.log("creating new countries data...");
-            for (let key in this.countries) {
+            for (let key in this.countries_init) {
                 let item = {
                     type: "countries",
                     name: encode_utf8(key),
-                    currency: this.countries[key].currency,
-                    exchange: this.countries[key].exchange
+                    currency: this.countries_init[key].currency,
+                    exchange: this.countries_init[key].exchange
                 }
                 // console.log("new country =>", item);
+                this.countries[key] = this.countries_init[key];
                 this.database.createDocument(item);
             }
         } else {
@@ -333,16 +342,17 @@ export class DataService {
         if (temp_merchants.length === 0) {
             // create new datas
             console.log("creating new merchants data...");
-            for (let key in this.merchants) {
+            for (let key in this.merchants_init) {
                 let item = {
                     type: "merchants",
                     name: key,
-                    lat: this.merchants[key].lat,
-                    long: this.merchants[key].long,
-                    address: encode_utf8(this.merchants[key].address),
-                    class: encode_utf8(this.merchants[key].class),
+                    lat: this.merchants_init[key].lat,
+                    long: this.merchants_init[key].long,
+                    address: encode_utf8(this.merchants_init[key].address),
+                    class: encode_utf8(this.merchants_init[key].class),
                 }
                 // console.log("new merchant =>", item);
+                this.merchants[key] = this.merchants_init[key];
                 this.database.createDocument(item);
             }
         } else {
@@ -384,9 +394,10 @@ export class DataService {
             // utu: false,
             // save_point: 1250,
             console.log("creating new transactions data...");
-            this.trs.forEach((elem) => {
+            this.trs_init.forEach((elem) => {
                 let item = encode_paymentData(elem);
                 // console.log("new transaction =>", item);
+                this.trs.push(elem);
                 console.log(this.database.createDocument(item));
             });
         } else {
@@ -403,6 +414,12 @@ export class DataService {
         //     console.log("trs=",elem);
         // });
     }
+    reset(){
+        this.resetPoint();
+        this.clearTr();
+        this.country = "태국";
+        this.initialize();
+    }
 
     //-------
     // point
@@ -417,7 +434,9 @@ export class DataService {
         setNumber("point", this.point);
         console.log("DataService point =", this.point);
     }
-
+    resetPoint(){
+        this.point = 120000;
+    }
 
     //--------------
     // transactions
@@ -489,6 +508,11 @@ export class DataService {
             save_point: point * 0.1,
         };
         return item;
+    }
+    clearTr(){
+        this.trs = [];
+        this.tr_group_calced = false;
+        this.database.destroyDatabase();
     }
     //--------------
     // merchant

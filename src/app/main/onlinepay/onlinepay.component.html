@@ -1,7 +1,7 @@
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>
-<GridLayout #rootlayout rows="72,auto,*,auto, 52" height="100%" width="100%">
+<GridLayout #rootlayout rows="80,auto,*,auto, 52" height="100%" width="100%">
 
     <!-- <title title="title" point="122" point_unit="HKD" backgroundColor="#ff5722"></title> -->
     <title row="1" title="온라인 결제" backgroundColor="#888"></title>
@@ -20,8 +20,8 @@
         </ng-template>
         <ng-template #back>
             <GridLayout (tap)="onTapBack()" horizontalAlignment="center" columns="*, auto, *">
-                <Image col="1" src="~/images/card_klookb.png"></Image>
-                <StackLayout col="1" class="back" horizontalAlignment="right">
+                <Image #cardframe col="1" src="~/images/card_klookb.png"></Image>
+                <StackLayout #cardelems col="1" class="back" horizontalAlignment="right">
                     <Label class="cardlabel" row="0" text="카드번호" horizontalAlignment="right"></Label>
                     <Label class="cardinfo" row="1" text="{{card_info.cardno}}" horizontalAlignment="right"></Label>
                     <Label class="hr" row="2"></Label>

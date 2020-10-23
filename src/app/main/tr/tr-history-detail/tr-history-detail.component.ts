@@ -22,8 +22,8 @@ export class TrHistoryDetailComponent implements OnInit {
     currency = "THB"
 
     // google map
-    latitude =  7.0057298;
-    longitude = 100.4712895;
+    latitude =  37.566389;
+    longitude = 126.977945;
     zoom = 16;
     minZoom = 0;
     maxZoom = 22;

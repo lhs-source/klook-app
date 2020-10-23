@@ -100,6 +100,9 @@ export class PayComponent implements OnInit {
                     this.dataService.addTrFromQr(this.pay_info);
                     this.dataService.decreasePoint(this.point);
                     
+                    // activity indicator off
+                    this.progressService.progressOff();   
+                    
                     // show dialog
                     this.dialogSuccess(()=>{
                         // go tr page
@@ -121,17 +124,19 @@ export class PayComponent implements OnInit {
                     // console.log("authorizationCode =",authorizationCode);
                     // console.log("transactionId =",transactionId);
                     
+                    // activity indicator off
+                    this.progressService.progressOff();   
                     this.dialogError(()=>{});
                 }
             },
             err=>{
                 console.log(this.tag, "goPay error = ", err)
+                // activity indicator off
+                this.progressService.progressOff();   
                 this.dialogError(()=>{});
             },
             ()=>{
-                // complete
-                // activity indicator off
-                this.progressService.progressOff();           
+                // complete        
             });
     }
 }

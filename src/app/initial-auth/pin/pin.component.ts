@@ -9,6 +9,8 @@ import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../service/auth.service";
 
+import * as Toast from 'nativescript-toast';
+
 @Component({
     selector: "Pin",
     templateUrl: "./pin.component.html",
@@ -78,7 +80,8 @@ export class PinComponent implements OnInit {
                     });
                 }
             }else{
-                console.log("pin is not valid");
+                console.log("");
+                Toast.makeText("Pin is not valid = " + this.authService.pin, "long").show();
                 this.pin = "";
                 this.changePinCode();
             }
