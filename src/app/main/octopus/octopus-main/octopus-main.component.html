@@ -1,6 +1,3 @@
-<GridLayout rows="auto, *">
-    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
-</GridLayout>
 
 <GridLayout #rootlayout rows="80, auto, *, auto, auto" class="nav" height="100%" width="100%">
     <title row="1" title="홍콩 옥토퍼스 보유 잔액" point="800" point_unit="HKD" backgroundColor="#ff5722"></title>
@@ -18,4 +15,7 @@
             <Label text="홍콩 옥토퍼스 카드 이용 안내" style="font-size: 15; color:#ff5722;"></Label>
             <Image src="~/images/btn_arrow01.png" width="8" style="margin: 0 8;"></Image></StackLayout>
     </GridLayout>
+</GridLayout>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>

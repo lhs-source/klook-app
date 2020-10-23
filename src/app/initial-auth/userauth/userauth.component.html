@@ -1,6 +1,4 @@
-<GridLayout rows="auto, *">
-    <simple-actionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></simple-actionbar>
-</GridLayout>
+
 <GridLayout #rootlayout rows="80,auto,auto, auto, *,auto" height="100%" width="100%">
     <StackLayout row="1" marginTop="16">
         <Label class="info-str" text="회원가입을 위한 최종단계인 보인인증 단계입니다" horizontalAlignment="center"></Label>
@@ -21,4 +19,7 @@
         <Label class="warn" text="본인인증 시 제공되는 정보는 해당 인증기관에서 직접" textWrap="true" textAlignment="center" horizontalAlignment="center"></Label>
         <Label class="warn" text="수집하며, 인증 이외의 용도로 이용 또는 저장하지 않습니다" textWrap="true" textAlignment="center" horizontalAlignment="center"></Label>
     </StackLayout>
+</GridLayout>
+<GridLayout rows="auto, *">
+    <simple-actionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></simple-actionbar>
 </GridLayout>

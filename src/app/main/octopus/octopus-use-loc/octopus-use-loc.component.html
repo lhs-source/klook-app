@@ -1,6 +1,3 @@
-<GridLayout rows="auto, *">
-    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
-</GridLayout>
 
 <GridLayout #rootlayout rows="80, auto, auto, auto, auto" class="nav" height="100%" width="100%">
     <GridLayout class="title" row="1" columns="*, auto, auto">
@@ -33,4 +30,7 @@
         <Image col="0" src="~/images/ico_octopus.png" margin="8" marginLeft="20" marginRight="16"></Image>
         <Label col="1" text="Use it anywhere with an Octopus logo" style="color:#888; font-size:14;" verticalAlignment="center"></Label>
     </GridLayout>
+</GridLayout>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>

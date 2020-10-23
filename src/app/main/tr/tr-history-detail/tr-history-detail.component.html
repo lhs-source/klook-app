@@ -1,6 +1,4 @@
-<GridLayout rows="auto, *">
-    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
-</GridLayout>
+
 <GridLayout #rootlayout rows="80,auto,*,auto,auto,auto, auto, auto" height="100%" width="100%">
     <title row="1" title="이용 내역 > 영수증" backgroundColor="#888"></title>
     <GridLayout row="2" marginLeft="16" marginRight="16" marginTop="16">
@@ -51,4 +49,7 @@
         </StackLayout>
     </StackLayout>
     <Button row="7" class="btn" text="이의제기" marginTop="24" marginBottom="24" (tap)="addMarker()"></Button>
+</GridLayout>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>

@@ -1,6 +1,4 @@
-<GridLayout rows="auto, *">
-    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
-</GridLayout>
+
 
 <GridLayout #rootlayout rows="80, auto, *, auto, auto" class="nav" height="100%" width="100%">
     <title row="1" title="계정관리" backgroundColor="#888"></title>
@@ -36,4 +34,7 @@
         <Label row="1" text="로그아웃 이후 자동 적용 예정입니다" horizontalAlignment="center" style="font-size: 14; color: #888;"></Label>
     </GridLayout>
     <ripple-button row="4" text="해지하기" backgroundColor="#ff5722" textColor="white" (click)="navigateLink($event)"></ripple-button>
+</GridLayout>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>

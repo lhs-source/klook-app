@@ -1,6 +1,3 @@
-<GridLayout rows="auto, *">
-    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
-</GridLayout>
 
 <GridLayout #rootlayout rows="80,auto,auto,auto,auto, *, auto" height="100%" width="100%">
     <title row="1" title="{{title}}" backgroundColor="#888"></title>
@@ -47,6 +44,9 @@
 
     <ripple-button row="6" text="포인트 교환하기" backgroundColor="#ff5722" textColor="white" (click)="change($event)"></ripple-button>
     
+</GridLayout>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>
 
 <GridLayout #modalframe rows="*,auto" backgroundColor="#00000000">

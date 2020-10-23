@@ -1,6 +1,3 @@
-<GridLayout rows="auto, *">
-    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
-</GridLayout>
 
 <GridLayout #rootlayout rows="80, auto, auto, *, auto, auto" height="100%" width="100%">
     <title row="1" title="계정관리 > 여권정보 등록" backgroundColor="#888"></title>
@@ -67,4 +64,7 @@
         <Label row="1" class="str" text="Tax-refund 이외 다른 목적으로 사용되지 않습니다" horizontalAlignment="center"></Label>
     </GridLayout>
     <ripple-button row="5" text="등록하기" backgroundColor="#ff5722" textColor="white" (click)="navigateBack($event)"></ripple-button>
+</GridLayout>
+<GridLayout rows="auto, *">
+    <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
 </GridLayout>
