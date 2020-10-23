@@ -22,10 +22,14 @@ export class AuthService {
     pin = "";
     // registered octopus
     has_octopus = false;
+    // deactive flag
+    is_deactive = false;
+
     constructor() { 
         this.pin = getString("pin", "");
         this.is_registered = getBoolean("isRegistered", false);
         this.has_octopus = getBoolean("hasOctopus", false);
+        this.is_deactive = getBoolean("isDeactive", false);
 
         console.log("pin =",this.pin);
         console.log("is_registered =",this.is_registered);
@@ -36,9 +40,11 @@ export class AuthService {
         this.is_registered = false;
         this.pin = "";
         this.has_octopus = false;
+        this.is_deactive = false;
         setString("pin", this.pin);
         setBoolean("isRegistered", this.is_registered);
         setBoolean("hasOctopus", this.has_octopus);
+        setBoolean("isDeactive", this.is_deactive);
     }
     
     register(){
