@@ -299,7 +299,7 @@ export class CarouselCardComponent implements OnInit {
                 curve: AnimationCurve.easeOut
             };
 
-            if (si.translateX < (this.cards[this.card_index] - one_card_width / 4) || this.prev_delta < 24) {
+            if (si.translateX < (this.cards[this.card_index] - one_card_width / 4) || this.prev_delta < -24) {
                 // to the right
                 console.log("to the right");
 

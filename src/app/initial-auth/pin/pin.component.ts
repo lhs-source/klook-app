@@ -24,7 +24,7 @@ export class PinComponent implements OnInit {
     old_color = "#ddd";
     new_color = "gold";
 
-    constructor(private routerExtensions: RouterExtensions, private route: ActivatedRoute, private authService : AuthService) {
+    constructor(private routerExtensions: RouterExtensions, private route: ActivatedRoute, private authService: AuthService) {
         // Use the component constructor to inject providers.
         console.log("[PinComponent] constructor");
     }
@@ -41,13 +41,13 @@ export class PinComponent implements OnInit {
         console.log(this.tag, "callback_tapNumber =", num);
         // let kf = this.amounttf.nativeElement as TextField;
         // console.log(kf.text);
-        
+
         if (num === "back") {
             if (this.pin.length > 0) {
                 // console.log("ok del")
                 this.pin = this.pin.substring(0, this.pin.length - 1);
             }
-        } else if(num === "enter") {
+        } else if (num === "enter") {
         }
         else {
             if (this.pin.length < 6) {
@@ -57,37 +57,36 @@ export class PinComponent implements OnInit {
         console.log("pin = " + this.pin);
         this.changePinCode();
 
-        if (this.pin.length === 6) {
-            // 6 chars ok
-            if(this.authService.pin === this.pin){
-                if(this.authService.is_registered === true){
-                    // already register
-                    console.log("this.authService.is_registered =",this.authService.is_registered);
-                    this.routerExtensions.navigate(["/main"], { 
-                        clearHistory: true, transition: {
-                            name: 'slide',
-                            duration: 250,
-                            curve: AnimationCurve.easeOut
-                        }
-                    });
-                }else{
-                    // new register
-                    console.log("this.authService.is_registered =",this.authService.is_registered);
-                    this.routerExtensions.navigate(["../done"], {
-                        relativeTo: this.route, clearHistory: true, transition: {
-                            name: 'slide',
-                            duration: 250,
-                            curve: AnimationCurve.easeOut
-                        }
-                    });
+        setTimeout(() => {
+            if (this.pin.length === 6) {
+                // 6 chars ok
+                if (this.authService.pin === this.pin) {
+                    if (this.authService.is_registered === true) {
+                        // already register
+                        this.routerExtensions.navigate(["/main"], {
+                            clearHistory: true, transition: {
+                                name: 'slide',
+                                duration: 250,
+                                curve: AnimationCurve.easeOut
+                            }
+                        });
+                    } else {
+                        // new register
+                        this.routerExtensions.navigate(["../done"], {
+                            relativeTo: this.route, clearHistory: true, transition: {
+                                name: 'slide',
+                                duration: 250,
+                                curve: AnimationCurve.easeOut
+                            }
+                        });
+                    }
+                } else {
+                    Toast.makeText("비밀번호가 맞지 않습니다" + this.authService.pin).show();
+                    this.pin = "";
+                    this.changePinCode();
                 }
-            }else{
-                console.log("");
-                Toast.makeText("비밀번호가 맞지 않습니다" + this.authService.pin).show();
-                this.pin = "";
-                this.changePinCode();
             }
-        }
+        });
     }
 
     changePinCode() {
