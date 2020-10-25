@@ -9,8 +9,8 @@
             <GridLayout class="day" columns="16" width="100%" height="16">
                 <Label class="line" col="0" width="100%"></Label>
             </GridLayout>
-            <GridLayout *ngFor="let item of transactionService.tr_grouped | keyvalue : keyDescOrder; let index = index" class="day"
-                rows="auto, auto" columns="24, *" width="100%">
+            <GridLayout *ngFor="let item of transactionService.tr_grouped | keyvalue : keyDescOrder; let index = index"
+                class="day" rows="auto, auto" columns="24, *" width="100%">
                 <Label class="line" col="0" rowspan="2" width="100%"></Label>
                 <Label class="dot" col="0" [ngClass]="{'even': index % 2 === 1}" rowspan="2"
                     verticalAlignment="top"></Label>
@@ -18,19 +18,20 @@
                     <Label class="date-str" text="{{item.key}}" col="0"></Label>
                 </GridLayout>
                 <StackLayout col="1" row="1" class="items">
-                    <GridLayout class="item" *ngFor="let tr of item.value | keyvalue" rows="auto, auto"
-                        columns="auto, *, auto">
-                        <Image class="icon" row="0" rowspan="2" col="0" src="{{icons[tr.value.class]}}"
+                    <GridLayout class="item" *ngFor="let tr of item.value" rows="auto, auto" columns="auto, *, auto">
+                        <Image class="icon" row="0" rowspan="2" col="0" src="{{icons[tr.class]}}"
                             verticalAlignment="top"></Image>
-                        <Label class="merchant" row="0" rowspan="2" col="1" text="{{tr.value.merchant}}"
+                        <Label class="merchant" row="0" rowspan="2" col="1" text="{{tr.merchant}}"
                             verticalAlignment="top"></Label>
                         <StackLayout row="0" col="2" verticalAlignment="center">
                             <Label class="point"
-                                text="{{ (tr.value.curr === 0 ? '+' : '') + (tr.value.point | abs | number:'1.0-0') + ' P' }}"
+                                text="{{ (tr.curr === 0 ? '+' : '') + (tr.point | abs | number:'1.0-0') + ' P' }}"
                                 textAlignment="right" verticalAlignment="center" translateY="2"></Label>
-                            <Label class="change" *ngIf="tr.value.curr !== 0"
-                                text="{{(tr.value.curr | abs | number:'1.0-0') + ' ' + (countryService.currency)}}"
+                            <Label class="change" *ngIf="tr.curr !== 0"
+                                text="{{(tr.curr | abs | number:'1.0-0') + ' ' + (countryService.currency)}}"
                                 textAlignment="right"></Label>
+                            <!-- <Label class="change" text="{{tr.date | date:'MM-dd HH:mm:ss'}}"
+                                textAlignment="right"></Label> -->
                         </StackLayout>
                     </GridLayout>
                 </StackLayout>

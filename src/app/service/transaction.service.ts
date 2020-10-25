@@ -166,7 +166,12 @@ export class TransactionService {
     }
 
     initialize(){
+        console.log("initializing...");
         this.database = new Couchbase("transaction");
+        // this.database.destroyDatabase();
+        // console.log("destroying transactions database...");
+        // this.database = new Couchbase("transaction");
+        // console.log("creating transactions database...");
         let temp_transactions = this.database.query({
             select: [],
             from: null,
@@ -191,6 +196,7 @@ export class TransactionService {
             temp_transactions.forEach((elem) => {
                 let item = decode_paymentData(elem);
                 // console.log("get transaction =>", item);
+                // console.log("get transaction =>", item.date);
                 this.trs.push(item);
             });
         }
@@ -225,6 +231,7 @@ export class TransactionService {
         return this.trs_grouped;
     }
     get tr_grouped(){
+        console.log("tr_grouped ", this.tr_group_calced);
         if (this.tr_group_calced === false) {
             this.trs_grouped = {};
             this.trs.forEach((elem) => {
@@ -232,7 +239,8 @@ export class TransactionService {
                 let day = elem.date.getDay();
                 let days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
                 date = date.concat(days[day]);
-                // console.log(date);
+                console.log("insert ", date);
+                console.log("elem",elem.date);
                 if (!this.trs_grouped[date]) {
                     this.trs_grouped[date] = [];
                 }
@@ -254,22 +262,12 @@ export class TransactionService {
                 return 1;
             }
         })
+        console.log(this.trs);
         this.tr_group_calced = false;
     }
     addTrFromQr(qr: QrData) {
         let tr = this.qr2tr(qr);
-        this.database.createDocument(encode_paymentData(tr));
-        this.trs.unshift(tr);
-        // temp until 10/30
-        this.trs.sort((a, b)=>{
-            if(a.date > b.date){
-                return -1;
-            }else{
-                return 1;
-            }
-        })
-        this.tr_group_calced = false;
-        
+        this.addTr(tr);
     }
     qr2tr(qr : QrData){
         let point = qr.amount * this.countryService.current_country.exchange;

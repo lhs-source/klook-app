@@ -66,6 +66,7 @@ export class HomeComponent implements OnInit {
         private authService: AuthService) {
         console.log(`${this.tag} constructor `)
 
+        console.log(this.tag, "then", this.authService.info);
         this.routingservice.changeEmitted$.subscribe(url => {
             console.log("emitted ", url);
             if (url === 'pay') {

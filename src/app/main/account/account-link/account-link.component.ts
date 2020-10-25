@@ -51,7 +51,6 @@ export class AccountLinkComponent implements OnInit {
             message: "계정연동을 해제하였습니다. 초기화면으로 돌아갑니다.",
             okButtonText: "확인"
         }).then(()=>{
-            console.log(this.tag, "then", this.authService.info);
             this.routerExtensions.navigate(['/initial-auth'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
         });
     }

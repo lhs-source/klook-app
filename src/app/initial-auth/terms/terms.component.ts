@@ -57,8 +57,6 @@ export class TermsComponent implements OnInit {
 
     constructor(private routerExtensions: RouterExtensions, private authService : AuthService) {
         console.log(`${this.tag} constructor `)
-
-        console.log(this.tag, this.authService.info);
     }
 
     ngOnInit(): void {

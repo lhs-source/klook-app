@@ -103,7 +103,7 @@ export class PayComponent implements OnInit {
                 if(status === "ACCP"){
                     // add the tr to transaction list
                     this.transactionService.addTrFromQr(this.pay_info);
-                    this.dataService.decreasePoint(this.point);
+                    this.dataService.addPoint(this.point);
                     
                     // activity indicator off
                     this.progressService.progressOff();   

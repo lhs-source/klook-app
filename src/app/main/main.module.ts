@@ -46,12 +46,7 @@ const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
         OnlinepayComponent,
     ],
     providers:[
-        DataService,
-        CountryService,
-        MerchantService,
-        TransactionService,
         PaymentService,
-        AuthService,
         LOGGING_INTERCEPTOR_PROVIDER,
         ProgressService,
     ],
