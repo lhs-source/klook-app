@@ -22,13 +22,6 @@ export class OctopusNewComponent implements OnInit {
         "~/images/card_ezlink.png",
     ];
 
-    // actionbar emit click close
-    actionbar_click_close(isclose){
-        console.log(this.tag + " actionbar close button clicked = " + isclose);
-
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
-    }
-
     constructor(private routerExtensions : RouterExtensions,
         private authService : AuthService) {
         console.log(`${this.tag} constructor `)
@@ -38,14 +31,12 @@ export class OctopusNewComponent implements OnInit {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
-    
-    
-    ngAfterViewInit():void{
-        console.log(this.tag + " ngAfterViewInit");
-    }
 
-    onTapCard(index){
-        console.log(this.tag + " onTapCard = " + index);
+    // actionbar emit click close
+    actionbar_click_close(isclose){
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
+
+        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
 
     onTabIssue(event){

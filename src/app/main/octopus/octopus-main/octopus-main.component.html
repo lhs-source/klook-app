@@ -3,7 +3,7 @@
     <title row="1" title="홍콩 옥토퍼스 보유 잔액" point="800" point_unit="HKD" backgroundColor="#ff5722"></title>
 
     <carousel-card row="2" [elem_list]="cardlist" (onTapElem)="onTapCard($event)"></carousel-card>
-    <GridLayout row="3" columns="auto, *" backgroundColor="#f8f8f8" (tap)="navigateNew($event)">
+    <GridLayout row="3" columns="auto, *" backgroundColor="#f8f8f8">
         <Image row="0" col="0" src="~/images/ico_tag.png" width="64" margin="24" marginRight="44" marginLeft="32"></Image>
         <StackLayout col="1" verticalAlignment="center">
             <Label text="교통카드 이용을 위해"  style="font-size: 15; color:#555"></Label>
