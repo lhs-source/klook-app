@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { AuthService } from "../../service/auth.service";
 
 @Component({
     selector: "Terms",
@@ -54,8 +55,10 @@ export class TermsComponent implements OnInit {
         bgOff: "#ddd"
     }
 
-    constructor(private routerExtensions: RouterExtensions) {
+    constructor(private routerExtensions: RouterExtensions, private authService : AuthService) {
         console.log(`${this.tag} constructor `)
+
+        console.log(this.tag, this.authService.info);
     }
 
     ngOnInit(): void {

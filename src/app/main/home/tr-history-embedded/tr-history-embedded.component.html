@@ -9,7 +9,7 @@
             <GridLayout class="day" columns="16" width="100%" height="16">
                 <Label class="line" col="0" width="100%"></Label>
             </GridLayout>
-            <GridLayout *ngFor="let item of trs | keyvalue : keyDescOrder; let index = index" class="day"
+            <GridLayout *ngFor="let item of transactionService.tr_grouped | keyvalue : keyDescOrder; let index = index" class="day"
                 rows="auto, auto" columns="24, *" width="100%">
                 <Label class="line" col="0" rowspan="2" width="100%"></Label>
                 <Label class="dot" col="0" [ngClass]="{'even': index % 2 === 1}" rowspan="2"
@@ -26,10 +26,10 @@
                             verticalAlignment="top"></Label>
                         <StackLayout row="0" col="2" verticalAlignment="center">
                             <Label class="point"
-                                text="{{ (tr.value.curr === 0 ? '+' : '') + (tr.value.point | number:'1.0-0') + ' P' }}"
+                                text="{{ (tr.value.curr === 0 ? '+' : '') + (tr.value.point | abs | number:'1.0-0') + ' P' }}"
                                 textAlignment="right" verticalAlignment="center" translateY="2"></Label>
                             <Label class="change" *ngIf="tr.value.curr !== 0"
-                                text="{{(tr.value.curr | number:'1.0-0') + ' ' + currency}}"
+                                text="{{(tr.value.curr | abs | number:'1.0-0') + ' ' + (countryService.currency)}}"
                                 textAlignment="right"></Label>
                         </StackLayout>
                     </GridLayout>

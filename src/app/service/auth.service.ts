@@ -31,9 +31,7 @@ export class AuthService {
         this.has_octopus = getBoolean("hasOctopus", false);
         this.is_deactive = getBoolean("isDeactive", false);
 
-        console.log("pin =",this.pin);
-        console.log("is_registered =",this.is_registered);
-        console.log("has_octopus =",this.has_octopus);
+        console.log("constructor", this.info);
     }
 
     reset(){
@@ -45,6 +43,8 @@ export class AuthService {
         setBoolean("isRegistered", this.is_registered);
         setBoolean("hasOctopus", this.has_octopus);
         setBoolean("isDeactive", this.is_deactive);
+        
+        console.log("reset", this.info);
     }
     
     register(){
@@ -52,9 +52,7 @@ export class AuthService {
         this.is_registered = true;
         setBoolean("isRegistered", this.is_registered);
         
-        console.log("pin =",this.pin);
-        console.log("is_registered =",this.is_registered);
-        console.log("has_octopus =",this.has_octopus);
+        console.log("register", this.info);
     }
 
     register_octopus(){
@@ -62,4 +60,8 @@ export class AuthService {
         setBoolean("hasOctopus", this.has_octopus);
     }
 
+
+    get info(){
+        return 'Auth = [pin = ' + this.pin + ", is_registered = " + this.is_registered + ", has_octopus = " + this.has_octopus + ", is_deactive = " + this.is_deactive + ']';
+    }
 }

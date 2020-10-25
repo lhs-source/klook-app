@@ -32,7 +32,7 @@ import { AbsoultePipe } from "../../service/absoulte.pipe";
         QrScanComponent,
         TrHistoryEmbeddedComponent,
         PayComponent,
-        AbsoultePipe
+        // AbsoultePipe
     ],
     providers:[
         BarcodeScanner,

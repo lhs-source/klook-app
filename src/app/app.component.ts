@@ -14,7 +14,7 @@ import { AuthService } from "./service/auth.service";
 export class AppComponent implements OnInit {
     tag = this.constructor.name;
     constructor(private routerExtensions : RouterExtensions, private authService: AuthService){
-        console.log(this.tag, "constructor");
+        console.log(this.tag, "constructor", this.authService.is_registered);
         
         if(this.authService.is_registered === true){
             // already registered

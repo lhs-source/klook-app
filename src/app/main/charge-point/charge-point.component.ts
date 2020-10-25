@@ -11,6 +11,7 @@ import { alert } from "tns-core-modules/ui/dialogs";
 
 import { CustomTransitionBack } from "../../util/klook-transition";
 import { DataService } from "../../service/data.service";
+import { TransactionService } from "../../service/transaction.service";
 
 
 @Component({
@@ -56,7 +57,10 @@ export class ChargePointComponent implements OnInit {
     isUnder = true;
 
 
-    constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute, private dataService: DataService) {
+    constructor(private routerExtensions : RouterExtensions, 
+        private activatedRoute : ActivatedRoute, 
+        private dataService: DataService,
+        private transactionService : TransactionService) {
         console.log(`${this.tag} constructor `)
         if(isAndroid){
             Application.android.off(AndroidApplication.activityBackPressedEvent);
@@ -346,7 +350,7 @@ export class ChargePointComponent implements OnInit {
     }
 
     charge(){
-        this.dataService.addTr({
+        this.transactionService.addTr({
             type:"transactions",
             class: "포인트충전",
             merchant: this.selected_way.title + " 충전",

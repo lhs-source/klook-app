@@ -62,6 +62,7 @@ export class PinComponent implements OnInit {
             if(this.authService.pin === this.pin){
                 if(this.authService.is_registered === true){
                     // already register
+                    console.log("this.authService.is_registered =",this.authService.is_registered);
                     this.routerExtensions.navigate(["/main"], { 
                         clearHistory: true, transition: {
                             name: 'slide',
@@ -71,6 +72,7 @@ export class PinComponent implements OnInit {
                     });
                 }else{
                     // new register
+                    console.log("this.authService.is_registered =",this.authService.is_registered);
                     this.routerExtensions.navigate(["../done"], {
                         relativeTo: this.route, clearHistory: true, transition: {
                             name: 'slide',

@@ -8,6 +8,8 @@ import { CustomTransition, CustomTransitionBack } from "../../../util/klook-tran
 import { animate, JsAnimationDefinition } from "../../../util/animation-helpers";
 import { KeyValue } from "@angular/common";
 import { DataService } from "../../../service/data.service";
+import { TransactionService } from "../../../service/transaction.service";
+import { CountryService } from "../../../service/country.service";
 
 @Component({
     selector: "tr-history",
@@ -22,7 +24,6 @@ export class TrHistoryComponent implements OnInit {
     stack_point = 4120;
 
     // trs
-    trs ={};
     icons = {
         "백화점": "~/images/ico_type2.png",
         "편의점": "~/images/ico_type3.png",
@@ -33,17 +34,21 @@ export class TrHistoryComponent implements OnInit {
         "카페": "~/images/ico_type7.png",
         "포인트교환": "~/images/ico_type8.png",
     };
-    currency = "THB"
+    
+    exchange = 0;
 
-    constructor(private routerExtensions: RouterExtensions, private dataService: DataService) {
+    constructor(private routerExtensions: RouterExtensions, 
+        private transactionService: TransactionService,
+        private countryService : CountryService,
+        private dataService : DataService) {
         console.log(`${this.tag} constructor `)
         console.log("today ", this.today.toLocaleString());
 
 
-        if(this.dataService.trs.length > 0){
+        if(this.transactionService.trs.length > 0){
             let sumpoint = 0;
             let sumsave = 0;
-            this.dataService.trs.forEach((elem)=>{
+            this.transactionService.trs.forEach((elem)=>{
                 if(elem.point < 0){
                     sumpoint = sumpoint + elem.point;
                 }
@@ -53,6 +58,7 @@ export class TrHistoryComponent implements OnInit {
             this.stack_point = sumsave;
         }
         
+        this.exchange = Math.floor(this.dataService.point / this.countryService.exchange);
 
         if (isAndroid) {
             Application.android.off(AndroidApplication.activityBackPressedEvent);
@@ -71,8 +77,6 @@ export class TrHistoryComponent implements OnInit {
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
-
-        this.trs = this.dataService.getTrsGrouped();
     }
 
     keyDescOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {

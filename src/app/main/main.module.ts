@@ -11,12 +11,17 @@ import { ChargeModule } from "./charge-point/charge.module";
 import { ChangeModule } from "./change-point/change.module";
 
 import { DataService } from "../service/data.service";
+import { CountryService } from "../service/country.service";
+import { MerchantService } from "../service/merchant.service";
+import { TransactionService } from "../service/transaction.service";
 import { PaymentService } from "../service/payment.service";
 import { AuthService } from "../service/auth.service";
 import { HttpInterceptorService } from "./http-interceptor.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ClassProvider } from "@angular/core";
 import { ProgressService } from "../components/progress/progress.service";
+
+import { AbsoultePipe } from "../service/absoulte.pipe";
 
 const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
     provide: HTTP_INTERCEPTORS ,
@@ -42,6 +47,9 @@ const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
     ],
     providers:[
         DataService,
+        CountryService,
+        MerchantService,
+        TransactionService,
         PaymentService,
         AuthService,
         LOGGING_INTERCEPTOR_PROVIDER,

@@ -26,9 +26,9 @@
         <StackLayout class="row" orientation="horizontal">
             <Label row="2" col="0" class="label" text="포인트사용"></Label>
             <StackLayout row="2" col="1" orientation="horizontal">
-                <Label class="content" text="{{(tr.point | number:'1.0-0') + ' P'}}" verticalAlignment="center"></Label>
+                <Label class="content" text="{{(tr.point | abs | number:'1.0-0') + ' P'}}" verticalAlignment="center"></Label>
                 <Label class="content-point" text="(현지 결제금액 " marginLeft="2" verticalAlignment="center"></Label>
-                <Label class="content-point" text="{{tr.curr | number:'1.0-0'}}" verticalAlignment="center"></Label>
+                <Label class="content-point" text="{{tr.curr | abs | number:'1.0-0'}}" verticalAlignment="center"></Label>
                 <Label class="content-point" text="{{currency + ')'}}" marginLeft="4" verticalAlignment="center"></Label>
             </StackLayout>
         </StackLayout>
@@ -42,7 +42,7 @@
         <StackLayout class="row row-end" orientation="horizontal">
             <Label row="0" class="label" col="0" text="포인트적립"></Label>
             <StackLayout row="0" col="1" orientation="horizontal">
-                <Label class="content" text="{{tr.save_point + 'P'}}" verticalAlignment="center"></Label>
+                <Label class="content" text="{{(tr.save_point | abs | number:'1.0-0') + 'P'}}" verticalAlignment="center"></Label>
                 <Label class="content" *ngIf="tr.taxfree" text="(Tax-free 가맹점)"  verticalAlignment="center"></Label>
                 <Label class="content" *ngIf="tr.utu" text="(UTU 가맹점)"  verticalAlignment="center"></Label>
             </StackLayout>

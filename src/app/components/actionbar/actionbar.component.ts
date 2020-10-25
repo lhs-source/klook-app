@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef }
 import { LayoutBase } from "tns-core-modules";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 
-import { DataService } from "../../service/data.service";
+import { CountryService } from "../../service/country.service";
 
 // <myactionbar 
 //      (close_click)="actionbar_click_close(isclose)" 
@@ -47,70 +47,37 @@ export class MyActionBarComponent implements OnInit {
         "말레이시아":"말레이",
         "미국":"미국",
     }
-    countries : any;
-    country = "태국";
 
     isModalShow= false;
     country_views =[];
     modal_loc ={x:0, y:0};
 
-    constructor(private dataService : DataService) {
-        this.countries = this.dataService.countries;
-        this.country = this.dataService.country;
-        console.log(this.countries);
+    constructor(private countryService : CountryService) {
+        
     }
     ngOnInit(): void {
-
-        
-        let conref = this.countryref.nativeElement as LayoutBase;
         let conmodalref = this.countrymodalref.nativeElement as LayoutBase;
 
-        conref.on('loaded', (arg)=>{
-            setTimeout(() => {
-                // // console.log("load countryref")
-                // console.log(conmodalref.getLocationRelativeTo(conref));
-                // console.log(conref.getLocationRelativeTo(conmodalref));
-                // let loc = conref.getLocationRelativeTo(conmodalref);
-
-                // this.modal_loc.x = loc.x - 16;
-                // this.modal_loc.y = loc.y + 32;
-
-                // conmodalref.translateX = this.modal_loc.x
-                // conmodalref.translateY = this.modal_loc.y;
-                // // conmodalref.animate({
-                // //     translate:{x:loc.x, y:loc.y}
-                // // })
-                // conmodalref.eachChild((view)=>{
-                //     this.country_views.push(view);
-                //     return true;
-                // })
-            });
-        });
-        conmodalref.on('loaded', (arg)=>{
-            setTimeout(() => {
-                console.log("load conmodalref")
-                console.log(conmodalref.getLocationRelativeTo(conref));
-                console.log(conref.getLocationRelativeTo(conmodalref));
-                let loc = conref.getLocationRelativeTo(conmodalref);
-
-                this.modal_loc.x = loc.x - 16;
-                this.modal_loc.y = loc.y + 32;
-
-                conmodalref.translateX = this.modal_loc.x
-                conmodalref.translateY = this.modal_loc.y;
-                // conmodalref.animate({
-                //     translate:{x:loc.x, y:loc.y}
-                // })
-                conmodalref.eachChild((view)=>{
-                    this.country_views.push(view);
-                    return true;
-                })
-            });
+        conmodalref.on('layoutChanged', (arg)=>{
+            console.log("{layoutChanged} conmodalref")
+            let conref = this.countryref.nativeElement as LayoutBase;
+            // console.log(conmodalref.getLocationRelativeTo(conref));
+            // console.log(conref.getLocationRelativeTo(conmodalref));
+            let loc = conref.getLocationRelativeTo(conmodalref);
+            this.modal_loc.x = loc.x - 2;
+            this.modal_loc.y = loc.y + 32;
+            conmodalref.translateX = this.modal_loc.x
+            conmodalref.translateY = this.modal_loc.y;
+            conmodalref.eachChild((view)=>{
+                this.country_views.push(view);
+                return true;
+            })
         });
     }
 
+    // current country btn
     onTapLocale(){
-        console.log(this.tag, "onTapLocale");
+        console.log(this.tag, "{onTapLocale}");
         this.isModalShow = !this.isModalShow;
         
         let conref = this.countryref.nativeElement as LayoutBase;
@@ -119,21 +86,22 @@ export class MyActionBarComponent implements OnInit {
         if(this.isModalShow === true){
             conmodalref.animate({
                 opacity:1,
+                curve:AnimationCurve.easeOut
             })
         }else{
             conmodalref.animate({
                 opacity:0,
+                curve:AnimationCurve.easeOut
             })
         }
     }
 
+    // select new country
     onTapCountry(event, con_key){
-        let count = this.countries[con_key];
-        this.country = con_key;
-        this.dataService.country = this.country;
+        this.countryService.country = con_key;
         
         this.isModalShow = !this.isModalShow;
-        this.select_country.emit(this.country);
+        // this.select_country.emit(this.countryService.country);
         let conmodalref = this.countrymodalref.nativeElement as LayoutBase;
         conmodalref.animate({
             opacity:0,

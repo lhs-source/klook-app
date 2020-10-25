@@ -6,6 +6,8 @@ import { CustomTransitionBack } from "../../../util/klook-transition";
 
 import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
 import { DataService } from "../../../service/data.service";
+import { TransactionService } from "../../../service/transaction.service";
+import { MerchantService } from "../../../service/merchant.service";
 
 @Component({
     selector: "tr-history-detail",
@@ -35,7 +37,8 @@ export class TrHistoryDetailComponent implements OnInit {
 
     constructor(private routerExtensions: RouterExtensions,
          private activatedRoute: ActivatedRoute,
-         private dataService : DataService) {
+         private transactionService : TransactionService,
+         private merchantService : MerchantService) {
         console.log(`${this.tag} constructor `)
     }
 
@@ -47,12 +50,10 @@ export class TrHistoryDetailComponent implements OnInit {
             this.id = params['id'];
             console.log("id = " + this.id);
 
-
-            this.tr = this.dataService.findTrByDate(this.id);
-            console.log(this.tr);
+            this.tr = this.transactionService.findTrByDate(this.id);
 
             // set lat / long of merchant
-            this.mer = this.dataService.merchants[this.tr["merchant"]];
+            this.mer = this.merchantService.merchants[this.tr["merchant"]];
             if(this.mer){
                 this.latitude = this.mer["lat"];
                 this.longitude = this.mer["long"];

@@ -5,6 +5,7 @@ import { TrHistoryComponent } from "./tr-history/tr-history.component";
 import { TrHistoryDetailComponent } from "./tr-history-detail/tr-history-detail.component";
 
 import { ComponentsModule } from "../../components/components.module";
+import { AbsoultePipe } from "../../service/absoulte.pipe";
 registerElement("MapView", () => require("nativescript-google-maps-sdk").MapView);
 
 @NgModule({
@@ -18,7 +19,7 @@ registerElement("MapView", () => require("nativescript-google-maps-sdk").MapView
     ],
     declarations: [
         TrHistoryComponent,
-        TrHistoryDetailComponent
+        TrHistoryDetailComponent,
     ],
     schemas: [
         NO_ERRORS_SCHEMA

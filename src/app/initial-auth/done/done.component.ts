@@ -4,6 +4,10 @@ import { RouterExtensions } from "@nativescript/angular";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { AuthService } from "../../service/auth.service";
+import { DataService } from "../../service/data.service";
+import { MerchantService } from "../../service/merchant.service";
+import { CountryService } from "../../service/country.service";
+import { TransactionService } from "../../service/transaction.service";
 
 @Component({
     selector: "done",
@@ -12,7 +16,10 @@ import { AuthService } from "../../service/auth.service";
 })
 export class DoneComponent implements OnInit {
     tag = this.constructor.name;
-    constructor(private routerExtensions: RouterExtensions, private route: ActivatedRoute, private authService : AuthService) {
+    constructor(private routerExtensions: RouterExtensions, private route: ActivatedRoute, private authService : AuthService,
+        private merchantService : MerchantService,
+        private countryService : CountryService,
+        private transactionService : TransactionService,) {
         console.log(`${this.tag} constructor `)
     }
 
@@ -21,6 +28,10 @@ export class DoneComponent implements OnInit {
         console.log(this.routerExtensions.router.url);
 
         this.authService.register();
+        
+        this.merchantService.initialize();
+        this.countryService.initialize();
+        this.transactionService.initialize();
     }
     onTapNext(){
         this.routerExtensions.navigate(["../../main"], {

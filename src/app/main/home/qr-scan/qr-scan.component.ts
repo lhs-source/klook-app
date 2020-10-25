@@ -13,7 +13,7 @@ import { HomeRoutingService } from "../home-routing.service";
 import { PaymentService } from "../../../service/payment.service";
 
 import * as Toast from 'nativescript-toast';
-import { QrData } from "src/app/service/qr-data.model";
+import { QrData } from "../../../service/qr-data.model";
 
 @Component({
     selector: "qr-scan",

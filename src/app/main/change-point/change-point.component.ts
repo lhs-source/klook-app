@@ -8,6 +8,7 @@ import { CustomTransitionBack } from "../../util/klook-transition";
 import { DataService } from "../../service/data.service";
 
 import { alert } from "tns-core-modules/ui/dialogs";
+import { TransactionService } from "../../service/transaction.service";
 
 @Component({
     selector: "change-point",
@@ -40,7 +41,8 @@ export class ChangePointComponent implements OnInit {
 
     constructor(private routerExtensions : RouterExtensions, 
         private activatedRoute : ActivatedRoute,
-        private dataService : DataService) {
+        private dataService : DataService,
+        private transactionService : TransactionService) {
         console.log(`${this.tag} constructor `);
 
         this.point = this.dataService.point;
@@ -162,7 +164,7 @@ export class ChangePointComponent implements OnInit {
     }
 
     change(event){
-        this.dataService.addTr({
+        this.transactionService.addTr({
             type:"transactions",
             class: "포인트교환",
             merchant: this.pointy.title + " 교환",

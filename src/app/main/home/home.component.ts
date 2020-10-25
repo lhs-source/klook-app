@@ -10,6 +10,7 @@ import { CustomTransition, CustomTransitionBack } from '../../util/klook-transit
 import { HomeRoutingService } from "./home-routing.service";
 import { DataService } from "../../service/data.service";
 import { AuthService } from "../../service/auth.service";
+import { CountryService } from "../../service/country.service";
 
 @Component({
     selector: "home",
@@ -55,15 +56,13 @@ export class HomeComponent implements OnInit {
     card_marginTop = 8;
 
     // data
-    point = 0;
-    country = '';
-    country_obj = {};
     exchange = 0;
 
 
     constructor(private routerExtensions: RouterExtensions,
         private routingservice: HomeRoutingService,
         private dataService: DataService,
+        private countryService: CountryService,
         private authService: AuthService) {
         console.log(`${this.tag} constructor `)
 
@@ -96,9 +95,6 @@ export class HomeComponent implements OnInit {
             }
         });
 
-        console.log(this.dataService.country);
-        this.country = this.dataService.country;
-        this.country_obj = this.dataService.countries[this.country];
         this.updatePoint();
 
         if (isAndroid) {
@@ -123,8 +119,7 @@ export class HomeComponent implements OnInit {
     }
 
     updatePoint() {
-        this.point = this.dataService.point;
-        this.exchange = Math.floor(this.point / this.country_obj['exchange']);
+        this.exchange = Math.floor(this.dataService.point / this.countryService.exchange);
     }
 
     onLoadedMenu(event) {
@@ -333,9 +328,7 @@ export class HomeComponent implements OnInit {
 
     // country_select
     callback_select_country(event){
-        this.country = this.dataService.country;
-        this.country_obj = this.dataService.countries[this.country];
-        this.exchange = Math.floor(this.point / this.country_obj['exchange']);
+        this.exchange = Math.floor(this.dataService.point / this.countryService.exchange);
     }
 
     // translate octopus view to bottom of screen

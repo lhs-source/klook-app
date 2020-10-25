@@ -9,6 +9,7 @@ import { KeypadNumberComponent } from './keypad-number/keypad-number.component';
 import { SimpleActionbarComponent } from './simple-actionbar/simple-actionbar.component';
 import { ProgressComponent } from './progress/progress.component';
 
+import { AbsoultePipe } from "../service/absoulte.pipe";
 @NgModule({
     exports: [
         MyActionBarComponent,
@@ -18,6 +19,7 @@ import { ProgressComponent } from './progress/progress.component';
         KeypadNumberComponent,
         SimpleActionbarComponent,
         ProgressComponent,
+        AbsoultePipe
     ],
     imports: [
         NativeScriptCommonModule
@@ -30,6 +32,7 @@ import { ProgressComponent } from './progress/progress.component';
         KeypadNumberComponent,
         SimpleActionbarComponent,
         ProgressComponent,
+        AbsoultePipe
     ],
     schemas: [
         NO_ERRORS_SCHEMA

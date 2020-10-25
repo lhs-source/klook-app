@@ -6,6 +6,9 @@ import { DataService } from "../../../service/data.service";
 import { CustomTransition, CustomTransitionBack } from "../../../util/klook-transition";
 
 import { alert } from "tns-core-modules/ui/dialogs";
+import { MerchantService } from "../../../service/merchant.service";
+import { CountryService } from "../../../service/country.service";
+import { TransactionService } from "../../../service/transaction.service";
 
 @Component({
     selector: "account-link",
@@ -16,6 +19,9 @@ export class AccountLinkComponent implements OnInit {
     tag = this.constructor.name;
     constructor(private routerExtensions: RouterExtensions,
         private dataService : DataService,
+        private merchantService : MerchantService,
+        private countryService : CountryService,
+        private transactionService : TransactionService,
         private authService : AuthService) {
         console.log(`${this.tag} constructor `)
     }
@@ -33,20 +39,24 @@ export class AccountLinkComponent implements OnInit {
     }
     
     onTapYes(event) {
-        console.log(`${this.tag} navigateChargePoint`);
-        this.dataService.reset();
+        console.log(`${this.tag} onTapYes`);
         this.authService.reset();
+        this.dataService.reset();
+        this.transactionService.reset();
+        this.merchantService.reset();
+        this.countryService.reset();
         
         alert({
             title: "계정연동 해제",
             message: "계정연동을 해제하였습니다. 초기화면으로 돌아갑니다.",
             okButtonText: "확인"
         }).then(()=>{
+            console.log(this.tag, "then", this.authService.info);
             this.routerExtensions.navigate(['/initial-auth'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
         });
     }
     onTapNo(event) {
-        console.log(`${this.tag} navigateChargePoint`);
+        console.log(`${this.tag} onTapNo`);
         // this.routerExtensions.backToPreviousPage();
         // this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
         this.routerExtensions.back();

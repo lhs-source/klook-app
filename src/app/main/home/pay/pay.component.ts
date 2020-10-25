@@ -14,6 +14,9 @@ import { PaymentService } from "../../../service/payment.service";
 import { QrData } from "../../../service/qr-data.model";
 import { ProgressComponent } from "../../../components/progress/progress.component";
 import { ProgressService } from "../../../components/progress/progress.service";
+import { CountryService } from "../../../service/country.service";
+import { MerchantService } from "../../../service/merchant.service";
+import { TransactionService } from "../../../service/transaction.service";
 
 @Component({
     selector: "pay",
@@ -41,13 +44,15 @@ export class PayComponent implements OnInit {
         private viewContainerRef : ViewContainerRef,
         private routingService:HomeRoutingService, 
         private dataService : DataService,
+        private countryService : CountryService,
+        private merchantService : MerchantService,
+        private transactionService : TransactionService,
         private paymentService : PaymentService,
         private progressService : ProgressService) {
         console.log(`${this.tag} constructor `)
 
         this.pay_info = this.paymentService.pay_info;
-        this.point = this.pay_info.amount * this.dataService.countries[this.dataService.country].exchange;
-        this.currency = this.dataService.getCurrency();
+        this.point = this.pay_info.amount * this.countryService.exchange;
         if (isAndroid) {
         }
     }
@@ -97,7 +102,7 @@ export class PayComponent implements OnInit {
                 let status = res["response"]["status"];
                 if(status === "ACCP"){
                     // add the tr to transaction list
-                    this.dataService.addTrFromQr(this.pay_info);
+                    this.transactionService.addTrFromQr(this.pay_info);
                     this.dataService.decreasePoint(this.point);
                     
                     // activity indicator off

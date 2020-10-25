@@ -3,6 +3,8 @@ import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
 import { DataService } from "../../../service/data.service";
+import { CountryService } from "../../../service/country.service";
+import { TransactionService } from "../../../service/transaction.service";
 
 @Component({
     selector: "tr-history-embedded",
@@ -26,7 +28,9 @@ export class TrHistoryEmbeddedComponent implements OnInit {
     trs = {};
     currency="THB"
 
-    constructor(private routerExtensions: RouterExtensions, private dataService: DataService) {
+    constructor(private routerExtensions: RouterExtensions, private dataService: DataService,
+        private countryService : CountryService,
+        private transactionService : TransactionService) {
         console.log(`${this.tag} constructor `)
         
         if (isAndroid) {
@@ -41,8 +45,6 @@ export class TrHistoryEmbeddedComponent implements OnInit {
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
-
-        this.trs = this.dataService.getTrsGrouped();
     }
     
     keyDescOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
