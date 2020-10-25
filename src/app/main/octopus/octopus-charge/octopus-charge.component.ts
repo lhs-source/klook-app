@@ -6,6 +6,9 @@ import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase, GridLa
 import { screen } from "tns-core-modules/platform/platform"
 import { ActivatedRoute } from "@angular/router";
 import { ItemSpec } from "tns-core-modules/ui/layouts/grid-layout";
+import { alert } from "tns-core-modules/ui/dialogs";
+
+
 import { CustomTransitionBack } from "../../../util/klook-transition";
 import { DataService } from "../../../service/data.service";
 import { CountryService } from "../../../service/country.service";
@@ -72,13 +75,16 @@ export class OctopusChargeComponent implements OnInit {
 
     onTabCharge(event){
         console.log("emit the button");
-        this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
-    }
-
-    navigateBack(event) {
-        console.log(this.tag + " navigateChargePoint");
         
-        this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
-        
+        alert({
+            title: "옥토퍼스 카드충전",
+            message: "옥토퍼스 카드충전에 성공하였습니다.",
+            okButtonText: "확인"
+        }).then(()=>{
+            this.routerExtensions.navigate(['/main/octopus/main'], { 
+                clearHistory:true,
+                transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }
+            });
+        });
     }
 }

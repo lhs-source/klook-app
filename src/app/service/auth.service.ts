@@ -23,7 +23,17 @@ export class AuthService {
     // registered octopus
     has_octopus = false;
     // deactive flag
-    is_deactive = false;
+    _is_deactive = false;
+    
+    get is_deactive() : boolean {
+        return this._is_deactive;
+    }
+    
+    set is_deactive(v : boolean) {
+        this._is_deactive = v;
+        setBoolean("isDeactive", this._is_deactive);
+    }
+    
 
     constructor() { 
         this.pin = getString("pin", "");

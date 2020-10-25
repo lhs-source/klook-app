@@ -12,8 +12,8 @@
     </GridLayout>
 
     <!-- menu -->
-    <GridLayout #menu class="menu" row="3" columns="*,*,*,*" rows="36, *, auto" (loaded)="onLoadedMenu($event)">
-        <image #menubtn row="0" colspan="4" src="~/images/btn_up.png" marginBottom="12" (tap)="onTapMenu($event)">
+    <GridLayout #menu class="menu" row="3" columns="*,*,*,*" rows="36, *, auto">
+        <image #menubtn row="0" colspan="4" src="{{isMenuExt === true ? '~/images/btn_down.png' : '~/images/btn_up.png'}}" marginBottom="12" (tap)="onTapMenu($event)">
         </image>
 
         <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="0" (tap)="navigateOnlinepay($event)" [ngClass]="{'deactive' : isDeactive}">

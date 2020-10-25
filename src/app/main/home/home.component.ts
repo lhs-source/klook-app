@@ -1,11 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
-
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { LayoutBase, Image } from "@nativescript/core/ui";
 import { isAndroid, screen } from "tns-core-modules/platform/platform"
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData, Color } from "tns-core-modules";
 import { exit } from "nativescript-exit";
+
+import * as Toast from 'nativescript-toast';
+
 import { CustomTransition, CustomTransitionBack } from '../../util/klook-transition';
 import { HomeRoutingService } from "./home-routing.service";
 import { DataService } from "../../service/data.service";
@@ -19,10 +21,6 @@ import { CountryService } from "../../service/country.service";
 })
 export class HomeComponent implements OnInit {
     tag = this.constructor.name;
-    @ViewChild('octopus', { static: true }) octopus: ElementRef;
-    @ViewChild('octopuscard', { static: true }) octopuscard: ElementRef;
-    @ViewChild('octopusframe', { static: true }) octopusframe: ElementRef;
-
     @ViewChild('rootlayout', { static: true }) rootlayout: ElementRef;
     @ViewChild('menubtn', { static: true }) menubtn: ElementRef;
     @ViewChild('menu', { static: true }) menu: ElementRef;
@@ -36,13 +34,11 @@ export class HomeComponent implements OnInit {
     isMenuExt = false;
     isDeactive = false;
 
+    exitflag = false;
+
     trans_duration = 250;
     qr_anim_duration = 250;
     transition_duration = 250;
-
-    // data
-    exchange = 0;
-
 
     constructor(private routerExtensions: RouterExtensions,
         private routingservice: HomeRoutingService,
@@ -74,20 +70,18 @@ export class HomeComponent implements OnInit {
                 this.isPay = false;
                 this.isQrScan = false;
                 this.isQrPay = false;
-                
+
                 let bg = this.qrbg.nativeElement as LayoutBase;
                 bg.animate({
                     opacity: 0,
                     duration: this.qr_anim_duration,
                     curve: AnimationCurve.easeOut
                 });
-                this.updatePoint();
             } else {
 
             }
         });
 
-        this.updatePoint();
 
         if (isAndroid) {
             Application.android.off(AndroidApplication.activityBackPressedEvent);
@@ -96,6 +90,15 @@ export class HomeComponent implements OnInit {
                 data.cancel = true;
                 // this.routerExtensions.navigate(['/main/home'], {clearHistory : true});
                 // exit();
+                if (this.exitflag === false) {
+                    Toast.makeText("앱을 종료하려면 한 번 더 뒤로가기 버튼을 눌러주세요").show();
+                    this.exitflag = true;
+                    setTimeout(() => {
+                        this.exitflag = false;
+                    }, 2000);
+                } else {
+                    exit();
+                }
             });
         }
     }
@@ -103,65 +106,36 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
-
-        let menu = this.menu.nativeElement as LayoutBase;
     }
     ngOnDestroy() {
         console.log(`${this.tag} ngOnDestroy`);
     }
-
-    updatePoint() {
-        this.exchange = Math.floor(this.dataService.point / this.countryService.exchange);
-    }
-
-    onLoadedMenu(event) {
-        let menu = this.menu.nativeElement as LayoutBase;
-        // menu.effectiveHeight = menu.getMeasuredHeight() - 96;
-    }
-
-    onLoadedMenuItem(event) {
-        console.log(this.tag + " onLoadedMenuItem ");
-
-    }
     onTapMenu(event) {
-        if (this.isQrScan == true || this.isQrPay == true) {
+        if (this.isQrScan === true || this.isQrPay === true || this.isPay === true) {
             return;
         }
+        let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
         let img = this.menubtn.nativeElement as Image;
         let menu = this.menu.nativeElement as LayoutBase;
-        console.log("height = " + menu.getMeasuredHeight());
-        console.log(img);
-        console.log("height = " + menu.getMeasuredHeight());
         let h = menu.getMeasuredHeight();
         let item_height = 92;
-
-        // console.log(screen.mainScreen.heightDIPs);
-        // console.log(screen.mainScreen.heightPixels);
-        let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
-        console.log("p = ", screen.mainScreen.heightDIPs);
 
         if (this.isMenuExt === false) {
             // unfold
             this.isMenuExt = !this.isMenuExt;
-            img.src = "~/images/btn_down.png"
-            console.log("height = " + menu.getMeasuredHeight());
             menu.animate({
                 height: h * p + item_height,
                 duration: this.trans_duration,
                 curve: AnimationCurve.easeOut
-            }).then(() => {
-                console.log("end height = " + menu.getMeasuredHeight());
             });
         } else if (this.isMenuExt === true) {
             // fold
             img.src = "~/images/btn_up.png"
-            console.log("height = " + menu.getMeasuredHeight());
             menu.animate({
                 height: h * p - item_height,
                 duration: this.trans_duration,
                 curve: AnimationCurve.easeOut
             }).then(() => {
-                console.log("end height = " + menu.getMeasuredHeight());
                 this.isMenuExt = !this.isMenuExt;
             });
         }
@@ -169,30 +143,39 @@ export class HomeComponent implements OnInit {
 
     navigateOnlinepay(event) {
         console.log(this.tag + " navigateOnlinepay");
-        if(this.isDeactive === true){
+        if (this.isDeactive === true) {
             return;
         }
-        // this.routerExtensions.navigate(['/main/onlinepay'], { transition: { instance : new CustomTransition(this.trans_duration, AnimationCurve.easeOut) }, clearHistory: true });
-        this.routerExtensions.navigate(['/main/onlinepay'], { transition: { instance: new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/onlinepay'], {
+            transition: { instance: new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true
+        });
     }
     navigateChargePoint(event) {
         console.log(this.tag + " navigateChargePoint");
-        this.routerExtensions.navigate(['/main/charge-point'], { transition: { instance: new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/charge-point'], {
+            transition: { instance: new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true
+        });
 
     }
     navigateChangePoint(event) {
         console.log(this.tag + " navigateChangePoint");
-        this.routerExtensions.navigate(['/main/change-point'], { transition: { instance: new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/change-point'], {
+            transition: { instance: new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true
+        });
 
     }
     navigateTransaction(event) {
         console.log(this.tag + " navigateTransaction");
-        this.routerExtensions.navigate(['/main/tr'], { transition: { instance: new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/tr'], {
+            transition: { instance: new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true
+        });
 
     }
     navigateAccount(event) {
         console.log(this.tag + " navigateAccount");
-        this.routerExtensions.navigate(['/main/account'], { transition: { instance: new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true });
+        this.routerExtensions.navigate(['/main/account'], {
+            transition: { instance: new CustomTransition(this.trans_duration, AnimationCurve.linear) }, clearHistory: true
+        });
 
     }
     onTapDeactive() {
@@ -211,7 +194,7 @@ export class HomeComponent implements OnInit {
     // start QR Scan 
     navigateQrScan(event) {
         console.log(this.tag + " navigateQrScan");
-        if(this.isDeactive === true){
+        if (this.isDeactive === true) {
             return;
         }
         if (this.isQrScan == false) {
@@ -254,7 +237,7 @@ export class HomeComponent implements OnInit {
     // start QR Pay
     navigateQrPay(event) {
         console.log(this.tag + " navigateQrPay");
-        if(this.isDeactive === true){
+        if (this.isDeactive === true) {
             return;
         }
         if (this.isQrPay == false) {
@@ -278,7 +261,9 @@ export class HomeComponent implements OnInit {
             }
             this.isQrScan = false;
             this.isQrPay = true;
-            this.routerExtensions.navigate(['/main/home/qr-pay'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }, clearHistory: true }).then(() => {
+            this.routerExtensions.navigate(['/main/home/qr-pay'], {
+                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }, clearHistory: true
+            }).then(() => {
                 let bg = this.qrbg.nativeElement as LayoutBase;
                 bg.borderWidth = 1;
                 // bg.borderColor = "#bbb";
@@ -298,20 +283,20 @@ export class HomeComponent implements OnInit {
     actionbar_click_close(event) {
         console.log(this.tag + " navigateTrEmb");
         if (this.isQrPay == true) {
-            this.routerExtensions.navigate(['/main/home/tr-embedded'], { 
-                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } 
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], {
+                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }
             });
             this.isQrPay = false;
         }
         if (this.isQrScan == true) {
-            this.routerExtensions.navigate(['/main/home/tr-embedded'], { 
-                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } 
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], {
+                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }
             });
             this.isQrScan = false;
         }
         if (this.isPay === true) {
-            this.routerExtensions.navigate(['/main/home/tr-embedded'], { 
-                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } 
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], {
+                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }
             });
             this.isPay = false;
         }
@@ -325,7 +310,7 @@ export class HomeComponent implements OnInit {
     }
 
     // country_select
-    callback_select_country(event){
-        this.exchange = Math.floor(this.dataService.point / this.countryService.exchange);
+    callback_select_country(event) {
+        // this.exchange = Math.floor(this.dataService.point / this.countryService.exchange);
     }
 }

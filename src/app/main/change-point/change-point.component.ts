@@ -154,13 +154,11 @@ export class ChangePointComponent implements OnInit {
 
     dialogSuccess(thenFunction : ()=>any){
         // success dialog
-        let options = {
+        alert({
             title: "포인트교환 성공",
             message: "포인트교환에 성공했습니다",
             okButtonText: "확인"
-        };
-        
-        alert(options).then(thenFunction);
+        }).then(thenFunction);
     }
 
     change(event){

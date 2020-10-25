@@ -83,7 +83,7 @@ export class PinComponent implements OnInit {
                 }
             }else{
                 console.log("");
-                Toast.makeText("Pin is not valid = " + this.authService.pin, "long").show();
+                Toast.makeText("비밀번호가 맞지 않습니다" + this.authService.pin).show();
                 this.pin = "";
                 this.changePinCode();
             }

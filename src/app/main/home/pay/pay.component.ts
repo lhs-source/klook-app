@@ -64,23 +64,19 @@ export class PayComponent implements OnInit {
 
     dialogSuccess(thenFunction : ()=>any){
         // success dialog
-        let options = {
+        alert({
             title: "결제완료",
             message: "승인에 성공했습니다",
             okButtonText: "확인"
-        };
-        
-        alert(options).then(thenFunction);
+        }).then(thenFunction);
     }
     dialogError(thenFunction : ()=>any){
         // fail dialog
-        let options = {
+        alert({
             title: "결제실패",
             message: "결제 실패하였습니다",
             okButtonText: "확인"
-        };
-        
-        alert(options).then(thenFunction);
+        }).then(thenFunction);
     }
     onTapNo(event){
         this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {

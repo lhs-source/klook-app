@@ -1,11 +1,9 @@
 
 <GridLayout #rootlayout rows="64, auto, auto, *, auto" class="nav" height="100%" width="100%">
-
-    <!-- <Label row="1" text="Octopus New" margin="8" style="font-size: 24;"></Label> -->
     <title row="1" title="보유포인트" point="{{dataService.point | number:'1.0-0'}}" point_unit="{{' (' + ( dataService.point_exchanged | number:'1.0-0') + ' ' + countryService.currency + ')' }}" backgroundColor="#ff5722"></title>
 
     <GridLayout class="card" row="2" width="320" marginTop="16">
-        <Image #cardframe src="~/images/box_card.png" width="300" (loaded)="onLoadedCardImage($event)"></Image>
+        <Image #cardframe src="~/images/box_card.png" width="300" (layoutChanged)="onLoadedCardImage($event)"></Image>
         <GridLayout #cardelems class="card-elems" rows="60, 60, 60">
             <GridLayout row="0" columns="auto, *, auto">
                 <Image col="0" class="point-img" src="~/images/ico_point3.png" verticalAlignment="bottom"></Image>
