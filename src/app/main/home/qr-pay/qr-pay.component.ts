@@ -74,7 +74,7 @@ export class QrPayComponent implements OnInit {
 
         this.routingService.emitChange('pay');
         this.routerExtensions.navigate(['/main/home/pay'], {
-            transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
+            transition: { name: 'fade', duration: 250, curve: AnimationCurve.easeOut }
         });
     }
 }

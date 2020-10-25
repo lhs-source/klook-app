@@ -1,8 +1,8 @@
-<GridLayout rows="*, 3*, *">
-    <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderColor="#ddd" margin="16" height="64%">
+<GridLayout rows="*, 7*, 2*">
+    <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderColor="#ddd" margin="16">
     </GridLayout>
 </GridLayout>
-<GridLayout #rootlayout rows="80,auto,*,auto,108" height="100%" width="100%">
+<GridLayout #rootlayout rows="64,auto,*,auto,108" height="100%" width="100%">
     <!-- Point view -->
     <title row="1" title="보유포인트" point="{{dataService.point | number:'1.0-0'}}" point_unit="{{' (' + ( dataService.point_exchanged | number:'1.0-0') + ' ' + countryService.currency + ')' }}" backgroundColor="#ff5722"></title>
 

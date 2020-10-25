@@ -11,7 +11,8 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 })
 export class KlookMainComponent implements OnInit {
     tag = this.constructor.name;
-    constructor(private routerExtensions : RouterExtensions, private authService: AuthService) {
+    constructor(private routerExtensions : RouterExtensions, 
+        private authService: AuthService) {
         console.log(`${this.tag} constructor `)
 
     }
@@ -23,11 +24,14 @@ export class KlookMainComponent implements OnInit {
     onTapKlookPay(){
         if(this.authService.is_registered === true){
             // already registered
-            this.routerExtensions.navigate(['/initial-auth/pin'], { clearHistory:true,transition: { instance : new CustomTransition(250, AnimationCurve.linear) }
+            this.routerExtensions.navigate(['/initial-auth/pin'], { 
+                transition: { instance : new CustomTransition(250, AnimationCurve.linear) }
              });
         }else{
             // not registered, should register new user
-            this.routerExtensions.navigate(['/initial-auth'], { clearHistory:true, transition: { instance : new CustomTransition(250, AnimationCurve.linear) } });
+            this.routerExtensions.navigate(['/initial-auth/terms'], { 
+                transition: { instance : new CustomTransition(250, AnimationCurve.linear) } 
+            });
         }
     }
 }

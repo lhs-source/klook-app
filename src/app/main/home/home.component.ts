@@ -89,7 +89,13 @@ export class HomeComponent implements OnInit {
                 this.isPay = false;
                 this.isQrScan = false;
                 this.isQrPay = false;
-
+                
+                let bg = this.qrbg.nativeElement as LayoutBase;
+                bg.animate({
+                    opacity: 0,
+                    duration: this.qr_anim_duration,
+                    curve: AnimationCurve.easeOut
+                });
                 this.updatePoint();
             } else {
 
@@ -307,15 +313,21 @@ export class HomeComponent implements OnInit {
     actionbar_click_close(event) {
         console.log(this.tag + " navigateTrEmb");
         if (this.isQrPay == true) {
-            this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } });
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], { 
+                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } 
+            });
             this.isQrPay = false;
         }
         if (this.isQrScan == true) {
-            this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } });
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], { 
+                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } 
+            });
             this.isQrScan = false;
         }
         if (this.isPay === true) {
-            this.routerExtensions.navigate(['/main/home/tr-embedded'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } });
+            this.routerExtensions.navigate(['/main/home/tr-embedded'], { 
+                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut } 
+            });
             this.isPay = false;
         }
 
