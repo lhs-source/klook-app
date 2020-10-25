@@ -6,6 +6,7 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { CustomTransitionBack } from "../../../util/klook-transition";
 import { HomeRoutingService } from "../home-routing.service";
 import { PaymentService } from "../../../service/payment.service";
+import { QrData } from "../../../service/qr-data.model";
 
 @Component({
     selector: "qr-pay",
@@ -21,6 +22,15 @@ export class QrPayComponent implements OnInit {
     secounds = 180;
     interval;
 
+
+    pay_info : QrData = {
+        merchant:"Central Department Store (Central Hat Yai)",
+        amount:419,
+        description: "포인트사용",
+        taxfree: false,
+        utu: true,
+    }
+
     constructor(private routerExtensions: RouterExtensions, 
         private routingService: HomeRoutingService,
         private paymentService: PaymentService) {
@@ -32,6 +42,8 @@ export class QrPayComponent implements OnInit {
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
+
+        this.paymentService.storePayData(this.pay_info);
 
         this.interval = setInterval(() => {
             if (this.secounds > 0) {

@@ -28,8 +28,8 @@
             <StackLayout row="2" col="1" orientation="horizontal">
                 <Label class="content" text="{{(tr.point | abs | number:'1.0-0') + ' P'}}" verticalAlignment="center"></Label>
                 <Label class="content-point" text="(현지 결제금액 " marginLeft="2" verticalAlignment="center"></Label>
-                <Label class="content-point" text="{{tr.curr | abs | number:'1.0-0'}}" verticalAlignment="center"></Label>
-                <Label class="content-point" text="{{currency + ')'}}" marginLeft="4" verticalAlignment="center"></Label>
+                <Label class="content-point" text="{{(tr.point / countryService.exchange) | abs | number:'1.0-0'}}" verticalAlignment="center"></Label>
+                <Label class="content-point" text="{{countryService.currency + ')'}}" marginLeft="4" verticalAlignment="center"></Label>
             </StackLayout>
         </StackLayout>
         <StackLayout class="row row-end" orientation="horizontal">

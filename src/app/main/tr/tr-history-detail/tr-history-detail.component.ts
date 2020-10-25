@@ -8,6 +8,7 @@ import { MapView, Marker, Position } from 'nativescript-google-maps-sdk';
 import { DataService } from "../../../service/data.service";
 import { TransactionService } from "../../../service/transaction.service";
 import { MerchantService } from "../../../service/merchant.service";
+import { CountryService } from "../../../service/country.service";
 
 @Component({
     selector: "tr-history-detail",
@@ -21,7 +22,6 @@ export class TrHistoryDetailComponent implements OnInit {
 
     tr = {};
     mer = {};
-    currency = "THB"
 
     // google map
     latitude =  37.566389;
@@ -38,7 +38,8 @@ export class TrHistoryDetailComponent implements OnInit {
     constructor(private routerExtensions: RouterExtensions,
          private activatedRoute: ActivatedRoute,
          private transactionService : TransactionService,
-         private merchantService : MerchantService) {
+         private merchantService : MerchantService,
+         private countryService : CountryService) {
         console.log(`${this.tag} constructor `)
     }
 

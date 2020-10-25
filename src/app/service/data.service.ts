@@ -15,6 +15,7 @@ import {
     clear
 } from "tns-core-modules/application-settings";
 import { QrData } from './qr-data.model';
+import { CountryService } from './country.service';
 
 @Injectable()
 export class DataService {
@@ -30,7 +31,7 @@ export class DataService {
         "포인트교환": "~/images/ico_type8.png",
     };
 
-    constructor() {
+    constructor(private countryService :CountryService) {
         this.point = getNumber("point", 120000);
     }
 
@@ -54,5 +55,8 @@ export class DataService {
     resetPoint(){
         this.point = 120000;
         setNumber("point", this.point);
+    }
+    get point_exchanged(){
+        return this.point / this.countryService.exchange;
     }
 }

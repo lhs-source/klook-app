@@ -275,7 +275,7 @@ export class TransactionService {
             type:"transactions",
             class: this.merchantService.merchants[qr.merchant].class,
             merchant: qr.merchant,
-            point: -qr.amount * this.countryService.current_country.exchange,
+            point: -qr.amount * this.countryService.countries["태국"].exchange,
             curr: qr.amount,
             date: new Date(), //(2020, 10, 12, 18, 20, 0, 0),
             description: qr.description,

@@ -4,7 +4,7 @@
 </GridLayout>
 <GridLayout #rootlayout rows="80,auto,*,auto,108" height="100%" width="100%">
     <!-- Point view -->
-    <title row="1" title="보유포인트" point="{{dataService.point | number:'1.0-0'}}" point_unit="{{' (' + ( exchange | number:'1.0-0') + ' ' + countryService.currency + ')' }}" backgroundColor="#ff5722"></title>
+    <title row="1" title="보유포인트" point="{{dataService.point | number:'1.0-0'}}" point_unit="{{' (' + ( dataService.point_exchanged | number:'1.0-0') + ' ' + countryService.currency + ')' }}" backgroundColor="#ff5722"></title>
 
     <!-- sub router (qr, tr) -->
     <GridLayout row="2">

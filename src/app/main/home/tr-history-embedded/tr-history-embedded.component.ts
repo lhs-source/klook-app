@@ -26,7 +26,6 @@ export class TrHistoryEmbeddedComponent implements OnInit {
         "포인트교환": "~/images/ico_type8.png",
     };
     trs = {};
-    currency="THB"
 
     constructor(private routerExtensions: RouterExtensions, private dataService: DataService,
         private countryService : CountryService,
