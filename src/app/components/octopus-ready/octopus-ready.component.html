@@ -1,0 +1,18 @@
+<GridLayout>
+    <GridLayout class="octo" rows="*,72" marginTop="8">
+        <Label #strpivot class="str" text="Octopus 교통카드 이용을 위해 올려주세요" row="0" textAlignment="center"
+            verticalAlignment="bottom"></Label>
+    </GridLayout>
+    <GridLayout class="octopus">
+        <!-- blur -->
+        <GridLayout #octopus class="octo-blur" (loaded)="onLoadOctopus($event)"></GridLayout>
+        <!-- (tap)="navigateOctopus($event)" -->
+        <!-- frame -->
+        <GridLayout #octopusframe class="octo-frame"></GridLayout>
+        <!-- card -->
+        <GridLayout rows="auto, auto" class="octo-content" #octopuscard (pan)="onPanFrame($event)" (layoutChanged)="onLayoutChangedOctopuscard()" verticalAlignment="top">
+            <Image row="0" class="arrow" src="~/images/buscard_arrow.png" horizontalAlignment="center"></Image>
+            <Image row="1" class="octo-card" src="~/images/card_octopus.png" height="420"></Image>
+        </GridLayout>
+    </GridLayout>
+</GridLayout>

@@ -50,12 +50,6 @@
             <Label class="str" text="충전" horizontalAlignment="center"></Label>
         </StackLayout>
     </GridLayout>
-
-
-    <GridLayout row="4" class="octo" rows="24, 24, *" marginTop="8">
-        <Label class="str" text="Octopus 교통카드 이용을 위해 올려주세요" row="0" textAlignment="center"
-            verticalAlignment="bottom"></Label>
-    </GridLayout>
 </GridLayout>
 
 <GridLayout rows="auto, *">
@@ -63,16 +57,4 @@
     <!-- <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderWidth="1" borderColor="#ccc" margin="16" height="64%"></GridLayout> -->
 </GridLayout>
 
-<!-- octopus -->
-<GridLayout class="octopus">
-    <!-- blur -->
-    <GridLayout #octopus class="octo-blur" (loaded)="onLoadOctopus($event)"></GridLayout>
-    <!-- (tap)="navigateOctopus($event)" -->
-    <!-- frame -->
-    <GridLayout #octopusframe class="octo-frame"></GridLayout>
-    <!-- card -->
-    <GridLayout rows="auto, auto" class="octo-content" #octopuscard (pan)="onPan($event)" verticalAlignment="top">
-        <Image row="0" class="arrow" src="~/images/buscard_arrow.png" horizontalAlignment="center"></Image>
-        <Image row="1" class="octo-card" src="~/images/card_octopus.png" height="420"></Image>
-    </GridLayout>
-</GridLayout>
+<octopus-ready></octopus-ready>

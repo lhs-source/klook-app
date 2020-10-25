@@ -8,6 +8,7 @@ import { TabComponent } from "./tab/tab.component";
 import { KeypadNumberComponent } from './keypad-number/keypad-number.component';
 import { SimpleActionbarComponent } from './simple-actionbar/simple-actionbar.component';
 import { ProgressComponent } from './progress/progress.component';
+import { OctopusReadyComponent } from './octopus-ready/octopus-ready.component';
 
 import { AbsoultePipe } from "../service/absoulte.pipe";
 @NgModule({
@@ -19,7 +20,8 @@ import { AbsoultePipe } from "../service/absoulte.pipe";
         KeypadNumberComponent,
         SimpleActionbarComponent,
         ProgressComponent,
-        AbsoultePipe
+        AbsoultePipe,
+        OctopusReadyComponent
     ],
     imports: [
         NativeScriptCommonModule
@@ -32,7 +34,8 @@ import { AbsoultePipe } from "../service/absoulte.pipe";
         KeypadNumberComponent,
         SimpleActionbarComponent,
         ProgressComponent,
-        AbsoultePipe
+        AbsoultePipe,
+        OctopusReadyComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
