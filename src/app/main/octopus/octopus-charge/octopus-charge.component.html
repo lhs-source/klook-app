@@ -2,11 +2,7 @@
 <GridLayout #rootlayout rows="80, auto, auto, *, auto" class="nav" height="100%" width="100%">
 
     <!-- <Label row="1" text="Octopus New" margin="8" style="font-size: 24;"></Label> -->
-    <GridLayout class="title" row="1" columns="*, auto, auto">
-        <Label class="str" text="보유 포인트" col="0" verticalAlignment="center"></Label>
-        <Label text="120,000P" col="1" verticalAlignment="center"></Label>
-        <Label class="change" text="(3,245 THB)" col="2" verticalAlignment="center"></Label>
-    </GridLayout>
+    <title row="1" title="보유포인트" point="{{dataService.point | number:'1.0-0'}}" point_unit="{{' (' + ( dataService.point_exchanged | number:'1.0-0') + ' ' + countryService.currency + ')' }}" backgroundColor="#ff5722"></title>
 
     <GridLayout class="card" row="2" width="320" marginTop="16">
         <Image #cardframe src="~/images/box_card.png" width="300" (loaded)="onLoadedCardImage($event)"></Image>
@@ -18,7 +14,7 @@
                     <Label class="str" text="사용중" verticalAlignment="bottom"></Label>
                 </GridLayout>
             </GridLayout>
-            <TextField class="input" row="1" verticalAlignment="center" hint="충전 금액을 입력하세요"></TextField>
+            <TextField class="input" row="1" verticalAlignment="center" hint="충전 금액을 입력하세요" keyboardType="number"></TextField>
             <StackLayout row="2" class="aftercharge" orientation="horizontal">
                 <Label text="충전 후 금액: "></Label>
                 <Label class="amount" text="800"></Label>

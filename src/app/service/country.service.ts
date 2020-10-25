@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getString } from 'tns-core-modules/application-settings';
+import { getString, setString } from 'tns-core-modules/application-settings';
 import { Couchbase } from 'nativescript-couchbase-plugin';
 
 function encode_utf8(s) {
@@ -34,7 +34,7 @@ export class CountryService {
         }
     }
     countries = {};
-    country = "태국";
+    _country = "태국"
 
     database: Couchbase;
     
@@ -84,6 +84,15 @@ export class CountryService {
         this.country = "태국";
         this.countries = [];
     }
+    set country(_c){
+        this._country = _c;
+        setString("country", this._country);
+    }
+    
+    get country() : string {
+        return this._country;
+    }
+    
     get current_country() {
         return this.countries[this.country];
     }

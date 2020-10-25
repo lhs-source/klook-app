@@ -10,9 +10,7 @@ import { KlookMainComponent } from "./klookmain/klookmain.component";
 import { DoneComponent } from "./done/done.component";
 
 const routes: Routes = [
-    // { path: '', redirectTo: '(pinoutlet:input)', pathMatch: 'full' },
-    // { path: '',  },
-    { path: '', redirectTo: 'terms', pathMatch: 'full' },
+    { path: '', redirectTo: 'klook-main', pathMatch: 'full' },
     { path: 'klook-main', component : KlookMainComponent },
     { path: 'terms', component: TermsComponent },
     { path: 'userauth', component: UserAuthComponent },

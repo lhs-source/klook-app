@@ -270,12 +270,12 @@ export class TransactionService {
         this.addTr(tr);
     }
     qr2tr(qr : QrData){
-        let point = qr.amount * this.countryService.current_country.exchange;
+        let point = qr.amount * this.countryService.countries["태국"].exchange;
         let item = {
             type:"transactions",
             class: this.merchantService.merchants[qr.merchant].class,
             merchant: qr.merchant,
-            point: -qr.amount * this.countryService.countries["태국"].exchange,
+            point: -point,
             curr: qr.amount,
             date: new Date(), //(2020, 10, 12, 18, 20, 0, 0),
             description: qr.description,

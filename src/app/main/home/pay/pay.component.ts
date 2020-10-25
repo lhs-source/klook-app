@@ -52,7 +52,7 @@ export class PayComponent implements OnInit {
         console.log(`${this.tag} constructor `)
 
         this.pay_info = this.paymentService.pay_info;
-        this.point = this.pay_info.amount * this.countryService.exchange;
+        this.point = this.pay_info.amount * this.countryService.countries["태국"].exchange;
         if (isAndroid) {
         }
     }

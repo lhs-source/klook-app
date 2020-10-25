@@ -7,6 +7,8 @@ import { screen } from "tns-core-modules/platform/platform"
 import { ActivatedRoute } from "@angular/router";
 import { ItemSpec } from "tns-core-modules/ui/layouts/grid-layout";
 import { CustomTransitionBack } from "../../../util/klook-transition";
+import { DataService } from "../../../service/data.service";
+import { CountryService } from "../../../service/country.service";
 
 @Component({
     selector: "octopus-charge",
@@ -21,7 +23,9 @@ export class OctopusChargeComponent implements OnInit {
 
     card_index = 0;
 
-    constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute) {
+    constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute,
+        private dataService: DataService,
+        private countryService: CountryService,) {
         console.log(`${this.tag} constructor `)
     }
 
