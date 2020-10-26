@@ -257,7 +257,7 @@ export class TransactionService {
         this.database.createDocument(encode_paymentData(tr));
         this.trs.unshift(tr);
         // auto charge! 
-
+        this.autoCharge();
 
         // temp until 10/30
         this.trs.sort((a, b)=>{
@@ -275,7 +275,7 @@ export class TransactionService {
         this.addTr(tr);
     }
     qr2tr(qr : QrData){
-        let point = qr.amount * this.countryService.countries["태국"].exchange;
+        let point = qr.amount * this.countryService.exchange_th;
         let item = {
             type:"transactions",
             class: this.merchantService.merchants[qr.merchant].class,
@@ -292,6 +292,7 @@ export class TransactionService {
     }
     autoCharge(){
         if(this.dataService.point < this.dataService.auto_balance){
+            this.dataService.addPoint(this.dataService.auto_amount);
             this.addTr({
                 type:"transactions",
                 class: "포인트자동충전",

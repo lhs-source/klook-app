@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
-import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase, GridLayout, GridUnitType } from "tns-core-modules";
+import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase, GridLayout, GridUnitType, TextField } from "tns-core-modules";
 import { screen } from "tns-core-modules/platform/platform"
 import { ActivatedRoute } from "@angular/router";
 import { ItemSpec } from "tns-core-modules/ui/layouts/grid-layout";
@@ -12,6 +12,7 @@ import { alert } from "tns-core-modules/ui/dialogs";
 import { CustomTransitionBack } from "../../../util/klook-transition";
 import { DataService } from "../../../service/data.service";
 import { CountryService } from "../../../service/country.service";
+import { TransactionService } from "../../../service/transaction.service";
 
 @Component({
     selector: "octopus-charge",
@@ -26,10 +27,13 @@ export class OctopusChargeComponent implements OnInit {
 
     card_index = 0;
     amount : string;
+    amount_num : number = 0;
 
-    constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute,
+    constructor(private routerExtensions : RouterExtensions, 
+        private activatedRoute : ActivatedRoute,
         private dataService: DataService,
-        private countryService: CountryService,) {
+        private countryService: CountryService,
+        private transactionService : TransactionService) {
         console.log(`${this.tag} constructor `)
     }
 
@@ -69,19 +73,36 @@ export class OctopusChargeComponent implements OnInit {
             lb.addRow(new ItemSpec(top_bottom_height, GridUnitType.PIXEL));            
         });
     }
-    
-    ngAfterViewInit():void{
-        console.log(this.tag + " ngAfterViewInit");
-    }
 
+    onReturnPress(event){
+        let tf = event.object as TextField;
+        this.amount_num = Number(tf.text);
+        let exchanged = this.amount_num * this.countryService.exchange_hk;
+        if(this.dataService.point < exchanged){
+            this.amount_num = this.dataService.point / this.countryService.exchange_hk;
+        }
+    }
     onTabCharge(event){
         console.log("emit the button");
-        this.dataService.addOctopusBalance(Number(this.amount));
         alert({
             title: "옥토퍼스 카드충전",
             message: "옥토퍼스 카드충전에 성공하였습니다.",
             okButtonText: "확인"
         }).then(()=>{
+            this.dataService.addOctopusBalance(this.amount_num);
+            this.transactionService.addTr({
+                type:"transactions",
+                class: "포인트충전",
+                merchant: "옥스퍼드 카드충전",
+                point: this.amount_num * this.countryService.exchange_hk,
+                curr: this.amount_num,
+                date: new Date(),
+                description: "옥스퍼드 카드충전",
+                taxfree: false,
+                utu: false,
+                save_point: 0,
+            });
+            
             this.routerExtensions.navigate(['/main/octopus/main'], { 
                 clearHistory:true,
                 transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }

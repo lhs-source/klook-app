@@ -99,6 +99,12 @@ export class CountryService {
     get exchange() {
         return this.countries[this.country].exchange;
     }
+    get exchange_hk() {
+        return this.countries["홍콩"].exchange;
+    }
+    get exchange_th() {
+        return this.countries["태국"].exchange;
+    }
     get currency() {
         return this.countries[this.country].currency;
     }

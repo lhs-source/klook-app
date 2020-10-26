@@ -20,7 +20,7 @@ import { CountryService } from './country.service';
 @Injectable()
 export class DataService {
     point = 120000;
-    _octopus_balance = 800;
+    octopus_balance = 800;
     icons = {
         "백화점": "~/images/ico_type2.png",
         "편의점": "~/images/ico_type3.png",
@@ -40,6 +40,7 @@ export class DataService {
 
     constructor(private countryService: CountryService) {
         this.point = getNumber("point", 120000);
+        this.octopus_balance = getNumber("octopusBalance", 800);
     }
 
     reset() {
@@ -61,20 +62,21 @@ export class DataService {
     }
     resetPoint() {
         this.point = 120000;
+        this.octopus_balance = 800;
         setNumber("point", this.point);
+        setNumber("octopusBalance", this.octopus_balance);
     }
     get point_exchanged() {
         return this.point / this.countryService.exchange;
     }
-
-    get octopus_balance() {
-        return this._octopus_balance;
-    }
-    set octopus_balance(v: number) {
-        this._octopus_balance = v;
-    }
     addOctopusBalance(v: number) {
-        this._octopus_balance = this._octopus_balance + v;
+        this.octopus_balance = this.octopus_balance + v;
+        this.point = this.point - v * this.countryService.exchange;
+        console.log("DataService addOctopusBalance octopus_balance =", this.octopus_balance);
+        console.log("DataService addOctopusBalance point =", this.point);
+        
+        setNumber("point", this.point);
+        setNumber("octopusBalance", this.octopus_balance);
     }
     setAuto(balance, amount, merchant) {
         this.auto_balance = balance;
