@@ -55,7 +55,7 @@
     </StackLayout>
 
     <ripple-button row="6" *ngIf="isNormal" text="포인트 충전하기" backgroundColor="#ff5722" textColor="white" (click)="charge($event)"></ripple-button>
-    <ripple-button row="6" *ngIf="!isNormal" text="자동 충전 설정하기" backgroundColor="#ff5722" textColor="white" (click)="charge($event)"></ripple-button>
+    <ripple-button row="6" *ngIf="!isNormal" text="자동 충전 설정하기" backgroundColor="#ff5722" textColor="white" (click)="auto_charge($event)"></ripple-button>
 </GridLayout>
 
 <GridLayout rows="auto, *">

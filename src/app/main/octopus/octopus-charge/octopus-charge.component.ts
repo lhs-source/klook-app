@@ -25,6 +25,7 @@ export class OctopusChargeComponent implements OnInit {
     @ViewChild('cardelems', {static:true}) cardelems : ElementRef;
 
     card_index = 0;
+    amount : string;
 
     constructor(private routerExtensions : RouterExtensions, private activatedRoute : ActivatedRoute,
         private dataService: DataService,
@@ -75,7 +76,7 @@ export class OctopusChargeComponent implements OnInit {
 
     onTabCharge(event){
         console.log("emit the button");
-        
+        this.dataService.addOctopusBalance(Number(this.amount));
         alert({
             title: "옥토퍼스 카드충전",
             message: "옥토퍼스 카드충전에 성공하였습니다.",

@@ -5,6 +5,7 @@ import { formatDate } from '@angular/common';
 import { QrData } from './qr-data.model';
 import { CountryService } from './country.service';
 import { MerchantService } from './merchant.service';
+import { DataService } from './data.service';
 
 @Injectable({providedIn: 'root'})
 export class TransactionService {
@@ -160,7 +161,8 @@ export class TransactionService {
     database: Couchbase;
     
     constructor(private countryService : CountryService,
-        private merchantService : MerchantService) { 
+        private merchantService : MerchantService,
+        private dataService : DataService) { 
         
         this.initialize();
     }
@@ -254,6 +256,9 @@ export class TransactionService {
         tr.save_point = Math.abs(tr.save_point);
         this.database.createDocument(encode_paymentData(tr));
         this.trs.unshift(tr);
+        // auto charge! 
+
+
         // temp until 10/30
         this.trs.sort((a, b)=>{
             if(a.date > b.date){
@@ -284,6 +289,22 @@ export class TransactionService {
             save_point: Math.abs(point) * 0.1,
         };
         return item;
+    }
+    autoCharge(){
+        if(this.dataService.point < this.dataService.auto_balance){
+            this.addTr({
+                type:"transactions",
+                class: "포인트자동충전",
+                merchant: this.dataService.auto_merchant + " 충전",
+                point: this.dataService.auto_amount,
+                curr: 0,
+                date: new Date(),
+                description: "포인트교환",
+                taxfree: false,
+                utu: false,
+                save_point: 0,
+            });
+        }
     }
     reset(){
         console.log("reseting tr...");

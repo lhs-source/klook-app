@@ -341,7 +341,7 @@ export class ChargePointComponent implements OnInit {
     dialogSuccess(thenFunction : ()=>any){
         // success dialog
         alert({
-            title: "포인트충전 성공",
+            title: "포인트충전",
             message: "포인트충전에 성공했습니다",
             okButtonText: "확인"
         }).then(thenFunction);
@@ -362,8 +362,25 @@ export class ChargePointComponent implements OnInit {
         });
         this.dataService.addPoint(this.amount_num);
         this.dialogSuccess(()=>{
-            this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
+            this.routerExtensions.navigate(['/main/home'], { 
+                transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, 
+                clearHistory : true 
+            });
         })
+    }
+
+    auto_charge(){
+        this.dataService.setAuto(Number(this.amount_auto_under), Number(this.amount_num), this.selected_way.title);
+        alert({
+            title: "포인트 자동충전",
+            message: "포인트 자동충전을 설정했습니다",
+            okButtonText: "확인"
+        }).then(()=>{
+            this.routerExtensions.navigate(['/main/home'], { 
+                transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, 
+                clearHistory : true 
+            });
+        });
     }
 
     // actionbar emit click close

@@ -8,6 +8,7 @@ import { screen } from "tns-core-modules/platform/platform"
 
 import { Carousel } from "nativescript-carousel";
 import { CustomTransition, CustomTransitionBack } from "../../../util/klook-transition";
+import { DataService } from "../../../service/data.service";
 
 @Component({
     selector: "octopus-main",
@@ -25,7 +26,7 @@ export class OctopusMainComponent implements OnInit {
         "~/images/card_ezlink.png",
     ];
 
-    constructor(private routerExtensions: RouterExtensions) {
+    constructor(private routerExtensions: RouterExtensions, private dataService : DataService) {
         console.log(`${this.tag} constructor `)
 
         if (isAndroid) {

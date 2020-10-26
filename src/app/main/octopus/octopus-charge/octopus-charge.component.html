@@ -12,7 +12,7 @@
                     <Label class="str" text="사용중" verticalAlignment="bottom"></Label>
                 </GridLayout>
             </GridLayout>
-            <TextField class="input" row="1" verticalAlignment="center" hint="충전 금액을 입력하세요" keyboardType="number"></TextField>
+            <TextField class="input" row="1" [text]="amount" verticalAlignment="center" hint="충전 금액을 입력하세요" keyboardType="number"></TextField>
             <StackLayout row="2" class="aftercharge" orientation="horizontal">
                 <Label text="충전 후 금액: "></Label>
                 <Label class="amount" text="800"></Label>
