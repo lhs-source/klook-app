@@ -29,7 +29,7 @@ export class PayComponent implements OnInit {
     // payment info from qr
     pay_info : QrData = {
         merchant:"Central Department Store (Central Hat Yai)",
-        amount:419,
+        amount:-419,
         description: "포인트사용",
         taxfree: false,
         utu: true,
@@ -52,7 +52,9 @@ export class PayComponent implements OnInit {
         console.log(`${this.tag} constructor `)
 
         this.pay_info = this.paymentService.pay_info;
-        this.point = this.pay_info.amount * this.countryService.countries["태국"].exchange;
+        this.point = -Math.abs(this.pay_info.amount) * this.countryService.countries["태국"].exchange;
+        console.log("pay point = ", this.pay_info.amount);
+        console.log("pay point = ", this.point);
         if (isAndroid) {
         }
     }
@@ -98,8 +100,8 @@ export class PayComponent implements OnInit {
                 let status = res["response"]["status"];
                 if(status === "ACCP"){
                     // add the tr to transaction list
-                    this.transactionService.addTrFromQr(this.pay_info);
                     this.dataService.addPoint(this.point);
+                    this.transactionService.addTrFromQr(this.pay_info);
                     
                     // activity indicator off
                     this.progressService.progressOff();   

@@ -25,7 +25,7 @@ export class QrPayComponent implements OnInit {
 
     pay_info : QrData = {
         merchant:"Central Department Store (Central Hat Yai)",
-        amount:419,
+        amount:-419,
         description: "포인트사용",
         taxfree: false,
         utu: true,

@@ -41,6 +41,9 @@ export class DataService {
     constructor(private countryService: CountryService) {
         this.point = getNumber("point", 120000);
         this.octopus_balance = getNumber("octopusBalance", 800);
+        this.auto_balance = getNumber("autoBalance", 0);
+        this.auto_amount = getNumber("autoAmount", 0);
+        this.auto_merchant = getString("autoMerchange", "KB국민카드 해피nori");
     }
 
     reset() {
@@ -51,6 +54,7 @@ export class DataService {
     // point
     //-------
     addPoint(point) {
+        console.log("DataService input =", point);
         this.point = this.point + point;
         setNumber("point", this.point);
         console.log("DataService point =", this.point);
@@ -74,13 +78,18 @@ export class DataService {
         this.point = this.point - v * this.countryService.exchange;
         console.log("DataService addOctopusBalance octopus_balance =", this.octopus_balance);
         console.log("DataService addOctopusBalance point =", this.point);
-        
+
         setNumber("point", this.point);
         setNumber("octopusBalance", this.octopus_balance);
     }
     setAuto(balance, amount, merchant) {
+        console.log(this.auto_balance, this.auto_amount, this.auto_merchant);
         this.auto_balance = balance;
         this.auto_amount = amount;
         this.auto_merchant = merchant;
+
+        setNumber("autoBalance", this.auto_balance);
+        setNumber("autoAmount", this.auto_amount);
+        setString("autoMerchange", this.auto_merchant);
     }
 }

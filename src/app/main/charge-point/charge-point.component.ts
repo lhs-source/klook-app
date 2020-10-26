@@ -49,6 +49,8 @@ export class ChargePointComponent implements OnInit {
     
     @ViewChild('amounttf_autounder', {static:true}) amounttf_autounder : ElementRef;
     @ViewChild('amounttf_auto', {static:true}) amounttf_auto : ElementRef;
+    tf1 : TextField;
+    tf2 : TextField;
     focused_tf : TextField;
     amount_auto_under = '';
     cursor_auto_under = 0;
@@ -186,7 +188,7 @@ export class ChargePointComponent implements OnInit {
 
     // keypad //
     onTouchShortcut(event : TouchGestureEventData, point){
-        if(event.action === 'down'){
+        if(event.action !== 'down'){
             return;
         }
         let fp = Number(this.focused_tf.text);
@@ -206,6 +208,11 @@ export class ChargePointComponent implements OnInit {
     onTapTextfield(event, index){
         console.log("onTapTextfield");
         let kf = event.object as TextField;
+        if(index === 1){
+            this.tf1 = kf;
+        }else{
+            this.tf2 = kf;
+        }
         let kl = this.modalkeypad.nativeElement as LayoutBase;
         this.modal_show(kl, this.isKeypadShow, ()=>{
             this.isKeypadShow = true;
@@ -249,6 +256,8 @@ export class ChargePointComponent implements OnInit {
             this.modal_hide(kl, this.isKeypadShow, ()=>{
                 this.isKeypadShow = false;
             });
+            console.log(this.tf1.text);
+            console.log(this.tf2.text);
         }else if(num == 'back'){
             if(sel <= 0){
 
@@ -355,7 +364,7 @@ export class ChargePointComponent implements OnInit {
             point: this.amount_num,
             curr: 0,
             date: new Date(),
-            description: "포인트교환",
+            description: "포인트충전",
             taxfree: false,
             utu: false,
             save_point: 0,
@@ -370,7 +379,8 @@ export class ChargePointComponent implements OnInit {
     }
 
     auto_charge(){
-        this.dataService.setAuto(Number(this.amount_auto_under), Number(this.amount_num), this.selected_way.title);
+        console.log(this.tf1.text, this.tf2.text);
+        this.dataService.setAuto(Number(this.tf1.text), Number(this.tf2.text), this.selected_way.title);
         alert({
             title: "포인트 자동충전",
             message: "포인트 자동충전을 설정했습니다",

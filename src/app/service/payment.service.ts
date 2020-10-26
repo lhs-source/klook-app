@@ -24,7 +24,9 @@ export class PaymentService {
         utu: true,
     };
 
-    constructor(private httpClient: HttpClient, private dataService : DataService) { }
+    constructor(private httpClient: HttpClient, private dataService : DataService) { 
+        console.log(this.pay_info);
+    }
 
     getToken() {
         let path = "/oauth?x-apikey=1gH8WT02XvyxvqjIg24dSKaUBHeNw59i";

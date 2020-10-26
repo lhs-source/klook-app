@@ -291,16 +291,18 @@ export class TransactionService {
         return item;
     }
     autoCharge(){
+        console.log("autoCharge",this.dataService.point);
+        console.log("autoCharge",this.dataService.auto_balance);
         if(this.dataService.point < this.dataService.auto_balance){
             this.dataService.addPoint(this.dataService.auto_amount);
             this.addTr({
                 type:"transactions",
-                class: "포인트자동충전",
-                merchant: this.dataService.auto_merchant + " 충전",
+                class: "포인트충전",
+                merchant: this.dataService.auto_merchant + " 자동충전",
                 point: this.dataService.auto_amount,
                 curr: 0,
                 date: new Date(),
-                description: "포인트교환",
+                description: "포인트자동충전",
                 taxfree: false,
                 utu: false,
                 save_point: 0,
