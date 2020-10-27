@@ -10,6 +10,7 @@ import { KeyValue } from "@angular/common";
 import { DataService } from "../../../service/data.service";
 import { TransactionService } from "../../../service/transaction.service";
 import { CountryService } from "../../../service/country.service";
+import { PaymentData } from "src/app/service/payment-data.model";
 
 @Component({
     selector: "tr-history",
@@ -23,17 +24,12 @@ export class TrHistoryComponent implements OnInit {
     use_point = 150000;
     stack_point = 4120;
 
-    // trs
-    icons = {
-        "백화점": "~/images/ico_type2.png",
-        "편의점": "~/images/ico_type3.png",
-        "식당": "~/images/ico_type5.png",
-        "포인트충전": "~/images/ico_type1.png",
-        "마트": "~/images/ico_type4.png",
-        "스포츠": "~/images/ico_type6.png",
-        "카페": "~/images/ico_type7.png",
-        "포인트교환": "~/images/ico_type8.png",
-    };
+    // sort tab
+    //  - 0 : all
+    //  - 1 : amount
+    //  - 2 : charge / change
+    //  - 3 : save point
+    sort_type = 0;
     
     exchange = 0;
 
@@ -82,12 +78,14 @@ export class TrHistoryComponent implements OnInit {
     keyDescOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
         return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
     }
-    hiAmountOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
-        return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+    hiAmountOrder = (a: PaymentData, b: PaymentData): number => {
+        return a.point > b.point ? -1 : (b.point > a.point ? 1 : 0);
     }
 
+    // tap sort tab
     callback_tapElem(number){
         console.log(this.tag, "callback_tapElem = ", number);
+        this.sort_type = number;
     }
 
     onTapTr(tr) {

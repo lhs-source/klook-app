@@ -9,8 +9,7 @@ import { DataService } from './data.service';
 
 @Injectable({providedIn: 'root'})
 export class TransactionService {
-    trs_grouped = {}
-    tr_group_calced = false;
+    // initial data
     trs_init: PaymentData[] = [
         {
             type: "transactions",
@@ -170,9 +169,21 @@ export class TransactionService {
             save_point: 0,
         }
     ];
+
+    // data
     trs : PaymentData[] = [];
     database: Couchbase;
     
+    // cached
+    trs_grouped = {}
+    tr_group_calced = false;
+    trs_order_amount = {}
+    tr_order_calced = false;
+    trs_grouped_cc = {};
+    tr_group_cc_calced = false;
+    trs_grouped_save_point = {};
+    tr_group_save_point_calced = false;
+
     constructor(private countryService : CountryService,
         private merchantService : MerchantService,
         private dataService : DataService) { 
@@ -183,10 +194,6 @@ export class TransactionService {
     initialize(){
         console.log("initializing...");
         this.database = new Couchbase("transaction");
-        // this.database.destroyDatabase();
-        // console.log("destroying transactions database...");
-        // this.database = new Couchbase("transaction");
-        // console.log("creating transactions database...");
         let temp_transactions = this.database.query({
             select: [],
             from: null,
@@ -215,36 +222,19 @@ export class TransactionService {
                 this.trs.push(item);
             });
         }
-        // this.trs.forEach((elem)=>{
-        //     console.log("trs=",elem);
-        // });
-        this.getTrsGrouped();
     }
+    //-----------------
+    // get transactions
+    //-----------------
     findTrByDate(date) {
         let tr = this.trs.filter((element, index, array) => {
             return (Number(date) === element.date.getTime());
         })[0];
         return tr;
     }
-
-    getTrsGrouped() {
-        if (this.tr_group_calced === false) {
-            this.trs_grouped = {};
-            this.trs.forEach((elem) => {
-                let date = formatDate(elem.date, 'MM월 dd일 ', 'en-US');
-                let day = elem.date.getDay();
-                let days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-                date = date.concat(days[day]);
-                // console.log(date);
-                if (!this.trs_grouped[date]) {
-                    this.trs_grouped[date] = [];
-                }
-                this.trs_grouped[date].push(elem);
-            });
-            this.tr_group_calced = true;
-        };
-        return this.trs_grouped;
-    }
+    //--------
+    // cached
+    //--------
     get tr_grouped(){
         console.log("tr_grouped ", this.tr_group_calced);
         if (this.tr_group_calced === false) {
@@ -254,8 +244,6 @@ export class TransactionService {
                 let day = elem.date.getDay();
                 let days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
                 date = date.concat(days[day]);
-                console.log("insert ", date);
-                console.log("elem",elem.date);
                 if (!this.trs_grouped[date]) {
                     this.trs_grouped[date] = [];
                 }
@@ -265,6 +253,65 @@ export class TransactionService {
         };
         return this.trs_grouped;
     }
+    get tr_order_amount(){
+        if(this.tr_order_calced === false){
+            this.trs_order_amount = this.trs.sort((a : PaymentData, b : PaymentData) =>{
+                return Math.abs(a.point) > Math.abs(b.point) ? -1 : (Math.abs(b.point) > Math.abs(a.point) ? 1 : 0);
+            });
+            this.tr_order_calced = true;
+        }
+        return this.trs_order_amount;
+    }
+    // only charge or change
+    get tr_only_cc(){
+        console.log("tr_grouped ", this.tr_group_cc_calced);
+        if (this.tr_group_cc_calced === false) {
+            this.trs_grouped_cc = {};
+            this.trs.forEach((elem) => {
+                if(elem.class !== "포인트충전" && elem.class !== "포인트교환"){
+                    return;
+                }
+                let date = formatDate(elem.date, 'MM월 dd일 ', 'en-US');
+                let day = elem.date.getDay();
+                let days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+                date = date.concat(days[day]);
+                if (!this.trs_grouped_cc[date]) {
+                    this.trs_grouped_cc[date] = [];
+                }
+                this.trs_grouped_cc[date].push(elem);
+            });
+            this.tr_group_cc_calced = true;
+        };
+        return this.trs_grouped_cc;
+    }
+    // only save point
+    get tr_only_save_point(){
+        console.log("tr_group_save_point_calced ", this.tr_group_save_point_calced);
+        if (this.tr_group_save_point_calced === false) {
+            this.trs_grouped_save_point = {};
+            this.trs.forEach((elem) => {
+                if(elem.save_point <= 0){
+                    return;
+                }
+                let date = formatDate(elem.date, 'MM월 dd일 ', 'en-US');
+                let day = elem.date.getDay();
+                let days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+                date = date.concat(days[day]);
+                console.log("insert ", date);
+                console.log("elem",elem.date);
+                if (!this.trs_grouped_save_point[date]) {
+                    this.trs_grouped_save_point[date] = [];
+                }
+                this.trs_grouped_save_point[date].push(elem);
+            });
+            this.tr_group_save_point_calced = true;
+        };
+        return this.trs_grouped_save_point;
+    }
+
+    //--------------------
+    // insert transaction
+    //--------------------
     addTr(tr: PaymentData) {
         tr.save_point = Math.abs(tr.save_point);
         this.database.createDocument(encode_paymentData(tr));
@@ -280,8 +327,8 @@ export class TransactionService {
                 return 1;
             }
         })
-        console.log(this.trs);
-        this.tr_group_calced = false;
+        // console.log(this.trs);
+        this.needToUpdate();
     }
     addTrFromQr(qr: QrData) {
         let tr = this.qr2tr(qr);
@@ -304,6 +351,15 @@ export class TransactionService {
         };
         return item;
     }
+    needToUpdate(){
+        this.tr_group_calced = false;
+        this.tr_group_cc_calced = false;
+        this.tr_group_save_point_calced = false;
+        this.tr_order_calced = false;
+    }
+    //-------------
+    // auto change
+    //-------------
     autoCharge(){
         console.log("autoCharge",this.dataService.point);
         console.log("autoCharge",this.dataService.auto_balance);
@@ -324,6 +380,9 @@ export class TransactionService {
             });
         }
     }
+    //--------
+    // reset
+    //--------
     reset(){
         console.log("reseting tr...");
         this.trs = [];
