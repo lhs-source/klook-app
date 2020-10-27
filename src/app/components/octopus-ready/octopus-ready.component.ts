@@ -4,6 +4,7 @@ import { isAndroid, screen } from "tns-core-modules/platform/platform"
 import { Image, LayoutBase } from "tns-core-modules";
 import { RouterExtensions } from "@nativescript/angular";
 import { AuthService } from "../../service/auth.service";
+import { OctopusService } from "../../service/octopus.service";
 
 // * Usage
 // <octopus-ready octopus-ready="octopus-ready" point="122" point_unit="HKD" backgroundColor="#ff5722"></octopus-ready>
@@ -41,7 +42,8 @@ export class OctopusReadyComponent implements OnInit {
     trans_duration = 250;
 
     constructor(private routerExtensions: RouterExtensions,
-        private authService : AuthService) { }
+        private authService : AuthService,
+        private octopusService : OctopusService) { }
     ngOnInit(): void { }
 
     // translate octopus view to bottom of screen
@@ -122,7 +124,7 @@ export class OctopusReadyComponent implements OnInit {
                     //     curve: AnimationCurve.linear
                     // }).then(() => {
                         setTimeout(() => {
-                            if(this.authService.has_octopus === true){
+                            if(this.octopusService.has_octopus === true){
                                 // issued octopus 
                                 this.routerExtensions.navigate(['/main/octopus/main'], { 
                                     clearHistory: true, 

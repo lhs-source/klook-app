@@ -35,7 +35,6 @@ export class OctopusNewComponent implements OnInit {
     // actionbar emit click close
     actionbar_click_close(isclose){
         console.log(this.tag + " actionbar close button clicked = " + isclose);
-
         this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
 

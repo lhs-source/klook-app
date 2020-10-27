@@ -25,10 +25,10 @@
                             verticalAlignment="top"></Label>
                         <StackLayout row="0" col="2" verticalAlignment="center">
                             <Label class="point"
-                                text="{{ (tr.curr === 0 ? '+' : '') + (tr.point | abs | number:'1.0-0') + ' P' }}"
+                                text="{{ (tr.point > 0 ? '+' : '') + (tr.point | abs | number:'1.0-0') + ' P' }}"
                                 textAlignment="right" verticalAlignment="center" translateY="2"></Label>
                             <Label class="change" *ngIf="tr.curr !== 0"
-                                text="{{(tr.point | abs | number:'1.0-0') + ' THB'}}"
+                                text="{{(tr.curr | abs | number:'1.0-0') + ' THB'}}"
                                 textAlignment="right"></Label>
                             <!-- <Label class="change" text="{{tr.date | date:'MM-dd HH:mm:ss'}}"
                                 textAlignment="right"></Label> -->

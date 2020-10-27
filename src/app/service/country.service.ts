@@ -32,10 +32,10 @@ export class CountryService {
             currency: "USD",
             exchange: 1180.00,
         },
-        "영국": {
-            currency: "GBP",
-            exchange: 1467.58,
-        }
+        // "영국": {
+        //     currency: "GBP",
+        //     exchange: 1467.58,
+        // }
     };
     _country = "태국"
     

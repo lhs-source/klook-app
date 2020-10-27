@@ -1,6 +1,10 @@
 
 <GridLayout #rootlayout rows="64, auto, auto, *, auto" class="nav" height="100%" width="100%">
-    <title row="1" title="보유포인트" point="{{dataService.point | number:'1.0-0'}}" point_unit="{{' (' + ( dataService.point_exchanged | number:'1.0-0') + ' ' + countryService.currency + ')' }}" backgroundColor="#ff5722"></title>
+    <title row="1" 
+        title="보유포인트" 
+        point="{{dataService.point | number:'1.0-0'}}" 
+        point_unit="{{' (' + ( dataService.point_exchanged | number:'1.0-0') + ' ' + countryService.currency + ')' }}" 
+        backgroundColor="#ff5722"></title>
 
     <GridLayout class="card" row="2" width="320" marginTop="16">
         <Image #cardframe src="~/images/box_card.png" width="300" (layoutChanged)="onLoadedCardImage($event)"></Image>
@@ -15,8 +19,8 @@
             <TextField class="input" row="1" [text]="amount" (returnPress)="onReturnPress($event)" verticalAlignment="center" hint="충전 금액을 입력하세요" keyboardType="number"></TextField>
             <StackLayout row="2" class="aftercharge" orientation="horizontal">
                 <Label text="충전 후 금액: "></Label>
-                <Label class="amount" text="{{dataService.octopus_balance + amount_num}}"></Label>
-                <Label class="amount" text="HKD"></Label>
+                <Label class="amount" text="{{octopusService.octopus[selected_country].balance + amount_num}}"></Label>
+                <Label class="amount" text="{{octopusService.octopus[selected_country].currency}}"></Label>
             </StackLayout>
         </GridLayout>
     </GridLayout>

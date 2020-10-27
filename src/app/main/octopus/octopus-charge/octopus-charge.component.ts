@@ -13,6 +13,7 @@ import { CustomTransitionBack } from "../../../util/klook-transition";
 import { DataService } from "../../../service/data.service";
 import { CountryService } from "../../../service/country.service";
 import { TransactionService } from "../../../service/transaction.service";
+import { OctopusService } from "../../../service/octopus.service";
 
 @Component({
     selector: "octopus-charge",
@@ -26,12 +27,14 @@ export class OctopusChargeComponent implements OnInit {
     @ViewChild('cardelems', {static:true}) cardelems : ElementRef;
 
     card_index = 0;
+    selected_country = "";
     amount : string;
     amount_num : number = 0;
 
     constructor(private routerExtensions : RouterExtensions, 
         private activatedRoute : ActivatedRoute,
         private dataService: DataService,
+        private octopusService: OctopusService,
         private countryService: CountryService,
         private transactionService : TransactionService) {
         console.log(`${this.tag} constructor `)
@@ -41,8 +44,10 @@ export class OctopusChargeComponent implements OnInit {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
         console.log(this.activatedRoute.params.subscribe(params=> {
+            let countries = ["싱가포르", "홍콩", "영국"]
             this.card_index = params['index'];
-            console.log("index = " + this.card_index);
+            this.selected_country = countries[this.card_index];
+            console.log("index = ", this.card_index, this.selected_country);
         }));
         
         
@@ -77,9 +82,10 @@ export class OctopusChargeComponent implements OnInit {
     onReturnPress(event){
         let tf = event.object as TextField;
         this.amount_num = Number(tf.text);
-        let exchanged = this.amount_num * this.countryService.exchange_hk;
+        let exchanged = this.amount_num * this.countryService.countries[this.selected_country].exchange;
         if(this.dataService.point < exchanged){
-            this.amount_num = this.dataService.point / this.countryService.exchange_hk;
+            this.amount_num = Math.floor(this.dataService.point / this.countryService.countries[this.selected_country].exchange);
+            this.amount = String(this.amount_num);
         }
     }
     onTabCharge(event){
@@ -89,13 +95,13 @@ export class OctopusChargeComponent implements OnInit {
             message: "옥토퍼스 카드충전에 성공하였습니다.",
             okButtonText: "확인"
         }).then(()=>{
-            this.dataService.addOctopusBalance(this.amount_num);
+            this.octopusService.addOctopusBalance(this.selected_country, this.amount_num);
             this.transactionService.addTr({
                 type:"transactions",
                 class: "포인트충전",
                 merchant: "옥스퍼드 카드충전",
-                point: -this.amount_num * this.countryService.exchange_hk,
-                curr: -this.amount_num,
+                point: -this.amount_num * this.countryService.countries[this.selected_country].exchange,
+                curr: 0,
                 country:"",
                 date: new Date(),
                 description: "옥스퍼드 카드충전",

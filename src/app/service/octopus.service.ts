@@ -19,14 +19,17 @@ export class OctopusService {
         "홍콩":{
             title:"홍콩 옥토퍼스",
             balance:800,
+            currency:"HKD"
         },
         "싱가포르":{
             title:"싱가포르 이지링크",
             balance: 1200,
+            currency:"SGD"
         },
         "영국":{
             title:"영국 오이스터",
             balance: 84,
+            currency:"GBP"
         }
     };
     has_octopus = false;
