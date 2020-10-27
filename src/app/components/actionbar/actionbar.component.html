@@ -1,7 +1,7 @@
 <GridLayout>
     <GridLayout class="actionbar" columns="*, auto, auto">
         <Image col="0" class="logo" src="~/images/logo.png" horizontalAlignment="left" verticalAlignment="bottom"
-            marginBottom="2"></Image>
+            marginBottom="2" (tap)="onTapClose($event)"></Image>
         <GridLayout #countryref col="1" class="locale" verticalAlignment="center" (tap)="onTapLocale()">
             <Image class="frame" src="~/images/select_arrow.png"></Image>
             <GridLayout rows="auto, auto" columns="16, *, auto" width="100%" horizontalAlignment="right">
