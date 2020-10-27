@@ -1,8 +1,14 @@
 
 <GridLayout #rootlayout rows="64, auto, *, auto, auto" class="nav" height="100%" width="100%">
-    <title row="1" title="홍콩 옥토퍼스 보유 잔액" point="{{dataService.octopus_balance | number:'1.0-0'}}" point_unit="HKD" backgroundColor="#ff5722"></title>
+    <title row="1" 
+        title="{{ (octopusService.octopus[selected_country].title) +' 보유 잔액' }}" 
+        point="{{ octopusService.octopus[selected_country].balance | number:'1.0-0'}}" 
+        point_unit="{{countryService.countries[selected_country].currency}}" 
+        backgroundColor="#ff5722">
+    </title>
 
-    <carousel-card row="2" [elem_list]="cardlist" (onTapElem)="onTapCard($event)"></carousel-card>
+    <carousel-card row="2" [elem_list]="cardlist" (onTapElem)="callbackTapCard($event)" (onSelect)="callbackSelect($event)"></carousel-card>
+
     <GridLayout row="3" columns="auto, *" backgroundColor="#f8f8f8">
         <Image row="0" col="0" src="~/images/ico_tag.png" width="64" margin="24" marginRight="44" marginLeft="32"></Image>
         <StackLayout col="1" verticalAlignment="center">
@@ -10,7 +16,7 @@
             <Label text="휴대폰을 기기에 접촉해주세요" style="font-size: 16; color:#555"></Label>
         </StackLayout>
     </GridLayout>
-    <GridLayout row="4" margin="16">
+    <GridLayout row="4" margin="16" *ngIf="selected_country === '홍콩'">
         <StackLayout orientation="horizontal" horizontalAlignment="center" (tap)="navigateUseLoc($event)">
             <Label text="홍콩 옥토퍼스 카드 이용 안내" style="font-size: 15; color:#ff5722;"></Label>
             <Image src="~/images/btn_arrow01.png" width="8" style="margin: 0 8;"></Image></StackLayout>

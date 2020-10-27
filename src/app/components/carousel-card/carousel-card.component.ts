@@ -12,6 +12,7 @@ import { LayoutBase, Image, Label } from "tns-core-modules";
 export class CarouselCardComponent implements OnInit {
     tag = this.constructor.name;
     
+    
     // carousel
     @ViewChild('scroll', { static: true }) scrollview: ElementRef;
     @ViewChild('scrollitems', { static: true }) scrollitems: ElementRef;
@@ -25,6 +26,7 @@ export class CarouselCardComponent implements OnInit {
     //     "~/images/card_ezlink.png",
     // ];
     @Input('elem_list') cardlist;
+    @Output('onSelect') onSelect : EventEmitter<any> = new EventEmitter(); 
     @Output() onTapElem : EventEmitter<any> = new EventEmitter();
     cards = [];
     card_view = [];
@@ -75,6 +77,8 @@ export class CarouselCardComponent implements OnInit {
         setTimeout(() => {
             si.translateX = this.cards[this.card_index];
         });
+
+        this.onSelect.emit(this.card_index);
     }
 
     
@@ -318,6 +322,7 @@ export class CarouselCardComponent implements OnInit {
                     }).then(() => {
                         this.card_index = this.card_index + 1;
                         console.log("this card index = " + this.card_index);
+                        this.onSelect.emit(this.card_index);
                     });
                 } else {
                     // not move, goto origin
@@ -347,6 +352,7 @@ export class CarouselCardComponent implements OnInit {
                     }).then(() => {
                         this.card_index = this.card_index - 1;
                         console.log("this card index = " + this.card_index);
+                        this.onSelect.emit(this.card_index);
                     });
                 } else {
                     // not move, go to origin
@@ -376,6 +382,8 @@ export class CarouselCardComponent implements OnInit {
             }
         }
     }
+
+    
 
     ngOnDestroy(){
         console.log(`${this.tag} ngOnDestroy`);

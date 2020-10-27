@@ -11,8 +11,7 @@ function decode_utf8(s) {
 
 @Injectable({ providedIn: 'root' })
 export class MerchantService {
-
-    merchants_init = {
+    merchants = {
         "Central Department Store (Central Hat Yai)": {
             class: "백화점",
             lat: 7.0057298,
@@ -74,60 +73,6 @@ export class MerchantService {
             address: "Phloen Chit Rd, Lumphini, Pathum Wan District, Bangkok 10330 태국",
         }
     };
-    merchants = {};
 
-    database: Couchbase;
-    
-    constructor() { 
-        this.initialize();
-    }
-
-    initialize() {
-        this.database = new Couchbase("merchant");
-        let temp_merchants = this.database.query({
-            select: [],
-            from: null,
-            where: [{ property: 'type', comparison: 'equalTo', value: 'merchants' }],
-            // order: [{ property: 'firstName', direction: 'desc' }],
-            // limit: 2
-        });
-        if (temp_merchants.length === 0) {
-            // create new datas
-            console.log("creating new merchants data...");
-            for (let key in this.merchants_init) {
-                let item = {
-                    type: "merchants",
-                    name: key,
-                    lat: this.merchants_init[key].lat,
-                    long: this.merchants_init[key].long,
-                    address: encode_utf8(this.merchants_init[key].address),
-                    class: encode_utf8(this.merchants_init[key].class),
-                }
-                // console.log("new merchant =>", item);
-                this.merchants[key] = this.merchants_init[key];
-                this.database.createDocument(item);
-            }
-        } else {
-            // store in memory
-            console.log("getting merchants data...");
-            temp_merchants.forEach((elem) => {
-                this.merchants[elem.name] = {
-                    lat: elem.lat,
-                    long: elem.long,
-                    address: decode_utf8(elem.address),
-                    class: decode_utf8(elem.class),
-                };
-                // console.log("get merchant =>", this.merchants[elem.name]);
-            })
-        }
-        // for(let key in this.merchants){
-        //     console.log("merchants[",key,"]=",this.merchants[key]);
-        // }
-
-    }
-    reset(){
-        console.log("reseting merchants...");
-        this.database.destroyDatabase();
-        this.merchants = [];
-    }
+    constructor() {}
 }

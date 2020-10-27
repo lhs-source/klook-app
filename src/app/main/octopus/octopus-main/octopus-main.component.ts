@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
@@ -9,6 +9,8 @@ import { screen } from "tns-core-modules/platform/platform"
 import { Carousel } from "nativescript-carousel";
 import { CustomTransition, CustomTransitionBack } from "../../../util/klook-transition";
 import { DataService } from "../../../service/data.service";
+import { OctopusService } from "../../../service/octopus.service";
+import { CountryService } from "../../../service/country.service";
 
 @Component({
     selector: "octopus-main",
@@ -23,10 +25,13 @@ export class OctopusMainComponent implements OnInit {
         "~/images/card_ezlink.png",
         "~/images/card_octopus.png",
         "~/images/card_oyster.png",
-        "~/images/card_ezlink.png",
     ];
+    selected_country = "홍콩";
 
-    constructor(private routerExtensions: RouterExtensions, private dataService : DataService) {
+    constructor(private routerExtensions: RouterExtensions, 
+        private dataService : DataService,
+        private octopusService : OctopusService,
+        private countryService : CountryService) {
         console.log(`${this.tag} constructor `)
 
         if (isAndroid) {
@@ -61,7 +66,13 @@ export class OctopusMainComponent implements OnInit {
         });
     }
 
-    onTapCard(index) {
+    callbackSelect(index){
+        console.log(this.tag + " callbackSelect = " + index);
+        let list = ["싱가포르", "홍콩", "영국"];
+        this.selected_country = list[index];
+    }
+
+    callbackTapCard(index) {
         console.log(this.tag + " onTapCard = " + index);
         this.routerExtensions.navigate(['/main/octopus/charge', index], {
             transition: { instance: new CustomTransition(250, AnimationCurve.linear) },

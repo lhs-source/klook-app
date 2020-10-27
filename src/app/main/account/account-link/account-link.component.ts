@@ -43,7 +43,6 @@ export class AccountLinkComponent implements OnInit {
         this.authService.reset();
         this.dataService.reset();
         this.transactionService.reset();
-        this.merchantService.reset();
         this.countryService.reset();
         
         alert({

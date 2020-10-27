@@ -6,6 +6,7 @@ import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase } from 
 import { screen } from "tns-core-modules/platform/platform"
 import { CustomTransitionBack } from "../../../util/klook-transition";
 import { AuthService } from "../../../service/auth.service";
+import { OctopusService } from "../../../service/octopus.service";
 
 @Component({
     selector: "octopus-new",
@@ -19,11 +20,10 @@ export class OctopusNewComponent implements OnInit {
         "~/images/card_ezlink.png",
         "~/images/card_octopus.png",
         "~/images/card_oyster.png",
-        "~/images/card_ezlink.png",
     ];
 
     constructor(private routerExtensions : RouterExtensions,
-        private authService : AuthService) {
+        private octopusService : OctopusService) {
         console.log(`${this.tag} constructor `)
     }
 
@@ -41,7 +41,7 @@ export class OctopusNewComponent implements OnInit {
 
     onTabIssue(event){
         console.log(this.tag + " onTabIssue");
-        this.authService.register_octopus();
+        this.octopusService.register_octopus();
         this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
 }

@@ -29,8 +29,6 @@ export class DoneComponent implements OnInit {
 
         this.authService.register();
         
-        this.merchantService.initialize();
-        this.countryService.initialize();
         this.transactionService.initialize();
     }
     onTapNext(){

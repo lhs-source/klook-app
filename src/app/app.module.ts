@@ -11,6 +11,7 @@ import { CountryService } from "./service/country.service";
 import { MerchantService } from "./service/merchant.service";
 import { TransactionService } from "./service/transaction.service";
 import { PaymentService } from "./service/payment.service";
+import { OctopusService } from "./service/octopus.service";
 import { ProgressService } from "./components/progress/progress.service";
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ProgressService } from "./components/progress/progress.service";
         MerchantService,
         TransactionService,
         AuthService,
-        ProgressService
+        ProgressService,
+        OctopusService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
