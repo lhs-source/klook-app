@@ -8,6 +8,7 @@
     <StackLayout row="2" horizontalAlignment="center" orientation="horizontal" marginTop="16">
         <Image src="~/images/btn_pre.png" width="20" (tap)="onTapPrevMonth($event, 'prev')"></Image>
         <Label class="month" text="{{today | date:'yyyy년 MM월'}}"></Label>
+        <Label class="month" text="{{ today | date:'mm:ss' }} "></Label>
         <Image src="~/images/btn_next.png" width="20" (tap)="onTapNextMonth($event, 'prev')"></Image>
     </StackLayout>
 

@@ -79,14 +79,14 @@ export class TrHistoryComponent implements OnInit {
         console.log(this.routerExtensions.router.url);
     }
     onTapPrevMonth(event, direction) {
-        this.today.setMonth(this.today.getMonth() - 1);
+        this.today = new Date(this.today.setMonth(this.today.getMonth() - 1));
 
         console.log(this.today.getMonth());
         this.transactionService.setMonth(this.today.getMonth());
     }
 
     onTapNextMonth(event, direction) {
-        this.today.setMonth(this.today.getMonth() + 1);
+        this.today = new Date(this.today.setMonth(this.today.getMonth() + 1));
 
         console.log(this.today.getMonth());
         this.transactionService.setMonth(this.today.getMonth());
