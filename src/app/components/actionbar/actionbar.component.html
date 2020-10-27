@@ -5,11 +5,12 @@
         <GridLayout #countryref col="1" class="locale" verticalAlignment="center" (tap)="onTapLocale()">
             <Image class="frame" src="~/images/select_arrow.png"></Image>
             <GridLayout rows="auto, auto" columns="16, *, auto" width="100%" horizontalAlignment="right">
-                <Label row="0" col="1" class="locale-txt" text="{{countries_mapping[countryService.country]}}" verticalAlignment="center"
-                    translateY="2"></Label>
-                <Label row="1" col="1" class="locale-currency" text="{{'(' + countryService.currency + ')'}}" verticalAlignment="center"
-                    translateY="-3"></Label>
-                <Image row="0" rowspan="2" col="2" class="country" src="{{countries_img[countryService.country]}}"></Image>
+                <Label row="0" col="1" class="locale-txt" text="{{countries_mapping[countryService.country]}}"
+                    verticalAlignment="center" translateY="2"></Label>
+                <Label row="1" col="1" class="locale-currency" text="{{'(' + countryService.currency + ')'}}"
+                    verticalAlignment="center" translateY="-3"></Label>
+                <Image row="0" rowspan="2" col="2" class="country" src="{{countries_img[countryService.country]}}">
+                </Image>
             </GridLayout>
         </GridLayout>
         <Image col="2" class="close-btn"
@@ -18,9 +19,11 @@
     </GridLayout>
 
     <GridLayout>
-        <StackLayout class="country-modal" #countrymodalref horizontalAlignment="Right"  marginBottom="96" opacity="0">
+        <StackLayout class="country-modal" #countrymodalref horizontalAlignment="Right" marginBottom="96" opacity="0">
             <!-- <Image src="~/images/box_01.png"></Image> -->
-            <StackLayout class="list" orientation="horizontal" *ngFor="let con of countryService.countries | keyvalue" horizontalAlignment="right" (tap)="onTapCountry($event, con.key)">
+            <StackLayout class="list" orientation="horizontal"
+                *ngFor="let con of countryService.countries | keyvalue" horizontalAlignment="right"
+                (tap)="onTapCountry($event, con.key)">
                 <Label class="str" text="{{countries_mapping[con.key]}}"></Label>
                 <Image class="img" src="{{countries_img[con.key]}}" height="24"></Image>
             </StackLayout>

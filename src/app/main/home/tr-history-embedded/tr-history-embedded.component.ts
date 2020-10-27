@@ -1,10 +1,12 @@
 import { KeyValue } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
-import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
+import { AnimationCurve } from "@nativescript/core/ui/enums";
+
 import { DataService } from "../../../service/data.service";
 import { CountryService } from "../../../service/country.service";
 import { TransactionService } from "../../../service/transaction.service";
+import { CustomTransition } from "../../../util/klook-transition";
 
 @Component({
     selector: "tr-history-embedded",
@@ -14,36 +16,23 @@ import { TransactionService } from "../../../service/transaction.service";
 export class TrHistoryEmbeddedComponent implements OnInit {
     tag = this.constructor.name;
 
-    // trs
-    icons = {
-        "백화점": "~/images/ico_type2.png",
-        "편의점": "~/images/ico_type3.png",
-        "식당": "~/images/ico_type5.png",
-        "포인트충전": "~/images/ico_type1.png",
-        "마트": "~/images/ico_type4.png",
-        "스포츠": "~/images/ico_type6.png",
-        "카페": "~/images/ico_type7.png",
-        "포인트교환": "~/images/ico_type8.png",
-    };
-    trs = {};
-
-    constructor(private routerExtensions: RouterExtensions, private dataService: DataService,
+    constructor(private routerExtensions: RouterExtensions, 
+        private dataService: DataService,
         private countryService : CountryService,
         private transactionService : TransactionService) {
         console.log(`${this.tag} constructor `)
         
-        if (isAndroid) {
-            // Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-            //     console.log("back button pressed on " + this.tag);
-            //     data.cancel = true;
-            //     this.routerExtensions.navigate(['/main/home'], {clearHistory : true});
-            // });
-        }
     }
 
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
+    }
+
+    onTapTimeline(){
+        this.routerExtensions.navigate(['/main/tr'], {
+            transition: { instance: new CustomTransition(250, AnimationCurve.linear) }, clearHistory: true
+        });
     }
     
     keyDescOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {

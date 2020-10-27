@@ -11,7 +11,6 @@ import { ChangeModule } from "./change-point/change.module";
 import { HttpInterceptorService } from "./http-interceptor.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ClassProvider } from "@angular/core";
-import { ProgressService } from "../components/progress/progress.service";
 
 const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
     provide: HTTP_INTERCEPTORS ,
@@ -36,7 +35,6 @@ const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
     ],
     providers:[
         LOGGING_INTERCEPTOR_PROVIDER,
-        ProgressService,
     ],
     schemas: [
         NO_ERRORS_SCHEMA

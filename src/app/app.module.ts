@@ -11,6 +11,7 @@ import { CountryService } from "./service/country.service";
 import { MerchantService } from "./service/merchant.service";
 import { TransactionService } from "./service/transaction.service";
 import { PaymentService } from "./service/payment.service";
+import { ProgressService } from "./components/progress/progress.service";
 
 @NgModule({
     bootstrap: [
@@ -31,6 +32,7 @@ import { PaymentService } from "./service/payment.service";
         MerchantService,
         TransactionService,
         AuthService,
+        ProgressService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -173,10 +173,14 @@ export class TransactionService {
     // data
     trs : PaymentData[] = [];
     database: Couchbase;
+    month = new Date().getMonth();
     
     // cached
     trs_grouped = {}
     tr_group_calced = false;
+    
+    trs_grouped_month = {}
+    tr_group_month_calced = false;
     trs_order_amount = {}
     tr_order_calced = false;
     trs_grouped_cc = {};
@@ -232,6 +236,10 @@ export class TransactionService {
         })[0];
         return tr;
     }
+    setMonth(month : number){
+        this.month = month;
+        this.needToUpdate();
+    }
     //--------
     // cached
     //--------
@@ -252,6 +260,28 @@ export class TransactionService {
             this.tr_group_calced = true;
         };
         return this.trs_grouped;
+    }
+    get tr_grouped_month(){
+        console.log("tr_grouped ", this.tr_group_month_calced);
+        if (this.tr_group_month_calced === false) {
+            this.trs_grouped_month = {};
+            this.trs.forEach((elem) => {
+                if(elem.date.getTime() < new Date(2020, this.month, 1).getTime() ||
+                elem.date.getTime() > new Date(2020, this.month + 1, 1).getTime()){
+                    return;
+                }
+                let date = formatDate(elem.date, 'MM월 dd일 ', 'en-US');
+                let day = elem.date.getDay();
+                let days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+                date = date.concat(days[day]);
+                if (!this.trs_grouped_month[date]) {
+                    this.trs_grouped_month[date] = [];
+                }
+                this.trs_grouped_month[date].push(elem);
+            });
+            this.tr_group_month_calced = true;
+        };
+        return this.trs_grouped_month;
     }
     get tr_order_amount(){
         if(this.tr_order_calced === false){
@@ -353,6 +383,7 @@ export class TransactionService {
     }
     needToUpdate(){
         this.tr_group_calced = false;
+        this.tr_group_month_calced = false;
         this.tr_group_cc_calced = false;
         this.tr_group_save_point_calced = false;
         this.tr_order_calced = false;

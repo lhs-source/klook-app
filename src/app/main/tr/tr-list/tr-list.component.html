@@ -42,12 +42,12 @@
     <ng-container *ngIf="grouped === false">
 
         <GridLayout class="day" rows="auto, auto" columns="24, *" width="100%">
-            <!-- <Label class="line" col="0" rowspan="2" width="100%"></Label>
-                        <Label class="dot" [ngClass]="{'even': index % 2 === 1}" col="0" rowspan="2"
-                            verticalAlignment="top"></Label>
-                        <GridLayout class="date" col="1" row="0" columns="*, auto">
-                            <Label class="date-str" text="-" col="0"></Label>
-                        </GridLayout> -->
+            <Label class="line" col="0" rowspan="2" width="100%"></Label>
+            <!-- <Label class="dot" [ngClass]="{'even': index % 2 === 1}" col="0" rowspan="2"
+                verticalAlignment="top"></Label> -->
+            <!-- <GridLayout class="date" col="1" row="0" columns="*, auto">
+                <Label class="date-str" text="-" col="0"></Label>
+            </GridLayout> -->
             <StackLayout col="1" row="1" class="items">
                 <GridLayout class="item" *ngFor="let tr of transactions ; let index = index"
                     rows="auto, auto" columns="auto, *, auto" (tap)="onTapTr(tr)">

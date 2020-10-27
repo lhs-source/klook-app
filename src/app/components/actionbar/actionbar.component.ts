@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from "@angular/core";
-import { LayoutBase } from "tns-core-modules";
+import { LayoutBase, StackLayout } from "tns-core-modules";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { screen } from "tns-core-modules/platform/platform"
 
 import { CountryService } from "../../service/country.service";
 
@@ -60,6 +61,8 @@ export class MyActionBarComponent implements OnInit {
 
         conmodalref.on('layoutChanged', (arg)=>{
             console.log("{layoutChanged} conmodalref")
+            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+            
             let conref = this.countryref.nativeElement as LayoutBase;
             // console.log(conmodalref.getLocationRelativeTo(conref));
             // console.log(conref.getLocationRelativeTo(conmodalref));
@@ -68,10 +71,19 @@ export class MyActionBarComponent implements OnInit {
             this.modal_loc.y = loc.y + 32;
             conmodalref.translateX = this.modal_loc.x
             conmodalref.translateY = this.modal_loc.y;
+            // conmodalref.height = conmodalref.getMeasuredHeight() * p / 2,
             conmodalref.eachChild((view)=>{
                 this.country_views.push(view);
                 return true;
             })
+            let count = 0;
+            
+            conmodalref.eachChild((view)=>{
+                let sl = view as StackLayout;
+                sl.translateY = -(count * 24);
+                count = count + 1;
+                return true;
+            });
         });
     }
 
@@ -83,16 +95,39 @@ export class MyActionBarComponent implements OnInit {
         let conref = this.countryref.nativeElement as LayoutBase;
         let conmodalref = this.countrymodalref.nativeElement as LayoutBase;
 
+        let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
         if(this.isModalShow === true){
             conmodalref.animate({
                 opacity:1,
+                // height:conmodalref.getMeasuredHeight() * p * 2,
                 curve:AnimationCurve.easeOut
             })
+            let count = 0;
+            conmodalref.eachChild((view)=>{
+                let sl = view as StackLayout;
+                sl.animate({
+                    translate: {x:0, y: 0},
+                    curve:AnimationCurve.easeOut
+                });
+                count = count + 1;
+                return true;
+            });
         }else{
             conmodalref.animate({
                 opacity:0,
+                // height:conmodalref.getMeasuredHeight() * p / 2,
                 curve:AnimationCurve.easeOut
             })
+            let count = 0;
+            conmodalref.eachChild((view)=>{
+                let sl = view as StackLayout;
+                sl.animate({
+                    translate: {x:0, y: -(count * 24)},
+                    curve:AnimationCurve.easeOut
+                });
+                count = count + 1;
+                return true;
+            });
         }
     }
 
@@ -107,6 +142,16 @@ export class MyActionBarComponent implements OnInit {
             opacity:0,
             curve:AnimationCurve.easeOut
         })
+        let count = 0;
+        conmodalref.eachChild((view)=>{
+            let sl = view as StackLayout;
+            sl.animate({
+                translate: {x:0, y: -(count * 24)},
+                curve:AnimationCurve.easeOut
+            });
+            count = count + 1;
+            return true;
+        });
     }
 
     onTapClose(event){

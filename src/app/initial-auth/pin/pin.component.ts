@@ -10,6 +10,7 @@ import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../service/auth.service";
 
 import * as Toast from 'nativescript-toast';
+import { CustomTransition } from "../../util/klook-transition";
 
 @Component({
     selector: "Pin",
@@ -64,11 +65,8 @@ export class PinComponent implements OnInit {
                     if (this.authService.is_registered === true) {
                         // already register
                         this.routerExtensions.navigate(["/main"], {
-                            clearHistory: true, transition: {
-                                name: 'slide',
-                                duration: 250,
-                                curve: AnimationCurve.easeOut
-                            }
+                            clearHistory: true, 
+                            transition: { instance: new CustomTransition(250, AnimationCurve.linear) }
                         });
                     } else {
                         // new register

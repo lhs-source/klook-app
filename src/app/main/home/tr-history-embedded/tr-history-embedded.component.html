@@ -5,7 +5,7 @@
         <Button text="go to Home" (tap)="navigateBack($event)"></Button>
     </StackLayout> -->
     <ScrollView>
-        <StackLayout class="timeline">
+        <StackLayout class="timeline" (tap)="onTapTimeline()">
             <GridLayout class="day" columns="16" width="100%" height="16">
                 <Label class="line" col="0" width="100%"></Label>
             </GridLayout>
@@ -19,7 +19,7 @@
                 </GridLayout>
                 <StackLayout col="1" row="1" class="items">
                     <GridLayout class="item" *ngFor="let tr of item.value" rows="auto, auto" columns="auto, *, auto">
-                        <Image class="icon" row="0" rowspan="2" col="0" src="{{icons[tr.class]}}"
+                        <Image class="icon" row="0" rowspan="2" col="0" src="{{dataService.icons[tr.class]}}"
                             verticalAlignment="top"></Image>
                         <Label class="merchant" row="0" rowspan="2" col="1" text="{{tr.merchant}}"
                             verticalAlignment="top"></Label>

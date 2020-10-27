@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { Application, AndroidApplication, AndroidActivityBackPressedEventData, isAndroid, EventData, LayoutBase, View, Color, Label } from "tns-core-modules";
@@ -10,7 +10,8 @@ import { KeyValue } from "@angular/common";
 import { DataService } from "../../../service/data.service";
 import { TransactionService } from "../../../service/transaction.service";
 import { CountryService } from "../../../service/country.service";
-import { PaymentData } from "src/app/service/payment-data.model";
+import { PaymentData } from "../../../service/payment-data.model";
+import { ProgressService } from "../../../components/progress/progress.service";
 
 @Component({
     selector: "tr-history",
@@ -20,7 +21,7 @@ import { PaymentData } from "src/app/service/payment-data.model";
 export class TrHistoryComponent implements OnInit {
     tag = this.constructor.name;
 
-    today = Date.now();
+    today = new Date();
     use_point = 150000;
     stack_point = 4120;
 
@@ -30,22 +31,25 @@ export class TrHistoryComponent implements OnInit {
     //  - 2 : charge / change
     //  - 3 : save point
     sort_type = 0;
-    
+
     exchange = 0;
 
-    constructor(private routerExtensions: RouterExtensions, 
+    constructor(private routerExtensions: RouterExtensions,
+        private viewcontainerRef: ViewContainerRef,
         private transactionService: TransactionService,
-        private countryService : CountryService,
-        private dataService : DataService) {
+        private countryService: CountryService,
+        private dataService: DataService,
+        private progressService: ProgressService) {
         console.log(`${this.tag} constructor `)
         console.log("today ", this.today.toLocaleString());
+        
+        this.transactionService.setMonth(this.today.getMonth());
 
-
-        if(this.transactionService.trs.length > 0){
+        if (this.transactionService.trs.length > 0) {
             let sumpoint = 0;
             let sumsave = 0;
-            this.transactionService.trs.forEach((elem)=>{
-                if(elem.point < 0){
+            this.transactionService.trs.forEach((elem) => {
+                if (elem.point < 0) {
                     sumpoint = sumpoint + elem.point;
                 }
                 sumsave = sumsave + elem.save_point;
@@ -53,7 +57,7 @@ export class TrHistoryComponent implements OnInit {
             this.use_point = Math.abs(sumpoint);
             this.stack_point = sumsave;
         }
-        
+
         this.exchange = Math.floor(this.dataService.point / this.countryService.exchange);
 
         if (isAndroid) {
@@ -74,6 +78,19 @@ export class TrHistoryComponent implements OnInit {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
     }
+    onTapPrevMonth(event, direction) {
+        this.today.setMonth(this.today.getMonth() - 1);
+
+        console.log(this.today.getMonth());
+        this.transactionService.setMonth(this.today.getMonth());
+    }
+
+    onTapNextMonth(event, direction) {
+        this.today.setMonth(this.today.getMonth() + 1);
+
+        console.log(this.today.getMonth());
+        this.transactionService.setMonth(this.today.getMonth());
+    }
 
     keyDescOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
         return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
@@ -83,15 +100,22 @@ export class TrHistoryComponent implements OnInit {
     }
 
     // tap sort tab
-    callback_tapElem(number){
+    callback_tapElem(number) {
         console.log(this.tag, "callback_tapElem = ", number);
         this.sort_type = number;
+
+        this.progressService.progressOn(this.viewcontainerRef);
+        setTimeout(() => {
+            this.progressService.progressOff();
+        }, 250);
     }
 
     onTapTr(tr) {
         console.log(this.tag, " onTapTr tr = ", tr);
         console.log("date = ", tr.date);
-        this.routerExtensions.navigate(['/main/tr/detail', (tr.date as Date).getTime()], { transition: { instance: new CustomTransition(250, AnimationCurve.linear) }, });
+        this.routerExtensions.navigate(['/main/tr/detail', (tr.date as Date).getTime()], {
+            transition: { instance: new CustomTransition(250, AnimationCurve.linear) },
+        });
     }
 
     // actionbar emit click close
@@ -106,7 +130,7 @@ export class TrHistoryComponent implements OnInit {
     onTapFirst() {
         this.routerExtensions.navigate(['/main/home'], {
             clearHistory: true,
-            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }
+            transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
         });
         // this.routerExtensions.back();
     }

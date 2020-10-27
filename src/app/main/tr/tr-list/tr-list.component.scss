@@ -1,29 +1,5 @@
 $maincolor: #ff5722;
 
-.month{
-    font-size: 16;
-    font-weight: 600;
-    margin: 0 8;
-}
-
-.info{
-    margin:0 16;
-    padding:12;
-    border-radius: 6;
-    background-color: #eee;
-    .str{
-        font-size:15;
-        margin:0;
-    }
-    .point{
-        font-size:15;
-        font-weight: 600;
-        color:$maincolor;
-        margin:0 4;
-    }
-}
-
-
 $timeline-border-width : 1;
 $timeline-border-marginleft : 22;
 $timeline-border-dot-color: #ff5721;
@@ -33,7 +9,6 @@ $timeline-marginleft: 20;
 
 $gap_line_value:4;
 $pad_line:4;
-
 
 .timeline{
     margin-top: 8; 
@@ -93,7 +68,8 @@ $pad_line:4;
                     margin:6 0;
                 }
                 .point{
-                    font-size:12;
+                    font-size:13;
+                    font-weight: 600;
                     padding:0;
                     margin-bottom: 0;
                     padding-bottom: 0;

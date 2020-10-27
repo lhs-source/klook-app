@@ -6,9 +6,9 @@
     </title>
 
     <StackLayout row="2" horizontalAlignment="center" orientation="horizontal" marginTop="16">
-        <Image src="~/images/btn_pre.png" width="20"></Image>
+        <Image src="~/images/btn_pre.png" width="20" (tap)="onTapPrevMonth($event, 'prev')"></Image>
         <Label class="month" text="{{today | date:'yyyy년 MM월'}}"></Label>
-        <Image src="~/images/btn_next.png" width="20"></Image>
+        <Image src="~/images/btn_next.png" width="20" (tap)="onTapNextMonth($event, 'prev')"></Image>
     </StackLayout>
 
     <StackLayout row="3" class="info" marginTop="16">
@@ -29,7 +29,7 @@
 
     <GridLayout row="5">
         <ScrollView>
-            <tr-list *ngIf="sort_type === 0" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_grouped"></tr-list>
+            <tr-list *ngIf="sort_type === 0" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_grouped_month"></tr-list>
             <tr-list *ngIf="sort_type === 1" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_order_amount"></tr-list>
             <tr-list *ngIf="sort_type === 2" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_only_cc"></tr-list>
             <tr-list *ngIf="sort_type === 3" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_only_save_point"></tr-list>
