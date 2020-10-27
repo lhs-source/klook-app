@@ -20,14 +20,13 @@ export class ChangePointComponent implements OnInit {
 
     // datas
     title = "포인트 교환"
-    point = 0;
 
     // prepared
-    pointy={
-        title:"KB국민카드 포인트리",
-        balance: 25000,
-        exchange:1,
-    }
+    // pointy={
+    //     title:"KB국민카드 포인트리",
+    //     balance: 25000,
+    //     exchange:1,
+    // }
 
     // amount
     @ViewChild('tf') tf : ElementRef;
@@ -44,8 +43,6 @@ export class ChangePointComponent implements OnInit {
         private dataService : DataService,
         private transactionService : TransactionService) {
         console.log(`${this.tag} constructor `);
-
-        this.point = this.dataService.point;
 
         if (isAndroid) {
             Application.android.off(AndroidApplication.activityBackPressedEvent);
@@ -130,12 +127,12 @@ export class ChangePointComponent implements OnInit {
         let kl = this.modal.nativeElement as LayoutBase;
         this.modal_hide(kl, this.isModalShow, ()=>{
             this.isModalShow = false;
-            this.pointy = event;
+            this.dataService.selected_pointry;
             
             let tf = this.tf.nativeElement as TextField;
             this.amount_num = Number(tf.text);
-            if(this.amount_num > this.pointy.balance){
-                this.amount_num = this.pointy.balance;
+            if(this.amount_num > this.dataService.selected_pointry.balance){
+                this.amount_num = this.dataService.selected_pointry.balance;
                 tf.text = String(this.amount_num);
                 tf.android.setSelection(tf.text.length);
             }
@@ -145,8 +142,8 @@ export class ChangePointComponent implements OnInit {
     onReturnPress(event){
         let tf = event.object as TextField;
         this.amount_num = Number(tf.text);
-        if(this.amount_num > this.pointy.balance){
-            this.amount_num = this.pointy.balance;
+        if(this.amount_num > this.dataService.selected_pointry.balance){
+            this.amount_num = this.dataService.selected_pointry.balance;
             tf.text = String(this.amount_num);
             tf.android.setSelection(tf.text.length);
         }
@@ -165,7 +162,7 @@ export class ChangePointComponent implements OnInit {
         this.transactionService.addTr({
             type:"transactions",
             class: "포인트교환",
-            merchant: this.pointy.title + " 교환",
+            merchant: this.dataService.selected_pointry.title + " 교환",
             point: Number(this.amount),
             curr: 0,
             country:"",
@@ -176,6 +173,7 @@ export class ChangePointComponent implements OnInit {
             save_point: 0,
         });
         this.dataService.addPoint(this.amount_num);
+        this.dataService.decreasePointry(this.amount_num);
         
         this.dialogSuccess(()=>{
             this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });

@@ -27,12 +27,75 @@ export class DataService {
     auto_amount = 0;
     // merchant
     auto_merchant = "";
+    
+
+    // pointry
+    pointry=[
+        {
+            img:"~/images/img_kbcard.png",
+            title:"KB국민카드 포인트리",
+            balance: 2000000,
+            exchange:1,
+            selected:true,
+        },
+        {
+            img:"~/images/img_asiana.png",
+            title:"아시아나항공 마일리지",
+            balance: 3200000,
+            exchange:20/13,
+            selected:false,
+        },
+        {
+            img:"~/images/img_jeju.png",
+            title:"제주항공 마일리지",
+            balance: 4800000,
+            exchange:3/2,
+            selected:false,
+        }
+    ];
+    cards=[
+        {
+            img:"~/images/img_kbcard.png",
+            title:"KB국민카드 해피nori",
+            number:"9445-****-****-****",
+            balance: 1800000,
+        }
+    ];
+    banks=[
+        {
+            img:"~/images/ico_kbcard_small.png",
+            title:"국민은행",
+            number:"1002-**-***031",
+            balance: 3600000,
+        },
+        {
+            img:"~/images/ico_shcard_small.png",
+            title:"신한은행",
+            number:"3123-**-****932",
+            balance: 2400000,
+        }
+    ];
+    selected_pointry : any = {};
+    selected_way : any = {};
 
     constructor(private countryService: CountryService) {
         this.point = getNumber("point", 120000);
         this.auto_balance = getNumber("autoBalance", 0);
         this.auto_amount = getNumber("autoAmount", 0);
         this.auto_merchant = getString("autoMerchange", "KB국민카드 해피nori");
+        
+        // point methods
+        this.pointry[0].balance = getNumber("pointryKB", 2000000);
+        this.pointry[1].balance = getNumber("pointryAsiana", 3200000);
+        this.pointry[2].balance = getNumber("pointryJeju", 4800000);
+
+        this.cards[0].balance = getNumber("cardKB", 2000000);
+        
+        this.banks[0].balance = getNumber("bankKB", 2400000);
+        this.banks[1].balance = getNumber("shinhanKB", 3600000);
+
+        this.selected_pointry = this.pointry[0];
+        this.selected_way = this.cards[0];
     }
 
     reset() {
@@ -43,19 +106,18 @@ export class DataService {
     // point
     //-------
     addPoint(point) {
-        console.log("DataService input =", point);
         this.point = this.point + point;
-        setNumber("point", this.point);
+        this.savePoint();
         console.log("DataService point =", this.point);
     }
     decreasePoint(point) {
         this.point = this.point - point;
-        setNumber("point", this.point);
+        this.savePoint();
         console.log("DataService point =", this.point);
     }
     resetPoint() {
         this.point = 120000;
-        setNumber("point", this.point);
+        this.savePoint();
     }
     get point_exchanged() {
         return this.point / this.countryService.exchange;
@@ -66,8 +128,33 @@ export class DataService {
         this.auto_amount = amount;
         this.auto_merchant = merchant;
 
+        this.savePoint();
+    }
+    
+    decreasePointry(point){
+        this.selected_pointry.balance = this.selected_pointry.balance - point;
+        console.log("DataService card point =", this.selected_pointry.balance);
+        this.savePoint();
+    }
+    decreaseWay(point){
+        this.selected_pointry.balance = this.selected_way.balance - point;
+        console.log("DataService card point =", this.selected_way.balance);
+        this.savePoint();
+    }
+    savePoint(){
+        setNumber("point", this.point);
+        
         setNumber("autoBalance", this.auto_balance);
         setNumber("autoAmount", this.auto_amount);
         setString("autoMerchange", this.auto_merchant);
+        
+        setNumber("pointryKB", this.pointry[0].balance);
+        setNumber("pointryAsiana", this.pointry[1].balance);
+        setNumber("pointryJeju", this.pointry[2].balance);
+
+        setNumber("cardKB", this.cards[0].balance);
+        
+        setNumber("bankKB", this.banks[0].balance);
+        setNumber("shinhanKB", this.banks[1].balance);
     }
 }

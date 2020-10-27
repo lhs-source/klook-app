@@ -1,6 +1,6 @@
 <GridLayout rows="auto, auto, auto, auto">
     <StackLayout row="1" class="list-card">
-        <GridLayout *ngFor="let point of pointry" class="item" rows="auto, auto" columns="auto, *, auto" (tap)="onTapPoint(point)">
+        <GridLayout *ngFor="let point of dataService.pointry" class="item" rows="auto, auto" columns="auto, *, auto" (tap)="onTapPoint(point)">
             <image row="0" rowspan="2" col="0" class="img" src="{{point.img}}"></image>
             <Label row="0" col="1" class="title" text="{{point.title}}"></Label>
             <StackLayout row="1" col="1" orientation="horizontal">

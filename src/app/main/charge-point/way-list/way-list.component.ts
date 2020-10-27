@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, Input } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
+import { DataService } from "../../../service/data.service";
 
 // <way-list way-list="way-list" point="122" point_unit="HKD" backgroundColor="#ff5722">
 // </way-list>
@@ -37,7 +38,8 @@ export class WayListComponent implements OnInit {
         }
     ]
 
-    constructor(private routerExtensions: RouterExtensions) {
+    constructor(private routerExtensions: RouterExtensions,
+        private dataService: DataService) {
         console.log(`${this.tag} constructor `)
 
     }
@@ -52,12 +54,14 @@ export class WayListComponent implements OnInit {
         let output = card;
         output.isCard = true;
         this.selectWay.emit(output);
+        this.dataService.selected_way = output;
     }
 
     onTapBank(bank){
         let output = bank;
         output.isCard = false;
         this.selectWay.emit(output);
+        this.dataService.selected_way = output;
     }
 
     ngOnDestroy(){

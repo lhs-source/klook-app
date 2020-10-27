@@ -331,16 +331,16 @@ export class ChargePointComponent implements OnInit {
         }).then(()=>{
             if(way.isCard === true){
                 this.selected_way.isCard = true;
-                this.selected_way.img = way.img;
-                this.selected_way.title = way.title;
-                this.selected_way.number = way.number;
-                this.selected_way.balance = way.balance;
+                this.selected_way.img = this.dataService.selected_way.img;
+                this.selected_way.title = this.dataService.selected_way.title;
+                this.selected_way.number = this.dataService.selected_way.number;
+                this.selected_way.balance = this.dataService.selected_way.balance;
             }else{
                 this.selected_way.isCard = false;
-                this.selected_way.img = way.img;
-                this.selected_way.title = way.title;
-                this.selected_way.number = way.number;
-                this.selected_way.balance = way.balance;
+                this.selected_way.img = this.dataService.selected_way.img;
+                this.selected_way.title = this.dataService.selected_way.title;
+                this.selected_way.number = this.dataService.selected_way.number;
+                this.selected_way.balance = this.dataService.selected_way.balance;
             }
             
             this.isModalShow = false;

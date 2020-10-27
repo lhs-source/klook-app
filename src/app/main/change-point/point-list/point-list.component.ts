@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, Input } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
+import { DataService } from "../../../service/data.service";
 
 // <point-list point-list="point-list" point="122" point_unit="HKD" backgroundColor="#ff5722">
 // </point-list>
@@ -38,7 +39,8 @@ export class PointListComponent implements OnInit {
         }
     ];
 
-    constructor(private routerExtensions: RouterExtensions) {
+    constructor(private routerExtensions: RouterExtensions,
+        private dataService: DataService) {
         console.log(`${this.tag} constructor `)
 
     }
@@ -51,11 +53,12 @@ export class PointListComponent implements OnInit {
     }
     onTapPoint(point){
         let output = point;
-        this.pointry.forEach((elem)=>{
+        this.dataService.pointry.forEach((elem)=>{
             if(elem.selected === true)
             elem.selected = false;
         });
         point.selected = true;
+        this.dataService.selected_pointry = output;
         this.selectPoint.emit(output);
     }
 

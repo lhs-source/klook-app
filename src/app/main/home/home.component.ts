@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
     isPay = false;
 
     isMenuExt = false;
-    isDeactive = false;
 
     exitflag = false;
 
@@ -143,7 +142,7 @@ export class HomeComponent implements OnInit {
 
     navigateOnlinepay(event) {
         console.log(this.tag + " navigateOnlinepay");
-        if (this.isDeactive === true) {
+        if (this.authService.is_deactive === true) {
             return;
         }
         this.routerExtensions.navigate(['/main/onlinepay'], {
@@ -180,8 +179,7 @@ export class HomeComponent implements OnInit {
     }
     onTapDeactive() {
         this.authService.is_deactive = !this.authService.is_deactive;
-        this.isDeactive = !this.isDeactive;
-        console.log(this.isDeactive);
+        console.log(this.authService.is_deactive);
     }
     test() {
 
@@ -194,7 +192,7 @@ export class HomeComponent implements OnInit {
     // start QR Scan 
     navigateQrScan(event) {
         console.log(this.tag + " navigateQrScan");
-        if (this.isDeactive === true) {
+        if (this.authService.is_deactive === true) {
             return;
         }
         if (this.isQrScan == false) {
@@ -237,7 +235,7 @@ export class HomeComponent implements OnInit {
     // start QR Pay
     navigateQrPay(event) {
         console.log(this.tag + " navigateQrPay");
-        if (this.isDeactive === true) {
+        if (this.authService.is_deactive === true) {
             return;
         }
         if (this.isQrPay == false) {

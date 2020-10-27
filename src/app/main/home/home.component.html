@@ -12,11 +12,13 @@
     </GridLayout>
 
     <!-- menu -->
-    <GridLayout #menu class="menu" row="3" columns="*,*,*,*" rows="36, *, auto">
-        <image #menubtn row="0" colspan="4" src="{{isMenuExt === true ? '~/images/btn_down.png' : '~/images/btn_up.png'}}" marginBottom="12" (tap)="onTapMenu($event)">
-        </image>
+    <GridLayout #menu class="menu" row="3" columns="*,*,*,*" rows="44, *, auto">
+        <GridLayout row="0" colspan="4" (tap)="onTapMenu($event)">
+            <image #menubtn src="{{isMenuExt === true ? '~/images/btn_down.png' : '~/images/btn_up.png'}}" height="24" marginBottom="12" verticalAlignment="top" horizontalAlignment="center">
+            </image>
+        </GridLayout>
 
-        <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="0" (tap)="navigateOnlinepay($event)" [ngClass]="{'deactive' : isDeactive}">
+        <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="0" (tap)="navigateOnlinepay($event)" [ngClass]="{'deactive' : authService.is_deactive}">
             <Image src="~/images/btn_quick5.png" class="image"></Image>
             <Label class="str" text="온라인결제" horizontalAlignment="center"></Label>
         </StackLayout>
@@ -25,19 +27,19 @@
             <Label class="str" text="이용내역" horizontalAlignment="center"></Label>
         </StackLayout>
         <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="2"  (tap)="onTapDeactive()">
-            <Image src="{{isDeactive ? '~/images/btn_quick7_stop.png' : '~/images/btn_quick7.png'}}" class="image"></Image>
-            <Label class="str" text="사용중지" horizontalAlignment="center"></Label>
+            <Image src="{{authService.is_deactive ? '~/images/btn_quick7_stop.png' : '~/images/btn_quick7.png'}}" class="image"></Image>
+            <Label class="str" text="{{authService.is_deactive ? '사용해제' : '사용중지'}}" horizontalAlignment="center"></Label>
         </StackLayout>
         <StackLayout *ngIf="isMenuExt === true" class="item" row="1" col="3" (tap)="navigateAccount($event)">
             <Image src="~/images/btn_quick8.png" class="image"></Image>
             <Label class="str" text="계정관리" horizontalAlignment="center"></Label>
         </StackLayout>
 
-        <StackLayout class="item" row="2" col="0" (tap)="navigateQrScan($event)" [ngClass]="{'deactive' : isDeactive}">
+        <StackLayout class="item" row="2" col="0" (tap)="navigateQrScan($event)" [ngClass]="{'deactive' : authService.is_deactive}">
             <Image src="~/images/btn_quick1.png" class="image"></Image>
             <Label class="str" text="QR스캔" horizontalAlignment="center"></Label>
         </StackLayout>
-        <StackLayout class="item" row="2" col="1" (tap)="navigateQrPay($event)" [ngClass]="{'deactive' : isDeactive}">
+        <StackLayout class="item" row="2" col="1" (tap)="navigateQrPay($event)" [ngClass]="{'deactive' : authService.is_deactive}">
             <Image src="~/images/btn_quick2.png" class="image"></Image>
             <Label class="str" text="QR결제" horizontalAlignment="center"></Label>
         </StackLayout>
