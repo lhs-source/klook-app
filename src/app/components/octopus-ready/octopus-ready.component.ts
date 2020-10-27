@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { isAndroid, screen } from "tns-core-modules/platform/platform"
-import { LayoutBase } from "tns-core-modules";
+import { Image, LayoutBase } from "tns-core-modules";
 import { RouterExtensions } from "@nativescript/angular";
 import { AuthService } from "../../service/auth.service";
 
@@ -16,8 +16,12 @@ export class OctopusReadyComponent implements OnInit {
     tag = this.constructor.name;
     @ViewChild('strpivot', { static: true }) strpivot: ElementRef;
     @ViewChild('octopus', { static: true }) octopus: ElementRef;
-    @ViewChild('octopuscard', { static: true }) octopuscard: ElementRef;
     @ViewChild('octopusframe', { static: true }) octopusframe: ElementRef;
+
+    @ViewChild('octopuscard', { static: true }) octopuscard: ElementRef;
+
+    @ViewChild('arrow', { static: true }) arrow: ElementRef;
+    @ViewChild('card', { static: true }) card: ElementRef;
 
     // octopus pan vairables
     octopus_card_loc = {
@@ -98,31 +102,41 @@ export class OctopusReadyComponent implements OnInit {
         }
         else if (event.state === 3) // up
         {
-            // console.log("lbc.translateY  => " + lbc.translateY);
-            // console.log("event.deltaY  => " + event.deltaY);
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
-            if (lbc.translateY < (screen.mainScreen.heightDIPs / 1.5)) {
+            console.log("this.octopus_card_loc.prevDeltaY", this.octopus_card_loc.prevDeltaY);
+            if (lbc.translateY < (screen.mainScreen.heightDIPs / 1.5) || this.octopus_card_loc.prevDeltaY < -100) {
                 // goto octopus page
                 lbc.animate({
                     translate: { x: this.octopus_card_loc.originX, y: (screen.mainScreen.heightDIPs - lbc.getMeasuredHeight() * p) / 3 },
                     duration: 100,
                     curve: AnimationCurve.linear
                 }).then(() => {
-                    setTimeout(() => {
-                        if(this.authService.has_octopus === true){
-                            // issued octopus 
-                            this.routerExtensions.navigate(['/main/octopus/main'], { 
-                                clearHistory: true, 
-                                transition: { name: 'fade', duration: this.trans_duration, curve: AnimationCurve.easeOut } 
-                            });
-                        }else{
-                            // no octopus
-                            this.routerExtensions.navigate(['/main/octopus/new'], { 
-                                clearHistory: true, 
-                                transition: { name: 'fade', duration: this.trans_duration, curve: AnimationCurve.easeOut } 
-                            });
-                        }
-                    }, 100);
+                    let card = this.card.nativeElement as Image;
+                    let arr = this.arrow.nativeElement as Image;
+                    arr.opacity = 0;
+                    // card.marginTop=64;
+                    // card.marginBottom=64;
+                    // card.animate({
+                    //     rotate:90,
+                    //     duration: 150,
+                    //     curve: AnimationCurve.linear
+                    // }).then(() => {
+                        setTimeout(() => {
+                            if(this.authService.has_octopus === true){
+                                // issued octopus 
+                                this.routerExtensions.navigate(['/main/octopus/main'], { 
+                                    clearHistory: true, 
+                                    transition: { name: 'fade', duration: this.trans_duration, curve: AnimationCurve.easeOut } 
+                                });
+                            }else{
+                                // no octopus
+                                this.routerExtensions.navigate(['/main/octopus/new'], { 
+                                    clearHistory: true, 
+                                    transition: { name: 'fade', duration: this.trans_duration, curve: AnimationCurve.easeOut } 
+                                });
+                            }
+                        }, 100);
+                    // });
                 });
                 lbf.animate({
                     translate: { x: this.octopus_frame_loc.originX, y: 0 },

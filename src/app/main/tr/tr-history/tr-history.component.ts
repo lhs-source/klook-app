@@ -42,6 +42,7 @@ export class TrHistoryComponent implements OnInit {
         private progressService: ProgressService) {
         console.log(`${this.tag} constructor `)
         console.log("today ", this.today.toLocaleString());
+
         
         this.transactionService.setMonth(this.today.getMonth());
 
@@ -77,7 +78,15 @@ export class TrHistoryComponent implements OnInit {
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
+        
+        setTimeout(() => {
+            this.progressService.progressOn(this.viewcontainerRef);
+            setTimeout(() => {
+                this.progressService.progressOff();
+            }, 500);
+        }, 500);
     }
+
     onTapPrevMonth(event, direction) {
         this.today = new Date(this.today.setMonth(this.today.getMonth() - 1));
 
@@ -104,10 +113,10 @@ export class TrHistoryComponent implements OnInit {
         console.log(this.tag, "callback_tapElem = ", number);
         this.sort_type = number;
 
-        this.progressService.progressOn(this.viewcontainerRef);
-        setTimeout(() => {
-            this.progressService.progressOff();
-        }, 250);
+        // this.progressService.progressOn(this.viewcontainerRef);
+        // setTimeout(() => {
+        //     this.progressService.progressOff();
+        // }, 500);
     }
 
     onTapTr(tr) {

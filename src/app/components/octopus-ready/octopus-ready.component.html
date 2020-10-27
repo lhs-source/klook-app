@@ -10,8 +10,8 @@
         <GridLayout #octopusframe class="octo-frame"></GridLayout>
         <!-- card -->
         <GridLayout rows="auto, auto" class="octo-content" #octopuscard (pan)="onPanFrame($event)" (layoutChanged)="onLayoutChangedOctopuscard()" verticalAlignment="top">
-            <Image row="0" class="arrow" src="~/images/buscard_arrow.png" horizontalAlignment="center"></Image>
-            <Image row="1" class="octo-card" src="~/images/card_octopus.png" height="420"></Image>
+            <Image row="0" #arrow class="arrow" src="~/images/buscard_arrow.png" horizontalAlignment="center"></Image>
+            <Image row="1" #card class="octo-card" src="~/images/card_octopus_rotate.png"></Image>
         </GridLayout>
     </GridLayout>
 </GridLayout>
