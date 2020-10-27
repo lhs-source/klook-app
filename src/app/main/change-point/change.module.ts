@@ -15,7 +15,7 @@ import { PointListComponent } from "./point-list/point-list.component";
     ],
     declarations: [
         ChangePointComponent,
-        PointListComponent
+        PointListComponent,
     ],
     schemas: [
         NO_ERRORS_SCHEMA
