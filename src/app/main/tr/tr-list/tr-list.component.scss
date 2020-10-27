@@ -10,6 +10,12 @@ $timeline-marginleft: 20;
 $gap_line_value:4;
 $pad_line:4;
 
+.no-content{
+    font-size:18;
+    font-weight: 600;
+    
+}
+
 .timeline{
     margin-top: 8; 
     margin-left: $timeline-marginleft;

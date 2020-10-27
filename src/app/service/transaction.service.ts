@@ -287,6 +287,11 @@ export class TransactionService {
         if(this.tr_order_calced === false){
             this.trs_order_amount = this.trs.sort((a : PaymentData, b : PaymentData) =>{
                 return Math.abs(a.point) > Math.abs(b.point) ? -1 : (Math.abs(b.point) > Math.abs(a.point) ? 1 : 0);
+            }).filter((elem)=>{
+                if(elem.date.getTime() < new Date(2020, this.month, 1).getTime() ||
+                elem.date.getTime() > new Date(2020, this.month + 1, 1).getTime()){
+                    return false;
+                }return true;
             });
             this.tr_order_calced = true;
         }
@@ -299,6 +304,10 @@ export class TransactionService {
             this.trs_grouped_cc = {};
             this.trs.forEach((elem) => {
                 if(elem.class !== "포인트충전" && elem.class !== "포인트교환"){
+                    return;
+                }
+                if(elem.date.getTime() < new Date(2020, this.month, 1).getTime() ||
+                elem.date.getTime() > new Date(2020, this.month + 1, 1).getTime()){
                     return;
                 }
                 let date = formatDate(elem.date, 'MM월 dd일 ', 'en-US');
@@ -321,6 +330,10 @@ export class TransactionService {
             this.trs_grouped_save_point = {};
             this.trs.forEach((elem) => {
                 if(elem.save_point <= 0){
+                    return;
+                }
+                if(elem.date.getTime() < new Date(2020, this.month, 1).getTime() ||
+                elem.date.getTime() > new Date(2020, this.month + 1, 1).getTime()){
                     return;
                 }
                 let date = formatDate(elem.date, 'MM월 dd일 ', 'en-US');

@@ -40,6 +40,18 @@ export class TrListComponent implements OnInit {
         return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
     }
 
+    get getTrSize(){
+        if(Array.isArray(this.transactions)){
+            return this.transactions.length;
+        }else{
+            var size = 0, key;
+            for (key in this.transactions) {
+                if (this.transactions.hasOwnProperty(key)) size++;
+            }
+            return size;
+        }
+    }
+
     onTapTr(tr) {
         console.log(this.tag, " onTapTr tr = ", tr);
         console.log("date = ", tr.date);

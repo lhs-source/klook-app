@@ -1,5 +1,11 @@
 <StackLayout class="timeline">
-    <ng-container *ngIf="grouped === true">
+    <ng-container *ngIf="getTrSize === 0">
+        <StackLayout class="no-content" horizontalAlignment="center" marginTop="16">
+            <Image src="~/images/ico_info.png" width="32" margin="8" horizontalAlignment="center"></Image>
+            <Label text="거래내역이 없습니다" horizontalAlignment="center"></Label>
+        </StackLayout>
+    </ng-container>
+    <ng-container *ngIf="getTrSize > 0 && grouped === true">
         <GridLayout *ngFor="let item of transactions | keyvalue : keyDescOrder; let index = index"
             class="day" rows="auto, auto" columns="24, *" width="100%">
             <Label class="line" col="0" rowspan="2" width="100%"></Label>
@@ -39,7 +45,7 @@
             </StackLayout>
         </GridLayout>
     </ng-container>
-    <ng-container *ngIf="grouped === false">
+    <ng-container *ngIf="getTrSize > 0 && grouped === false">
 
         <GridLayout class="day" rows="auto, auto" columns="24, *" width="100%">
             <Label class="line" col="0" rowspan="2" width="100%"></Label>
