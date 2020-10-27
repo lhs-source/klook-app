@@ -409,6 +409,7 @@ export class TransactionService {
                 utu: false,
                 save_point: 0,
             });
+            this.dataService.decreaseWay(this.dataService.auto_amount);
         }
     }
     //--------

@@ -24,14 +24,15 @@ export class ChargePointComponent implements OnInit {
 
     title = "포인트 충전 > 일반충전";
     isNormal = true;
+    isCard = true;
 
-    selected_way = {
-        isCard:true,
-        img:"~/images/img_kbcard.png",
-        title:"KB국민카드 해피nori",
-        number:"9445-****-****-****",
-        balance: 1800000,
-    };
+    // selected_way = {
+    //     isCard:true,
+    //     img:"~/images/img_kbcard.png",
+    //     title:"KB국민카드 해피nori",
+    //     number:"9445-****-****-****",
+    //     balance: 1800000,
+    // };
 
 
     // modal
@@ -199,8 +200,8 @@ export class ChargePointComponent implements OnInit {
     onReturnPress(event){
         let tf = event.object as TextField;
         this.amount_num = Number(tf.text);
-        if(this.amount_num > this.selected_way.balance){
-            this.amount_num = this.selected_way.balance;
+        if(this.amount_num > this.dataService.selected_way.balance){
+            this.amount_num = this.dataService.selected_way.balance;
             tf.text = String(this.amount_num);
             tf.android.setSelection(tf.text.length);
         }
@@ -330,17 +331,17 @@ export class ChargePointComponent implements OnInit {
             duration:250,
         }).then(()=>{
             if(way.isCard === true){
-                this.selected_way.isCard = true;
-                this.selected_way.img = this.dataService.selected_way.img;
-                this.selected_way.title = this.dataService.selected_way.title;
-                this.selected_way.number = this.dataService.selected_way.number;
-                this.selected_way.balance = this.dataService.selected_way.balance;
+                this.isCard = this.dataService.selected_way.type;
+                // this.selected_way.img = this.dataService.selected_way.img;
+                // this.selected_way.title = this.dataService.selected_way.title;
+                // this.selected_way.number = this.dataService.selected_way.number;
+                // this.selected_way.balance = this.dataService.selected_way.balance;
             }else{
-                this.selected_way.isCard = false;
-                this.selected_way.img = this.dataService.selected_way.img;
-                this.selected_way.title = this.dataService.selected_way.title;
-                this.selected_way.number = this.dataService.selected_way.number;
-                this.selected_way.balance = this.dataService.selected_way.balance;
+                this.isCard = this.dataService.selected_way.type;
+                // this.selected_way.img = this.dataService.selected_way.img;
+                // this.selected_way.title = this.dataService.selected_way.title;
+                // this.selected_way.number = this.dataService.selected_way.number;
+                // this.selected_way.balance = this.dataService.selected_way.balance;
             }
             
             this.isModalShow = false;
@@ -360,7 +361,7 @@ export class ChargePointComponent implements OnInit {
         this.transactionService.addTr({
             type:"transactions",
             class: "포인트충전",
-            merchant: this.selected_way.title + " 충전",
+            merchant: this.dataService.selected_way.title + " 충전",
             point: this.amount_num,
             curr: 0,
             country:"",
@@ -371,6 +372,7 @@ export class ChargePointComponent implements OnInit {
             save_point: 0,
         });
         this.dataService.addPoint(this.amount_num);
+        this.dataService.decreaseWay(this.amount_num);
         this.dialogSuccess(()=>{
             this.routerExtensions.navigate(['/main/home'], { 
                 transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, 
@@ -381,7 +383,7 @@ export class ChargePointComponent implements OnInit {
 
     auto_charge(){
         console.log(this.tf1.text, this.tf2.text);
-        this.dataService.setAuto(Number(this.tf1.text), Number(this.tf2.text), this.selected_way.title);
+        this.dataService.setAuto(Number(this.tf1.text), Number(this.tf2.text), this.dataService.selected_way.title);
         alert({
             title: "포인트 자동충전",
             message: "포인트 자동충전을 설정했습니다",
@@ -398,14 +400,20 @@ export class ChargePointComponent implements OnInit {
     actionbar_click_close(isclose) {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
 
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
+        this.routerExtensions.navigate(['/main/home'], { 
+            clearHistory:true, 
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } 
+        });
     }
     navigateBack(event) {
         console.log(`${this.tag} navigateBack`);
         if(this.routerExtensions.canGoBack()){
             this.routerExtensions.back({relativeTo: this.activatedRoute});
         }else{
-            this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
+            this.routerExtensions.navigate(['/main/home'], { 
+                transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, 
+                clearHistory : true 
+            });
         }
     }
 }

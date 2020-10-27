@@ -137,7 +137,7 @@ export class DataService {
         this.savePoint();
     }
     decreaseWay(point){
-        this.selected_pointry.balance = this.selected_way.balance - point;
+        this.selected_way.balance = this.selected_way.balance - point;
         console.log("DataService card point =", this.selected_way.balance);
         this.savePoint();
     }

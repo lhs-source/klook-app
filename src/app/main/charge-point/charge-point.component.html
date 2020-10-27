@@ -3,21 +3,21 @@
     <title row="1" title="{{title}}" backgroundColor="#888"></title>
     <tab row="2" [tab_labels]="['일반충전', '자동충전']" (tapElem)="callback_tapTab($event)"></tab>
     <GridLayout row="3" class="way-frame" (tap)="onTapWay()">
-        <ng-template [ngTemplateOutlet]="selected_way.isCard === true ? card : bank"></ng-template>
+        <ng-template [ngTemplateOutlet]="dataService.selected_way.isCard === true ? card : bank"></ng-template>
         <ng-template #card>
             <GridLayout row="3" class="card" rows="auto, auto" columns="auto, *, auto" class="way">
-                <Image row="0" rowspan="2" col="0" class="img" src="{{selected_way.img}}" height="48"></Image>
-                <Label row="0" col="1" class="str" text="{{selected_way.title}}"></Label>
-                <Label row="1" col="1" class="str" text="{{selected_way.number}}"></Label>
+                <Image row="0" rowspan="2" col="0" class="img" src="{{dataService.selected_way.img}}" height="48"></Image>
+                <Label row="0" col="1" class="str" text="{{dataService.selected_way.title}}"></Label>
+                <Label row="1" col="1" class="str" text="{{dataService.selected_way.number}}"></Label>
                 <Image row="0" rowspan="2" col="2" class="check" src="~/images/check_big_on.png"></Image>
             </GridLayout>
         </ng-template>
         <ng-template #bank>
             <GridLayout row="3" class="Bank" rows="auto" columns="auto, auto, *, auto" class="way">
-                <Image row="0" rowspan="2" col="0" class="img" src="{{selected_way.img}}" height="36"></Image>
-                <Label row="0" col="1" class="str" text="{{selected_way.title}}" verticalAlignment="center"
+                <Image row="0" rowspan="2" col="0" class="img" src="{{dataService.selected_way.img}}" height="36"></Image>
+                <Label row="0" col="1" class="str" text="{{dataService.selected_way.title}}" verticalAlignment="center"
                     marginRight="8"></Label>
-                <Label row="0" col="2" class="str" text="{{selected_way.number}}" verticalAlignment="center"></Label>
+                <Label row="0" col="2" class="str" text="{{dataService.selected_way.number}}" verticalAlignment="center"></Label>
                 <Image row="0" col="3" class="check" src="~/images/check_big_on.png"></Image>
             </GridLayout>
         </ng-template>
@@ -29,7 +29,7 @@
         <StackLayout orientation="horizontal">
             <Image src="~/images/ico_q.png" width="16"></Image>
             <Label class="str" text="충전가능금액 : "></Label>
-            <Label class="str-point" text="{{selected_way.balance | number:'1.0-0'}}"></Label>
+            <Label class="str-point" text="{{dataService.selected_way.balance | number:'1.0-0'}}"></Label>
             <Label class="str-point" text="원"></Label>
         </StackLayout>
     </StackLayout>

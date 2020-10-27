@@ -163,7 +163,7 @@ export class ChangePointComponent implements OnInit {
             type:"transactions",
             class: "포인트교환",
             merchant: this.dataService.selected_pointry.title + " 교환",
-            point: Number(this.amount),
+            point: this.amount_num * this.dataService.selected_pointry.exchange,
             curr: 0,
             country:"",
             date: new Date(),
@@ -172,7 +172,7 @@ export class ChangePointComponent implements OnInit {
             utu: false,
             save_point: 0,
         });
-        this.dataService.addPoint(this.amount_num);
+        this.dataService.addPoint(this.amount_num * this.dataService.selected_pointry.exchange);
         this.dataService.decreasePointry(this.amount_num);
         
         this.dialogSuccess(()=>{
