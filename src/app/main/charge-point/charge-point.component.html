@@ -25,7 +25,15 @@
     <StackLayout row="4" *ngIf="isNormal === true" class="amount">
         <!-- <TextField #amounttf class="tf" hint="충전 금액을 입력해주세요" (tap)="onTapTextfield($event)" [text]="amount"
             (textChange)="onChangeTextField($event)" (blur)="onBlur($event)" editable="false"></TextField> -->
-            <TextField #amounttf class="tf" hint="충전 금액을 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField>
+            <!-- <TextField #amounttf class="tf" hint="충전 금액을 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField> -->
+        
+        <textfield-currency #amounttf
+            [className]="'change'" verticalAlignment="center"
+            [(ngModel)]="amount"
+            (returnPress)="onReturnPress($event)" 
+            (textChange)="onChangeTextField($event)"
+            hint="충전 금액을 입력해주세요">
+        </textfield-currency>
         <StackLayout orientation="horizontal">
             <Image src="~/images/ico_q.png" width="16"></Image>
             <Label class="str" text="충전가능금액 : "></Label>

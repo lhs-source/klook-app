@@ -27,7 +27,7 @@ const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
         MainRoutingModule,
         ChargeModule,
         ChangeModule,
-        ComponentsModule
+        ComponentsModule,
     ],
     declarations: [
         MainComponent,

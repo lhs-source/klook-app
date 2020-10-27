@@ -13,8 +13,16 @@
     <GridLayout row="3" rows="auto, auto, auto" columns="auto, *"  class="change" marginTop="16">
         <Image row="0" rowspan="2" col="0" class="img" src="~/images/img_charge02.png" width="56" (tap)="onTapTarget()"></Image>
         <Label row="0" col="1" class="title" text="교환 대상 포인트" verticalAlignment="bottom"></Label>
-        <TextField row="1" col="1" #tf class="tf" hint="교환 포인트를 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField>
+        <!-- <TextField row="1" col="1" #tf class="tf" hint="교환 포인트를 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField> -->
         
+        <textfield-currency row="1" col="1" #tf
+            [className]="'change'" verticalAlignment="center"
+            [(ngModel)]="amount"
+            (returnPress)="onReturnPress($event)" 
+            (textChange)="onChangeTextField($event)"
+            hint="교환 포인트를 입력해주세요">
+        </textfield-currency>
+
         <StackLayout row="2" col="1" orientation="horizontal" verticalAlignment="top">
             <Image class="question" src="~/images/ico_q.png" width="12"></Image>
             <Label class="str" text="교환 가능한 포인트는 "></Label>

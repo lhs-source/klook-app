@@ -7,7 +7,7 @@
         backgroundColor="#ff5722"></title>
 
     <GridLayout class="card" row="2" width="320" marginTop="16">
-        <Image #cardframe src="~/images/box_card.png" width="300" (layoutChanged)="onLoadedCardImage($event)"></Image>
+        <Image #cardframe src="~/images/box_card.png" width="300" (layoutChanged)="onLayoutChangedCardImage($event)"></Image>
         <GridLayout #cardelems class="card-elems" rows="60, 60, 60">
             <GridLayout row="0" columns="auto, *, auto">
                 <Image col="0" class="point-img" src="~/images/ico_point3.png" verticalAlignment="bottom"></Image>
@@ -16,7 +16,31 @@
                     <Label class="str" text="사용중" verticalAlignment="bottom"></Label>
                 </GridLayout>
             </GridLayout>
-            <TextField class="input" row="1" [text]="amount" (returnPress)="onReturnPress($event)" verticalAlignment="center" hint="충전 금액을 입력하세요" keyboardType="number"></TextField>
+            <!-- <TextField class="input" row="1" verticalAlignment="center" 
+                [(ngModel)]="amount" 
+                (returnPress)="onReturnPress($event)" 
+                (textChange)="onChangeTextField($event)"
+                hint="충전 금액을 입력하세요" 
+                keyboardType="number">
+            
+            </TextField> -->
+            <!-- <MaskedTextField 
+                class="input" row="1" verticalAlignment="center" 
+                mask="999,999,999,999,999,999" 
+                [(ngModel)]="amount" 
+                (returnPress)="onReturnPress($event)" 
+                (textChange)="onChangeTextField($event)"
+                hint="충전 금액을 입력하세요" 
+                keyboardType="number">
+            </MaskedTextField> -->
+            <GridLayout row="1">
+                <textfield-currency [className]="'octopus'" verticalAlignment="center"
+                    [(ngModel)]="amount"
+                    (returnPress)="onReturnPress($event)" 
+                    (textChange)="onChangeTextField($event)"
+                    hint="충전 금액을 입력하세요">
+                </textfield-currency>
+            </GridLayout>
             <StackLayout row="2" class="aftercharge" orientation="horizontal">
                 <Label text="충전 후 금액: "></Label>
                 <Label class="amount" text="{{octopusService.octopus[selected_country].balance + amount_num}}"></Label>

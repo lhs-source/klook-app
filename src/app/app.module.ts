@@ -14,6 +14,9 @@ import { PaymentService } from "./service/payment.service";
 import { OctopusService } from "./service/octopus.service";
 import { ProgressService } from "./components/progress/progress.service";
 
+import { MaskedTextFieldModule } from "nativescript-masked-text-field/angular";
+import { InputMaskModule } from 'nativescript-input-mask/angular';
+
 @NgModule({
     bootstrap: [
         AppComponent
@@ -22,6 +25,7 @@ import { ProgressService } from "./components/progress/progress.service";
         AppRoutingModule,
         NativeScriptModule,
         NativeScriptHttpClientModule,
+        // InputMaskModule
     ],
     declarations: [
         AppComponent,

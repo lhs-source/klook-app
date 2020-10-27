@@ -58,7 +58,7 @@ export class OctopusChargeComponent implements OnInit {
         console.log(this.tag + " actionbar close button clicked = " + isclose);
         this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
     }
-    onLoadedCardImage(event){
+    onLayoutChangedCardImage(event){
         let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
         setTimeout(() => {
             let img = this.cardframe.nativeElement as Image;
@@ -79,13 +79,24 @@ export class OctopusChargeComponent implements OnInit {
         });
     }
 
+    onChangeTextField(){
+        console.log("amount = ", this.amount);
+        let string = String(this.amount);
+    }
+
     onReturnPress(event){
         let tf = event.object as TextField;
-        this.amount_num = Number(tf.text);
+        this.amount_num = Number(tf.text.replace(/[^0-9.]/g, ""));
+        console.log(tf.text);
+        console.log(tf.text.replace(/[^0-9.]/g, ""));
+        console.log(this.amount_num);
         let exchanged = this.amount_num * this.countryService.countries[this.selected_country].exchange;
         if(this.dataService.point < exchanged){
             this.amount_num = Math.floor(this.dataService.point / this.countryService.countries[this.selected_country].exchange);
-            this.amount = String(this.amount_num);
+            console.log(this.amount_num);
+            this.amount = this.amount_num.toLocaleString('en-GB');
+            tf.text = this.amount_num.toLocaleString('en-GB');
+            console.log(this.amount);
         }
     }
     onTabCharge(event){

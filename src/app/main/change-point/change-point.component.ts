@@ -138,14 +138,25 @@ export class ChangePointComponent implements OnInit {
             }
         });
     }
+    
+    onChangeTextField(){
+        console.log("amount = ", this.amount);
+        let string = String(this.amount);
+    }
 
     onReturnPress(event){
         let tf = event.object as TextField;
-        this.amount_num = Number(tf.text);
+        this.amount_num = Number(tf.text.replace(/[^0-9.]/g, ""));
+        console.log(tf.text);
+        console.log(tf.text.replace(/[^0-9.]/g, ""));
+        console.log(this.amount_num);
         if(this.amount_num > this.dataService.selected_pointry.balance){
             this.amount_num = this.dataService.selected_pointry.balance;
-            tf.text = String(this.amount_num);
+            console.log(this.amount_num);
+            this.amount = this.amount_num.toLocaleString('en-GB');
+            tf.text = this.amount_num.toLocaleString('en-GB');
             tf.android.setSelection(tf.text.length);
+            console.log(this.amount);
         }
     }
 
