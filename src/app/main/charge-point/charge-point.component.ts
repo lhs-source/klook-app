@@ -363,6 +363,7 @@ export class ChargePointComponent implements OnInit {
             merchant: this.selected_way.title + " 충전",
             point: this.amount_num,
             curr: 0,
+            country:"",
             date: new Date(),
             description: "포인트충전",
             taxfree: false,

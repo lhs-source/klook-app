@@ -5,6 +5,7 @@ export interface PaymentData {
     merchant: string;
     point: number;
     curr: number;
+    country: string;
     date: Date;
     description: string;
     taxfree: boolean;
@@ -28,6 +29,7 @@ export function encode_paymentData(obj : PaymentData) {
         merchant: encode_utf8(obj.merchant),
         point: obj.point,
         curr: obj.curr,
+        country:obj.country,
         date: obj.date,
         description: encode_utf8(obj.description),
         taxfree: obj.taxfree,
@@ -43,6 +45,7 @@ export function decode_paymentData(obj : PaymentData) {
         merchant: decode_utf8(obj.merchant),
         point: obj.point,
         curr: obj.curr,
+        country:obj.country,
         date: new Date(obj.date),
         description: decode_utf8(obj.description),
         taxfree: obj.taxfree,

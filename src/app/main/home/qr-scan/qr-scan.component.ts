@@ -75,6 +75,7 @@ export class QrScanComponent implements OnInit {
             let pay_info : QrData = {
                 merchant: "Central Department Store",
                 amount: 419,
+                country:"태국",
                 description: "포인트사용",
                 taxfree: false,
                 utu: true,

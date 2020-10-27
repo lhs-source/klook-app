@@ -40,7 +40,7 @@
                             <Label class="merchant" row="0" col="1" text="{{tr.merchant}}" verticalAlignment="center"></Label>
                             <StackLayout row="0" col="2" verticalAlignment="center">
                                 <Label class="point" text="{{ (tr.curr === 0 ? '+' : '') + (tr.point | abs | number:'1.0-0') + ' P' }}" textAlignment="right" verticalAlignment="center" translateY="2"></Label>
-                                <Label class="change" *ngIf="tr.curr !== 0" text="{{((tr.point / countryService.exchange) | abs | number:'1.0-0') + ' ' + countryService.currency}}" textAlignment="right"></Label>
+                                <Label class="change" *ngIf="tr.curr !== 0" text="{{(tr.curr | abs | number:'1.0-0') + ' THB'}}" textAlignment="right"></Label>
                             </StackLayout>
                             <StackLayout row="1" col="1" orientation="horizontal">
                                 <Label class="date" text="{{tr.date | date:'HH:mm'}}" textAlignment="right" verticalAlignment="center"></Label>

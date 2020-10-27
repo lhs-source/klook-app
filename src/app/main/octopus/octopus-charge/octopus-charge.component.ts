@@ -96,6 +96,7 @@ export class OctopusChargeComponent implements OnInit {
                 merchant: "옥스퍼드 카드충전",
                 point: -this.amount_num * this.countryService.exchange_hk,
                 curr: -this.amount_num,
+                country:"",
                 date: new Date(),
                 description: "옥스퍼드 카드충전",
                 taxfree: false,

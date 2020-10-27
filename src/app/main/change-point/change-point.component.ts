@@ -168,6 +168,7 @@ export class ChangePointComponent implements OnInit {
             merchant: this.pointy.title + " 교환",
             point: Number(this.amount),
             curr: 0,
+            country:"",
             date: new Date(),
             description: "포인트교환",
             taxfree: false,
