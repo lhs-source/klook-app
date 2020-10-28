@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
     isQrPay = false;
     isQrScan = false;
     isPay = false;
+    isPayment = false;
 
     isMenuExt = false;
 
@@ -53,6 +54,7 @@ export class HomeComponent implements OnInit {
                 this.isPay = true;
                 this.isQrScan = false;
                 this.isQrPay = false;
+                this.isPayment = true;
 
                 let bg = this.qrbg.nativeElement as LayoutBase;
                 bg.borderWidth = 1;
@@ -69,6 +71,7 @@ export class HomeComponent implements OnInit {
                 this.isPay = false;
                 this.isQrScan = false;
                 this.isQrPay = false;
+                this.isPayment = false;
 
                 let bg = this.qrbg.nativeElement as LayoutBase;
                 bg.animate({
@@ -228,6 +231,7 @@ export class HomeComponent implements OnInit {
                     curve: AnimationCurve.easeOut
                 }).then(() => {
                     // bg.borderColor = "#333";
+                    this.isPayment = true;
                 });
             });
         }
@@ -272,6 +276,7 @@ export class HomeComponent implements OnInit {
                     curve: AnimationCurve.easeOut
                 }).then(() => {
                     bg.borderColor = "#ddd";
+                    this.isPayment = true;
                 });
             });
         }
@@ -304,6 +309,8 @@ export class HomeComponent implements OnInit {
             opacity: 0,
             duration: this.qr_anim_duration,
             curve: AnimationCurve.easeOut
+        }).then(()=>{
+            this.isPayment = false;
         });
     }
 

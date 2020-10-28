@@ -42,8 +42,8 @@ export class OctopusReadyComponent implements OnInit {
     trans_duration = 250;
 
     constructor(private routerExtensions: RouterExtensions,
-        private authService : AuthService,
-        private octopusService : OctopusService) { }
+        private authService: AuthService,
+        private octopusService: OctopusService) { }
     ngOnInit(): void { }
 
     // translate octopus view to bottom of screen
@@ -54,7 +54,7 @@ export class OctopusReadyComponent implements OnInit {
         let lbf = this.octopusframe.nativeElement as LayoutBase;
 
         let loc = pivot.getLocationOnScreen();
-        lbc.translateY = loc.y - 16;
+        lbc.translateY = loc.y + 16;
         lbf.translateY = lbc.translateY - this.card_marginTop;
     }
 
@@ -115,6 +115,7 @@ export class OctopusReadyComponent implements OnInit {
                 }).then(() => {
                     let card = this.card.nativeElement as Image;
                     let arr = this.arrow.nativeElement as Image;
+                    console.log(arr);
                     arr.opacity = 0;
                     // card.marginTop=64;
                     // card.marginBottom=64;
@@ -123,21 +124,21 @@ export class OctopusReadyComponent implements OnInit {
                     //     duration: 150,
                     //     curve: AnimationCurve.linear
                     // }).then(() => {
-                        setTimeout(() => {
-                            if(this.octopusService.has_octopus === true){
-                                // issued octopus 
-                                this.routerExtensions.navigate(['/main/octopus/main'], { 
-                                    clearHistory: true, 
-                                    transition: { name: 'fade', duration: this.trans_duration, curve: AnimationCurve.easeOut } 
-                                });
-                            }else{
-                                // no octopus
-                                this.routerExtensions.navigate(['/main/octopus/new'], { 
-                                    clearHistory: true, 
-                                    transition: { name: 'fade', duration: this.trans_duration, curve: AnimationCurve.easeOut } 
-                                });
-                            }
-                        }, 100);
+                    setTimeout(() => {
+                        if (this.octopusService.has_octopus === true) {
+                            // issued octopus 
+                            this.routerExtensions.navigate(['/main/octopus/main'], {
+                                clearHistory: true,
+                                transition: { name: 'fade', duration: this.trans_duration, curve: AnimationCurve.easeOut }
+                            });
+                        } else {
+                            // no octopus
+                            this.routerExtensions.navigate(['/main/octopus/new'], {
+                                clearHistory: true,
+                                transition: { name: 'fade', duration: this.trans_duration, curve: AnimationCurve.easeOut }
+                            });
+                        }
+                    }, 100);
                     // });
                 });
                 lbf.animate({

@@ -15,22 +15,27 @@ export class CountryService {
         "태국": {
             currency: "THB",
             exchange: 36.98,
+            qrimage:"~/images/btn_qrpay.png",
         },
         "싱가포르": {
             currency: "SGD",
             exchange: 852.89,
+            qrimage:"~/images/btn_qrpay.png",
         },
         "홍콩": {
             currency: "HKD",
             exchange: 151.39,
+            qrimage:"~/images/btn_qrpay.png",
         },
         "말레이시아": {
             currency: "MYR",
             exchange: 281.47,
+            qrimage:"~/images/btn_qrpay.png",
         },
         "미국": {
             currency: "USD",
             exchange: 1180.00,
+            qrimage:"~/images/btn_qrpay.png",
         },
         // "영국": {
         //     currency: "GBP",
@@ -70,5 +75,8 @@ export class CountryService {
     }
     get currency() {
         return this.countries[this.country].currency;
+    }
+    get qrimage() {
+        return this.countries[this.country].qrimage;
     }
 }

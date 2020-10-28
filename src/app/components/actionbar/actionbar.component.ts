@@ -24,6 +24,7 @@ export class MyActionBarComponent implements OnInit {
     @Output() close_click : EventEmitter<any> = new EventEmitter();
     @Output() select_country : EventEmitter<any> = new EventEmitter();
     @Input() isClose = false;
+    @Input() isPayment = false;
 
     locale = [
         "태국",
@@ -100,6 +101,7 @@ export class MyActionBarComponent implements OnInit {
             conmodalref.animate({
                 opacity:1,
                 // height:conmodalref.getMeasuredHeight() * p * 2,
+                duration:100,
                 curve:AnimationCurve.easeOut
             })
             let count = 0;
@@ -107,6 +109,7 @@ export class MyActionBarComponent implements OnInit {
                 let sl = view as StackLayout;
                 sl.animate({
                     translate: {x:0, y: 0},
+                    duration:100,
                     curve:AnimationCurve.easeOut
                 });
                 count = count + 1;
@@ -116,6 +119,7 @@ export class MyActionBarComponent implements OnInit {
             conmodalref.animate({
                 opacity:0,
                 // height:conmodalref.getMeasuredHeight() * p / 2,
+                duration:100,
                 curve:AnimationCurve.easeOut
             })
             let count = 0;
@@ -123,6 +127,7 @@ export class MyActionBarComponent implements OnInit {
                 let sl = view as StackLayout;
                 sl.animate({
                     translate: {x:0, y: -(count * 24)},
+                    duration:100,
                     curve:AnimationCurve.easeOut
                 });
                 count = count + 1;

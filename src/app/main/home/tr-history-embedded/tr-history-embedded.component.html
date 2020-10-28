@@ -24,7 +24,8 @@
                         <Label class="merchant" row="0" rowspan="2" col="1" text="{{tr.merchant}}"
                             verticalAlignment="top"></Label>
                         <StackLayout row="0" col="2" verticalAlignment="center">
-                            <Label class="point" [ngClass]="{'negative' : tr.point < 0, 'positive' : tr.point > 0}"
+                            <!-- [ngClass]="{'negative' : tr.point < 0, 'positive' : tr.point > 0}" -->
+                            <Label class="point" 
                                 text="{{ (tr.point > 0 ? '+' : '') + (tr.point | abs | number:'1.0-0') + ' P' }}"
                                 textAlignment="right" verticalAlignment="center" translateY="2"></Label>
                             <Label class="change" *ngIf="tr.curr !== 0"
