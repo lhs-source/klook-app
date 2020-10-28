@@ -1,7 +1,7 @@
 
-<GridLayout #rootlayout rows="88,auto,*,auto,auto,auto, auto, auto" height="100%" width="100%">
+<GridLayout #rootlayout rows="88,auto,auto,auto,auto,auto, auto, auto" height="100%" width="100%">
     <title row="1" title="이용 내역 > 영수증" backgroundColor="#888"></title>
-    <GridLayout row="2" marginLeft="16" marginRight="16" marginTop="16">
+    <GridLayout row="2" marginLeft="16" marginRight="16" marginTop="16" *ngIf="tr.description === '포인트사용'" height="240">
         
         <MapView #mapView [latitude]="latitude" [longitude]="longitude"
         [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
@@ -24,7 +24,7 @@
             <Label row="1" col="1" class="content" text="{{tr.date | date:'y.MM.dd HH:mm:ss'}}" verticalAlignment="center"></Label>
         </StackLayout>
         <StackLayout class="row" orientation="horizontal">
-            <Label row="2" col="0" class="label" text="포인트사용"></Label>
+            <Label row="2" col="0" class="label" text="{{tr.point < 0 ? '포인트사용' : '포인트충전'}}"></Label>
             <StackLayout row="2" col="1" orientation="horizontal">
                 <Label class="content" text="{{(tr.point | abs | number:'1.0-0') + ' P'}}" verticalAlignment="center"></Label>
                 <ng-container *ngIf="tr.save_point">
@@ -50,7 +50,9 @@
             </StackLayout>
         </StackLayout>
     </StackLayout>
-    <Button row="7" class="btn" text="이의제기" marginTop="24" marginBottom="24" (tap)="addMarker()"></Button>
+    <GridLayout row="7" >
+        <Button class="btn" text="이의제기" marginTop="24" marginBottom="24" (tap)="addMarker()" verticlaAlignment="bottom"></Button>
+    </GridLayout>
 </GridLayout>
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" [isClose]="true"></myactionbar>
