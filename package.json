@@ -36,6 +36,7 @@
     "nativescript-masked-text-field": "^4.0.3",
     "nativescript-ngx-shadow": "^6.5.0",
     "nativescript-plugin-firebase": "^10.5.2",
+    "nativescript-plugin-statusbar": "^1.0.19",
     "nativescript-shadowed-label": "^1.0.0",
     "nativescript-toast": "^2.0.0",
     "node-sass": "^4.14.1",

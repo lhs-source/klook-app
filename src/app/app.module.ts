@@ -16,6 +16,7 @@ import { ProgressService } from "./components/progress/progress.service";
 
 import { MaskedTextFieldModule } from "nativescript-masked-text-field/angular";
 import { InputMaskModule } from 'nativescript-input-mask/angular';
+import { Statusbar } from "nativescript-plugin-statusbar";
 
 @NgModule({
     bootstrap: [
@@ -31,6 +32,8 @@ import { InputMaskModule } from 'nativescript-input-mask/angular';
         AppComponent,
     ],
     providers:[
+        Statusbar,
+        
         PaymentService,
         DataService,
         CountryService,
