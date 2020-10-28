@@ -138,8 +138,10 @@ export class AutoChangeComponent implements OnInit {
     }
 
     onTapAutoCharge() {
-        console.log(this.tf1.text, this.tf2.text);
-        if (Number(this.tf1.text) <= 0 || Number(this.tf2.text) <= 0) {
+        // console.log(this.tf1.text, this.tf2.text);
+        if (!this.tf1 || !this.tf2 || 
+            this.tf1.text.length === 0 || this.tf2.text.length === 0 ||
+            Number(this.tf1.text) <= 0 || Number(this.tf2.text) <= 0) {
             alert({
                 title: "포인트 자동충전",
                 message: "자동충전을 금액을 확인해주세요",

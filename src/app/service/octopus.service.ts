@@ -51,7 +51,7 @@ export class OctopusService {
     addOctopusBalance(country:string, v: number) {
         let cur_octo = this.octopus[country];
         cur_octo.balance = cur_octo.balance + v;
-        this.dataService.point = this.dataService.point - v * this.countryService.countries[country].exchange;
+        this.dataService.decreasePoint(v * this.countryService.countries[country].exchange);
 
         setNumber("octopusHK", this.octopus["홍콩"].balance);
         setNumber("octopusSG", this.octopus["싱가포르"].balance);

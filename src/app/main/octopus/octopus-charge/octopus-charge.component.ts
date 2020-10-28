@@ -108,6 +108,7 @@ export class OctopusChargeComponent implements OnInit {
                 okButtonText: "확인"
             });
         } else {
+            this.octopusService.addOctopusBalance(this.selected_country, this.amount_num);
             this.transactionService.addTr({
                 type: "transactions",
                 class: "옥스퍼드충전",
@@ -126,7 +127,6 @@ export class OctopusChargeComponent implements OnInit {
                 message: "옥토퍼스 카드충전에 성공하였습니다.",
                 okButtonText: "확인"
             }).then(() => {
-                this.octopusService.addOctopusBalance(this.selected_country, this.amount_num);
                 this.routerExtensions.navigate(['/main/octopus/main'], {
                     clearHistory: true,
                     transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
