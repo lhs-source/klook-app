@@ -1,7 +1,19 @@
 <GridLayout>
-    <GridLayout marginLeft="16" marginRight="16" backgroundColor="#333"></GridLayout>
+    <GridLayout rows="*, auto">
+        <GridLayout row="0" margin="4 16">
+            <MLKitBarcodeScanner *ngIf="is_cam_allowed" formats="QR_CODE, UPC_A, EAN_13" beepOnScan="false"
+                supportInverseBarcodes="false" processEveryNthFrame="10" [torchOn]="torchOn" [pause]="pause"
+                (scanResult)="onBarcodeScanResult($event)">
+            </MLKitBarcodeScanner>
+        </GridLayout>
+        <Image row="0" src="~/images/frame_qr_new.png" width="72%" horizontalAlignment="center"></Image>
+        <Label row="1" text="화면에 카메라를 맞춰 주세요" style="color:darkgray; margin:8 0; margin-bottom: 12;"
+            textAlignment="center"></Label>
+    </GridLayout>
 
-    <GridLayout rows="*, auto, auto, *">
+    <!--
+    <GridLayout marginLeft="16" marginRight="16" backgroundColor="#333"></GridLayout> 
+        <GridLayout rows="*, auto, auto, *">
         <GridLayout row="1" style="border-radius: 10;" width="256" height="256">
             <MLKitBarcodeScanner *ngIf="is_cam_allowed" width="256" height="256" formats="QR_CODE, UPC_A, EAN_13" beepOnScan="false"
                 supportInverseBarcodes="false" processEveryNthFrame="10" [torchOn]="torchOn" [pause]="pause"
@@ -9,8 +21,6 @@
             </MLKitBarcodeScanner>
         </GridLayout>
         <Image row="1" src="~/images/frame_qr.png" height="264" horizontalAlignment="center"></Image>
-        <!-- <Label row="0" col="1" class="text-center c-white" textWrap="true" verticalAlignment="center"
-      text="The scanner has been configured to detect QR codes, UPC A, and EAN 13. It processes every 5th frame (default 10). These settings can be tweaked in your usage of the plugin. Oh, and we briefly pause the scanner after every scan, just for show."></Label> -->
         <Label row="2" text="화면에 카메라를 맞춰 주세요" style="color:darkgray; margin:8 0;"
             textAlignment="center"></Label>
         <ListView row="3" col="0" colSpan="3" [items]="barcodes" class="m-t-20" backgroundColor="transparent">
@@ -21,7 +31,7 @@
                 </GridLayout>
             </ng-template>
         </ListView>
-    </GridLayout>
+    </GridLayout> -->
 
     <!-- <GridLayout rows="auto" columns="auto, auto" horizontalAlignment="right" class="m-t-4 m-r-8">
     <Label col="0" text="Torch" class="c-white" [class.disabled]="!torchOn"></Label>

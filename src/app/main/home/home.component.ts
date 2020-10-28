@@ -219,20 +219,23 @@ export class HomeComponent implements OnInit {
             }
             this.isQrScan = true;
             this.isQrPay = false;
-            this.routerExtensions.navigate(['/main/home/qr-scan'], { transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }, clearHistory: true }).then(() => {
-                let bg = this.qrbg.nativeElement as LayoutBase;
-                // bg.backgroundColor = "#333";
-                bg.borderWidth = 0;
-                // bg.borderWidth = 1;
-                bg.animate({
-                    opacity: 1,
-                    backgroundColor: new Color("#333"),
-                    duration: this.qr_anim_duration,
-                    curve: AnimationCurve.easeOut
-                }).then(() => {
-                    // bg.borderColor = "#333";
-                    this.isPayment = true;
-                });
+            this.routerExtensions.navigate(['/main/home/qr-scan'], { 
+                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }, 
+                clearHistory: true 
+            }).then(() => {
+                // let bg = this.qrbg.nativeElement as LayoutBase;
+                // // bg.backgroundColor = "#333";
+                // bg.borderWidth = 0;
+                // // bg.borderWidth = 1;
+                // bg.animate({
+                //     opacity: 1,
+                //     backgroundColor: new Color("#333"),
+                //     duration: this.qr_anim_duration,
+                //     curve: AnimationCurve.easeOut
+                // }).then(() => {
+                //     // bg.borderColor = "#333";
+                // });
+                this.isPayment = true;
             });
         }
     }
