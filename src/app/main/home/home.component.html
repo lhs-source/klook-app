@@ -12,7 +12,7 @@
     </GridLayout>
 
     <!-- menu -->
-    <GridLayout #menu class="menu" row="3" columns="*,*,*,*" rows="44, *, auto">
+    <GridLayout #menu class="menu" row="3" columns="*,*,*,*" rows="44, *, auto" marginBottom="8">
         <GridLayout row="0" colspan="4" (tap)="onTapMenu($event)">
             <image #menubtn src="{{isMenuExt === true ? '~/images/btn_down.png' : '~/images/btn_up.png'}}" height="24" marginBottom="12" verticalAlignment="top" horizontalAlignment="center">
             </image>

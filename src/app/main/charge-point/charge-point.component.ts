@@ -183,17 +183,11 @@ export class ChargePointComponent implements OnInit {
     }
 
     callbackTapTf(event, index) {
-        console.log("onTapTextfield");
-        let kf = event.object as TextField;
+        console.log("callbackTapTf");
         let kl = this.modalkeypad.nativeElement as LayoutBase;
         this.modal_show(kl, this.isKeypadShow, () => {
             this.isKeypadShow = true;
         });
-        kf.editable = false;
-        kf.android.setRawInputType(0x00000000);
-        kf.android.setTextIsSelectable(true);
-        kf.android.setCursorVisible(true);
-        kf.android.setFocusable(true);
         // kf.android.setFocusableInTouchMode(true);
         // kf.focus();
     }
@@ -263,16 +257,5 @@ export class ChargePointComponent implements OnInit {
             clearHistory: true,
             transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
         });
-    }
-    navigateBack(event) {
-        console.log(`${this.tag} navigateBack`);
-        if (this.routerExtensions.canGoBack()) {
-            this.routerExtensions.back({ relativeTo: this.activatedRoute });
-        } else {
-            this.routerExtensions.navigate(['/main/home'], {
-                transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) },
-                clearHistory: true
-            });
-        }
     }
 }

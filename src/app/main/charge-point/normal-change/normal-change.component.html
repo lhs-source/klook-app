@@ -1,6 +1,6 @@
 <GridLayout rows="*, auto">
     <StackLayout row="0" class="amount">
-        <textfield-currency #textfield [className]="'change'" verticalAlignment="center" [(ngModel)]="amount"
+        <textfield-currency #textfield [className]="'charge1'" verticalAlignment="center" [(ngModel)]="amount"
             (returnPress)="onReturnPress($event)" (textChange)="onChangeTextField($event)" hint="충전 금액을 입력해주세요">
         </textfield-currency>
         <StackLayout orientation="horizontal">

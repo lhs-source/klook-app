@@ -160,35 +160,40 @@ export class ChangePointComponent implements OnInit {
         }
     }
 
-    dialogSuccess(thenFunction : ()=>any){
-        // success dialog
-        alert({
-            title: "포인트교환 성공",
-            message: "포인트교환에 성공했습니다",
-            okButtonText: "확인"
-        }).then(thenFunction);
-    }
-
     change(event){
-        this.transactionService.addTr({
-            type:"transactions",
-            class: "포인트교환",
-            merchant: this.dataService.selected_pointry.title + " 교환",
-            point: this.amount_num * this.dataService.selected_pointry.exchange,
-            curr: 0,
-            country:"",
-            date: new Date(),
-            description: "포인트교환",
-            taxfree: false,
-            utu: false,
-            save_point: 0,
-        });
-        this.dataService.addPoint(this.amount_num * this.dataService.selected_pointry.exchange);
-        this.dataService.decreasePointry(this.amount_num);
-        
-        this.dialogSuccess(()=>{
-            this.routerExtensions.navigate(['/main/home'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, clearHistory : true });
-        })
+        if (this.amount_num <= 0) {
+            alert({
+                title: "포인트교환",
+                message: "교환 금액을 확인해주세요",
+                okButtonText: "확인"
+            });
+        } else {
+            this.transactionService.addTr({
+                type:"transactions",
+                class: "포인트교환",
+                merchant: this.dataService.selected_pointry.title + " 교환",
+                point: this.amount_num * this.dataService.selected_pointry.exchange,
+                curr: 0,
+                country:"",
+                date: new Date(),
+                description: "포인트교환",
+                taxfree: false,
+                utu: false,
+                save_point: 0,
+            });            
+            alert({
+                title: "포인트교환 성공",
+                message: "포인트교환에 성공했습니다",
+                okButtonText: "확인"
+            }).then(()=>{
+                this.dataService.addPoint(this.amount_num * this.dataService.selected_pointry.exchange);
+                this.dataService.decreasePointry(this.amount_num);
+                this.routerExtensions.navigate(['/main/home'], { 
+                    transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, 
+                    clearHistory : true 
+                });
+            })
+        }
     }
 
     // actionbar emit click close

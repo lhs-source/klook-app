@@ -124,11 +124,11 @@ export class DataService {
         return this.point / this.countryService.exchange;
     }
     setAuto(balance, amount, merchant) {
-        console.log(this.auto_balance, this.auto_amount, this.auto_merchant);
         this.auto_balance = balance;
         this.auto_amount = amount;
         this.auto_merchant = merchant;
 
+        console.log(this.auto_balance, this.auto_amount, this.auto_merchant);
         this.savePoint();
     }
     

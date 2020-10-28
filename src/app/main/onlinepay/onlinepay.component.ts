@@ -10,18 +10,6 @@ import { CustomTransitionBack } from "../../util/klook-transition";
     selector: "onlinepay",
     templateUrl: "./onlinepay.component.html",
     styleUrls: ["./onlinepay.component.scss"],
-    animations: [
-        trigger('fade', [
-            transition(':enter', [
-                style({ opacity: 0, transform: "translateY(20)" }),
-                animate('1s ease-out', style({ opacity: 1, transform: "translateY(0)" }))
-            ]),
-            transition(':leave', [
-                style({ opacity: 1, transform: "translateY(0)" }),
-                animate('1s ease-in', style({ opacity: 0, transform: "translateY(20)" }))
-            ])
-        ])
-    ]
 })
 export class OnlinepayComponent implements OnInit {
     tag = this.constructor.name;

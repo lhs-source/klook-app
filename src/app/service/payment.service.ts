@@ -80,6 +80,7 @@ export class PaymentService {
             },
             "transactionType": "TRANSFER"
         }
+        console.log(postdata);
         if(this.token_exp <= 0){
             return this.getToken().pipe(
                 switchMap(res => {

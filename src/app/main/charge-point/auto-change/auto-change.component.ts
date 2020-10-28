@@ -139,16 +139,32 @@ export class AutoChangeComponent implements OnInit {
 
     onTapAutoCharge() {
         console.log(this.tf1.text, this.tf2.text);
-        this.dataService.setAuto(Number(this.tf1.text), Number(this.tf2.text), this.dataService.selected_way.title);
-        alert({
-            title: "포인트 자동충전",
-            message: "포인트 자동충전을 설정했습니다",
-            okButtonText: "확인"
-        }).then(() => {
-            this.routerExtensions.navigate(['/main/home'], {
-                transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) },
-                clearHistory: true
+        if (Number(this.tf1.text) <= 0 || Number(this.tf2.text) <= 0) {
+            alert({
+                title: "포인트 자동충전",
+                message: "자동충전을 금액을 확인해주세요",
+                okButtonText: "확인"
+            })
+        }
+        else if (Number(this.tf1.text) > Number(this.tf2.text) ) {
+            alert({
+                title: "포인트 자동충전",
+                message: "자동충전을 금액이 기준금액보다 커야합니다",
+                okButtonText: "확인"
+            })
+        }
+        else {
+            this.dataService.setAuto(Number(this.tf1.text), Number(this.tf2.text), this.dataService.selected_way.title);
+            alert({
+                title: "포인트 자동충전",
+                message: "포인트 자동충전을 설정했습니다",
+                okButtonText: "확인"
+            }).then(() => {
+                this.routerExtensions.navigate(['/main/home'], {
+                    transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) },
+                    clearHistory: true
+                });
             });
-        });
+        }
     }
 }
