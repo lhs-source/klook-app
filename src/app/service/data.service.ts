@@ -20,7 +20,7 @@ export class DataService {
         "스포츠": "~/images/ico_type6.png",
         "카페": "~/images/ico_type7.png",
         "포인트교환": "~/images/ico_type8.png",
-        "옥스퍼드충전": "~/images/ico_type8.png",
+        "교통카드충전": "~/images/ico_type1.png",
     };
     // under
     auto_balance = 0;

@@ -79,9 +79,40 @@ export class PinComponent implements OnInit {
                         });
                     }
                 } else {
+
+                    // animtaion
+                    let pinframe = this.pincode.nativeElement as LayoutBase;
+                    // pinframe.eachChild((view)=>{
+                    //     let lb = view as Label;
+                    //     lb.backgroundColor = "red";
+                    //     return true;
+                    // })
+                    // setTimeout(() => {
+                    //     pinframe.eachChild((view)=>{
+                    //         let lb = view as Label;
+                    //         lb.backgroundColor = this.old_color;
+                    //         return true;
+                    //     })
+                    // }, 500);
+                    pinframe.animate({
+                        translate:{x:-20, y:0},
+                        duration:100
+                    }).then(()=>{
+                        pinframe.animate({
+                            translate:{x:15, y:0},
+                            duration:100
+                        }).then(()=>{
+                            pinframe.animate({
+                                translate:{x:0, y:0},
+                                duration:100
+                            }).then(()=>{
+                                this.pin = "";
+                                this.changePinCode();
+                            });
+                        })
+                    });
+
                     Toast.makeText("비밀번호가 맞지 않습니다" + this.authService.pin).show();
-                    this.pin = "";
-                    this.changePinCode();
                 }
             }
         });

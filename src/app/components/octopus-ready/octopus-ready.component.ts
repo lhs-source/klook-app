@@ -108,15 +108,15 @@ export class OctopusReadyComponent implements OnInit {
             console.log("this.octopus_card_loc.prevDeltaY", this.octopus_card_loc.prevDeltaY);
             if (lbc.translateY < (screen.mainScreen.heightDIPs / 1.5) || this.octopus_card_loc.prevDeltaY < -100) {
                 // goto octopus page
+                let arr = this.arrow.nativeElement as Image;
+                console.log("arr", arr);
+                arr.opacity = 0;
                 lbc.animate({
                     translate: { x: this.octopus_card_loc.originX, y: (screen.mainScreen.heightDIPs - lbc.getMeasuredHeight() * p) / 3 },
                     duration: 100,
                     curve: AnimationCurve.linear
                 }).then(() => {
                     let card = this.card.nativeElement as Image;
-                    let arr = this.arrow.nativeElement as Image;
-                    console.log(arr);
-                    arr.opacity = 0;
                     // card.marginTop=64;
                     // card.marginBottom=64;
                     // card.animate({

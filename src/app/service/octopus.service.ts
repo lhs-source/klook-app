@@ -19,16 +19,19 @@ export class OctopusService {
         "홍콩":{
             title:"홍콩 옥토퍼스",
             balance:800,
+            exchange: 151.39,
             currency:"HKD"
         },
         "싱가포르":{
             title:"싱가포르 이지링크",
             balance: 1200,
+            exchange: 852.89,
             currency:"SGD"
         },
         "영국":{
             title:"영국 오이스터",
             balance: 84,
+            exchange: 1467.58,
             currency:"GBP"
         }
     };
@@ -51,7 +54,7 @@ export class OctopusService {
     addOctopusBalance(country:string, v: number) {
         let cur_octo = this.octopus[country];
         cur_octo.balance = cur_octo.balance + v;
-        this.dataService.decreasePoint(v * this.countryService.countries[country].exchange);
+        this.dataService.decreasePoint(v * this.octopus[country].exchange);
 
         setNumber("octopusHK", this.octopus["홍콩"].balance);
         setNumber("octopusSG", this.octopus["싱가포르"].balance);

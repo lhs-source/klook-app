@@ -90,9 +90,9 @@ export class OctopusChargeComponent implements OnInit {
         console.log(tf.text);
         console.log(tf.text.replace(/[^0-9.]/g, ""));
         console.log(this.amount_num);
-        let exchanged = this.amount_num * this.countryService.countries[this.selected_country].exchange;
+        let exchanged = this.amount_num * this.octopusService.octopus[this.selected_country].exchange;
         if (this.dataService.point < exchanged) {
-            this.amount_num = Math.floor(this.dataService.point / this.countryService.countries[this.selected_country].exchange);
+            this.amount_num = Math.floor(this.dataService.point / this.octopusService.octopus[this.selected_country].exchange);
             console.log(this.amount_num);
             this.amount = this.amount_num.toLocaleString('en-GB');
             tf.text = this.amount_num.toLocaleString('en-GB');
@@ -111,20 +111,20 @@ export class OctopusChargeComponent implements OnInit {
             this.octopusService.addOctopusBalance(this.selected_country, this.amount_num);
             this.transactionService.addTr({
                 type: "transactions",
-                class: "옥스퍼드충전",
-                merchant: "옥스퍼드 카드충전",
-                point: -this.amount_num * this.countryService.countries[this.selected_country].exchange,
+                class: "교통카드충전",
+                merchant: this.octopusService.octopus[this.selected_country].title + " 충전",
+                point: -this.amount_num * this.octopusService.octopus[this.selected_country].exchange,
                 curr: 0,
                 country: "",
                 date: new Date(),
-                description: "옥스퍼드 카드충전",
+                description: this.octopusService.octopus[this.selected_country].title + " 충전",
                 taxfree: false,
                 utu: false,
                 save_point: 0,
             });
             alert({
-                title: "옥토퍼스 카드충전",
-                message: "옥토퍼스 카드충전에 성공하였습니다.",
+                title: "교통카드 충전",
+                message: "교통카드 충전에 성공하였습니다.",
                 okButtonText: "확인"
             }).then(() => {
                 this.routerExtensions.navigate(['/main/octopus/main'], {
