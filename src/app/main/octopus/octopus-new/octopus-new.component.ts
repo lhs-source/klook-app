@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
-import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase } from "tns-core-modules";
-import { screen } from "tns-core-modules/platform/platform"
+import { LayoutBase, ScrollEventData, ScrollView, Image, Label, ViewBase, AndroidActivityBackPressedEventData, AndroidApplication, Application } from "tns-core-modules";
+import { isAndroid, screen } from "tns-core-modules/platform/platform"
 import { CustomTransitionBack } from "../../../util/klook-transition";
 import { AuthService } from "../../../service/auth.service";
 import { OctopusService } from "../../../service/octopus.service";
@@ -25,6 +25,22 @@ export class OctopusNewComponent implements OnInit {
     constructor(private routerExtensions : RouterExtensions,
         private octopusService : OctopusService) {
         console.log(`${this.tag} constructor `)
+        
+        if (isAndroid) {
+            Application.android.off(AndroidApplication.activityBackPressedEvent);
+            Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+                console.log(this.tag + " back button pressed ");
+                if (this.routerExtensions.router.isActive('/main/octopus/new', false) === true) {
+                    data.cancel = true;
+                    this.routerExtensions.navigate(['/main/home'], {
+                        transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear), },
+                        clearHistory: true
+                    });
+                } else {
+                    data.cancel = false;
+                }
+            });
+        }
     }
 
     ngOnInit(): void {
@@ -35,12 +51,17 @@ export class OctopusNewComponent implements OnInit {
     // actionbar emit click close
     actionbar_click_close(isclose){
         console.log(this.tag + " actionbar close button clicked = " + isclose);
-        this.routerExtensions.navigate(['/main/home'], { clearHistory:true, transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
+        this.routerExtensions.navigate(['/main/home'], { 
+            clearHistory:true, 
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } 
+        });
     }
 
     onTabIssue(event){
         console.log(this.tag + " onTabIssue");
         this.octopusService.register_octopus();
-        this.routerExtensions.navigate(['/main/octopus/main'], { transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } });
+        this.routerExtensions.navigate(['/main/octopus/main'], { 
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } 
+        });
     }
 }

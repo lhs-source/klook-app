@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { CustomTransitionBack } from "../../util/klook-transition";
 
 @Component({
     selector: "UserAuth",
@@ -27,5 +28,14 @@ export class UserAuthComponent implements OnInit {
     onTapCert(event){
         console.log(this.tag, "onTapCert");
         this.routerExtensions.navigate(['/initial-auth/pin-new'], {transition : {name:'slide', duration:250, curve: AnimationCurve.easeOut}});
+    }
+    
+    // actionbar emit click close
+    actionbar_click_close(isclose){
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
+        this.routerExtensions.navigate(['/initial-auth/klook-main'], { 
+            clearHistory:true, 
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } 
+        });
     }
 }

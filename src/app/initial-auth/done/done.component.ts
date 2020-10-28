@@ -8,6 +8,7 @@ import { DataService } from "../../service/data.service";
 import { MerchantService } from "../../service/merchant.service";
 import { CountryService } from "../../service/country.service";
 import { TransactionService } from "../../service/transaction.service";
+import { CustomTransitionBack } from "../../util/klook-transition";
 
 @Component({
     selector: "done",
@@ -38,6 +39,14 @@ export class DoneComponent implements OnInit {
                 duration: 250,
                 curve: AnimationCurve.easeOut
             }
+        });
+    }
+    // actionbar emit click close
+    actionbar_click_close(isclose){
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
+        this.routerExtensions.navigate(['/main/home'], { 
+            clearHistory:true, 
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } 
         });
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
+import { CustomTransitionBack } from "../../util/klook-transition";
 import { AuthService } from "../../service/auth.service";
 
 @Component({
@@ -100,5 +101,13 @@ export class TermsComponent implements OnInit {
     onTapNext(event) {
         console.log(this.tag, "onTapNext");
         this.routerExtensions.navigate(['/initial-auth/userauth'], { transition: { name: 'slide', duration: 250, curve: AnimationCurve.easeOut } });
+    }
+    // actionbar emit click close
+    actionbar_click_close(isclose){
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
+        this.routerExtensions.navigate(['/initial-auth/klook-main'], { 
+            clearHistory:true, 
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } 
+        });
     }
 }

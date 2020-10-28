@@ -7,6 +7,7 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../service/auth.service";
+import { CustomTransitionBack } from "../../util/klook-transition";
 
 @Component({
     selector: "NewPin",
@@ -78,6 +79,14 @@ export class NewPinComponent implements OnInit {
             }
             count = count + 1;
             return true;
+        });
+    }
+    // actionbar emit click close
+    actionbar_click_close(isclose){
+        console.log(this.tag + " actionbar close button clicked = " + isclose);
+        this.routerExtensions.navigate(['/initial-auth/klook-main'], { 
+            clearHistory:true, 
+            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } 
         });
     }
 }
