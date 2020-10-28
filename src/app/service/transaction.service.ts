@@ -383,7 +383,7 @@ export class TransactionService {
             type:"transactions",
             class: this.merchantService.merchants[qr.merchant].class,
             merchant: qr.merchant,
-            point: -point,
+            point: point,
             curr: qr.amount,
             country:qr.country,
             date: new Date(), //(2020, 10, 12, 18, 20, 0, 0),
@@ -432,7 +432,7 @@ export class TransactionService {
         console.log("reseting tr...");
         this.trs = [];
         this.trs_grouped = {};
-        this.tr_group_calced = false;
+        this.needToUpdate();
         this.database.destroyDatabase();
     }
 }

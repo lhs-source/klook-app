@@ -109,7 +109,7 @@ export class OctopusChargeComponent implements OnInit {
             this.octopusService.addOctopusBalance(this.selected_country, this.amount_num);
             this.transactionService.addTr({
                 type:"transactions",
-                class: "포인트충전",
+                class: "옥스퍼드충전",
                 merchant: "옥스퍼드 카드충전",
                 point: -this.amount_num * this.countryService.countries[this.selected_country].exchange,
                 curr: 0,

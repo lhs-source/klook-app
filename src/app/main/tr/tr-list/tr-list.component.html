@@ -23,6 +23,7 @@
                     <StackLayout row="0" col="2" verticalAlignment="center">
                         <Label class="point"
                             text="{{ (tr.point > 0 ? '+' : '') + (tr.point | abs | number:'1.0-0') + ' P' }}"
+                            [ngClass]="{'negative' : tr.point < 0, 'positive' : tr.point > 0}"
                             textAlignment="right" verticalAlignment="center" translateY="2"></Label>
                         <Label class="change" *ngIf="tr.curr !== 0" text="{{(tr.curr | abs | number:'1.0-0') + ' THB'}}"
                             textAlignment="right"></Label>

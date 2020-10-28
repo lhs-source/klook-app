@@ -1,4 +1,4 @@
-<GridLayout #rootlayout rows="64,auto,*,auto" height="100%" width="100%">
+<GridLayout #rootlayout rows="64,auto,auto, *,auto" height="100%" width="100%">
     <!-- information strings -->
     <StackLayout row="1" marginTop="16">
         <Label class="info-str" text="회원가입을 위한 정보제공 동의 단계입니다" horizontalAlignment="center"></Label>
@@ -30,8 +30,9 @@
             </GridLayout>
         </StackLayout>
     </GridLayout>
+    <Label row="3"></Label>
     <!-- ok button -->
-    <GridLayout row="3">
+    <GridLayout row="4">
         <ripple-button text="확인" backgroundColor="{{isAllAgree === true ? '#ff5722' : '#dddddd'}}" textColor="white" disabled="{{isAllAgree === true ? false : true}}" (click)="onTapNext($event)"></ripple-button>
     </GridLayout>
 </GridLayout>
