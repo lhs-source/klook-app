@@ -9,6 +9,7 @@ import { alert } from "tns-core-modules/ui/dialogs";
 import { MerchantService } from "../../../service/merchant.service";
 import { CountryService } from "../../../service/country.service";
 import { TransactionService } from "../../../service/transaction.service";
+import { OctopusService } from "../../../service/octopus.service";
 
 @Component({
     selector: "account-link",
@@ -22,7 +23,8 @@ export class AccountLinkComponent implements OnInit {
         private merchantService : MerchantService,
         private countryService : CountryService,
         private transactionService : TransactionService,
-        private authService : AuthService) {
+        private authService : AuthService,
+        private octopusService : OctopusService) {
         console.log(`${this.tag} constructor `)
     }
 
@@ -44,6 +46,7 @@ export class AccountLinkComponent implements OnInit {
         this.dataService.reset();
         this.transactionService.reset();
         this.countryService.reset();
+        this.octopusService.reset();
         
         alert({
             title: "계정연동 해제",

@@ -2,7 +2,9 @@
 <GridLayout #rootlayout rows="88, auto, *, auto, auto" class="nav" height="100%" width="100%">
     <title row="1" title="교통카드 > 발급하기" backgroundColor="#888"></title>
     
-    <carousel-card [elem_list]="cardlist" (onTapElem)="onTapCard($event)"></carousel-card>
+    <!-- <carousel-card [elem_list]="cardlist" (onTapElem)="onTapCard($event)"></carousel-card> -->
+    
+    <carousel-card-new row="2" [elemList]="cardlist" (onTapElem)="callbackTapCard($event)"></carousel-card-new>
     
     <StackLayout row="3" class="description">
         <GridLayout columns="auto, auto" horizontalAlignment="center">

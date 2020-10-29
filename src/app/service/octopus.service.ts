@@ -50,6 +50,20 @@ export class OctopusService {
         this.has_octopus = true;
         setBoolean("hasOctopus", this.has_octopus);
     }
+    reset(){
+        this.has_octopus = false;
+
+        setBoolean("hasOctopus", this.has_octopus);
+
+        this.octopus["홍콩"].balance = 800;
+        this.octopus["싱가포르"].balance = 1200;
+        this.octopus["영국"].balance = 84;
+
+        setNumber("octopusHK", this.octopus["홍콩"].balance);
+        setNumber("octopusSG", this.octopus["싱가포르"].balance);
+        setNumber("octopusUK", this.octopus["영국"].balance);
+
+    }
 
     addOctopusBalance(country:string, v: number) {
         let cur_octo = this.octopus[country];

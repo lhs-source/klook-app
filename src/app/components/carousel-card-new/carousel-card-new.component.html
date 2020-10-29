@@ -1,0 +1,24 @@
+<GridLayout row="2" rows="auto, auto">
+    <AbsoluteLayout #absolute row="0" width="100%" height="100%" (pan)="onPanCarousel($event)">
+        <AbsoluteLayout #scrollitems orientation="horizontal" style="padding-top: 24; padding-bottom: 16;">
+            <ng-container *ngFor="let item of elemList; index as i">
+                <GridLayout (loaded)="onLayoutChangedCard($event, i)" (tap)="onTapCard($event, i)"
+                    androidElevation="{{shadowSize}}" backgroundColor="white" borderRadius="8">
+                    <!-- <ng-container *ngTemplateOutlet="element[item]"></ng-container> -->
+                    <Image [src]="item"></Image>
+                </GridLayout>
+            </ng-container>
+        </AbsoluteLayout>
+
+        <StackLayout #indicator orientation="horizontal" horizontalAlignment="center" marginBottom="12">
+            <ng-container *ngFor="let item of elemList; index as i">
+                <Label (loaded)="onLoadedIndicator($event, i)"></Label>
+            </ng-container>
+        </StackLayout>
+    </AbsoluteLayout>
+    <ng-template #element>
+        <GridLayout>
+            <Image [src]="item"></Image>
+        </GridLayout>
+    </ng-template>
+</GridLayout>

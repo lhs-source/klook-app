@@ -1,11 +1,11 @@
 <GridLayout row="2" rows="auto, auto">
-    <AbsoluteLayout #abs row="0" width="100%" height="100%" (pan)="onPanCarousel($event)">
+    <AbsoluteLayout #absolute row="0" width="100%" height="100%" (pan)="onPanCarousel($event)">
         <StackLayout #scrollitems orientation="horizontal"
             style="padding-top: 24; padding-bottom: 8;" >
             <ng-container *ngFor="let card of cardlist; index as i">
-                <GridLayout (loaded)="onLoadedCard($event, i)" (tap)="onTapCard($event, i)" androidElevation="4">
-                    <Image src="~/images/box_card.png" rotateX="180" rotateY="180"></Image>
-                    <Image [src]="card" marginLeft="12" marginRight="12" androidElevation="4"></Image>
+                <GridLayout (loaded)="onLoadedCard($event, i)" (tap)="onTapCard($event, i)" androidElevation="4" backgroundColor="red">
+                    <Image src="~/images/box_card.png" rotateX="180" rotateY="180" marginLeft="14" marginRight="14"></Image>
+                    <Image [src]="card" marginLeft="24" marginRight="24"></Image>
                 </GridLayout>
             </ng-container>
         </StackLayout>

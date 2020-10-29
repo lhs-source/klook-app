@@ -14,11 +14,10 @@ export class CarouselCardComponent implements OnInit {
     
     
     // carousel
-    @ViewChild('scroll', { static: true }) scrollview: ElementRef;
     @ViewChild('scrollitems', { static: true }) scrollitems: ElementRef;
     @ViewChild('element', { static: true }) element: ElementRef;
     @ViewChild('shadow', {static:true}) shadow:ElementRef;
-    @ViewChild('abs', {static:true}) abs:ElementRef;
+    @ViewChild('absolute', {static:true}) absolute:ElementRef;
     // cardlist = [
     //     "~/images/card_ezlink.png",
     //     "~/images/card_octopus.png",
@@ -61,8 +60,6 @@ export class CarouselCardComponent implements OnInit {
 
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);        
-        
-        // let sv = this.scrollview.nativeElement as ScrollView;
         let si = this.scrollitems.nativeElement as LayoutBase;
         let ind = this.indicator.nativeElement as LayoutBase;
 

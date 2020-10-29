@@ -10,6 +10,7 @@ import { OctopusRoutingModule } from "./octopus.routing";
 
 import { ComponentsModule } from "../../components/components.module";
 import { CarouselCardModule } from "../../components/carousel-card/carousel-card.module";
+import { CarouselCardNewModule } from "../../components/carousel-card-new/carousel-card-new.module";
 
 import { Carousel, CarouselItem } from "nativescript-carousel";
 registerElement('Carousel', () => Carousel);
@@ -23,7 +24,8 @@ registerElement('CarouselItem', () => CarouselItem);
         NativeScriptCommonModule,
         OctopusRoutingModule,
         ComponentsModule,
-        CarouselCardModule
+        CarouselCardModule,
+        CarouselCardNewModule
     ],
     declarations: [
         OctopusMainComponent,
