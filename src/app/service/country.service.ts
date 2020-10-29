@@ -25,12 +25,12 @@ export class CountryService {
         "홍콩": {
             currency: "HKD",
             exchange: 151.39,
-            qrimage:"~/images/logo_duitnow.png",
+            qrimage:"~/images/logo_collinson.png",
         },
         "말레이시아": {
             currency: "MYR",
             exchange: 281.47,
-            qrimage:"~/images/logo_collinson.png",
+            qrimage:"~/images/logo_duitnow.png",
         },
         "미국": {
             currency: "USD",
