@@ -38,7 +38,7 @@ export class TransactionService {
         }, {
             type: "transactions",
             class: "포인트충전",
-            merchant: "KB국민카드 Nori카드 충전",
+            merchant: "KB국민카드 해피Nori카드 충전",
             point: 100000,
             curr: 0,
             country:"태국",
