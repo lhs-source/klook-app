@@ -29,10 +29,11 @@
 
     <GridLayout row="5">
         <ScrollView>
-            <tr-list *ngIf="sort_type === 0" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_grouped_month"></tr-list>
+            <tr-list [grouped]="sort_type === 1 ? false : true" [transactions]="transactions"></tr-list>
+            <!-- <tr-list *ngIf="sort_type === 0" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_grouped_month"></tr-list>
             <tr-list *ngIf="sort_type === 1" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_order_amount"></tr-list>
             <tr-list *ngIf="sort_type === 2" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_only_cc"></tr-list>
-            <tr-list *ngIf="sort_type === 3" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_only_save_point"></tr-list>
+            <tr-list *ngIf="sort_type === 3" [grouped]="sort_type === 1 ? false : true" [transactions]="transactionService.tr_only_save_point"></tr-list> -->
         </ScrollView>
     </GridLayout>
 

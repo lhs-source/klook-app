@@ -10,7 +10,7 @@ import { DataService } from './data.service';
 @Injectable({providedIn: 'root'})
 export class TransactionService {
     // initial data
-    trs_init: PaymentData[] = [
+    private trs_init: PaymentData[] = [
         {
             type: "transactions",
             class: "백화점",
@@ -172,21 +172,21 @@ export class TransactionService {
 
     // data
     trs : PaymentData[] = [];
-    database: Couchbase;
+    private database: Couchbase;
     month = new Date().getMonth();
     
     // cached
-    trs_grouped = {}
-    tr_group_calced = false;
+    private trs_grouped = {}
+    private tr_group_calced = false;
     
-    trs_grouped_month = {}
-    tr_group_month_calced = false;
-    trs_order_amount = {}
-    tr_order_calced = false;
-    trs_grouped_cc = {};
-    tr_group_cc_calced = false;
-    trs_grouped_save_point = {};
-    tr_group_save_point_calced = false;
+    private trs_grouped_month = {}
+    private tr_group_month_calced = false;
+    private trs_order_amount = {}
+    private tr_order_calced = false;
+    private trs_grouped_cc = {};
+    private tr_group_cc_calced = false;
+    private trs_grouped_save_point = {};
+    private tr_group_save_point_calced = false;
 
     constructor(private countryService : CountryService,
         private merchantService : MerchantService,

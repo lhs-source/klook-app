@@ -57,15 +57,10 @@ export class HomeComponent implements OnInit {
                 this.isPayment = true;
 
                 let bg = this.qrbg.nativeElement as LayoutBase;
-                bg.borderWidth = 1;
-                // bg.borderColor = "#bbb";
                 bg.animate({
                     opacity: 1,
-                    backgroundColor: new Color(0, 255, 255, 255),
                     duration: this.qr_anim_duration,
                     curve: AnimationCurve.easeOut
-                }).then(() => {
-                    bg.borderColor = "#ddd";
                 });
             } else if ('tr') {
                 this.isPay = false;
@@ -90,16 +85,25 @@ export class HomeComponent implements OnInit {
             Application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
                 console.log("back button pressed on " + this.tag);
                 data.cancel = true;
-                // this.routerExtensions.navigate(['/main/home'], {clearHistory : true});
-                // exit();
-                if (this.exitflag === false) {
-                    Toast.makeText("앱을 종료하려면 한 번 더 뒤로가기 버튼을 눌러주세요").show();
-                    this.exitflag = true;
-                    setTimeout(() => {
-                        this.exitflag = false;
-                    }, 2000);
+                if (this.isPay || this.isQrPay || this.isQrScan) {
+                    this.routerExtensions.navigate(['/main/home/tr-embedded'], {
+                        clearHistory: true,
+                        transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }
+                    });
+                    this.isPay = false;
+                    this.isQrPay = false;
+                    this.isQrScan = false;
+                    this.isPayment = false;
                 } else {
-                    exit();
+                    if (this.exitflag === false) {
+                        Toast.makeText("앱을 종료하려면 한 번 더 뒤로가기 버튼을 눌러주세요").show();
+                        this.exitflag = true;
+                        setTimeout(() => {
+                            this.exitflag = false;
+                        }, 2000);
+                    } else {
+                        exit();
+                    }
                 }
             });
         }
@@ -219,22 +223,17 @@ export class HomeComponent implements OnInit {
             }
             this.isQrScan = true;
             this.isQrPay = false;
-            this.routerExtensions.navigate(['/main/home/qr-scan'], { 
-                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }, 
-                clearHistory: true 
+            this.routerExtensions.navigate(['/main/home/qr-scan'], {
+                transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut },
+                clearHistory: true
             }).then(() => {
-                // let bg = this.qrbg.nativeElement as LayoutBase;
-                // // bg.backgroundColor = "#333";
+                let bg = this.qrbg.nativeElement as LayoutBase;
                 // bg.borderWidth = 0;
-                // // bg.borderWidth = 1;
-                // bg.animate({
-                //     opacity: 1,
-                //     backgroundColor: new Color("#333"),
-                //     duration: this.qr_anim_duration,
-                //     curve: AnimationCurve.easeOut
-                // }).then(() => {
-                //     // bg.borderColor = "#333";
-                // });
+                bg.animate({
+                    opacity: 0,
+                    duration: this.qr_anim_duration,
+                    curve: AnimationCurve.easeOut
+                });
                 this.isPayment = true;
             });
         }
@@ -270,15 +269,12 @@ export class HomeComponent implements OnInit {
                 transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }, clearHistory: true
             }).then(() => {
                 let bg = this.qrbg.nativeElement as LayoutBase;
-                bg.borderWidth = 1;
-                // bg.borderColor = "#bbb";
                 bg.animate({
                     opacity: 1,
                     backgroundColor: new Color(0, 255, 255, 255),
                     duration: this.qr_anim_duration,
                     curve: AnimationCurve.easeOut
                 }).then(() => {
-                    bg.borderColor = "#ddd";
                     this.isPayment = true;
                 });
             });
@@ -312,7 +308,7 @@ export class HomeComponent implements OnInit {
             opacity: 0,
             duration: this.qr_anim_duration,
             curve: AnimationCurve.easeOut
-        }).then(()=>{
+        }).then(() => {
             this.isPayment = false;
         });
     }

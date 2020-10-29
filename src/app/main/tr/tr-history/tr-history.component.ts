@@ -31,6 +31,7 @@ export class TrHistoryComponent implements OnInit {
     //  - 2 : charge / change
     //  - 3 : save point
     sort_type = 0;
+    transactions : any;
 
     exchange = 0;
 
@@ -45,6 +46,7 @@ export class TrHistoryComponent implements OnInit {
 
         
         this.transactionService.setMonth(this.today.getMonth());
+        this.transactions = this.transactionService.tr_grouped_month;
 
         if (this.transactionService.trs.length > 0) {
             let sumpoint = 0;
@@ -87,11 +89,24 @@ export class TrHistoryComponent implements OnInit {
         }, 500);
     }
 
+    getTransactions(){
+        if(this.sort_type === 0){   // recent
+            this.transactions = this.transactionService.tr_grouped_month;
+        }else if(this.sort_type === 1){ // high amount
+            this.transactions = this.transactionService.tr_order_amount;
+        }else if(this.sort_type === 2){ // charge / change
+            this.transactions = this.transactionService.tr_only_cc;
+        }else if(this.sort_type === 3){ // save point
+            this.transactions = this.transactionService.tr_only_save_point;
+        }
+    }
+
     onTapPrevMonth(event, direction) {
         this.today = new Date(this.today.setMonth(this.today.getMonth() - 1));
 
         console.log(this.today.getMonth());
         this.transactionService.setMonth(this.today.getMonth());
+        this.getTransactions();
     }
 
     onTapNextMonth(event, direction) {
@@ -99,6 +114,7 @@ export class TrHistoryComponent implements OnInit {
 
         console.log(this.today.getMonth());
         this.transactionService.setMonth(this.today.getMonth());
+        this.getTransactions();
     }
 
     keyDescOrder = (a: KeyValue<number, string>, b: KeyValue<number, string>): number => {
@@ -112,6 +128,7 @@ export class TrHistoryComponent implements OnInit {
     callback_tapElem(number) {
         console.log(this.tag, "callback_tapElem = ", number);
         this.sort_type = number;
+        this.getTransactions();
 
         // this.progressService.progressOn(this.viewcontainerRef);
         // setTimeout(() => {

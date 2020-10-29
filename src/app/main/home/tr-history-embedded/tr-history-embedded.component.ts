@@ -16,12 +16,15 @@ import { CustomTransition } from "../../../util/klook-transition";
 export class TrHistoryEmbeddedComponent implements OnInit {
     tag = this.constructor.name;
 
+    transactions : any;
+
     constructor(private routerExtensions: RouterExtensions, 
         private dataService: DataService,
         private countryService : CountryService,
         private transactionService : TransactionService) {
         console.log(`${this.tag} constructor `)
         
+        this.transactions = this.transactionService.tr_grouped;
     }
 
     ngOnInit(): void {

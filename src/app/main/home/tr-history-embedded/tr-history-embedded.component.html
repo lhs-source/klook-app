@@ -5,11 +5,11 @@
         <Button text="go to Home" (tap)="navigateBack($event)"></Button>
     </StackLayout> -->
     <ScrollView>
-        <StackLayout class="timeline" (tap)="onTapTimeline()">
+        <StackLayout *ngIf="transactions" class="timeline" (tap)="onTapTimeline()">
             <GridLayout class="day" columns="16" width="100%" height="16">
                 <Label class="line" col="0" width="100%"></Label>
             </GridLayout>
-            <GridLayout *ngFor="let item of transactionService.tr_grouped | keyvalue : keyDescOrder; let index = index"
+            <GridLayout *ngFor="let item of transactions | keyvalue : keyDescOrder; let index = index"
                 class="day" rows="auto, auto" columns="24, *" width="100%">
                 <Label class="line" col="0" rowspan="2" width="100%"></Label>
                 <Label class="dot" col="0" [ngClass]="{'even': index % 2 === 1}" rowspan="2"
