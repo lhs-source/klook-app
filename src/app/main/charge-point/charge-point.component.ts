@@ -176,7 +176,7 @@ export class ChargePointComponent implements OnInit {
 
     // keypad //
     onTouchShortcut(event: TouchGestureEventData, point) {
-        if(event.action !== "down"){
+        if (event.action !== "down") {
             return;
         }
         this.shortCut.next(point);
@@ -227,18 +227,18 @@ export class ChargePointComponent implements OnInit {
         let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
         let height = modal.getMeasuredHeight() * p;
 
+        this.isCard = way.isCard;
+
         modal.animate({
             translate: { x: modal.translateX, y: height },
             duration: 250,
         }).then(() => {
             if (way.isCard === true) {
-                this.isCard = this.dataService.selected_way.type;
                 // this.selected_way.img = this.dataService.selected_way.img;
                 // this.selected_way.title = this.dataService.selected_way.title;
                 // this.selected_way.number = this.dataService.selected_way.number;
                 // this.selected_way.balance = this.dataService.selected_way.balance;
             } else {
-                this.isCard = this.dataService.selected_way.type;
                 // this.selected_way.img = this.dataService.selected_way.img;
                 // this.selected_way.title = this.dataService.selected_way.title;
                 // this.selected_way.number = this.dataService.selected_way.number;

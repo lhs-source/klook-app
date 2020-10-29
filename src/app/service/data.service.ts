@@ -60,6 +60,7 @@ export class DataService {
             title:"KB국민카드 해피nori",
             number:"9445-****-****-****",
             balance: 1800000,
+            type:"card",
         }
     ];
     banks=[
@@ -68,12 +69,14 @@ export class DataService {
             title:"국민은행",
             number:"1002-**-***031",
             balance: 3600000,
+            type:"bank",
         },
         {
             img:"~/images/ico_shcard_small.png",
             title:"신한은행",
             number:"3123-**-****932",
             balance: 2400000,
+            type:"bank",
         }
     ];
     selected_pointry : any = {};

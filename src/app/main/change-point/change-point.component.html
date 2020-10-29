@@ -10,7 +10,7 @@
         </StackLayout>
     </GridLayout>
     
-    <GridLayout row="3" rows="auto, auto, auto" columns="auto, *"  class="change" marginTop="16">
+    <GridLayout row="3" rows="auto, auto, auto" columns="auto, *, auto"  class="change" marginTop="16">
         <Image row="0" rowspan="2" col="0" class="img" src="~/images/img_charge02.png" width="56" (tap)="onTapTarget()"></Image>
         <Label row="0" col="1" class="title" text="교환 대상 포인트" verticalAlignment="bottom"></Label>
         <!-- <TextField row="1" col="1" #tf class="tf" hint="교환 포인트를 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField> -->
@@ -22,8 +22,9 @@
             (textChange)="onChangeTextField($event)"
             hint="교환 포인트를 입력해주세요">
         </textfield-currency>
+        <Image row="1" col="2" src="~/images/check_big_on.png" height="24" marginRight="16" (tap)="onTapTarget()"></Image>
 
-        <StackLayout row="2" col="1" orientation="horizontal" verticalAlignment="top">
+        <StackLayout row="2" col="1" colspan="2" orientation="horizontal" verticalAlignment="top">
             <Image class="question" src="~/images/ico_q.png" width="12"></Image>
             <Label class="str" text="교환 가능한 포인트는 "></Label>
             <Label class="str" text="{{dataService.selected_pointry.balance | number:'1.0-0'}}"></Label>
@@ -31,7 +32,7 @@
         </StackLayout>
     </GridLayout>
 
-    <GridLayout row="4" class="result" rows="auto, auto, auto, auto" columns="*, *" marginTop="24">
+    <GridLayout row="4" class="result" rows="auto, auto, auto, auto" columns="*, *" marginTop="48">
         <Image row="0" col="0" colspan="2" class="img" src="~/images/img_charge03.png" width="216" horizontalAlignment="center"></Image>
         <Label row="1" col="0" class="from-title" text="{{dataService.selected_pointry.title}}" horizontalAlignment="center"></Label>
         <Label row="1" col="1" class="to-title" text="KLOOK 포인트" horizontalAlignment="center"></Label>

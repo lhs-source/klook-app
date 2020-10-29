@@ -2,8 +2,8 @@
 <GridLayout #rootlayout rows="88,auto,auto,auto,*" height="100%" width="100%">
     <title row="1" title="{{title}}" backgroundColor="#888"></title>
     <tab row="2" [tab_labels]="['일반충전', '자동충전']" (tapElem)="callback_tapTab($event)"></tab>
-    <GridLayout row="3" class="way-frame" (tap)="onTapWay()">
-        <ng-template [ngTemplateOutlet]="dataService.selected_way.isCard === true ? card : bank"></ng-template>
+    <GridLayout row="3" class="way-frame" (tap)="onTapWay()" marginBottom="16">
+        <ng-template [ngTemplateOutlet]="isCard === true ? card : bank"></ng-template>
         <ng-template #card>
             <GridLayout row="3" class="card" rows="auto, auto" columns="auto, *, auto" class="way">
                 <Image row="0" rowspan="2" col="0" class="img" src="{{dataService.selected_way.img}}" height="48"></Image>
