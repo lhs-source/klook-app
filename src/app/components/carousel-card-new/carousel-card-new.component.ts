@@ -61,6 +61,7 @@ export class CarouselCardNewComponent implements OnInit {
 
     scrollx = 0;
     prev_delta = 0;
+    velocityX = 0;
 
     @ViewChild('indicator', { static: true }) indicator: ElementRef;
     indicator_view = [];
@@ -205,6 +206,8 @@ export class CarouselCardNewComponent implements OnInit {
         {
             // moving the scroll
             si.translateX += (event.deltaX - this.prev_delta) / 2.5;
+            this.velocityX = event.deltaX - this.prev_delta ;
+            console.log("velocityX = ", this.velocityX)
 
             if (si.translateX < this.frameElements[this.frameIndex].locationX) {
                 // right
@@ -221,7 +224,7 @@ export class CarouselCardNewComponent implements OnInit {
 
                     let temp_y = -(nextview.getMeasuredHeight() * (this.frameScale.large - this.frameScale.small) / 2 * this.rateDPI);
 
-                    nextview.translateY = this.shadowSize * (this.frameScale.large - this.frameScale.small) + temp_y * rate;
+                    nextview.translateY = temp_y * rate;
                 }
                 let temp_y = -(thisview.getMeasuredHeight() * (this.frameScale.large - this.frameScale.small) / 2 * this.rateDPI);
 
@@ -246,7 +249,7 @@ export class CarouselCardNewComponent implements OnInit {
 
                     let temp_y = -(prevview.getMeasuredHeight() * (this.frameScale.large - this.frameScale.small) / 2 * this.rateDPI);
 
-                    prevview.translateY = this.shadowSize * (this.frameScale.large - this.frameScale.small) + temp_y * rate;
+                    prevview.translateY = temp_y * rate;
                 }
                 let temp_y = -(thisview.getMeasuredHeight() * (this.frameScale.large - this.frameScale.small) / 2 * this.rateDPI);
 
@@ -264,14 +267,15 @@ export class CarouselCardNewComponent implements OnInit {
         {
             console.log("event.deltaX = " + event.deltaX);
             console.log("this.prev_delta = " + this.prev_delta);
+            console.log("this.velocityX= " + this.velocityX);
             console.log("si.translateX = " + si.translateX);
             console.log("(this.frameElements[this.frameIndex].locationX - this.oneFrameWidth / 4) = " + (this.frameElements[this.frameIndex].locationX - this.oneFrameWidth / 4));
             console.log("(this.frameElements[this.frameIndex].locationX + this.oneFrameWidth / 4) = " + (this.frameElements[this.frameIndex].locationX + this.oneFrameWidth / 4));
-
+            
 
             let animation_card_to_origin = {
                 scale: { x: this.frameScale.small, y: this.frameScale.small },
-                translate: { x: 0, y: this.shadowSize * (this.frameScale.large - this.frameScale.small) },
+                translate: { x: 0, y: 0 },
                 opacity: this.frameOpacity.dim,
                 duration: 200,
                 curve: AnimationCurve.easeOut
@@ -295,7 +299,8 @@ export class CarouselCardNewComponent implements OnInit {
                 curve: AnimationCurve.easeOut
             };
 
-            if (si.translateX < (this.frameElements[this.frameIndex].locationX - this.oneFrameWidth / 4) || this.prev_delta < -24) {
+            if (si.translateX < (this.frameElements[this.frameIndex].locationX - this.oneFrameWidth / 4) || 
+                (si.translateX < this.frameElements[this.frameIndex].locationX && this.velocityX < -10)) {
                 // to the right
                 console.log("to the right");
 
@@ -327,7 +332,8 @@ export class CarouselCardNewComponent implements OnInit {
                         console.log("this card index = " + this.frameIndex);
                     });
                 }
-            } else if (si.translateX > (this.frameElements[this.frameIndex].locationX + this.oneFrameWidth / 4) || this.prev_delta > 24) {
+            } else if (si.translateX > (this.frameElements[this.frameIndex].locationX + this.oneFrameWidth / 4) || 
+                        (si.translateX > this.frameElements[this.frameIndex].locationX && this.velocityX > 10)) {
                 // to the left
                 console.log("to the left");
                 if (0 < this.frameIndex) {
@@ -358,10 +364,10 @@ export class CarouselCardNewComponent implements OnInit {
                     });
                 }
             } else {
-                if (this.frameElements[this.frameIndex - 1].view != undefined) {
+                if (this.frameElements[this.frameIndex - 1] != undefined) {
                     this.frameElements[this.frameIndex - 1].view.animate(animation_card_to_origin);
                 }
-                if (this.frameElements[this.frameIndex + 1].view != undefined) {
+                if (this.frameElements[this.frameIndex + 1] != undefined) {
                     this.frameElements[this.frameIndex + 1].view.animate(animation_card_to_origin);
                 }
                 this.frameElements[this.frameIndex].view.animate(animation_card_scale_up);
@@ -372,6 +378,7 @@ export class CarouselCardNewComponent implements OnInit {
                     console.log("this card index = " + this.frameIndex);
                 });
             }
+            this.velocityX = 0;
         }
     }
 

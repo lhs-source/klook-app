@@ -3,7 +3,7 @@
         <AbsoluteLayout #scrollitems orientation="horizontal" style="padding-top: 24; padding-bottom: 16;">
             <ng-container *ngFor="let item of elemList; index as i">
                 <GridLayout (loaded)="onLayoutChangedCard($event, i)" (tap)="onTapCard($event, i)"
-                    androidElevation="{{shadowSize}}" backgroundColor="white" borderRadius="8">
+                    androidElevation="{{shadowSize}}" backgroundColor="white" borderRadius="12">
                     <!-- <ng-container *ngTemplateOutlet="element[item]"></ng-container> -->
                     <Image [src]="item"></Image>
                 </GridLayout>
