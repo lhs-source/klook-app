@@ -42,15 +42,15 @@ export class DataService {
         {
             img:"~/images/img_asiana.png",
             title:"아시아나항공 마일리지",
-            balance: 3200000,
-            exchange:20/13,
+            balance: 32000,
+            exchange:15,
             selected:false,
         },
         {
             img:"~/images/img_jeju.png",
             title:"제주항공 마일리지",
-            balance: 4800000,
-            exchange:3/2,
+            balance: 12000,
+            exchange:15,
             selected:false,
         }
     ];
@@ -87,8 +87,8 @@ export class DataService {
         
         // point methods
         this.pointry[0].balance = getNumber("pointryKB", 2000000);
-        this.pointry[1].balance = getNumber("pointryAsiana", 3200000);
-        this.pointry[2].balance = getNumber("pointryJeju", 4800000);
+        this.pointry[1].balance = getNumber("pointryAsiana", 32000);
+        this.pointry[2].balance = getNumber("pointryJeju", 12000);
 
         this.cards[0].balance = getNumber("cardKB", 2000000);
         
@@ -118,6 +118,16 @@ export class DataService {
     }
     resetPoint() {
         this.point = 120000;
+        
+        this.pointry[0].balance = 2000000;
+        this.pointry[1].balance = 32000;
+        this.pointry[2].balance = 12000;
+
+        this.cards[0].balance = 2000000;
+        
+        this.banks[0].balance = 2400000;
+        this.banks[1].balance = 3600000;
+
         this.savePoint();
     }
     get point_exchanged() {
