@@ -75,7 +75,7 @@ export class MyActionBarComponent implements OnInit {
             this.modal_loc.x = loc.x - 2;
             this.modal_loc.y = loc.y + 32;
             conmodalref.translateX = this.modal_loc.x
-            conmodalref.translateY = this.modal_loc.y;
+            conmodalref.translateY = -100;
             // conmodalref.height = conmodalref.getMeasuredHeight() * p / 2,
             conmodalref.eachChild((view)=>{
                 this.country_views.push(view);
@@ -102,6 +102,7 @@ export class MyActionBarComponent implements OnInit {
 
         let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
         if(this.isModalShow === true){
+            conmodalref.translateY = this.modal_loc.y;
             conmodalref.animate({
                 opacity:1,
                 // height:conmodalref.getMeasuredHeight() * p * 2,
@@ -125,12 +126,14 @@ export class MyActionBarComponent implements OnInit {
                 // height:conmodalref.getMeasuredHeight() * p / 2,
                 duration:100,
                 curve:AnimationCurve.easeOut
-            })
+            }).then(()=>{
+                conmodalref.translateY = -100;
+            });
             let count = 0;
             conmodalref.eachChild((view)=>{
                 let sl = view as StackLayout;
                 sl.animate({
-                    translate: {x:0, y: -(count * 24)},
+                    translate: {x:0, y: -((count + 1) * 28)},
                     duration:100,
                     curve:AnimationCurve.easeOut
                 });

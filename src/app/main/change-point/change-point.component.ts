@@ -30,8 +30,8 @@ export class ChangePointComponent implements OnInit {
 
     // amount
     @ViewChild('tf') tf : ElementRef;
-    amount = '1000';
-    amount_num = 1000;
+    amount = '';
+    amount_num = 0;
     
     // modal
     @ViewChild('modalframe', {static:true}) modalframe : ElementRef;
