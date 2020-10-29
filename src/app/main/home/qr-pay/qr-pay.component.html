@@ -4,6 +4,6 @@
     <StackLayout row="2" orientation="horizontal" horizontalAlignment="center" (tap)="resetTimer()">
         <Label class="remain-str" text="남은시간 "></Label>
         <Label class="remain-str"text="{{ secounds * 1000 | date:'mm:ss' }} "></Label>
-        <Image class="remain-img" src="~/images/btn_re.png"></Image>
+        <Image class="remain-img" #refresh src="~/images/btn_re.png"></Image>
     </StackLayout>
 </GridLayout>

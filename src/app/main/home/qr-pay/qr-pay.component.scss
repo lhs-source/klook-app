@@ -1,21 +1,23 @@
 
 .qr{
    &-img{
-       width:172;
+    //    width:172;
+        width:56%;
        margin:16;
    } 
    &-str{
         color:#888;
-        font-size: 14;
+        font-size: 15;
    }
 }
 .remain{
     &-str{
         color:#ff5722;
-        font-size: 14;
+        font-size: 15;
     }
     &-img{
         width:14;
-        margin:0 2;
+        margin:4;
+
     }
 }

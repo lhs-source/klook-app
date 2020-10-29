@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
-import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules";
+import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData, Image } from "tns-core-modules";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 
 import { CustomTransitionBack } from "../../../util/klook-transition";
@@ -15,6 +15,9 @@ import { QrData } from "../../../service/qr-data.model";
 })
 export class QrPayComponent implements OnInit {
     tag = this.constructor.name;
+
+    @ViewChild('refresh', {static:true}) refresh : ElementRef;
+
     @Output() routing: EventEmitter<any> = new EventEmitter();
 
     timer = Date.now();
@@ -57,6 +60,23 @@ export class QrPayComponent implements OnInit {
     }
 
     resetTimer() {
+
+        // animation refresh button
+        let rf_btn = this.refresh.nativeElement as Image;
+        rf_btn.animate({
+            rotate:180,
+            scale:{x:1.1, y:1.1},
+            duration: 100,
+        }).then(()=>{
+            rf_btn.animate({
+                rotate:180,
+                scale:{x:1, y:1},
+                duration: 100,
+            }).then(()=>{
+                rf_btn.rotate = 0;
+            })
+        })
+
         clearInterval(this.interval);
         this.secounds = 180;
         this.interval = setInterval(() => {
