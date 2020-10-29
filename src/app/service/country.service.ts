@@ -20,22 +20,22 @@ export class CountryService {
         "싱가포르": {
             currency: "SGD",
             exchange: 852.89,
-            qrimage:"~/images/btn_qrpay.png",
+            qrimage:"~/images/logo_liquidpay.png",
         },
         "홍콩": {
             currency: "HKD",
             exchange: 151.39,
-            qrimage:"~/images/btn_qrpay.png",
+            qrimage:"~/images/logo_duitnow.png",
         },
         "말레이시아": {
             currency: "MYR",
             exchange: 281.47,
-            qrimage:"~/images/btn_qrpay.png",
+            qrimage:"~/images/logo_collinson.png",
         },
         "미국": {
             currency: "USD",
             exchange: 1180.00,
-            qrimage:"~/images/btn_qrpay.png",
+            qrimage:"~/images/logo_citcon.png",
         },
         // "영국": {
         //     currency: "GBP",
