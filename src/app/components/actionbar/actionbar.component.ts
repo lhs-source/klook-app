@@ -153,7 +153,9 @@ export class MyActionBarComponent implements OnInit {
         conmodalref.animate({
             opacity:0,
             curve:AnimationCurve.easeOut
-        })
+        }).then(()=>{
+            conmodalref.translateY = -100;
+        });
         let count = 0;
         conmodalref.eachChild((view)=>{
             let sl = view as StackLayout;

@@ -22,7 +22,9 @@
             (textChange)="onChangeTextField($event)"
             hint="교환 포인트를 입력해주세요">
         </textfield-currency>
-        <Image row="1" col="2" src="~/images/check_big_on.png" height="24" marginRight="16" (tap)="onTapTarget()"></Image>
+        <GridLayout row="1" col="2" marginRight="16" (tap)="onTapTarget()">
+            <Image src="~/images/check_big_on.png" height="28" margin="8" marginTop="16" verticalAlignment="center"></Image>
+        </GridLayout>
 
         <StackLayout row="2" col="1" colspan="2" orientation="horizontal" verticalAlignment="top">
             <Image class="question" src="~/images/ico_q.png" width="12"></Image>
