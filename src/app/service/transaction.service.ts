@@ -222,7 +222,7 @@ export class TransactionService {
             temp_transactions.forEach((elem) => {
                 let item = decode_paymentData(elem);
                 // console.log("get transaction =>", item);
-                // console.log("get transaction =>", item.date);
+                console.log("get transaction =>", item.date);
                 this.trs.push(item);
             });
         }

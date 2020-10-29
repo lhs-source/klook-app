@@ -4,6 +4,8 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { screen } from "tns-core-modules/platform/platform"
 
 import { CountryService } from "../../service/country.service";
+import { CustomTransition } from "../../util/klook-transition";
+import { RouterExtensions } from "@nativescript/angular";
 
 // <myactionbar 
 //      (close_click)="actionbar_click_close(isclose)" 
@@ -54,7 +56,9 @@ export class MyActionBarComponent implements OnInit {
     country_views =[];
     modal_loc ={x:0, y:0};
 
-    constructor(private countryService : CountryService) {
+    constructor(
+        private routerExtensions : RouterExtensions,
+        private countryService : CountryService) {
         
     }
     ngOnInit(): void {
@@ -161,6 +165,12 @@ export class MyActionBarComponent implements OnInit {
 
     onTapClose(event){
         // call parent function
-        this.close_click.emit();
+        if(this.isClose === true){
+            this.close_click.emit();
+        }else{
+            this.routerExtensions.navigate(['/main/account'], {
+                transition: { instance: new CustomTransition(250, AnimationCurve.linear) }, clearHistory: true
+            });
+        }
     }
 }
