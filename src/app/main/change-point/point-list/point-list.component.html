@@ -4,7 +4,7 @@
             <image row="0" rowspan="2" col="0" class="img" src="{{point.img}}"></image>
             <Label row="0" col="1" class="title" text="{{point.title}}"></Label>
             <StackLayout row="1" col="1" orientation="horizontal">
-                <Label class="change-str" text="보유 포인트리: "></Label>
+                <Label class="change-str" text="{{'보유 ' + point.unit + ': '}}"></Label>
                 <Label class="change-str" text="{{point.balance | number:'1.0-0'}}"></Label>
                 <Label class="change-str" text=" → 포인트 교환: "></Label>
                 <Label class="change-str" text="{{(point.balance * point.exchange) | number:'1.0-0' }}"></Label>

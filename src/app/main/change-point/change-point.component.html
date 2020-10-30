@@ -18,14 +18,14 @@
              src="{{dataService.selected_pointry.img}}" (tap)="onTapTarget()"></Image>
         </GridLayout>
 
-        <Label row="0" col="1" class="title" text="교환 대상 포인트" verticalAlignment="bottom"></Label>
+        <Label row="0" col="1" colspan="2" class="title" text="{{'교환 대상 ' + dataService.selected_pointry.unit}}" verticalAlignment="bottom"></Label>
         <!-- <TextField row="1" col="1" #tf class="tf" hint="교환 포인트를 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField> -->
         <textfield-currency row="1" col="1" #tf
             [className]="'change'" verticalAlignment="center"
             [(ngModel)]="amount"
             (returnPress)="onReturnPress($event)" 
             (textChange)="onChangeTextField($event)"
-            hint="교환 포인트를 입력해주세요">
+            hint="{{'교환 ' + dataService.selected_pointry.unit + '를 입력해주세요'}}">
         </textfield-currency>
         <GridLayout row="1" col="2" marginRight="16" (tap)="onTapTarget()">
             <Image src="~/images/check_big_on.png" height="28" margin="8" marginTop="16" verticalAlignment="center"></Image>
@@ -33,9 +33,10 @@
 
         <StackLayout row="2" col="1" colspan="2" orientation="horizontal" verticalAlignment="top">
             <Image class="question" src="~/images/ico_q.png" width="12"></Image>
-            <Label class="str" text="교환 가능한 포인트는 "></Label>
+            <Label class="str" text="{{'교환 가능한 ' + dataService.selected_pointry.unit +'는 '}}"></Label>
             <Label class="str" text="{{dataService.selected_pointry.balance | number:'1.0-0'}}"></Label>
-            <Label class="str" text=" P입니다"></Label>
+
+            <Label class="str" text="{{dataService.selected_pointry.unit === '포인트' ? ' P입니다' : ' 입니다'}}"></Label>
         </StackLayout>
     </GridLayout>
 

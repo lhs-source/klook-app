@@ -35,6 +35,7 @@ export class DataService {
         {
             img:"~/images/img_kbcard.png",
             title:"KB국민카드 포인트리",
+            unit:"포인트",
             balance: 2000000,
             exchange:1,
             selected:true,
@@ -42,6 +43,7 @@ export class DataService {
         {
             img:"~/images/img_asiana.png",
             title:"아시아나항공 마일리지",
+            unit:"마일리지",
             balance: 32000,
             exchange:15,
             selected:false,
@@ -49,6 +51,7 @@ export class DataService {
         {
             img:"~/images/img_jeju.png",
             title:"제주항공 마일리지",
+            unit:"마일리지",
             balance: 12000,
             exchange:15,
             selected:false,
