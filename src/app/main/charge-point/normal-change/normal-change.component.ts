@@ -8,6 +8,8 @@ import { DataService } from "../../../service/data.service";
 import { alert } from "tns-core-modules/ui/dialogs";
 import { TransactionService } from "../../../service/transaction.service";
 import { TextField } from "tns-core-modules";
+import { ViewContainerRef } from "@angular/core";
+import { ProgressService } from "../../../components/progress/progress.service";
 
 @Component({
     selector: "normal-change",
@@ -24,7 +26,9 @@ export class NormalChangeComponent implements OnInit {
     constructor(private routerExtensions: RouterExtensions,
         private activatedRoute: ActivatedRoute,
         private dataService: DataService,
-        private transactionService: TransactionService) {
+        private transactionService: TransactionService,
+        private viewContainerRef : ViewContainerRef,
+        private progressService : ProgressService,) {
         console.log(`${this.tag} constructor `);
 
     }
@@ -54,6 +58,7 @@ export class NormalChangeComponent implements OnInit {
                 okButtonText: "확인"
             });
         } else {
+            this.progressService.progressOn(this.viewContainerRef);
             this.transactionService.addTr({
                 type: "transactions",
                 class: "포인트충전",
@@ -66,21 +71,26 @@ export class NormalChangeComponent implements OnInit {
                 taxfree: false,
                 utu: false,
                 save_point: 0,
-            });
-            alert({
-                title: "포인트충전",
-                message: "포인트충전에 성공했습니다",
-                okButtonText: "확인"
-            }).then(() => {
-                // update point    
-                this.dataService.addPoint(this.amount_num);
-                this.dataService.decreaseWay(this.amount_num);
+            }).subscribe(
+                res => {
+                    this.progressService.progressOff();
+                    alert({
+                        title: "포인트충전",
+                        message: "포인트충전에 성공했습니다",
+                        okButtonText: "확인"
+                    }).then(() => {
+                        // update point    
+                        this.dataService.addPoint(this.amount_num);
+                        this.dataService.decreaseWay(this.amount_num);
 
-                this.routerExtensions.navigate(['/main/home'], {
-                    transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) },
-                    clearHistory: true
-                });
-            });
+                        this.routerExtensions.navigate(['/main/home'], {
+                            transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) },
+                            clearHistory: true
+                        });
+                    });
+                },
+                err => { }
+            );
         }
     }
 }

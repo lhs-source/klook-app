@@ -7,6 +7,8 @@ import { ModalInterface } from './modal-interface';
 export class ProgressService {
     modal : ModalInterface;
 
+    interval : any;
+
     constructor(
         private modalService : ModalDialogService){
     }
@@ -18,8 +20,13 @@ export class ProgressService {
             viewContainerRef: vcf,
         };
         this.modalService.showModal(ProgressComponent, options);
+
+        this.interval = setInterval(()=>{
+            this.modal.closeModalDialog();
+        }, 10000);
     }
     progressOff(){
+        clearInterval(this.interval);
         this.modal.closeModalDialog();
     }
 }

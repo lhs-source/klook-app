@@ -6,6 +6,7 @@ import { QrData } from './qr-data.model';
 import { CountryService } from './country.service';
 import { MerchantService } from './merchant.service';
 import { DataService } from './data.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
 export class TransactionService {
@@ -188,9 +189,14 @@ export class TransactionService {
     private trs_grouped_save_point = {};
     private tr_group_save_point_calced = false;
 
+    // connect server 52.78.101.78:3000
+    private url = "http://52.78.101.78:3000/api/transaction";
+    
+
     constructor(private countryService : CountryService,
         private merchantService : MerchantService,
-        private dataService : DataService) { 
+        private dataService : DataService,
+        private httpClient: HttpClient) { 
         
         this.initialize();
     }
@@ -372,13 +378,14 @@ export class TransactionService {
         })
         // console.log(this.trs);
         this.needToUpdate();
+        return this.sendToServer(tr);
     }
     addTrFromQr(qr: QrData) {
         let tr = this.qr2tr(qr);
-        this.addTr(tr);
+        return this.addTr(tr);
     }
     qr2tr(qr : QrData){
-        let point = qr.amount * this.countryService.exchange_th;
+        let point = Math.floor(qr.amount * this.countryService.exchange_th);
         let item = {
             type:"transactions",
             class: this.merchantService.merchants[qr.merchant].class,
@@ -400,6 +407,16 @@ export class TransactionService {
         this.tr_group_cc_calced = false;
         this.tr_group_save_point_calced = false;
         this.tr_order_calced = false;
+    }
+    //---------------
+    // send to server
+    //---------------
+    sendToServer(tr){
+        console.log("send to server =", tr);
+        let headers = new HttpHeaders({
+            "Content-Type": "application/json",
+        });
+        return this.httpClient.post(this.url, JSON.stringify(tr), {headers:headers});
     }
     //-------------
     // auto change

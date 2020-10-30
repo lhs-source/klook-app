@@ -42,19 +42,19 @@ export class PayComponent implements OnInit {
         private route: ActivatedRoute,
         private elRef : ElementRef, 
         private modalService : ModalDialogService,
-        private viewContainerRef : ViewContainerRef,
         private routingService:HomeRoutingService, 
         private dataService : DataService,
         private countryService : CountryService,
         private merchantService : MerchantService,
         private transactionService : TransactionService,
         private paymentService : PaymentService,
+        private viewContainerRef : ViewContainerRef,
         private progressService : ProgressService,
         private routingservice: HomeRoutingService,) {
         console.log(`${this.tag} constructor `)
 
         this.pay_info = this.paymentService.pay_info;
-        this.point = -Math.abs(this.pay_info.amount) * this.countryService.countries["태국"].exchange;
+        this.point = -Math.floor(Math.abs(this.pay_info.amount) * this.countryService.countries["태국"].exchange);
         console.log("pay point = ", this.pay_info.amount);
         console.log("pay point = ", this.point);
         if (isAndroid) {
@@ -104,21 +104,24 @@ export class PayComponent implements OnInit {
                 if(status === "ACCP"){
                     // add the tr to transaction list
                     this.dataService.addPoint(this.point);
-                    this.transactionService.addTrFromQr(this.pay_info);
-                    
-                    // activity indicator off
-                    this.progressService.progressOff();   
-                    
-                    // show dialog
-                    this.dialogSuccess(()=>{
-                        // go tr page
-                        this.routingService.emitChange('tr');
-                        this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
-                            name: 'fade',
-                            duration: 250,
-                            curve: AnimationCurve.easeOut
-                        } });
-                    });
+                    this.transactionService.addTrFromQr(this.pay_info).subscribe(
+                        res=>{
+                            // activity indicator off
+                            this.progressService.progressOff();
+                            
+                            // show dialog
+                            this.dialogSuccess(()=>{
+                                // go tr page
+                                this.routingService.emitChange('tr');
+                                this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
+                                    name: 'fade',
+                                    duration: 250,
+                                    curve: AnimationCurve.easeOut
+                                } });
+                            });
+                        },
+                        err=>{}
+                    );
                 }else{
                     // not approved
                     console.log(this.tag, "goPay response = ", res["response"])

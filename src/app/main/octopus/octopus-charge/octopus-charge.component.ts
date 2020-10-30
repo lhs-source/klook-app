@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
@@ -14,6 +14,7 @@ import { DataService } from "../../../service/data.service";
 import { CountryService } from "../../../service/country.service";
 import { TransactionService } from "../../../service/transaction.service";
 import { OctopusService } from "../../../service/octopus.service";
+import { ProgressService } from "../../../components/progress/progress.service";
 
 @Component({
     selector: "octopus-charge",
@@ -36,7 +37,9 @@ export class OctopusChargeComponent implements OnInit {
         private dataService: DataService,
         private octopusService: OctopusService,
         private countryService: CountryService,
-        private transactionService: TransactionService) {
+        private transactionService: TransactionService,
+        private viewContainerRef : ViewContainerRef,
+        private progressService : ProgressService,) {
         console.log(`${this.tag} constructor `)
     }
 
@@ -91,13 +94,13 @@ export class OctopusChargeComponent implements OnInit {
         console.log(tf.text.replace(/[^0-9.]/g, ""));
         console.log(this.amount_num);
         let exchanged = this.amount_num * this.octopusService.octopus[this.selected_country].exchange;
-        if (this.dataService.point < exchanged) {
-            this.amount_num = Math.floor(this.dataService.point / this.octopusService.octopus[this.selected_country].exchange);
-            console.log(this.amount_num);
-            this.amount = this.amount_num.toLocaleString('en-GB');
-            tf.text = this.amount_num.toLocaleString('en-GB');
-            console.log(this.amount);
-        }
+        // if (this.dataService.point < exchanged) {
+        //     this.amount_num = Math.floor(this.dataService.point / this.octopusService.octopus[this.selected_country].exchange);
+        //     console.log(this.amount_num);
+        //     this.amount = this.amount_num.toLocaleString('en-GB');
+        //     tf.text = this.amount_num.toLocaleString('en-GB');
+        //     console.log(this.amount);
+        // }
     }
     onTabCharge(event) {
         console.log("emit the button");
@@ -108,6 +111,7 @@ export class OctopusChargeComponent implements OnInit {
                 okButtonText: "확인"
             });
         } else {
+            this.progressService.progressOn(this.viewContainerRef);
             this.octopusService.addOctopusBalance(this.selected_country, this.amount_num);
             this.transactionService.addTr({
                 type: "transactions",
@@ -121,18 +125,31 @@ export class OctopusChargeComponent implements OnInit {
                 taxfree: false,
                 utu: false,
                 save_point: 0,
-            });
-            alert({
-                title: "교통카드 충전",
-                message: "교통카드 충전에 성공하였습니다.",
-                okButtonText: "확인"
-            }).then(() => {
-                this.routerExtensions.navigate(['/main/octopus/main'], {
-                    clearHistory: true,
-                    transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
-                });
-            });
-
+            }).subscribe(
+                res => {
+                    this.progressService.progressOff();
+                    alert({
+                        title: "교통카드 충전",
+                        message: "교통카드 충전에 성공하였습니다",
+                        okButtonText: "확인"
+                    }).then(() => {
+                        this.routerExtensions.navigate(['/main/octopus/main'], {
+                            clearHistory: true,
+                            transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
+                        });
+                    });
+                },
+                err => { 
+                    console.log("error =", err)
+                    this.progressService.progressOff();
+                    alert({
+                        title: "교통카드 충전",
+                        message: "교통카드 충전에 실패했습니다",
+                        okButtonText: "확인"
+                    })
+                },
+                ()=>{ this.progressService.progressOff(); }
+            );
         }
     }
 }

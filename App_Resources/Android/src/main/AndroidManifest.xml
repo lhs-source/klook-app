@@ -19,7 +19,8 @@
 		android:allowBackup="true"
 		android:icon="@drawable/klook_icon"
 		android:label="@string/app_name"
-		android:theme="@style/AppTheme">
+		android:theme="@style/AppTheme"
+		android:usesCleartextTraffic="true">
 
 		<!-- for google map api -->
 		<meta-data

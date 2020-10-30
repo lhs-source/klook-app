@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { RouterExtensions } from "@nativescript/angular";
 import { ActivatedRoute } from "@angular/router";
@@ -9,6 +9,7 @@ import { DataService } from "../../service/data.service";
 
 import { alert } from "tns-core-modules/ui/dialogs";
 import { TransactionService } from "../../service/transaction.service";
+import { ProgressService } from "../../components/progress/progress.service";
 
 @Component({
     selector: "change-point",
@@ -41,7 +42,9 @@ export class ChangePointComponent implements OnInit {
     constructor(private routerExtensions : RouterExtensions, 
         private activatedRoute : ActivatedRoute,
         private dataService : DataService,
-        private transactionService : TransactionService) {
+        private transactionService : TransactionService,
+        private viewContainerRef : ViewContainerRef,
+        private progressService : ProgressService,) {
         console.log(`${this.tag} constructor `);
 
         if (isAndroid) {
@@ -168,6 +171,7 @@ export class ChangePointComponent implements OnInit {
                 okButtonText: "확인"
             });
         } else {
+            this.progressService.progressOn(this.viewContainerRef);
             this.transactionService.addTr({
                 type:"transactions",
                 class: "포인트교환",
@@ -180,19 +184,24 @@ export class ChangePointComponent implements OnInit {
                 taxfree: false,
                 utu: false,
                 save_point: 0,
-            });            
-            alert({
-                title: "포인트교환 성공",
-                message: "포인트교환에 성공했습니다",
-                okButtonText: "확인"
-            }).then(()=>{
-                this.dataService.addPoint(this.amount_num * this.dataService.selected_pointry.exchange);
-                this.dataService.decreasePointry(this.amount_num);
-                this.routerExtensions.navigate(['/main/home'], { 
-                    transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, 
-                    clearHistory : true 
-                });
-            })
+            }).subscribe(
+                res =>{
+                    this.progressService.progressOff();
+                    alert({
+                        title: "포인트교환 성공",
+                        message: "포인트교환에 성공했습니다",
+                        okButtonText: "확인"
+                    }).then(()=>{
+                        this.dataService.addPoint(this.amount_num * this.dataService.selected_pointry.exchange);
+                        this.dataService.decreasePointry(this.amount_num);
+                        this.routerExtensions.navigate(['/main/home'], { 
+                            transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) }, 
+                            clearHistory : true 
+                        });
+                    })
+                },
+                err=>{},
+            );
         }
     }
 
