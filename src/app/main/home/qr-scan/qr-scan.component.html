@@ -1,14 +1,14 @@
 <GridLayout>
-    <GridLayout rows="*, auto">
-        <GridLayout row="0" margin="4 16">
+    <GridLayout rows="*">
+        <GridLayout row="0" margin="0 16">
             <MLKitBarcodeScanner *ngIf="is_cam_allowed" formats="QR_CODE, UPC_A, EAN_13" beepOnScan="false"
                 supportInverseBarcodes="false" processEveryNthFrame="10" [torchOn]="torchOn" [pause]="pause"
                 (scanResult)="onBarcodeScanResult($event)">
             </MLKitBarcodeScanner>
         </GridLayout>
-        <Image row="0" src="~/images/frame_qr_new.png" width="72%" horizontalAlignment="center"></Image>
-        <Label row="1" text="화면에 카메라를 맞춰 주세요" style="color:darkgray; margin:8 0; margin-bottom: 12;"
-            textAlignment="center"></Label>
+        <Image src="~/images/frame_qr_new.png" width="72%" horizontalAlignment="center"></Image>
+        <Label text="화면에 카메라를 맞춰 주세요" style="color:darkgray; margin-bottom: 24; margin-bottom: 12;"
+            textAlignment="center" verticalAlignment="bottom"></Label>
     </GridLayout>
 
     <!--

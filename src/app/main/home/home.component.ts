@@ -70,6 +70,7 @@ export class HomeComponent implements OnInit {
 
                 let img = this.menubtn.nativeElement as Image;
                 img.animate({
+                    height:24,
                     opacity:1,
                     duration: this.trans_duration,
                     curve: AnimationCurve.easeOut
@@ -125,7 +126,7 @@ export class HomeComponent implements OnInit {
             return;
         }
         let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
-        let img = this.menubtn.nativeElement as Image;
+        // let img = this.menubtn.nativeElement as Image;
         let menu = this.menu.nativeElement as LayoutBase;
         let h = menu.getMeasuredHeight();
         let item_height = 92;
@@ -140,7 +141,7 @@ export class HomeComponent implements OnInit {
             });
         } else if (this.isMenuExt === true) {
             // fold
-            img.src = "~/images/btn_up.png"
+            // img.src = "~/images/btn_up.png"
             menu.animate({
                 height: h * p - item_height,
                 duration: this.trans_duration,
@@ -149,6 +150,11 @@ export class HomeComponent implements OnInit {
                 this.isMenuExt = !this.isMenuExt;
             });
         }
+    }
+
+    onLoadedTapbtn(event){
+        let btn = event.arg as Image;
+        // btn.animate();
     }
 
     navigateOnlinepay(event) {
@@ -213,13 +219,14 @@ export class HomeComponent implements OnInit {
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
 
             img.animate({
+                height:1,
                 opacity:0,
                 duration: this.trans_duration,
                 curve: AnimationCurve.easeOut
             });
             if (this.isMenuExt === true) {
                 // fold
-                img.src = "~/images/btn_up.png"
+                // img.src = "~/images/btn_up.png"
                 console.log("height = " + menu.getMeasuredHeight());
                 
                 menu.animate({
@@ -261,13 +268,14 @@ export class HomeComponent implements OnInit {
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
 
             img.animate({
+                height:1,
                 opacity:0,
                 duration: this.trans_duration,
                 curve: AnimationCurve.easeOut
             });
             if (this.isMenuExt === true) {
                 // fold
-                img.src = "~/images/btn_up.png"
+                // img.src = "~/images/btn_up.png"
                 console.log("height = " + menu.getMeasuredHeight());
                 menu.animate({
                     height: 374 * p,
@@ -320,6 +328,7 @@ export class HomeComponent implements OnInit {
 
         let img = this.menubtn.nativeElement as Image;
         img.animate({
+            height:24,
             opacity:1,
             duration: this.trans_duration,
             curve: AnimationCurve.easeOut
