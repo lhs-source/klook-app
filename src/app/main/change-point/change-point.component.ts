@@ -130,7 +130,7 @@ export class ChangePointComponent implements OnInit {
             this.dataService.selected_pointry;
             
             let tf = this.tf.nativeElement as TextField;
-            this.amount_num = Number(tf.text);
+            this.amount_num = tf.text.length <= 0 ? 0 : Number(tf.text);
             if(this.amount_num > this.dataService.selected_pointry.balance){
                 this.amount_num = this.dataService.selected_pointry.balance;
                 tf.text = String(this.amount_num);

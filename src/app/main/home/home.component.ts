@@ -95,11 +95,9 @@ export class HomeComponent implements OnInit {
                     this.routerExtensions.navigate(['/main/home/tr-embedded'], {
                         clearHistory: true,
                         transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }
+                    }).then(()=>{
+                        this.routingservice.emitChange('tr');
                     });
-                    this.isPay = false;
-                    this.isQrPay = false;
-                    this.isQrScan = false;
-                    this.isPayment = false;
                 } else {
                     if (this.exitflag === false) {
                         Toast.makeText("앱을 종료하려면 한 번 더 뒤로가기 버튼을 눌러주세요").show();

@@ -1,8 +1,8 @@
 
 <GridLayout #rootlayout rows="88,auto,auto,auto,auto, *, auto" height="100%" width="100%">
     <title row="1" title="{{title}}" backgroundColor="#888"></title>
-    <GridLayout row="2" rows="auto, auto" columns="auto, *"  class="point" marginTop="16">
-        <Image row="0" rowspan="2" col="0" class="img" src="~/images/img_charge01.png" width="56"></Image>
+    <GridLayout row="2" rows="auto, auto" columns="96, *"  class="point" marginTop="32">
+        <Image row="0" rowspan="2" col="0" src="~/images/img_charge01.png" width="56"></Image>
         <Label row="0" col="1" class="title" text="보유 KLOOK 포인트" verticalAlignment="bottom"></Label>
         <StackLayout row="1" col="1" orientation="horizontal" verticalAlignment="top">
             <Label class="point-num" text="{{dataService.point | number:'1.0-0'}}"></Label>
@@ -10,11 +10,16 @@
         </StackLayout>
     </GridLayout>
     
-    <GridLayout row="3" rows="auto, auto, auto" columns="auto, *, auto"  class="change" marginTop="16">
-        <Image row="0" rowspan="2" col="0" class="img" src="~/images/img_charge02.png" width="56" (tap)="onTapTarget()"></Image>
+    <GridLayout row="3" rows="auto, auto, auto" columns="96, *, auto"  class="change" marginTop="32">
+        <GridLayout row="0" rowspan="2" col="0" width="56" height="56">
+            <Image row="0" rowspan="2" col="0" *ngIf="!dataService.selected_pointry || dataService.selected_pointry.title === 'KB국민카드 포인트리'"
+             src="~/images/img_charge02.png" (tap)="onTapTarget()"></Image>
+            <Image row="0" rowspan="2" col="0" *ngIf="dataService.selected_pointry.title != 'KB국민카드 포인트리'"
+             src="{{dataService.selected_pointry.img}}" (tap)="onTapTarget()"></Image>
+        </GridLayout>
+
         <Label row="0" col="1" class="title" text="교환 대상 포인트" verticalAlignment="bottom"></Label>
         <!-- <TextField row="1" col="1" #tf class="tf" hint="교환 포인트를 입력해주세요" [text]="amount" (returnPress)="onReturnPress($event)" keyboardType="number"></TextField> -->
-        
         <textfield-currency row="1" col="1" #tf
             [className]="'change'" verticalAlignment="center"
             [(ngModel)]="amount"
@@ -35,7 +40,14 @@
     </GridLayout>
 
     <GridLayout row="4" class="result" rows="auto, auto, auto, auto" columns="*, *" marginTop="48">
-        <Image row="0" col="0" colspan="2" class="img" src="~/images/img_charge03.png" width="216" horizontalAlignment="center"></Image>
+        <GridLayout row="0" col="0" colspan="2" height="96" columns="64, auto" orientation="horizontal" horizontalAlignment="center">
+            <Image col="0" *ngIf="!dataService.selected_pointry || dataService.selected_pointry.title === 'KB국민카드 포인트리'"
+                src="~/images/img_charge02.png" width="72" (tap)="onTapTarget()"></Image>
+            <Image col="0" *ngIf="dataService.selected_pointry.title != 'KB국민카드 포인트리'"
+                src="{{dataService.selected_pointry.img}}" width="64" (tap)="onTapTarget()"></Image>
+            <Image col="1" class="img" src="~/images/img_charge04.png" width="172" horizontalAlignment="center"></Image>
+        </GridLayout>
+
         <Label row="1" col="0" class="from-title" text="{{dataService.selected_pointry.title}}" horizontalAlignment="center"></Label>
         <Label row="1" col="1" class="to-title" text="KLOOK 포인트" horizontalAlignment="center"></Label>
         <StackLayout row="2" col="0" orientation="horizontal" horizontalAlignment="center">
