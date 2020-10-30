@@ -1,7 +1,7 @@
 .actionbar{
     padding:0 16;
-    padding-top: 44;
-    padding-bottom: 16;
+    padding-top: 40;
+    padding-bottom: 12;
 
     // background-color: red;
 
@@ -12,10 +12,11 @@
     .qrimage{
         // margin:0 4;
         height:32;
+        margin-left: 8;
     }
 
     .locale{
-        margin: 0 4;
+        margin: 4 4;
 
         .frame{
             height:32;

@@ -1,9 +1,9 @@
 <GridLayout>
     <GridLayout class="actionbar" columns="*, auto, auto">
-        <Image col="0" *ngIf="isPayment === false" class="logo" src="~/images/logo.png" horizontalAlignment="left" verticalAlignment="bottom"
+        <Image col="0" *ngIf="isPayment === false" class="logo" src="~/images/logo.png" horizontalAlignment="left" verticalAlignment="center"
             marginBottom="2" (tap)="onTapClose($event)"></Image>
-        <Image col="0" *ngIf="isPayment === true" class="qrimage" src="{{countryService.qrimage}}" horizontalAlignment="left" verticalAlignment="bottom"
-            marginBottom="2"></Image>
+        <Image col="0" *ngIf="isPayment === true" class="qrimage" src="{{countryService.qrimage}}" horizontalAlignment="left" verticalAlignment="center"
+            height="{{countryService.country === '태국' ? 40 : 32}}"></Image>
         <GridLayout #countryref col="1" class="locale" verticalAlignment="center" (tap)="onTapLocale()">
             <Image class="frame" src="~/images/select_arrow.png"></Image>
             <GridLayout rows="auto, auto" columns="16, *, auto" width="100%" horizontalAlignment="right">
