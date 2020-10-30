@@ -68,6 +68,12 @@ export class HomeComponent implements OnInit {
                 this.isQrPay = false;
                 this.isPayment = false;
 
+                let img = this.menubtn.nativeElement as Image;
+                img.animate({
+                    opacity:1,
+                    duration: this.trans_duration,
+                    curve: AnimationCurve.easeOut
+                });
                 let bg = this.qrbg.nativeElement as LayoutBase;
                 bg.animate({
                     opacity: 0,
@@ -208,10 +214,16 @@ export class HomeComponent implements OnInit {
             let menu = this.menu.nativeElement as LayoutBase;
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
 
+            img.animate({
+                opacity:0,
+                duration: this.trans_duration,
+                curve: AnimationCurve.easeOut
+            });
             if (this.isMenuExt === true) {
                 // fold
                 img.src = "~/images/btn_up.png"
                 console.log("height = " + menu.getMeasuredHeight());
+                
                 menu.animate({
                     height: 374 * p,
                     duration: this.trans_duration,
@@ -250,6 +262,11 @@ export class HomeComponent implements OnInit {
             let menu = this.menu.nativeElement as LayoutBase;
             let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
 
+            img.animate({
+                opacity:0,
+                duration: this.trans_duration,
+                curve: AnimationCurve.easeOut
+            });
             if (this.isMenuExt === true) {
                 // fold
                 img.src = "~/images/btn_up.png"
@@ -303,6 +320,12 @@ export class HomeComponent implements OnInit {
             this.isPay = false;
         }
 
+        let img = this.menubtn.nativeElement as Image;
+        img.animate({
+            opacity:1,
+            duration: this.trans_duration,
+            curve: AnimationCurve.easeOut
+        });
         let bg = this.qrbg.nativeElement as LayoutBase;
         bg.animate({
             opacity: 0,

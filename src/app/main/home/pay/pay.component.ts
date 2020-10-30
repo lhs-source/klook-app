@@ -49,7 +49,8 @@ export class PayComponent implements OnInit {
         private merchantService : MerchantService,
         private transactionService : TransactionService,
         private paymentService : PaymentService,
-        private progressService : ProgressService) {
+        private progressService : ProgressService,
+        private routingservice: HomeRoutingService,) {
         console.log(`${this.tag} constructor `)
 
         this.pay_info = this.paymentService.pay_info;
@@ -82,6 +83,7 @@ export class PayComponent implements OnInit {
         }).then(thenFunction);
     }
     onTapNo(event){
+        this.routingService.emitChange('tr');
         this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
             name: 'fade',
             duration: 250,
