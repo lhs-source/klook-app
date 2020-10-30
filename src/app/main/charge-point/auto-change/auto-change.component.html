@@ -1,25 +1,25 @@
 <GridLayout rows="*, auto, auto">
-    <StackLayout row="0" class="amount" marginTop="8">
-        <Label class="str" text="KLOOK Pay 포인트가"></Label>
-        <StackLayout orientation="horizontal">
-            <TextField #amounttf_autounder class="tf-auto" 
+    <StackLayout row="0" class="amount" marginTop="8" marginLeft="32">
+        <Label class="str-title" text="KLOOK Pay 포인트가"></Label>
+        <StackLayout orientation="horizontal" marginTop="8">
+            <TextField #amounttf_autounder class="tf-auto" verticalAlignment="center"
                 hint="1만 포인트" 
                 (tap)="onTapTextfield($event, 1)"
                 (textChange)="onChangeTextField($event)" 
                 (blur)="onBlur($event)" 
                 [(ngModel)]="amount_auto_under">
             </TextField>
-            <Label class="str" text="미만인 경우"></Label>
+            <Label class="str" verticalAlignment="bottom" text="미만인 경우" marginLeft="4"></Label>
         </StackLayout>
-        <StackLayout orientation="horizontal">
-            <TextField #amounttf_auto class="tf-auto" 
+        <StackLayout orientation="horizontal" marginTop="8">
+            <TextField #amounttf_auto class="tf-auto" verticalAlignment="center"
                 hint="5만 포인트" 
                 (tap)="onTapTextfield($event, 2)"
                 (textChange)="onChangeTextField($event)" 
                 (blur)="onBlur($event)" 
                 [(ngModel)]="amount_auto">
             </TextField>
-            <Label class="str" text="를(을) 자동 충전합니다"></Label>
+            <Label class="str" verticalAlignment="bottom" text="를(을) 자동 충전합니다" marginLeft="4"></Label>
         </StackLayout>
     </StackLayout>
     <StackLayout row="1" class="description">
