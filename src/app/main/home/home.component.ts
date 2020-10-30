@@ -26,6 +26,9 @@ export class HomeComponent implements OnInit {
     @ViewChild('menu', { static: true }) menu: ElementRef;
     @ViewChild('qrbg', { static: true }) qrbg: ElementRef;
 
+    @ViewChild('pro_pivot', {static:true}) pro_pivot : ElementRef;
+    @ViewChild('pro', {static:true}) pro:ElementRef;
+
     // qr page variables
     isQrPay = false;
     isQrScan = false;
@@ -39,6 +42,10 @@ export class HomeComponent implements OnInit {
     trans_duration = 250;
     qr_anim_duration = 250;
     transition_duration = 250;
+
+    pro_origin = 0;
+    pro_extended = 0;
+    p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
 
     constructor(private routerExtensions: RouterExtensions,
         private routingservice: HomeRoutingService,
@@ -67,6 +74,11 @@ export class HomeComponent implements OnInit {
                 this.isQrScan = false;
                 this.isQrPay = false;
                 this.isPayment = false;
+                
+                setTimeout(() => {
+                    let pro = this.pro.nativeElement as LayoutBase;
+                    pro.height = this.pro_origin;
+                }, 200);
 
                 let img = this.menubtn.nativeElement as Image;
                 img.animate({
@@ -85,7 +97,6 @@ export class HomeComponent implements OnInit {
 
             }
         });
-
 
         if (isAndroid) {
             Application.android.off(AndroidApplication.activityBackPressedEvent);
@@ -125,7 +136,6 @@ export class HomeComponent implements OnInit {
         if (this.isQrScan === true || this.isQrPay === true || this.isPay === true) {
             return;
         }
-        let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
         // let img = this.menubtn.nativeElement as Image;
         let menu = this.menu.nativeElement as LayoutBase;
         let h = menu.getMeasuredHeight();
@@ -135,7 +145,7 @@ export class HomeComponent implements OnInit {
             // unfold
             this.isMenuExt = !this.isMenuExt;
             menu.animate({
-                height: h * p + item_height,
+                height: h * this.p + item_height,
                 duration: this.trans_duration,
                 curve: AnimationCurve.easeOut
             });
@@ -143,7 +153,7 @@ export class HomeComponent implements OnInit {
             // fold
             // img.src = "~/images/btn_up.png"
             menu.animate({
-                height: h * p - item_height,
+                height: h * this.p - item_height,
                 duration: this.trans_duration,
                 curve: AnimationCurve.easeOut
             }).then(() => {
@@ -155,6 +165,33 @@ export class HomeComponent implements OnInit {
     onLoadedTapbtn(event){
         let btn = event.arg as Image;
         // btn.animate();
+    }
+
+    onLoadedPivot(event){
+        console.log(this.tag + " onLoadedPivot pivot");
+        let pro = this.pro.nativeElement as LayoutBase;
+        let pivot = event.object as LayoutBase;
+
+        pro.on('loaded', (view)=>{
+            console.log(this.tag + "  loaded");
+            let v = view.object as LayoutBase;
+            setTimeout(() => {
+                let loc = v.getLocationOnScreen();
+                console.log(loc);
+
+                let height = pivot.getMeasuredHeight();
+                console.log(height);
+                this.pro_origin = height * this.p + 16;
+                this.pro_extended = height * this.p + 16 + 32;
+                pro.height = this.pro_origin;
+
+
+                let gap = pivot.getLocationRelativeTo(v);
+                console.log(gap);
+                pro.translateY = gap.y - 8;
+        
+            });
+        }); 
     }
 
     navigateOnlinepay(event) {
@@ -216,7 +253,9 @@ export class HomeComponent implements OnInit {
 
             let img = this.menubtn.nativeElement as Image;
             let menu = this.menu.nativeElement as LayoutBase;
-            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+            
+            let pro = this.pro.nativeElement as LayoutBase;
+            pro.height = this.pro_extended;
 
             img.animate({
                 height:1,
@@ -230,7 +269,7 @@ export class HomeComponent implements OnInit {
                 console.log("height = " + menu.getMeasuredHeight());
                 
                 menu.animate({
-                    height: 374 * p,
+                    height: 374 * this.p,
                     duration: this.trans_duration,
                     curve: AnimationCurve.easeOut
                 }).then(() => {
@@ -265,7 +304,9 @@ export class HomeComponent implements OnInit {
 
             let img = this.menubtn.nativeElement as Image;
             let menu = this.menu.nativeElement as LayoutBase;
-            let p = screen.mainScreen.heightDIPs / screen.mainScreen.heightPixels;
+
+            let pro = this.pro.nativeElement as LayoutBase;
+            pro.height = this.pro_extended;
 
             img.animate({
                 height:1,
@@ -278,7 +319,7 @@ export class HomeComponent implements OnInit {
                 // img.src = "~/images/btn_up.png"
                 console.log("height = " + menu.getMeasuredHeight());
                 menu.animate({
-                    height: 374 * p,
+                    height: 374 * this.p,
                     duration: this.trans_duration,
                     curve: AnimationCurve.easeOut
                 }).then(() => {
@@ -291,15 +332,15 @@ export class HomeComponent implements OnInit {
             this.routerExtensions.navigate(['/main/home/qr-pay'], {
                 transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }, clearHistory: true
             }).then(() => {
-                let bg = this.qrbg.nativeElement as LayoutBase;
-                bg.animate({
-                    opacity: 1,
-                    backgroundColor: new Color(0, 255, 255, 255),
-                    duration: this.qr_anim_duration,
-                    curve: AnimationCurve.easeOut
-                }).then(() => {
-                    this.isPayment = true;
-                });
+                // let bg = this.qrbg.nativeElement as LayoutBase;
+                // bg.animate({
+                //     opacity: 1,
+                //     backgroundColor: new Color(0, 255, 255, 255),
+                //     duration: this.qr_anim_duration,
+                //     curve: AnimationCurve.easeOut
+                // }).then(() => {
+                //     this.isPayment = true;
+                // });
             });
         }
 
@@ -340,6 +381,9 @@ export class HomeComponent implements OnInit {
             curve: AnimationCurve.easeOut
         }).then(() => {
             this.isPayment = false;
+            
+            let pro = this.pro.nativeElement as LayoutBase;
+            pro.height = this.pro_origin;
         });
     }
 

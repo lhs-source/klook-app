@@ -2,13 +2,18 @@
     <GridLayout row="1" #qrbg opacity="0" verticalAlignment="top" borderColor="#ddd" borderWidth="1" margin="16">
     </GridLayout>
 </GridLayout>
+
+<GridLayout>
+    <page-router-outlet #pro actionBarVisibility="never" (routing)="callbackRouting($event)" verticalAlignment="top"></page-router-outlet>
+</GridLayout>
+
 <GridLayout #rootlayout rows="88,auto,*,auto,108" height="100%" width="100%">
     <!-- Point view -->
     <title row="1" title="보유포인트" point="{{dataService.point | number:'1.0-0'}}" point_unit="{{' (' + ( dataService.point_exchanged | number:'1.0-0') + ' ' + countryService.currency + ')' }}" backgroundColor="#ff5722"></title>
 
     <!-- sub router (qr, tr) -->
-    <GridLayout row="2">
-        <page-router-outlet actionBarVisibility="never" (routing)="callbackRouting($event)"></page-router-outlet>
+    <GridLayout #pro_pivot row="2" (loaded)="onLoadedPivot($event)">
+        <!-- <page-router-outlet actionBarVisibility="never" (routing)="callbackRouting($event)"></page-router-outlet> -->
     </GridLayout>
 
     <!-- menu -->
@@ -53,6 +58,7 @@
         </StackLayout>
     </GridLayout>
 </GridLayout>
+
 
 <GridLayout rows="auto, *">
     <myactionbar row="0" (close_click)="actionbar_click_close(isclose)" (select_country)="callback_select_country()" [isClose]="(isQrScan || isQrPay || isPay)" [isPayment]="isPayment"></myactionbar>
