@@ -198,7 +198,7 @@ export class HomeComponent implements OnInit {
             let v = view.object as LayoutBase;
             setTimeout(() => {
                 let loc = v.getLocationOnScreen();
-                console.log(loc);
+                // console.log(loc);
 
                 let height = pivot.getMeasuredHeight();
                 console.log(height);
@@ -212,6 +212,11 @@ export class HomeComponent implements OnInit {
                 pro.translateY = gap.y - 8;
 
             });
+        });
+        pivot.on('layoutChanged', (arg)=>{
+            let height = pivot.getMeasuredHeight();
+            // console.log('layoutChanged',height);
+            pro.height = height  * this.p + 32;
         });
     }
 
@@ -273,8 +278,8 @@ export class HomeComponent implements OnInit {
         if (this.isQrScan == false) {
             let menu = this.menu.nativeElement as LayoutBase;
 
-            let pro = this.pro.nativeElement as LayoutBase;
-            pro.height = this.pro_extended;
+            // let pro = this.pro.nativeElement as LayoutBase;
+            // pro.height = this.pro_extended;
 
 
             this.hideMenuBtn();
@@ -302,8 +307,8 @@ export class HomeComponent implements OnInit {
         if (this.isQrPay == false) {
             let menu = this.menu.nativeElement as LayoutBase;
 
-            let pro = this.pro.nativeElement as LayoutBase;
-            pro.height = this.pro_extended;
+            // let pro = this.pro.nativeElement as LayoutBase;
+            // pro.height = this.pro_extended;
 
             this.hideMenuBtn();
             if (this.isMenuExt === true) {
