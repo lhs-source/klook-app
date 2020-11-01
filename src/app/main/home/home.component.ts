@@ -26,8 +26,8 @@ export class HomeComponent implements OnInit {
     @ViewChild('menu', { static: true }) menu: ElementRef;
     @ViewChild('qrbg', { static: true }) qrbg: ElementRef;
 
-    @ViewChild('pro_pivot', {static:true}) pro_pivot : ElementRef;
-    @ViewChild('pro', {static:true}) pro:ElementRef;
+    @ViewChild('pro_pivot', { static: true }) pro_pivot: ElementRef;
+    @ViewChild('pro', { static: true }) pro: ElementRef;
 
     // qr page variables
     isQrPay = false;
@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
     isPayment = false;
 
     isMenuExt = false;
+    menusize = 0;
 
     exitflag = false;
 
@@ -62,37 +63,16 @@ export class HomeComponent implements OnInit {
                 this.isQrScan = false;
                 this.isQrPay = false;
                 this.isPayment = true;
-
-                let bg = this.qrbg.nativeElement as LayoutBase;
-                bg.animate({
-                    opacity: 1,
-                    duration: this.qr_anim_duration,
-                    curve: AnimationCurve.easeOut
-                });
             } else if ('tr') {
                 this.isPay = false;
                 this.isQrScan = false;
                 this.isQrPay = false;
                 this.isPayment = false;
-                
-                setTimeout(() => {
-                    let pro = this.pro.nativeElement as LayoutBase;
-                    pro.height = this.pro_origin;
-                }, 200);
 
-                let img = this.menubtn.nativeElement as Image;
-                img.animate({
-                    height:24,
-                    opacity:1,
-                    duration: this.trans_duration,
-                    curve: AnimationCurve.easeOut
-                });
-                let bg = this.qrbg.nativeElement as LayoutBase;
-                bg.animate({
-                    opacity: 0,
-                    duration: this.qr_anim_duration,
-                    curve: AnimationCurve.easeOut
-                });
+                let pro = this.pro.nativeElement as LayoutBase;
+                pro.height = this.pro_origin;
+
+                this.showMenuBtn();
             } else {
 
             }
@@ -107,7 +87,7 @@ export class HomeComponent implements OnInit {
                     this.routerExtensions.navigate(['/main/home/tr-embedded'], {
                         clearHistory: true,
                         transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }
-                    }).then(()=>{
+                    }).then(() => {
                         this.routingservice.emitChange('tr');
                     });
                 } else {
@@ -128,10 +108,63 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
+
+        let menu = this.menu.nativeElement as LayoutBase;
+        menu.on('loaded', (arg) => {
+            setTimeout(() => {
+                this.menusize = menu.getMeasuredHeight() * this.p;
+                console.log('loaded', this.menusize);
+
+                // menu.opacity = 0;
+                menu.height = 1;
+            });
+        });
     }
     ngOnDestroy() {
         console.log(`${this.tag} ngOnDestroy`);
     }
+
+    showMenu() {
+        let menu = this.menu.nativeElement as LayoutBase;
+        this.isMenuExt = !this.isMenuExt;
+        // menu.opacity = 1;
+        menu.animate({
+            height: this.menusize,
+            duration: this.trans_duration,
+            curve: AnimationCurve.easeOut
+        });
+    }
+    hideMenu() {
+        let menu = this.menu.nativeElement as LayoutBase;
+        menu.animate({
+            height: 1,
+            duration: this.trans_duration,
+            curve: AnimationCurve.easeOut
+        }).then(() => {
+            // menu.opacity = 0;
+            this.isMenuExt = !this.isMenuExt;
+        });
+    }
+    showMenuBtn() {
+        let img = this.menubtn.nativeElement as Image;
+        img.animate({
+            height: 24,
+            opacity: 1,
+            duration: this.trans_duration,
+            curve: AnimationCurve.easeOut
+        });
+    }
+    hideMenuBtn() {
+        let img = this.menubtn.nativeElement as Image;
+
+        img.animate({
+            height: 1,
+            opacity: 0,
+            duration: this.trans_duration,
+            curve: AnimationCurve.easeOut
+        });
+    }
+
     onTapMenu(event) {
         if (this.isQrScan === true || this.isQrPay === true || this.isPay === true) {
             return;
@@ -143,36 +176,24 @@ export class HomeComponent implements OnInit {
 
         if (this.isMenuExt === false) {
             // unfold
-            this.isMenuExt = !this.isMenuExt;
-            menu.animate({
-                height: h * this.p + item_height,
-                duration: this.trans_duration,
-                curve: AnimationCurve.easeOut
-            });
+            this.showMenu();
         } else if (this.isMenuExt === true) {
             // fold
-            // img.src = "~/images/btn_up.png"
-            menu.animate({
-                height: h * this.p - item_height,
-                duration: this.trans_duration,
-                curve: AnimationCurve.easeOut
-            }).then(() => {
-                this.isMenuExt = !this.isMenuExt;
-            });
+            this.hideMenu();
         }
     }
 
-    onLoadedTapbtn(event){
+    onLoadedTapbtn(event) {
         let btn = event.arg as Image;
         // btn.animate();
     }
 
-    onLoadedPivot(event){
+    onLoadedPivot(event) {
         console.log(this.tag + " onLoadedPivot pivot");
         let pro = this.pro.nativeElement as LayoutBase;
         let pivot = event.object as LayoutBase;
 
-        pro.on('loaded', (view)=>{
+        pro.on('loaded', (view) => {
             console.log(this.tag + "  loaded");
             let v = view.object as LayoutBase;
             setTimeout(() => {
@@ -189,9 +210,9 @@ export class HomeComponent implements OnInit {
                 let gap = pivot.getLocationRelativeTo(v);
                 console.log(gap);
                 pro.translateY = gap.y - 8;
-        
+
             });
-        }); 
+        });
     }
 
     navigateOnlinepay(event) {
@@ -250,46 +271,24 @@ export class HomeComponent implements OnInit {
             return;
         }
         if (this.isQrScan == false) {
-
-            let img = this.menubtn.nativeElement as Image;
             let menu = this.menu.nativeElement as LayoutBase;
-            
+
             let pro = this.pro.nativeElement as LayoutBase;
             pro.height = this.pro_extended;
 
-            img.animate({
-                height:1,
-                opacity:0,
-                duration: this.trans_duration,
-                curve: AnimationCurve.easeOut
-            });
+
+            this.hideMenuBtn();
             if (this.isMenuExt === true) {
                 // fold
-                // img.src = "~/images/btn_up.png"
-                console.log("height = " + menu.getMeasuredHeight());
-                
-                menu.animate({
-                    height: 374 * this.p,
-                    duration: this.trans_duration,
-                    curve: AnimationCurve.easeOut
-                }).then(() => {
-                    console.log("end height = " + menu.getMeasuredHeight());
-                    this.isMenuExt = !this.isMenuExt;
-                });
+                this.hideMenu();
             }
             this.isQrScan = true;
             this.isQrPay = false;
+            this.isPay = false;
             this.routerExtensions.navigate(['/main/home/qr-scan'], {
                 transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut },
                 clearHistory: true
             }).then(() => {
-                let bg = this.qrbg.nativeElement as LayoutBase;
-                // bg.borderWidth = 0;
-                bg.animate({
-                    opacity: 0,
-                    duration: this.qr_anim_duration,
-                    curve: AnimationCurve.easeOut
-                });
                 this.isPayment = true;
             });
         }
@@ -301,46 +300,23 @@ export class HomeComponent implements OnInit {
             return;
         }
         if (this.isQrPay == false) {
-
-            let img = this.menubtn.nativeElement as Image;
             let menu = this.menu.nativeElement as LayoutBase;
 
             let pro = this.pro.nativeElement as LayoutBase;
             pro.height = this.pro_extended;
 
-            img.animate({
-                height:1,
-                opacity:0,
-                duration: this.trans_duration,
-                curve: AnimationCurve.easeOut
-            });
+            this.hideMenuBtn();
             if (this.isMenuExt === true) {
                 // fold
-                // img.src = "~/images/btn_up.png"
-                console.log("height = " + menu.getMeasuredHeight());
-                menu.animate({
-                    height: 374 * this.p,
-                    duration: this.trans_duration,
-                    curve: AnimationCurve.easeOut
-                }).then(() => {
-                    console.log("end height = " + menu.getMeasuredHeight());
-                    this.isMenuExt = !this.isMenuExt;
-                });
+                this.hideMenu();
             }
             this.isQrScan = false;
             this.isQrPay = true;
+            this.isPay = false;
             this.routerExtensions.navigate(['/main/home/qr-pay'], {
                 transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }, clearHistory: true
             }).then(() => {
-                // let bg = this.qrbg.nativeElement as LayoutBase;
-                // bg.animate({
-                //     opacity: 1,
-                //     backgroundColor: new Color(0, 255, 255, 255),
-                //     duration: this.qr_anim_duration,
-                //     curve: AnimationCurve.easeOut
-                // }).then(() => {
-                //     this.isPayment = true;
-                // });
+                this.isPayment = true;
             });
         }
 
@@ -348,13 +324,13 @@ export class HomeComponent implements OnInit {
     // show Transaction embedded view
     actionbar_click_close(event) {
         console.log(this.tag + " navigateTrEmb");
-        if (this.isQrPay == true) {
+        if (this.isQrPay === true) {
             this.routerExtensions.navigate(['/main/home/tr-embedded'], {
                 transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }
             });
             this.isQrPay = false;
         }
-        if (this.isQrScan == true) {
+        if (this.isQrScan === true) {
             this.routerExtensions.navigate(['/main/home/tr-embedded'], {
                 transition: { name: 'fade', duration: this.qr_anim_duration, curve: AnimationCurve.easeOut }
             });
@@ -367,24 +343,12 @@ export class HomeComponent implements OnInit {
             this.isPay = false;
         }
 
-        let img = this.menubtn.nativeElement as Image;
-        img.animate({
-            height:24,
-            opacity:1,
-            duration: this.trans_duration,
-            curve: AnimationCurve.easeOut
-        });
-        let bg = this.qrbg.nativeElement as LayoutBase;
-        bg.animate({
-            opacity: 0,
-            duration: this.qr_anim_duration,
-            curve: AnimationCurve.easeOut
-        }).then(() => {
-            this.isPayment = false;
-            
-            let pro = this.pro.nativeElement as LayoutBase;
-            pro.height = this.pro_origin;
-        });
+        this.showMenuBtn();
+
+        this.isPayment = false;
+
+        let pro = this.pro.nativeElement as LayoutBase;
+        pro.height = this.pro_origin;
     }
 
     // country_select
