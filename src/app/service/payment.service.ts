@@ -7,12 +7,13 @@ import { QrData } from './qr-data.model';
 @Injectable({ providedIn: 'root' })
 export class PaymentService {
     tag = this.constructor.name;
-    server_url = "https://yrkim-eval-prod.apigee.net"
+    server_url = "https://kbcard-eval-prod.apigee.net"
 
     initial_token = "Basic NmVlNGFlNWQzYWYyNGQxZjhmYTM2YjcyOWVmNmM1OjZlZTRhZTVkM2FmMjRkMQ====";
     token_type = "Basic";
     token = "NmVlNGFlNWQzYWYyNGQxZjhmYTM2YjcyOWVmNmM1OjZlZTRhZTVkM2FmMjRkMQ====";
     token_exp = 0;
+    apikey = "ADAMkS8GLMNU0Prr0uGYNd5uodQLXUp4";
     interval;
 
     // payment info from qr
@@ -30,13 +31,13 @@ export class PaymentService {
     }
 
     getToken() {
-        let path = "/oauth?x-apikey=1gH8WT02XvyxvqjIg24dSKaUBHeNw59i";
-        let temp_url = "https://yrkim-eval-prod.apigee.net/oauth?x-apikey=1gH8WT02XvyxvqjIg24dSKaUBHeNw59i";
+        let path = this.server_url + "/oauth?x-apikey= " + this.apikey;
+        // let temp_url = "https://yrkim-eval-prod.apigee.net/oauth?x-apikey=1gH8WT02XvyxvqjIg24dSKaUBHeNw59i";
         let headers = new HttpHeaders({
             "Authorization": this.initial_token,
             "Content-Type": "application/x-www-form-urlencoded",
         });
-        return this.httpClient.post(temp_url, JSON.stringify({ "formData": "<string>" }), { headers: headers })
+        return this.httpClient.post(path, JSON.stringify({ "formData": "<string>" }), { headers: headers })
             .pipe(
                 tap(
                     response => {
@@ -59,7 +60,7 @@ export class PaymentService {
             );
     }
     goPay() {
-        let path = "/rps/payment/account?x-apikey=1gH8WT02XvyxvqjIg24dSKaUBHeNw59i";
+        let path = this.server_url + "/rps/payment/account?x-apikey=" + this.apikey;
         let headers = new HttpHeaders({
             "Authorization": this.token_type + " " + this.token,
             "Accept": "application/json",
@@ -113,7 +114,7 @@ export class PaymentService {
     }
 
     getAccounts() {
-        let path = "/rps/account?x-apikey=1gH8WT02XvyxvqjIg24dSKaUBHeNw59i";
+        let path = this.server_url + "/rps/account?x-apikey=" + this.apikey;
         let headers = new HttpHeaders({
             "Authorization": this.token_type + " " + this.token,
             "Accept": "application/json",
@@ -142,7 +143,7 @@ export class PaymentService {
         return this.httpClient.post(this.server_url + path, JSON.stringify(postdata), { headers: headers });
     }
     getTransactions() {
-        let path = "/uprps/tranHistory/actions/paginatedSearch";
+        let path = this.server_url + "/uprps/tranHistory/actions/paginatedSearch?x-apikey=" + this.apikey;
         let headers = new HttpHeaders({
             "Authorization": this.token_type + " " + this.token,
             "Accept": "application/json",
