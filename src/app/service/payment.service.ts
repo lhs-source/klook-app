@@ -31,7 +31,7 @@ export class PaymentService {
     }
 
     getToken() {
-        let path = "/oauth?x-apikey= " + this.apikey;
+        let path = this.server_url + "/oauth?x-apikey=" + this.apikey;
         // let temp_url = "https://yrkim-eval-prod.apigee.net/oauth?x-apikey=1gH8WT02XvyxvqjIg24dSKaUBHeNw59i";
         let headers = new HttpHeaders({
             "Authorization": this.initial_token,
@@ -60,7 +60,7 @@ export class PaymentService {
             );
     }
     goPay() {
-        let path = "/rps/payment/account?x-apikey=" + this.apikey;
+        let path = this.server_url + "/rps/payment/account?x-apikey=" + this.apikey;
         let headers = new HttpHeaders({
             "Authorization": this.token_type + " " + this.token,
             "Accept": "application/json",
@@ -114,7 +114,7 @@ export class PaymentService {
     }
 
     getAccounts() {
-        let path = "/rps/account?x-apikey=" + this.apikey;
+        let path = this.server_url + "/rps/account?x-apikey=" + this.apikey;
         let headers = new HttpHeaders({
             "Authorization": this.token_type + " " + this.token,
             "Accept": "application/json",
@@ -143,7 +143,7 @@ export class PaymentService {
         return this.httpClient.post(path, JSON.stringify(postdata), { headers: headers });
     }
     getTransactions() {
-        let path = "/uprps/tranHistory/actions/paginatedSearch?x-apikey=" + this.apikey;
+        let path = this.server_url + "/uprps/tranHistory/actions/paginatedSearch?x-apikey=" + this.apikey;
         let headers = new HttpHeaders({
             "Authorization": this.token_type + " " + this.token,
             "Accept": "application/json",

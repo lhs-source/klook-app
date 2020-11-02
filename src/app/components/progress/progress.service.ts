@@ -22,7 +22,7 @@ export class ProgressService {
         this.modalService.showModal(ProgressComponent, options);
 
         this.interval = setInterval(()=>{
-            this.modal.closeModalDialog();
+            this.progressOff();
         }, 10000);
     }
     progressOff(){
