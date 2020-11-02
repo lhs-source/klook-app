@@ -12,11 +12,7 @@ import { HttpInterceptorService } from "./http-interceptor.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ClassProvider } from "@angular/core";
 
-const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
-    provide: HTTP_INTERCEPTORS ,
-    useClass: HttpInterceptorService,
-    multi: true
- };
+
 
 @NgModule({
     exports: [
@@ -34,7 +30,6 @@ const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
         OnlinepayComponent,
     ],
     providers:[
-        LOGGING_INTERCEPTOR_PROVIDER,
     ],
     schemas: [
         NO_ERRORS_SCHEMA

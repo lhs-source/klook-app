@@ -7,6 +7,7 @@ import { CountryService } from './country.service';
 import { MerchantService } from './merchant.service';
 import { DataService } from './data.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class TransactionService {
@@ -190,8 +191,7 @@ export class TransactionService {
     private tr_group_save_point_calced = false;
 
     // connect server 52.78.101.78:3000
-    private url = "http://52.78.101.78:3000/api/transaction";
-    
+    private url = "http://133.186.212.167:3000/api/transaction";
 
     constructor(private countryService : CountryService,
         private merchantService : MerchantService,
@@ -451,5 +451,20 @@ export class TransactionService {
         this.trs_grouped = {};
         this.needToUpdate();
         this.database.destroyDatabase();
+
+        let headers = new HttpHeaders({
+            "Content-Type": "application/json",
+        });
+        return this.httpClient.delete(this.url, {headers:headers, responseType:'text'})
+        // return this.httpClient.post(this.url + '/all', JSON.stringify(this.trs_init), {headers:headers})
+        .pipe(
+            switchMap(res => {
+                console.log("here1 =", res);
+                let headers = new HttpHeaders({
+                    "Content-Type": "application/json",
+                });
+                return this.httpClient.post(this.url + '/all', JSON.stringify(this.trs_init), {headers:headers})
+            })
+        )
     }
 }

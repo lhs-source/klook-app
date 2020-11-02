@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { AuthService } from "../../../service/auth.service";
@@ -10,6 +10,7 @@ import { MerchantService } from "../../../service/merchant.service";
 import { CountryService } from "../../../service/country.service";
 import { TransactionService } from "../../../service/transaction.service";
 import { OctopusService } from "../../../service/octopus.service";
+import { ProgressService } from "../../../components/progress/progress.service";
 
 @Component({
     selector: "account-link",
@@ -24,7 +25,9 @@ export class AccountLinkComponent implements OnInit {
         private countryService : CountryService,
         private transactionService : TransactionService,
         private authService : AuthService,
-        private octopusService : OctopusService) {
+        private octopusService : OctopusService,
+        private progressService : ProgressService,
+        private viewContainerRef : ViewContainerRef) {
         console.log(`${this.tag} constructor `)
     }
 
@@ -42,22 +45,33 @@ export class AccountLinkComponent implements OnInit {
     
     onTapYes(event) {
         console.log(`${this.tag} onTapYes`);
-        this.authService.reset();
-        this.dataService.reset();
-        this.transactionService.reset();
-        this.countryService.reset();
-        this.octopusService.reset();
+        setTimeout(() => {
+            this.progressService.progressOn(this.viewContainerRef);
+        });    
+        this.transactionService.reset().subscribe(
+            res=>{
+                console.log(res);
+                
+                this.authService.reset();
+                this.dataService.reset();
+                this.countryService.reset();
+                this.octopusService.reset();
+
+                this.progressService.progressOff();
+                alert({
+                    title: "계정연동 해제",
+                    message: "계정연동을 해제하였습니다. 초기화면으로 돌아갑니다.",
+                    okButtonText: "확인"
+                }).then(()=>{
+                    this.routerExtensions.navigate(['/initial-auth'], { 
+                        clearHistory:true, 
+                        transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } 
+                    });
+                });
+            },
+            err=>{}
+        )
         
-        alert({
-            title: "계정연동 해제",
-            message: "계정연동을 해제하였습니다. 초기화면으로 돌아갑니다.",
-            okButtonText: "확인"
-        }).then(()=>{
-            this.routerExtensions.navigate(['/initial-auth'], { 
-                clearHistory:true, 
-                transition: { instance : new CustomTransitionBack(250, AnimationCurve.linear) } 
-            });
-        });
     }
     onTapNo(event) {
         console.log(`${this.tag} onTapNo`);

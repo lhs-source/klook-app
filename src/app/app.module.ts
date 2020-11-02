@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { ClassProvider, NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "@nativescript/angular";
 import { NativeScriptHttpClientModule } from "@nativescript/angular/http-client";
 
@@ -17,6 +17,14 @@ import { ProgressService } from "./components/progress/progress.service";
 import { MaskedTextFieldModule } from "nativescript-masked-text-field/angular";
 import { InputMaskModule } from 'nativescript-input-mask/angular';
 import { Statusbar } from "nativescript-plugin-statusbar";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpInterceptorService } from "./main/http-interceptor.service";
+
+const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
+    provide: HTTP_INTERCEPTORS ,
+    useClass: HttpInterceptorService,
+    multi: true
+ };
 
 @NgModule({
     bootstrap: [
@@ -32,6 +40,8 @@ import { Statusbar } from "nativescript-plugin-statusbar";
         AppComponent,
     ],
     providers:[
+        LOGGING_INTERCEPTOR_PROVIDER,
+        
         Statusbar,
         
         PaymentService,

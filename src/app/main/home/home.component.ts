@@ -69,8 +69,10 @@ export class HomeComponent implements OnInit {
                 this.isQrPay = false;
                 this.isPayment = false;
 
-                let pro = this.pro.nativeElement as LayoutBase;
-                pro.height = this.pro_origin;
+                // setTimeout(() => {
+                //     let pro = this.pro.nativeElement as LayoutBase;
+                //     pro.height = this.pro_origin;
+                // }, 200);
 
                 this.showMenuBtn();
             } else {
@@ -358,8 +360,10 @@ export class HomeComponent implements OnInit {
 
         this.isPayment = false;
 
-        let pro = this.pro.nativeElement as LayoutBase;
-        pro.height = this.pro_origin;
+        // setTimeout(() => {
+        //     let pro = this.pro.nativeElement as LayoutBase;
+        //     pro.height = this.pro_origin;
+        // }, 200);
     }
 
     // country_select

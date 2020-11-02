@@ -95,8 +95,8 @@ export class OctopusChargeComponent implements OnInit {
         console.log(tf.text);
         console.log(tf.text.replace(/[^0-9.]/g, ""));
         console.log(this.amount_num);
-        this.exchanged = Math.floor(this.amount_num / this.octopusService.octopus[this.selected_country].exchange);
-        this.amount_num = this.exchanged * this.octopusService.octopus[this.selected_country].exchange;
+        this.exchanged = this.amount_num / this.octopusService.octopus[this.selected_country].exchange;
+        // this.amount_num = this.exchanged * this.octopusService.octopus[this.selected_country].exchange;
 
         // if (this.dataService.point < exchanged) {
         //     this.amount_num = Math.floor(this.dataService.point / this.octopusService.octopus[this.selected_country].exchange);

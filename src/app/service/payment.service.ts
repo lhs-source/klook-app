@@ -17,16 +17,16 @@ export class PaymentService {
     interval;
 
     // payment info from qr
-    pay_info : QrData = {
+    pay_info: QrData = {
         merchant: "Central Department Store (Central Hat Yai)",
         amount: -419,
-        country:"태국",
+        country: "태국",
         description: "포인트사용",
         taxfree: false,
         utu: true,
     };
 
-    constructor(private httpClient: HttpClient, private dataService : DataService) { 
+    constructor(private httpClient: HttpClient, private dataService: DataService) {
         console.log(this.pay_info);
     }
 
@@ -76,13 +76,13 @@ export class PaymentService {
                 "customerId": "CUST_100000076"
             },
             "totalAmount": {
-              "amount": String(Math.abs(this.pay_info.amount)),
-              "currency": "THB"
+                "amount": String(Math.abs(this.pay_info.amount)),
+                "currency": "THB"
             },
             "transactionType": "TRANSFER"
         }
         console.log(postdata);
-        if(this.token_exp <= 0){
+        if (this.token_exp <= 0) {
             return this.getToken().pipe(
                 switchMap(res => {
                     let headers = new HttpHeaders({
@@ -97,7 +97,7 @@ export class PaymentService {
         return this.httpClient.post(path, JSON.stringify(postdata), { headers: headers })
     }
     // save a paydata
-    storePayData(data){
+    storePayData(data) {
         this.pay_info.merchant = data.merchant;
         this.pay_info.amount = data.amount;
         this.pay_info.description = data.description;
@@ -105,7 +105,7 @@ export class PaymentService {
         this.pay_info.utu = data.utu;
     }
     // clear the paydata
-    clearPayData(){
+    clearPayData() {
         this.pay_info.merchant = "";
         this.pay_info.amount = 0;
         this.pay_info.description = "";;
@@ -126,11 +126,11 @@ export class PaymentService {
                 "customerId": "CUST_200000076"
             }
         }
-        if(this.token_exp <= 0){
+        if (this.token_exp <= 0) {
             return this.getToken().pipe(
                 switchMap(res => {
                     console.log("here1 =", res);
-                    
+
                     let headers = new HttpHeaders({
                         "Authorization": this.token_type + " " + this.token,
                         "Accept": "application/json",
