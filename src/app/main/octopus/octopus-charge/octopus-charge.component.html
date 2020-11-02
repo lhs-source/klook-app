@@ -8,7 +8,7 @@
 
     <GridLayout class="card" row="2" width="320" marginTop="16">
         <Image #cardframe src="~/images/box_card.png" width="300" (layoutChanged)="onLayoutChangedCardImage($event)"></Image>
-        <GridLayout #cardelems class="card-elems" rows="60, 60, 60">
+        <GridLayout #cardelems class="card-elems" rows="60, 60, 72">
             <GridLayout row="0" columns="auto, *, auto">
                 <Image col="0" class="point-img" src="~/images/ico_point3.png" verticalAlignment="bottom"></Image>
                 <Label col="1" class="point-str" text="충전하기" verticalAlignment="bottom"></Label>
@@ -38,13 +38,18 @@
                     [(ngModel)]="amount"
                     (returnPress)="onReturnPress($event)" 
                     (textChange)="onChangeTextField($event)"
-                    hint="충전 금액을 입력하세요">
+                    hint="충전 포인트를 입력해주세요">
                 </textfield-currency>
             </GridLayout>
-            <StackLayout row="2" class="aftercharge" orientation="horizontal">
-                <Label text="충전 후 금액: "></Label>
-                <Label class="amount" text="{{octopusService.octopus[selected_country].balance + amount_num}}"></Label>
-                <Label class="amount" text="{{octopusService.octopus[selected_country].currency}}"></Label>
+            <StackLayout row="2" class="aftercharge" verticalAlignment="top">
+                <StackLayout orientation="horizontal">
+                    <Label text="충전 금액: "></Label>
+                    <Label class="amount" text="{{'+' + (exchanged | number:'1.0-0') + ' ' + (octopusService.octopus[selected_country].currency)}}"></Label>
+                </StackLayout>
+                <StackLayout orientation="horizontal">
+                    <Label text="충전 후 금액: "></Label>
+                    <Label class="amount" text="{{(octopusService.octopus[selected_country].balance + exchanged | number:'1.0-0') + ' ' + (octopusService.octopus[selected_country].currency)}}"></Label>
+                </StackLayout>
             </StackLayout>
         </GridLayout>
     </GridLayout>

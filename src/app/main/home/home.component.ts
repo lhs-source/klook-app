@@ -110,21 +110,26 @@ export class HomeComponent implements OnInit {
         console.log(this.routerExtensions.router.url);
 
         let menu = this.menu.nativeElement as LayoutBase;
-        menu.on('loaded', (arg) => {
+        menu.on('layoutChanged', (arg) => {
             setTimeout(() => {
-                this.menusize = menu.getMeasuredHeight() * this.p;
-                console.log('loaded', this.menusize);
-
-                // menu.opacity = 0;
-                menu.height = 1;
+                if (this.menusize === 0) {
+                    this.menusize = menu.getMeasuredHeight() * this.p;
+                    console.log('loaded', menu.getMeasuredHeight());
+                    console.log('loaded', menu.getActualSize());
+                    // menu.opacity = 0;
+                    menu.height = 1;
+                }
             });
         });
+        
+        
     }
     ngOnDestroy() {
         console.log(`${this.tag} ngOnDestroy`);
     }
 
     showMenu() {
+        console.log(this.tag, "showMenu");
         let menu = this.menu.nativeElement as LayoutBase;
         this.isMenuExt = !this.isMenuExt;
         // menu.opacity = 1;
@@ -135,6 +140,7 @@ export class HomeComponent implements OnInit {
         });
     }
     hideMenu() {
+        console.log(this.tag, "hideMenu");
         let menu = this.menu.nativeElement as LayoutBase;
         menu.animate({
             height: 1,
@@ -213,10 +219,10 @@ export class HomeComponent implements OnInit {
 
             });
         });
-        pivot.on('layoutChanged', (arg)=>{
+        pivot.on('layoutChanged', (arg) => {
             let height = pivot.getMeasuredHeight();
             // console.log('layoutChanged',height);
-            pro.height = height  * this.p + 32;
+            pro.height = height * this.p + 32;
         });
     }
 

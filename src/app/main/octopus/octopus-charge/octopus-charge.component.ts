@@ -31,6 +31,7 @@ export class OctopusChargeComponent implements OnInit {
     selected_country = "";
     amount: string;
     amount_num: number = 0;
+    exchanged:number = 0;
 
     constructor(private routerExtensions: RouterExtensions,
         private activatedRoute: ActivatedRoute,
@@ -68,7 +69,8 @@ export class OctopusChargeComponent implements OnInit {
             let lb = this.cardelems.nativeElement as GridLayout;
 
             let img_height = img.getMeasuredHeight() * p;
-            let top_bottom_height = 60;
+            let top_height = lb.getRows()[0].value;
+            let bottom_height = lb.getRows()[2].value;
             let shadow_margin = 46;
 
 
@@ -76,9 +78,9 @@ export class OctopusChargeComponent implements OnInit {
             console.log(lb);
             let parent = img.parentNode;
             lb.removeRows();
-            lb.addRow(new ItemSpec(top_bottom_height, GridUnitType.PIXEL));
-            lb.addRow(new ItemSpec((img_height - top_bottom_height * 2 - shadow_margin), GridUnitType.PIXEL));
-            lb.addRow(new ItemSpec(top_bottom_height, GridUnitType.PIXEL));
+            lb.addRow(new ItemSpec(top_height, GridUnitType.PIXEL));
+            lb.addRow(new ItemSpec((img_height - (top_height + bottom_height) - shadow_margin), GridUnitType.PIXEL));
+            lb.addRow(new ItemSpec(bottom_height , GridUnitType.PIXEL));
         });
     }
 
@@ -93,7 +95,9 @@ export class OctopusChargeComponent implements OnInit {
         console.log(tf.text);
         console.log(tf.text.replace(/[^0-9.]/g, ""));
         console.log(this.amount_num);
-        let exchanged = this.amount_num * this.octopusService.octopus[this.selected_country].exchange;
+        this.exchanged = Math.floor(this.amount_num / this.octopusService.octopus[this.selected_country].exchange);
+        this.amount_num = this.exchanged * this.octopusService.octopus[this.selected_country].exchange;
+
         // if (this.dataService.point < exchanged) {
         //     this.amount_num = Math.floor(this.dataService.point / this.octopusService.octopus[this.selected_country].exchange);
         //     console.log(this.amount_num);
@@ -104,19 +108,27 @@ export class OctopusChargeComponent implements OnInit {
     }
     onTabCharge(event) {
         console.log("emit the button");
-        if (this.amount_num <= 0) {
+        if (this.exchanged <= 0) {
             alert({
                 title: "옥토퍼스 카드충전",
                 message: "충전 금액을 확인해주세요",
                 okButtonText: "확인"
             });
-        } else {
+        } 
+        else if(this.dataService.point < this.amount_num){
+            alert({
+                title: "옥토퍼스 카드충전",
+                message: "보유 포인트가 부족합니다",
+                okButtonText: "확인"
+            });
+        }
+        else {
             this.progressService.progressOn(this.viewContainerRef);
             this.transactionService.addTr({
                 type: "transactions",
                 class: "교통카드충전",
                 merchant: this.octopusService.octopus[this.selected_country].title + " 충전",
-                point: -this.amount_num * this.octopusService.octopus[this.selected_country].exchange,
+                point: -this.amount_num,
                 curr: 0,
                 country: "",
                 date: new Date(),
@@ -132,7 +144,7 @@ export class OctopusChargeComponent implements OnInit {
                         message: "교통카드 충전에 성공하였습니다",
                         okButtonText: "확인"
                     }).then(() => {
-                        this.octopusService.addOctopusBalance(this.selected_country, this.amount_num);
+                        this.octopusService.addOctopusBalance(this.selected_country, this.exchanged);
                         this.routerExtensions.navigate(['/main/octopus/main'], {
                             clearHistory: true,
                             transition: { instance: new CustomTransitionBack(250, AnimationCurve.linear) }
