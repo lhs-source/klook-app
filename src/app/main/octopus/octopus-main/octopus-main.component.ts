@@ -5,8 +5,6 @@ import { AnimationCurve } from "@nativescript/core/ui/enums";
 import { isAndroid, Application, AndroidApplication, AndroidActivityBackPressedEventData, LayoutBase, ViewBase, Label, Image, View } from "tns-core-modules";
 import { screen } from "tns-core-modules/platform/platform"
 
-
-import { Carousel } from "nativescript-carousel";
 import { CustomTransition, CustomTransitionBack } from "../../../util/klook-transition";
 import { DataService } from "../../../service/data.service";
 import { OctopusService } from "../../../service/octopus.service";
@@ -19,7 +17,6 @@ import { CountryService } from "../../../service/country.service";
 })
 export class OctopusMainComponent implements OnInit {
     tag = this.constructor.name;
-    @ViewChild("myCarousel", { static: false }) carouselView: ElementRef<Carousel>;
 
     cardlist = [
         "~/images/card_ezlink.png",

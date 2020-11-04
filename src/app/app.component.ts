@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
-import { Statusbar } from "nativescript-plugin-statusbar";
 
 @Component({
     selector: "ns-app",
@@ -9,14 +8,10 @@ import { Statusbar } from "nativescript-plugin-statusbar";
 })
 export class AppComponent implements OnInit {
     tag = this.constructor.name;
-    constructor(private routerExtensions: RouterExtensions,
-        private statueBar:Statusbar) {
+    constructor(private routerExtensions: RouterExtensions) {
         console.log(this.tag, "constructor");
     }
     ngOnInit(): void {
         console.log(this.tag, "ngOnInit");
-
-        // this.statueBar.setNavigationBarColorTransparent();
-        // this.statueBar.setStatusBarColorTransparent();
     }
 }

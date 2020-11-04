@@ -14,9 +14,6 @@ import { PaymentService } from "./service/payment.service";
 import { OctopusService } from "./service/octopus.service";
 import { ProgressService } from "./components/progress/progress.service";
 
-import { MaskedTextFieldModule } from "nativescript-masked-text-field/angular";
-import { InputMaskModule } from 'nativescript-input-mask/angular';
-import { Statusbar } from "nativescript-plugin-statusbar";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HttpInterceptorService } from "./main/http-interceptor.service";
 
@@ -41,8 +38,6 @@ const LOGGING_INTERCEPTOR_PROVIDER: ClassProvider = {
     ],
     providers:[
         LOGGING_INTERCEPTOR_PROVIDER,
-        
-        Statusbar,
         
         PaymentService,
         DataService,

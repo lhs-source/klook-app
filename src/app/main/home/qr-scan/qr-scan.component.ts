@@ -47,10 +47,11 @@ export class QrScanComponent implements OnInit {
         console.log(`${this.tag} ngOnInit`);
         console.log(this.routerExtensions.router.url);
 
+        console.log("camera permission =",hasCameraPermissions());
         if( !hasCameraPermissions() ) {
-            requestCameraPermissions().then((hasPermission) => {
+            requestCameraPermissions().then(hasPermission => {
                 console.log("hasPermission = ", hasPermission);
-                if( hasPermission ) {
+                if( hasPermission["android.permission.CAMERA"] === true || hasPermission === true) {
                     // grant permission done
                     this.is_cam_allowed = true;
                     console.log("new allowed!!");

@@ -10,7 +10,6 @@ import { PayComponent } from "./pay/pay.component";
 import { HomeRoutingService } from "./home-routing.service";
 import { ProgressService } from '../../components/progress/progress.service';
 
-import { BarcodeScanner } from "nativescript-barcodescanner";
 registerElement("MLKitBarcodeScanner", () => require("nativescript-plugin-firebase/mlkit/barcodescanning").MLKitBarcodeScanner);
 
 import { ComponentsModule } from "../../components/components.module";
@@ -35,7 +34,6 @@ import { AbsoultePipe } from "../../service/absoulte.pipe";
         // AbsoultePipe
     ],
     providers:[
-        BarcodeScanner,
         HomeRoutingService,
         ProgressService
     ],

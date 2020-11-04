@@ -22,8 +22,8 @@ export class TrHistoryComponent implements OnInit {
     tag = this.constructor.name;
 
     today = new Date();
-    use_point = 150000;
-    stack_point = 4120;
+    use_point = 0;
+    stack_point = 0;
 
     // sort tab
     //  - 0 : all
@@ -46,20 +46,20 @@ export class TrHistoryComponent implements OnInit {
 
         
         this.transactionService.setMonth(this.today.getMonth());
-        this.transactions = this.transactionService.tr_grouped_month;
-
-        if (this.transactionService.trs.length > 0) {
-            let sumpoint = 0;
-            let sumsave = 0;
-            this.transactionService.trs.forEach((elem) => {
-                if (elem.point < 0) {
-                    sumpoint = sumpoint + elem.point;
-                }
-                sumsave = sumsave + elem.save_point;
-            });
-            this.use_point = Math.abs(sumpoint);
-            this.stack_point = sumsave;
-        }
+        this.getTransactions();
+        // this.transactions = this.transactionService.tr_grouped_month;
+        // if (this.transactionService.trs.length > 0) {
+        //     let sumpoint = 0;
+        //     let sumsave = 0;
+        //     this.transactionService.trs.forEach((elem) => {
+        //         if (elem.point < 0) {
+        //             sumpoint = sumpoint + elem.point;
+        //         }
+        //         sumsave = sumsave + elem.save_point;
+        //     });
+        //     this.use_point = Math.abs(sumpoint);
+        //     this.stack_point = sumsave;
+        // }
 
         this.exchange = Math.floor(this.dataService.point / this.countryService.exchange);
 
@@ -98,6 +98,33 @@ export class TrHistoryComponent implements OnInit {
             this.transactions = this.transactionService.tr_only_cc;
         }else if(this.sort_type === 3){ // save point
             this.transactions = this.transactionService.tr_only_save_point;
+        }
+
+
+        if(this.sort_type === 1){
+            let sumpoint = 0;
+            let sumsave = 0;
+            this.transactions.forEach((elem) => {
+                if (elem.point < 0) {
+                    sumpoint = sumpoint + elem.point;
+                }
+                sumsave = sumsave + elem.save_point;
+            });
+            this.use_point = Math.abs(sumpoint);
+            this.stack_point = sumsave;
+        }else{
+            let sumpoint = 0;
+            let sumsave = 0;
+            for(let key in this.transactions){
+                this.transactions[key].forEach((elem) => {
+                    if (elem.point < 0) {
+                        sumpoint = sumpoint + elem.point;
+                    }
+                    sumsave = sumsave + elem.save_point;
+                });
+            }
+            this.use_point = Math.abs(sumpoint);
+            this.stack_point = sumsave;
         }
     }
 
