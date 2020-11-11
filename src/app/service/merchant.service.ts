@@ -60,7 +60,7 @@ export class MerchantService {
             long: 100.5660056,
             address: "L3,327, Centralplaza Grand Rama 9, Ratchadaphisek Rd, Huai Khwang, Din Daeng, Bangkok 10400 태국",
         },
-        "Segafredo Zanetti Espresso Coffee": {
+        "Segafredo Zanetti Espresso": {
             class: "카페",
             lat: 13.7467127,
             long: 100.537083,
