@@ -136,7 +136,7 @@ export class TransactionService {
         }, {
             type: "transactions",
             class: "카페",
-            merchant: "Segafredo Zanetti Espresso",
+            merchant: "Segafredo Zanetti Espresso Coffee",
             point: -5000,
             curr: 135,
             country:"태국",
