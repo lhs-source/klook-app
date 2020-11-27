@@ -123,26 +123,86 @@ export class PayComponent implements OnInit {
                         err=>{}
                     );
                 }else{
-                    // not approved
+                    // // not approved
                     console.log(this.tag, "goPay response = ", res["response"])
-                    // let reason = res["response"]["reason"];
-                    // let authorizationCode = res["authorizationCode"];
-                    // let transactionId = res["transactionId"];
-                    // console.log("status =",status);
-                    // console.log("reason =",reason);
-                    // console.log("authorizationCode =",authorizationCode);
-                    // console.log("transactionId =",transactionId);
+                    // temp off
+                    // // let reason = res["response"]["reason"];
+                    // // let authorizationCode = res["authorizationCode"];
+                    // // let transactionId = res["transactionId"];
+                    // // console.log("status =",status);
+                    // // console.log("reason =",reason);
+                    // // console.log("authorizationCode =",authorizationCode);
+                    // // console.log("transactionId =",transactionId);
                     
-                    // activity indicator off
-                    this.progressService.progressOff();   
-                    this.dialogError(()=>{});
+                    // // activity indicator off
+                    // this.progressService.progressOff();   
+                    // this.dialogError(()=>{});
+                    // temp off /
+                    this.dataService.addPoint(this.point);
+                    this.transactionService.addTrFromQr(this.pay_info).subscribe(
+                        res=>{
+                            // activity indicator off
+                            this.progressService.progressOff();
+                            
+                            // show dialog
+                            this.dialogSuccess(()=>{
+                                // go tr page
+                                this.routingService.emitChange('tr');
+                                this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
+                                    name: 'fade',
+                                    duration: 250,
+                                    curve: AnimationCurve.easeOut
+                                } });
+                            });
+                        },
+                        err=>{
+                            this.progressService.progressOff();
+                            alert({
+                                title: "결제실패",
+                                message: "클라우드 서버 문제로 결제 실패하였습니다",
+                                okButtonText: "확인"
+                            }).then(()=>{
+                                
+                            });
+                        }
+                    );
                 }
             },
             err=>{
                 console.log(this.tag, "goPay error = ", err)
+                // temp off
                 // activity indicator off
-                this.progressService.progressOff();   
-                this.dialogError(()=>{});
+                // this.progressService.progressOff();   
+                // this.dialogError(()=>{});
+                // temp off /
+                this.dataService.addPoint(this.point);
+                this.transactionService.addTrFromQr(this.pay_info).subscribe(
+                    res=>{
+                        // activity indicator off
+                        this.progressService.progressOff();
+                        
+                        // show dialog
+                        this.dialogSuccess(()=>{
+                            // go tr page
+                            this.routingService.emitChange('tr');
+                            this.routerExtensions.navigate(['/main/home/tr-embedded'], { clearHistory:true, transition: {
+                                name: 'fade',
+                                duration: 250,
+                                curve: AnimationCurve.easeOut
+                            } });
+                        });
+                    },
+                    err=>{
+                        this.progressService.progressOff();
+                        alert({
+                            title: "결제실패",
+                            message: "클라우드 서버 문제로 결제 실패하였습니다",
+                            okButtonText: "확인"
+                        }).then(()=>{
+                            
+                        });
+                    }
+                );
             },
             ()=>{
                 // complete        
